@@ -52,17 +52,8 @@ const routes = [
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const pages: MetadataRoute.Sitemap = routes.map((route) => ({
+  return routes.map((route) => ({
     url: `${siteUrl}${route}`,
     lastModified: now,
   }));
-
-  const enPages: MetadataRoute.Sitemap = routes
-    .filter((route) => route.startsWith("/tools"))
-    .map((route) => ({
-      url: `${siteUrl}/en${route}`,
-      lastModified: now,
-    }));
-
-  return [...pages, ...enPages];
 }
