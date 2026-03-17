@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     default: "AI Image Tools",
     template: "%s | AI Image Tools",
   },
+  verification: {
+    google: "YAHjjL4QTT_OD7cBWy9kQN6fQfzI3kVLxXJ96ihPVgg",
+  },
 };
 
 export default function RootLayout({
