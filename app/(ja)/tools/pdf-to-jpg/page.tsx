@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import * as pdfjsLib from "pdfjs-dist";
 import ToolPageLayout from "@/components/ToolPageLayout";
 import FileDropzone from "@/components/FileDropzone";
 import PrimaryButton from "@/components/PrimaryButton";
@@ -11,9 +10,6 @@ import { pdfToJpgContent } from "@/src/data/tools/pdf-to-jpg";
 
 const locale = "ja";
 const t = pdfToJpgContent[locale];
-
-(pdfjsLib as any).GlobalWorkerOptions.workerSrc =
-  `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${(pdfjsLib as any).version}/pdf.worker.min.js`;
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -43,15 +39,21 @@ export default function Page() {
       setIsProcessing(true);
       setStatus(t.ui.resizingStatus);
 
+      const pdfjsLib = await import("pdfjs-dist/legacy/build/pdf.mjs");
+      pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+        "pdfjs-dist/legacy/build/pdf.worker.mjs",
+        import.meta.url
+      ).toString();
+
       const arrayBuffer = await pdfFile.arrayBuffer();
-      const pdf = await (pdfjsLib as any).getDocument({ data: arrayBuffer }).promise;
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
 
       for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
         const page = await pdf.getPage(pageNumber);
         const viewport = page.getViewport({ scale: 2 });
 
         const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d") as CanvasRenderingContext2D | null;
+        const context = canvas.getContext("2d");
 
         if (!context) {
           setStatus(t.ui.canvasInitError);
@@ -62,10 +64,12 @@ export default function Page() {
         canvas.width = viewport.width;
         canvas.height = viewport.height;
 
-        await page.render({
+        const renderTask = page.render({
           canvasContext: context,
           viewport,
-        }).promise;
+        } as any);
+
+        await renderTask.promise;
 
         const blob = await new Promise<Blob | null>((resolve) => {
           canvas.toBlob((result) => resolve(result), "image/jpeg", 0.92);
@@ -117,7 +121,7 @@ export default function Page() {
           file={pdfFile}
           accept="application/pdf,.pdf"
           emptyTitle={t.ui.emptyTitle}
-          onFileSelect={(file) => {
+          onFileSelect={(file: File | null) => {
             setStatus("");
 
             if (!file) {

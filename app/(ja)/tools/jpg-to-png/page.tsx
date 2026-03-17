@@ -5,6 +5,7 @@ import ToolPageLayout from "@/components/ToolPageLayout";
 import FileDropzone from "@/components/FileDropzone";
 import PrimaryButton from "@/components/PrimaryButton";
 import StatusMessage from "@/components/StatusMessage";
+import { jpgToPngContent } from "@/src/data/tools/jpg-to-png";
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -13,6 +14,10 @@ function formatFileSize(bytes: number) {
 }
 
 export default function Page() {
+  const locale = "ja";
+  const content = jpgToPngContent[locale];
+  const { page, ui } = content;
+
   const [image, setImage] = useState<File | null>(null);
   const [status, setStatus] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
@@ -33,17 +38,17 @@ export default function Page() {
 
     return {
       name: image.name,
-      type: image.type || "不明",
+      type: image.type || ui.unknownType,
       size: formatFileSize(image.size),
     };
-  }, [image]);
+  }, [image, ui.unknownType]);
 
   const handleConvert = () => {
     if (!image || isProcessing) return;
 
     try {
       setIsProcessing(true);
-      setStatus("PNGに変換中...");
+      setStatus(ui.convertingStatus);
 
       const img = new Image();
       const objectUrl = URL.createObjectURL(image);
@@ -57,7 +62,7 @@ export default function Page() {
         const ctx = canvas.getContext("2d");
 
         if (!ctx) {
-          setStatus("エラー: canvasの初期化に失敗しました");
+          setStatus(ui.canvasInitError);
           setIsProcessing(false);
           URL.revokeObjectURL(objectUrl);
           return;
@@ -68,7 +73,7 @@ export default function Page() {
         canvas.toBlob(
           (blob) => {
             if (!blob) {
-              setStatus("エラー: PNGへの変換に失敗しました");
+              setStatus(ui.convertError);
               setIsProcessing(false);
               URL.revokeObjectURL(objectUrl);
               return;
@@ -82,7 +87,7 @@ export default function Page() {
             link.download = `${baseName}.png`;
             link.click();
 
-            setStatus(`完了！ ${baseName}.png を保存しました`);
+            setStatus(ui.successMessage(baseName));
             setIsProcessing(false);
 
             URL.revokeObjectURL(downloadUrl);
@@ -93,53 +98,35 @@ export default function Page() {
       };
 
       img.onerror = () => {
-        setStatus("エラー: 画像の読み込みに失敗しました");
+        setStatus(ui.loadError);
         setIsProcessing(false);
         URL.revokeObjectURL(objectUrl);
       };
     } catch (e: any) {
       console.error(e);
-      setStatus(`エラー: ${e?.message ?? String(e)}`);
+      setStatus(`${ui.unexpectedErrorPrefix}: ${e?.message ?? String(e)}`);
       setIsProcessing(false);
     }
   };
 
   return (
     <ToolPageLayout
-      title="JPG to PNG"
-      description="JPG画像をPNG形式に変換できる無料ツールです。"
-      aboutTitle="JPG to PNGとは？"
-      aboutText="JPG画像をPNG形式へ変換できる無料ツールです。PNGは劣化しにくく、画像編集や再保存にも向いています。"
-      steps={[
-        "JPG画像をアップロードします",
-        "Convert to PNGボタンを押します",
-        "変換後のPNG画像をダウンロードします",
-      ]}
-      faqs={[
-        {
-          question: "JPGとPNGの違いは？",
-          answer:
-            "JPGは写真向きで軽量化しやすく、PNGは劣化しにくく文字や図の保存にも向いています。",
-        },
-        {
-          question: "安全ですか？",
-          answer:
-            "このツールはブラウザ内で処理するため、画像は外部サーバーにアップロードされません。",
-        },
-      ]}
-      relatedTools={[
-        { name: "PNG to JPG", href: "/tools/png-to-jpg" },
-        { name: "JPG to WebP", href: "/tools/jpg-to-webp" },
-        { name: "Image Compress", href: "/tools/image-compress" },
-        { name: "Resize Image", href: "/tools/resize-image" },
-      ]}
+      title={page.title}
+      description={page.description}
+      aboutTitle={page.aboutTitle}
+      aboutText={page.aboutText}
+      stepsTitle={page.stepsTitle}
+      steps={page.steps}
+      faqTitle={page.faqTitle}
+      faqs={page.faqs}
+      relatedTools={page.relatedTools}
     >
       <div className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <FileDropzone
           file={image}
           accept="image/jpeg,.jpg,.jpeg"
-          emptyTitle="JPG画像をドラッグ＆ドロップ"
-          onFileSelect={(file) => {
+          emptyTitle={ui.emptyTitle}
+          onFileSelect={(file: File | null) => {
             setStatus("");
 
             if (!file) {
@@ -152,7 +139,7 @@ export default function Page() {
 
             if (!isJpg) {
               setImage(null);
-              setStatus("エラー: JPG画像を選択してください");
+              setStatus(ui.invalidFileError);
               return;
             }
 
@@ -162,18 +149,26 @@ export default function Page() {
 
         {fileInfo && (
           <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 space-y-2">
-            <h3 className="text-sm font-semibold text-gray-900">選択中の画像</h3>
+            <h3 className="text-sm font-semibold text-gray-900">
+              {ui.selectedImageTitle}
+            </h3>
             <div className="space-y-1 text-sm text-gray-600">
               <p>
-                <span className="font-medium text-gray-800">ファイル名:</span>{" "}
+                <span className="font-medium text-gray-800">
+                  {ui.fileNameLabel}:
+                </span>{" "}
                 {fileInfo.name}
               </p>
               <p>
-                <span className="font-medium text-gray-800">形式:</span>{" "}
+                <span className="font-medium text-gray-800">
+                  {ui.fileTypeLabel}:
+                </span>{" "}
                 {fileInfo.type}
               </p>
               <p>
-                <span className="font-medium text-gray-800">サイズ:</span>{" "}
+                <span className="font-medium text-gray-800">
+                  {ui.fileSizeLabel}:
+                </span>{" "}
                 {fileInfo.size}
               </p>
             </div>
@@ -182,7 +177,7 @@ export default function Page() {
 
         {previewUrl && (
           <div className="space-y-2">
-            <div className="text-sm text-gray-600">プレビュー</div>
+            <div className="text-sm text-gray-600">{ui.previewLabel}</div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={previewUrl}
@@ -196,7 +191,7 @@ export default function Page() {
           onClick={handleConvert}
           disabled={!image || isProcessing}
         >
-          {isProcessing ? "PNGに変換中..." : "Convert to PNG"}
+          {isProcessing ? ui.convertingButton : ui.convertButton}
         </PrimaryButton>
 
         <StatusMessage status={status} />
