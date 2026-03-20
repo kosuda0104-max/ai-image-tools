@@ -1,27 +1,33 @@
-import RelatedTools from "@/components/RelatedTools";
+import FAQJsonLd from "@/components/FAQJsonLd";
+import Link from "next/link";
+import type { ReactNode } from "react";
 
 type FAQItem = {
   question: string;
   answer: string;
 };
 
+type RelatedToolItem = {
+  name: string;
+  href: string;
+};
+
 type Props = {
   title: string;
   description: string;
-  children: React.ReactNode;
   aboutTitle: string;
   aboutText: string;
   stepsTitle: string;
   steps: string[];
   faqTitle: string;
   faqs: FAQItem[];
-  relatedTools?: { name: string; href: string }[];
+  relatedTools?: RelatedToolItem[];
+  children: ReactNode;
 };
 
 export default function ToolPageLayout({
   title,
   description,
-  children,
   aboutTitle,
   aboutText,
   stepsTitle,
@@ -29,44 +35,67 @@ export default function ToolPageLayout({
   faqTitle,
   faqs,
   relatedTools = [],
+  children,
 }: Props) {
   return (
-    <main className="space-y-10">
-      <section className="space-y-2">
-        <h1 className="text-3xl font-bold">{title}</h1>
-        <p className="text-gray-600 text-sm">{description}</p>
-      </section>
+    <>
+      <FAQJsonLd faqs={faqs} />
 
-      {children}
+      <main className="mx-auto max-w-5xl px-4 py-10">
+        <div className="space-y-8">
+          <header className="space-y-3">
+            <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
+            <p className="text-sm text-neutral-600">{description}</p>
+          </header>
 
-      <section className="space-y-6">
-        <div className="space-y-2">
-          <h2 className="text-xl font-semibold">{aboutTitle}</h2>
-          <p className="text-sm text-gray-600 leading-6">{aboutText}</p>
-        </div>
+          <section>{children}</section>
 
-        <div className="space-y-2">
-          <h2 className="text-xl font-semibold">{stepsTitle}</h2>
-          <ol className="list-decimal pl-5 text-sm text-gray-600 space-y-1">
-            {steps.map((step) => (
-              <li key={step}>{step}</li>
-            ))}
-          </ol>
-        </div>
+          <section className="space-y-3">
+            <h2 className="text-2xl font-semibold">{aboutTitle}</h2>
+            <p className="text-sm leading-7 text-neutral-700">{aboutText}</p>
+          </section>
 
-        <div className="space-y-3">
-          <h2 className="text-xl font-semibold">{faqTitle}</h2>
+          <section className="space-y-3">
+            <h2 className="text-2xl font-semibold">{stepsTitle}</h2>
+            <ol className="list-decimal space-y-2 pl-5 text-sm leading-7 text-neutral-700">
+              {steps.map((step, index) => (
+                <li key={index}>{step}</li>
+              ))}
+            </ol>
+          </section>
 
-          {faqs.map((faq) => (
-            <div key={faq.question}>
-              <p className="font-medium">{faq.question}</p>
-              <p className="text-sm text-gray-600">{faq.answer}</p>
+          <section className="space-y-3">
+            <h2 className="text-2xl font-semibold">{faqTitle}</h2>
+            <div className="space-y-4">
+              {faqs.map((faq, index) => (
+                <div key={index} className="rounded-2xl border p-4">
+                  <h3 className="font-medium">{faq.question}</h3>
+                  <p className="mt-2 text-sm leading-7 text-neutral-700">
+                    {faq.answer}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </section>
 
-      <RelatedTools items={relatedTools} />
-    </main>
+          {relatedTools.length > 0 && (
+            <section className="space-y-3">
+              <h2 className="text-2xl font-semibold">Related Tools</h2>
+              <div className="flex flex-wrap gap-3">
+                {relatedTools.map((tool) => (
+                  <Link
+                    key={tool.href}
+                    href={tool.href}
+                    className="rounded-full border px-4 py-2 text-sm transition hover:bg-neutral-50"
+                  >
+                    {tool.name}
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      </main>
+    </>
   );
 }

@@ -6,8 +6,6 @@ const siteUrl =
 const routes = [
   "",
   "/tools",
-  "/en",
-  "/en/tools",
 
   "/tools/jpg-to-png",
   "/tools/png-to-jpg",
@@ -15,45 +13,47 @@ const routes = [
   "/tools/webp-to-jpg",
   "/tools/jpg-to-webp",
   "/tools/png-to-webp",
-  "/tools/heic-to-jpg",
+  "/tools/avif-to-png",
+  "/tools/avif-to-jpg",
   "/tools/gif-to-png",
   "/tools/gif-to-jpg",
+  "/tools/svg-to-png",
+  "/tools/svg-to-jpg",
+  "/tools/heic-to-jpg",
 
-  "/tools/image-compress",
   "/tools/resize-image",
   "/tools/crop-image",
   "/tools/rotate-image",
   "/tools/flip-image",
+  "/tools/image-compress",
 
   "/tools/image-to-pdf",
   "/tools/pdf-to-jpg",
   "/tools/pdf-to-png",
+  "/tools/pdf-to-webp",
   "/tools/merge-pdf",
   "/tools/split-pdf",
   "/tools/compress-pdf",
   "/tools/rotate-pdf",
-
-  "/tools/avif-to-jpg",
-  "/tools/avif-to-png",
-  "/tools/bmp-to-jpg",
-  "/tools/bmp-to-png",
-  "/tools/tiff-to-jpg",
-  "/tools/tiff-to-png",
-  "/tools/ico-to-png",
-  "/tools/ico-to-jpg",
-  "/tools/svg-to-png",
-  "/tools/svg-to-jpg",
-  "/tools/grayscale-image",
-  "/tools/watermark-image",
-  "/tools/pdf-to-webp",
   "/tools/pdf-remove-pages",
+
+  "/contact",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-
-  return routes.map((route) => ({
-    url: `${siteUrl}${route}`,
-    lastModified: now,
+  const jaRoutes = routes.map((path) => ({
+    url: `${siteUrl}${path}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: path === "" ? 1 : 0.8,
   }));
+
+  const enRoutes = routes.map((path) => ({
+    url: `${siteUrl}/en${path === "" ? "" : path}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: path === "" ? 0.9 : 0.7,
+  }));
+
+  return [...jaRoutes, ...enRoutes];
 }

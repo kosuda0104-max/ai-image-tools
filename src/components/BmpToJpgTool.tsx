@@ -1,0 +1,373 @@
+﻿"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import ToolPageLayout from "@/components/ToolPageLayout";
+import FileDropzone from "@/components/FileDropzone";
+import PrimaryButton from "@/components/PrimaryButton";
+import StatusMessage from "@/components/StatusMessage";
+import FAQJsonLd from "@/components/FAQJsonLd";
+
+type Locale = "ja" | "en";
+
+type FAQItem = {
+  question: string;
+  answer: string;
+};
+
+type RelatedToolItem = {
+  name: string;
+  href: string;
+};
+
+type PageContent = {
+  title: string;
+  description: string;
+  aboutTitle: string;
+  aboutText: string;
+  stepsTitle: string;
+  steps: string[];
+  faqTitle: string;
+  faqs: FAQItem[];
+  relatedTools: RelatedToolItem[];
+};
+
+type UIContent = {
+  emptyTitle: string;
+  unknownType: string;
+  convertingStatus: string;
+  canvasInitError: string;
+  convertError: string;
+  loadError: string;
+  unexpectedErrorPrefix: string;
+  successMessage: (baseName: string) => string;
+  invalidFileError: string;
+  selectedImageTitle: string;
+  fileNameLabel: string;
+  fileTypeLabel: string;
+  fileSizeLabel: string;
+  previewLabel: string;
+  convertButton: string;
+  convertingButton: string;
+};
+
+type ToolContent = {
+  page: PageContent;
+  ui: UIContent;
+};
+
+type Props = {
+  locale: Locale;
+};
+
+function formatFileSize(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
+}
+
+const content: Record<Locale, ToolContent> = {
+  ja: {
+    page: {
+      title: "BMPをJPGに変換",
+      description: "BMP画像をJPG形式に変換できる無料オンラインツールです。",
+      aboutTitle: "BMPをJPGに変換とは？",
+      aboutText:
+        "BMP画像をJPG形式に変換できる無料オンラインツールです。ブラウザ上で処理するためアップロード不要で、安全かつ高速に変換できます。JPG形式にすることで、ファイルサイズを小さくしやすく、共有や保存がしやすくなります。",
+      stepsTitle: "使い方",
+      steps: [
+        "BMP画像をアップロードします",
+        "プレビューを確認します",
+        "「BMPをJPGに変換」ボタンを押します",
+        "変換後のJPG画像をダウンロードします"
+      ],
+      faqTitle: "よくある質問",
+      faqs: [
+        {
+          question: "BMPをJPGにすると軽くなりますか？",
+          answer: "多くの場合、BMPよりJPGのほうがファイルサイズを小さくしやすいです。"
+        },
+        {
+          question: "透過はどうなりますか？",
+          answer: "JPGは透過に対応していないため、透明部分がある場合は白背景として変換されます。"
+        },
+        {
+          question: "インストールは必要ですか？",
+          answer: "不要です。ブラウザだけでBMPをJPGに変換できます。"
+        },
+        {
+          question: "アップロードなしで変換できますか？",
+          answer:
+            "はい。このツールはブラウザ上で処理されるため、画像ファイルは外部サーバーにアップロードされません。"
+        }
+      ],
+      relatedTools: [
+        { name: "BMPをPNGに変換", href: "/tools/bmp-to-png" },
+        { name: "PNGをJPGに変換", href: "/tools/png-to-jpg" },
+        { name: "AVIFをJPGに変換", href: "/tools/avif-to-jpg" }
+      ]
+    },
+    ui: {
+      emptyTitle: "BMP画像をドラッグ＆ドロップ、または選択",
+      unknownType: "不明",
+      convertingStatus: "変換中です...",
+      canvasInitError: "エラー: Canvasの初期化に失敗しました。",
+      convertError: "エラー: BMPからJPGへの変換に失敗しました。",
+      loadError: "エラー: 画像の読み込みに失敗しました。",
+      unexpectedErrorPrefix: "エラー",
+      successMessage: (baseName: string) => `完了: ${baseName}.jpg をダウンロードしました。`,
+      invalidFileError: "エラー: BMPファイルを選択してください。",
+      selectedImageTitle: "選択中の画像",
+      fileNameLabel: "ファイル名",
+      fileTypeLabel: "形式",
+      fileSizeLabel: "サイズ",
+      previewLabel: "プレビュー",
+      convertButton: "BMPをJPGに変換",
+      convertingButton: "変換中..."
+    }
+  },
+  en: {
+    page: {
+      title: "BMP to JPG Converter",
+      description: "Convert BMP images to JPG format online for free.",
+      aboutTitle: "What is BMP to JPG Converter?",
+      aboutText:
+        "This free BMP to JPG converter lets you convert images directly in your browser. No upload is required, so the process is fast, secure, and easy to use. JPG is useful when you want smaller file sizes and a more widely supported image format.",
+      stepsTitle: "How to Use",
+      steps: [
+        "Upload a BMP image",
+        "Check the preview",
+        "Click the Convert BMP to JPG button",
+        "Download the converted JPG image"
+      ],
+      faqTitle: "FAQ",
+      faqs: [
+        {
+          question: "Will BMP to JPG reduce file size?",
+          answer: "In many cases, JPG files are smaller than BMP files, which makes them easier to share and store."
+        },
+        {
+          question: "What happens to transparency?",
+          answer: "JPG does not support transparency, so transparent areas are converted to a white background."
+        },
+        {
+          question: "Do I need to install anything?",
+          answer: "No. You can convert BMP to JPG directly in your browser without installing any software."
+        },
+        {
+          question: "Can I convert without uploading?",
+          answer:
+            "Yes. This tool works entirely in your browser, so your image files are not uploaded to any external server."
+        }
+      ],
+      relatedTools: [
+        { name: "BMP to PNG", href: "/en/tools/bmp-to-png" },
+        { name: "PNG to JPG", href: "/en/tools/png-to-jpg" },
+        { name: "AVIF to JPG", href: "/en/tools/avif-to-jpg" }
+      ]
+    },
+    ui: {
+      emptyTitle: "Drag and drop a BMP image here, or select a file",
+      unknownType: "Unknown",
+      convertingStatus: "Converting...",
+      canvasInitError: "Error: Failed to initialize canvas.",
+      convertError: "Error: Failed to convert BMP to JPG.",
+      loadError: "Error: Failed to load image.",
+      unexpectedErrorPrefix: "Error",
+      successMessage: (baseName: string) => `Done: ${baseName}.jpg has been downloaded.`,
+      invalidFileError: "Error: Please select a BMP file.",
+      selectedImageTitle: "Selected Image",
+      fileNameLabel: "File Name",
+      fileTypeLabel: "Type",
+      fileSizeLabel: "Size",
+      previewLabel: "Preview",
+      convertButton: "Convert BMP to JPG",
+      convertingButton: "Converting..."
+    }
+  }
+};
+
+export default function BmpToJpgTool({ locale }: Props) {
+  const { page, ui } = content[locale];
+  const [image, setImage] = useState<File | null>(null);
+  const [status, setStatus] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const previewUrl = useMemo(() => {
+    if (!image) return "";
+    return URL.createObjectURL(image);
+  }, [image]);
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
+
+  const fileInfo = useMemo(() => {
+    if (!image) return null;
+    return {
+      name: image.name,
+      type: image.type || ui.unknownType,
+      size: formatFileSize(image.size)
+    };
+  }, [image, ui.unknownType]);
+
+  const handleConvert = () => {
+    if (!image || isProcessing) return;
+
+    try {
+      setIsProcessing(true);
+      setStatus(ui.convertingStatus);
+
+      const img = new Image();
+      const objectUrl = URL.createObjectURL(image);
+      img.src = objectUrl;
+
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          setStatus(ui.canvasInitError);
+          setIsProcessing(false);
+          URL.revokeObjectURL(objectUrl);
+          return;
+        }
+
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            setStatus(ui.convertError);
+            setIsProcessing(false);
+            URL.revokeObjectURL(objectUrl);
+            return;
+          }
+
+          const downloadUrl = URL.createObjectURL(blob);
+          const baseName = image.name.replace(/\.bmp$/i, "");
+          const link = document.createElement("a");
+
+          link.href = downloadUrl;
+          link.download = `${baseName}.jpg`;
+          link.click();
+
+          setStatus(ui.successMessage(baseName));
+          setIsProcessing(false);
+
+          URL.revokeObjectURL(downloadUrl);
+          URL.revokeObjectURL(objectUrl);
+        }, "image/jpeg", 0.92);
+      };
+
+      img.onerror = () => {
+        setStatus(ui.loadError);
+        setIsProcessing(false);
+        URL.revokeObjectURL(objectUrl);
+      };
+    } catch (e: unknown) {
+      console.error(e);
+      setStatus(
+        `${ui.unexpectedErrorPrefix}: ${
+          e instanceof Error ? e.message : String(e)
+        }`
+      );
+      setIsProcessing(false);
+    }
+  };
+
+  return (
+    <>
+      <FAQJsonLd faqs={page.faqs} />
+      <ToolPageLayout
+      title={page.title}
+      description={page.description}
+      aboutTitle={page.aboutTitle}
+      aboutText={page.aboutText}
+      stepsTitle={page.stepsTitle}
+      steps={page.steps}
+      faqTitle={page.faqTitle}
+      faqs={page.faqs}
+      relatedTools={page.relatedTools}
+    >
+      <div className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <FileDropzone
+          file={image}
+          accept="image/bmp,.bmp"
+          emptyTitle={ui.emptyTitle}
+          onFileSelect={(file: File | null) => {
+            setStatus("");
+
+            if (!file) {
+              setImage(null);
+              return;
+            }
+
+            const isBmp =
+              file.type === "image/bmp" || /\.bmp$/i.test(file.name);
+
+            if (!isBmp) {
+              setImage(null);
+              setStatus(ui.invalidFileError);
+              return;
+            }
+
+            setImage(file);
+          }}
+        />
+
+        {fileInfo && (
+          <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 space-y-2">
+            <h3 className="text-sm font-semibold text-gray-900">
+              {ui.selectedImageTitle}
+            </h3>
+            <div className="space-y-1 text-sm text-gray-600">
+              <p>
+                <span className="font-medium text-gray-800">
+                  {ui.fileNameLabel}:
+                </span>{" "}
+                {fileInfo.name}
+              </p>
+              <p>
+                <span className="font-medium text-gray-800">
+                  {ui.fileTypeLabel}:
+                </span>{" "}
+                {fileInfo.type}
+              </p>
+              <p>
+                <span className="font-medium text-gray-800">
+                  {ui.fileSizeLabel}:
+                </span>{" "}
+                {fileInfo.size}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {previewUrl && (
+          <div className="space-y-2">
+            <div className="text-sm text-gray-600">{ui.previewLabel}</div>
+            <img
+              src={previewUrl}
+              alt="preview"
+              className="max-h-80 rounded border object-contain"
+            />
+          </div>
+        )}
+
+        <PrimaryButton onClick={handleConvert} disabled={!image || isProcessing}>
+          {isProcessing ? ui.convertingButton : ui.convertButton}
+        </PrimaryButton>
+
+        <StatusMessage status={status} />
+      </div>
+    </ToolPageLayout>
+    </>
+  );
+}
+
+

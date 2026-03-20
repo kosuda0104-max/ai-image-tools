@@ -1,163 +1,17 @@
-"use client";
+﻿import CompressPdfTool from "@/src/components/CompressPdfTool";
+import { createToolMetadata } from "@/src/lib/tool-metadata";
 
-import { useMemo, useState } from "react";
-import { PDFDocument } from "pdf-lib";
-import ToolPageLayout from "@/components/ToolPageLayout";
-import FileDropzone from "@/components/FileDropzone";
-import PrimaryButton from "@/components/PrimaryButton";
-import StatusMessage from "@/components/StatusMessage";
-import FormSection from "@/components/FormSection";
-import { compressPdfContent } from "@/src/data/tools/compress-pdf";
-
-const locale = "ja";
-const t = compressPdfContent[locale];
-
-function formatFileSize(bytes: number) {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
-}
+export const metadata = createToolMetadata({
+  locale: "ja",
+  slug: "compress-pdf",
+  jaTitle: "PDF圧縮ツール【無料・高速・安全】オンラインツール",
+  jaDescription:
+    "PDFを軽量化して新しいPDFとして保存できる無料オンラインツールです。ブラウザ上で安全に処理できます。",
+  enTitle: "Compress PDF Tool Free Online",
+  enDescription:
+    "Reduce PDF file size and save it as a new PDF online for free. Everything runs directly in your browser.",
+});
 
 export default function Page() {
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
-  const [status, setStatus] = useState("");
-  const [isProcessing, setIsProcessing] = useState(false);
-
-  const fileInfo = useMemo(() => {
-    if (!pdfFile) return null;
-
-    return {
-      name: pdfFile.name,
-      type: pdfFile.type || t.ui.unknownType,
-      size: formatFileSize(pdfFile.size),
-    };
-  }, [pdfFile]);
-
-  const handleCompress = async () => {
-    if (!pdfFile || isProcessing) return;
-
-    try {
-      setIsProcessing(true);
-      setStatus(t.ui.resizingStatus);
-
-      const bytes = await pdfFile.arrayBuffer();
-      const pdfDoc = await PDFDocument.load(bytes);
-
-      const outputBytes = await pdfDoc.save({
-        useObjectStreams: true,
-        addDefaultPage: false,
-      });
-
-      const safeBytes = new Uint8Array(outputBytes);
-      const blob = new Blob([safeBytes], {
-        type: "application/pdf",
-      });
-
-      const downloadUrl = URL.createObjectURL(blob);
-      const baseName = pdfFile.name.replace(/\.pdf$/i, "");
-
-      const link = document.createElement("a");
-      link.href = downloadUrl;
-      link.download = `${baseName}-compressed.pdf`;
-      link.click();
-
-      const before = pdfFile.size;
-      const after = blob.size;
-      const saved = before - after;
-      const savedRate =
-        before > 0 ? Math.max(0, Number(((saved / before) * 100).toFixed(1))) : 0;
-
-      setStatus(
-        `${t.ui.successMessage}（${formatFileSize(before)} → ${formatFileSize(after)} / ${savedRate}% 削減）`
-      );
-      setIsProcessing(false);
-
-      setTimeout(() => {
-        URL.revokeObjectURL(downloadUrl);
-      }, 1000);
-    } catch (e: unknown) {
-      console.error(e);
-      const message = e instanceof Error ? e.message : String(e);
-      setStatus(`${t.ui.unexpectedErrorPrefix}: ${message}`);
-      setIsProcessing(false);
-    }
-  };
-
-  return (
-    <ToolPageLayout
-      title={t.page.title}
-      description={t.page.description}
-      aboutTitle={t.page.aboutTitle}
-      aboutText={t.page.aboutText}
-      stepsTitle={t.page.stepsTitle}
-      steps={t.page.steps}
-      faqTitle={t.page.faqTitle}
-      faqs={t.page.faqs}
-      relatedTools={t.page.relatedTools}
-    >
-      <FormSection>
-        <FileDropzone
-          file={pdfFile}
-          accept="application/pdf,.pdf"
-          emptyTitle={t.ui.emptyTitle}
-          onFileSelect={(file) => {
-            setStatus("");
-
-            if (!file) {
-              setPdfFile(null);
-              return;
-            }
-
-            const isPdf =
-              file.type === "application/pdf" || /\.pdf$/i.test(file.name);
-
-            if (!isPdf) {
-              setPdfFile(null);
-              setStatus(t.ui.invalidFileError);
-              return;
-            }
-
-            setPdfFile(file);
-          }}
-        />
-
-        {fileInfo && (
-          <div className="space-y-2 rounded-xl border border-gray-200 bg-gray-50 p-4">
-            <h3 className="text-sm font-semibold text-gray-900">
-              {t.ui.selectedImageTitle}
-            </h3>
-            <div className="space-y-1 text-sm text-gray-600">
-              <p>
-                <span className="font-medium text-gray-800">
-                  {t.ui.fileNameLabel}:
-                </span>{" "}
-                {fileInfo.name}
-              </p>
-              <p>
-                <span className="font-medium text-gray-800">
-                  {t.ui.fileTypeLabel}:
-                </span>{" "}
-                {fileInfo.type}
-              </p>
-              <p>
-                <span className="font-medium text-gray-800">
-                  {t.ui.fileSizeLabel}:
-                </span>{" "}
-                {fileInfo.size}
-              </p>
-            </div>
-          </div>
-        )}
-
-        <PrimaryButton
-          onClick={handleCompress}
-          disabled={!pdfFile || isProcessing}
-        >
-          {isProcessing ? t.ui.resizingButton : t.ui.resizeButton}
-        </PrimaryButton>
-
-        <StatusMessage status={status} />
-      </FormSection>
-    </ToolPageLayout>
-  );
+  return <CompressPdfTool locale="ja" />;
 }
