@@ -6,6 +6,7 @@ type Props = {
 };
 
 export default function ToolsPage({ locale }: Props) {
+  const contactHref = locale === "en" ? "/en/contact" : "/contact";
   const t = toolsPageContent[locale];
   const basePath = locale === "en" ? "/en" : "/";
 
@@ -126,7 +127,7 @@ export default function ToolsPage({ locale }: Props) {
             </p>
 
             <Link
-              href="/contact"
+              href={contactHref}
               className="mt-4 inline-flex rounded-xl bg-black px-5 py-3 text-sm font-medium text-white transition hover:opacity-90"
             >
               {t.contactSection.buttonLabel}

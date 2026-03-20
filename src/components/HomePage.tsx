@@ -9,6 +9,7 @@ type Props = {
 };
 
 export default function HomePage({ locale }: Props) {
+  const contactHref = locale === "en" ? "/en/contact" : "/contact";
   const t = homePageContent[locale];
   const faqJsonLd = createHomeFaqJsonLd(locale);
 
@@ -45,7 +46,7 @@ export default function HomePage({ locale }: Props) {
               </Link>
 
               <Link
-                href="/contact"
+                href={contactHref}
                 className="inline-flex rounded-xl border border-gray-300 bg-white px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50"
               >
                 {t.hero.secondaryButtonLabel}
@@ -219,7 +220,7 @@ export default function HomePage({ locale }: Props) {
             </p>
 
             <Link
-              href="/contact"
+              href={contactHref}
               className="mt-4 inline-flex rounded-xl bg-black px-5 py-3 text-sm font-medium text-white transition hover:opacity-90"
             >
               {t.contactSection.buttonLabel}
