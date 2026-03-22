@@ -18,213 +18,282 @@ type RelatedToolItem = {
   href: string;
 };
 
+type PageContent = {
+  title: string;
+  description: string;
+  aboutTitle: string;
+  aboutText: string;
+  stepsTitle: string;
+  steps: string[];
+  faqTitle: string;
+  faqs: FAQItem[];
+  relatedTools: RelatedToolItem[];
+};
+
+type UIContent = {
+  emptyTitle: string;
+  unknownType: string;
+  convertingStatus: string;
+  canvasInitError: string;
+  convertError: string;
+  loadError: string;
+  unexpectedErrorPrefix: string;
+  successMessage: (baseName: string) => string;
+  invalidFileError: string;
+  selectedImageTitle: string;
+  fileNameLabel: string;
+  fileTypeLabel: string;
+  fileSizeLabel: string;
+  previewLabel: string;
+  convertButton: string;
+  convertingButton: string;
+};
+
+type ToolContent = {
+  page: PageContent;
+  ui: UIContent;
+};
+
 type Props = {
   locale: Locale;
 };
 
-const content: Record<
-  Locale,
-  {
-    page: {
-      title: string;
-      description: string;
-      aboutTitle: string;
-      aboutText: string;
-      stepsTitle: string;
-      steps: string[];
-      faqTitle: string;
-      faqs: FAQItem[];
-      relatedTools: RelatedToolItem[];
-    };
-    ui: {
-      emptyTitle: string;
-      emptyDescription: string;
-      selectButtonLabel: string;
-      button: string;
-      loading: string;
-      done: string;
-      invalidFile: string;
-      error: string;
-    };
-  }
-> = {
+function formatFileSize(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
+}
+
+const content: Record<Locale, ToolContent> = {
   ja: {
     page: {
       title: "PNGをWebPに変換",
-      description: "PNG画像をWebP形式に変換できる無料オンラインツールです。",
+      description:
+        "PNG画像をWebP形式に変換できる無料オンラインツールです。",
       aboutTitle: "PNGをWebPに変換とは？",
       aboutText:
-        "PNG画像をWebP形式に変換できる無料オンラインツールです。画質を保ちながらファイルサイズを抑えたいときや、Web向けに最適化したいときに便利です。処理はブラウザ内で完結します。",
+        "PNG画像をWebP形式に変換できる無料オンラインツールです。ブラウザ上で処理するためアップロード不要で、安全かつ高速に変換できます。WebPはファイルサイズを抑えやすく、Webサイト掲載用の画像を軽くしたいときや、表示速度を改善したいときに便利です。",
       stepsTitle: "使い方",
       steps: [
         "PNG画像をアップロードします",
         "プレビューを確認します",
-        "変換ボタンを押します",
-        "WebP画像をダウンロードします"
+        "「PNGをWebPに変換」ボタンを押します",
+        "変換後のWebP画像をダウンロードします",
       ],
       faqTitle: "よくある質問",
       faqs: [
         {
-          question: "透過は保持されますか？",
-          answer: "はい。PNGに透過がある場合、多くのケースでWebPでも保持されます。"
+          question: "WebPにすると軽くなりますか？",
+          answer:
+            "多くの場合、WebPはPNGよりもファイルサイズを小さくしやすいため、Web掲載用画像の軽量化に役立ちます。",
+        },
+        {
+          question: "透過は維持されますか？",
+          answer:
+            "はい。元のPNG画像に透過がある場合、WebP変換後も透過を維持できることがあります。",
         },
         {
           question: "インストールは必要ですか？",
-          answer: "不要です。ブラウザだけで変換できます。"
+          answer:
+            "不要です。ブラウザだけでPNGをWebPに変換できます。",
         },
         {
-          question: "画像はアップロードされますか？",
-          answer: "いいえ。変換はブラウザ内で行われるため、外部サーバーに送信されません。"
-        }
+          question: "アップロードなしで変換できますか？",
+          answer:
+            "はい。このツールはブラウザ上で処理されるため、画像ファイルは外部サーバーにアップロードされません。",
+        },
       ],
       relatedTools: [
-        { name: "WebPをPNGに変換", href: "/tools/webp-to-png" },
         { name: "PNGをJPGに変換", href: "/tools/png-to-jpg" },
-        { name: "JPGをWebPに変換", href: "/tools/jpg-to-webp" }
-      ]
+        { name: "JPGをWebPに変換", href: "/tools/jpg-to-webp" },
+        { name: "WebPをPNGに変換", href: "/tools/webp-to-png" },
+      ],
     },
     ui: {
-      emptyTitle: "PNG画像をアップロード",
-      emptyDescription: "ここにファイルをドロップ、またはクリックして選択",
-      selectButtonLabel: "ファイルを選択",
-      button: "PNGをWebPに変換",
-      loading: "変換中...",
-      done: "完了しました",
-      invalidFile: "PNGファイルを選択してください。",
-      error: "変換に失敗しました。"
-    }
+      emptyTitle: "PNG画像をドラッグ＆ドロップ、または選択",
+      unknownType: "不明",
+      convertingStatus: "変換中です...",
+      canvasInitError: "エラー: Canvasの初期化に失敗しました。",
+      convertError: "エラー: PNGからWebPへの変換に失敗しました。",
+      loadError: "エラー: 画像の読み込みに失敗しました。",
+      unexpectedErrorPrefix: "エラー",
+      successMessage: (baseName: string) =>
+        `完了: ${baseName}.webp をダウンロードしました。`,
+      invalidFileError: "エラー: PNGファイルを選択してください。",
+      selectedImageTitle: "選択中の画像",
+      fileNameLabel: "ファイル名",
+      fileTypeLabel: "形式",
+      fileSizeLabel: "サイズ",
+      previewLabel: "プレビュー",
+      convertButton: "PNGをWebPに変換",
+      convertingButton: "変換中...",
+    },
   },
   en: {
     page: {
       title: "PNG to WebP Converter",
-      description: "Convert PNG images to WebP format online for free.",
+      description:
+        "Convert PNG images to WebP format online for free.",
       aboutTitle: "What is PNG to WebP Converter?",
       aboutText:
-        "This free online tool converts PNG images into WebP format directly in your browser. It is useful when you want smaller file sizes while keeping good image quality, especially for web use.",
+        "This free PNG to WebP converter lets you convert images directly in your browser. No upload is required, so the process is fast, secure, and easy to use. WebP is useful when you want smaller file sizes for websites, faster page loading, and better image optimization while keeping transparency when supported.",
       stepsTitle: "How to Use",
       steps: [
         "Upload a PNG image",
         "Check the preview",
-        "Click convert",
-        "Download the WebP image"
+        "Click the Convert PNG to WebP button",
+        "Download the converted WebP image",
       ],
       faqTitle: "FAQ",
       faqs: [
         {
+          question: "Will WebP make the image smaller?",
+          answer:
+            "In many cases, WebP can reduce file size compared with PNG, which makes it useful for websites and faster image delivery.",
+        },
+        {
           question: "Will transparency be preserved?",
-          answer: "Yes. If the original PNG has transparency, it is usually preserved in the converted WebP."
+          answer:
+            "Yes. If the original PNG image has transparency, the converted WebP can preserve it in many cases.",
         },
         {
           question: "Do I need to install anything?",
-          answer: "No. Everything works directly in your browser."
+          answer:
+            "No. You can convert PNG to WebP directly in your browser without installing any software.",
         },
         {
-          question: "Are my images uploaded?",
-          answer: "No. Files are processed locally in your browser."
-        }
+          question: "Can I convert without uploading?",
+          answer:
+            "Yes. This tool works entirely in your browser, so your image files are not uploaded to any external server.",
+        },
       ],
       relatedTools: [
-        { name: "WebP to PNG", href: "/en/tools/webp-to-png" },
         { name: "PNG to JPG", href: "/en/tools/png-to-jpg" },
-        { name: "JPG to WebP", href: "/en/tools/jpg-to-webp" }
-      ]
+        { name: "JPG to WebP", href: "/en/tools/jpg-to-webp" },
+        { name: "WebP to PNG", href: "/en/tools/webp-to-png" },
+      ],
     },
     ui: {
-      emptyTitle: "Upload PNG image",
-      emptyDescription: "Drop a file here or click to browse",
-      selectButtonLabel: "Choose File",
-      button: "Convert PNG to WebP",
-      loading: "Converting...",
-      done: "Done",
-      invalidFile: "Please select a PNG file.",
-      error: "Conversion failed."
-    }
-  }
+      emptyTitle: "Drag and drop a PNG image here, or select a file",
+      unknownType: "Unknown",
+      convertingStatus: "Converting...",
+      canvasInitError: "Error: Failed to initialize canvas.",
+      convertError: "Error: Failed to convert PNG to WebP.",
+      loadError: "Error: Failed to load image.",
+      unexpectedErrorPrefix: "Error",
+      successMessage: (baseName: string) =>
+        `Done: ${baseName}.webp has been downloaded.`,
+      invalidFileError: "Error: Please select a PNG file.",
+      selectedImageTitle: "Selected Image",
+      fileNameLabel: "File Name",
+      fileTypeLabel: "Type",
+      fileSizeLabel: "Size",
+      previewLabel: "Preview",
+      convertButton: "Convert PNG to WebP",
+      convertingButton: "Converting...",
+    },
+  },
 };
 
 export default function PngToWebpTool({ locale }: Props) {
   const { page, ui } = content[locale];
 
-  const [file, setFile] = useState<File | null>(null);
+  const [image, setImage] = useState<File | null>(null);
   const [status, setStatus] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const preview = useMemo(() => {
-    if (!file) return "";
-    return URL.createObjectURL(file);
-  }, [file]);
+  const previewUrl = useMemo(() => {
+    if (!image) return "";
+    return URL.createObjectURL(image);
+  }, [image]);
 
   useEffect(() => {
     return () => {
-      if (preview) URL.revokeObjectURL(preview);
-    };
-  }, [preview]);
-
-  const convert = () => {
-    if (!file) return;
-
-    const isPng =
-      file.type === "image/png" || /\.png$/i.test(file.name);
-
-    if (!isPng) {
-      setStatus(ui.invalidFile);
-      return;
-    }
-
-    setLoading(true);
-    setStatus(ui.loading);
-
-    const imageUrl = URL.createObjectURL(file);
-    const img = new Image();
-
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.naturalWidth || img.width;
-      canvas.height = img.naturalHeight || img.height;
-
-      const ctx = canvas.getContext("2d");
-      if (!ctx) {
-        setLoading(false);
-        setStatus(ui.error);
-        URL.revokeObjectURL(imageUrl);
-        return;
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
       }
+    };
+  }, [previewUrl]);
 
-      ctx.drawImage(img, 0, 0);
+  const fileInfo = useMemo(() => {
+    if (!image) return null;
 
-      canvas.toBlob(
-        (webpBlob) => {
-          if (!webpBlob) {
-            setLoading(false);
-            setStatus(ui.error);
-            URL.revokeObjectURL(imageUrl);
-            return;
-          }
+    return {
+      name: image.name,
+      type: image.type || ui.unknownType,
+      size: formatFileSize(image.size),
+    };
+  }, [image, ui.unknownType]);
 
-          const downloadUrl = URL.createObjectURL(webpBlob);
-          const a = document.createElement("a");
-          a.href = downloadUrl;
-          a.download = file.name.replace(/\.png$/i, "") + ".webp";
-          a.click();
+  const handleConvert = () => {
+    if (!image || isProcessing) return;
 
-          URL.revokeObjectURL(downloadUrl);
-          URL.revokeObjectURL(imageUrl);
+    try {
+      setIsProcessing(true);
+      setStatus(ui.convertingStatus);
 
-          setLoading(false);
-          setStatus(ui.done);
-        },
-        "image/webp",
-        0.92
+      const img = new Image();
+      const objectUrl = URL.createObjectURL(image);
+      img.src = objectUrl;
+
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        const ctx = canvas.getContext("2d");
+
+        if (!ctx) {
+          setStatus(ui.canvasInitError);
+          setIsProcessing(false);
+          URL.revokeObjectURL(objectUrl);
+          return;
+        }
+
+        ctx.drawImage(img, 0, 0);
+
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) {
+              setStatus(ui.convertError);
+              setIsProcessing(false);
+              URL.revokeObjectURL(objectUrl);
+              return;
+            }
+
+            const downloadUrl = URL.createObjectURL(blob);
+            const baseName = image.name.replace(/\.png$/i, "");
+            const link = document.createElement("a");
+
+            link.href = downloadUrl;
+            link.download = `${baseName}.webp`;
+            link.click();
+
+            setStatus(ui.successMessage(baseName));
+            setIsProcessing(false);
+
+            URL.revokeObjectURL(downloadUrl);
+            URL.revokeObjectURL(objectUrl);
+          },
+          "image/webp",
+          0.92
+        );
+      };
+
+      img.onerror = () => {
+        setStatus(ui.loadError);
+        setIsProcessing(false);
+        URL.revokeObjectURL(objectUrl);
+      };
+    } catch (e: unknown) {
+      console.error(e);
+      setStatus(
+        `${ui.unexpectedErrorPrefix}: ${
+          e instanceof Error ? e.message : String(e)
+        }`
       );
-    };
-
-    img.onerror = () => {
-      setLoading(false);
-      setStatus(ui.error);
-      URL.revokeObjectURL(imageUrl);
-    };
-
-    img.src = imageUrl;
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -239,33 +308,80 @@ export default function PngToWebpTool({ locale }: Props) {
       faqs={page.faqs}
       relatedTools={page.relatedTools}
     >
-      <FileDropzone
-        file={file}
-        accept="image/png,.png"
-        emptyTitle={ui.emptyTitle}
-        emptyDescription={ui.emptyDescription}
-        selectButtonLabel={ui.selectButtonLabel}
-        onFileSelect={(selected) => {
-          setStatus("");
-          setFile(selected);
-        }}
-      />
+      <div className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <FileDropzone
+          file={image}
+          accept="image/png,.png"
+          emptyTitle={ui.emptyTitle}
+          onFileSelect={(file: File | null) => {
+            setStatus("");
 
-      {preview && (
-        <div className="space-y-2">
-          <img
-            src={preview}
-            alt={page.title}
-            className="max-h-80 rounded border object-contain"
-          />
-        </div>
-      )}
+            if (!file) {
+              setImage(null);
+              return;
+            }
 
-      <PrimaryButton onClick={convert} disabled={!file || loading}>
-        {loading ? ui.loading : ui.button}
-      </PrimaryButton>
+            const isPng =
+              file.type === "image/png" || /\.png$/i.test(file.name);
 
-      <StatusMessage status={status} />
+            if (!isPng) {
+              setImage(null);
+              setStatus(ui.invalidFileError);
+              return;
+            }
+
+            setImage(file);
+          }}
+        />
+
+        {fileInfo && (
+          <div className="space-y-2 rounded-xl border border-gray-200 bg-gray-50 p-4">
+            <h3 className="text-sm font-semibold text-gray-900">
+              {ui.selectedImageTitle}
+            </h3>
+            <div className="space-y-1 text-sm text-gray-600">
+              <p>
+                <span className="font-medium text-gray-800">
+                  {ui.fileNameLabel}:
+                </span>{" "}
+                {fileInfo.name}
+              </p>
+              <p>
+                <span className="font-medium text-gray-800">
+                  {ui.fileTypeLabel}:
+                </span>{" "}
+                {fileInfo.type}
+              </p>
+              <p>
+                <span className="font-medium text-gray-800">
+                  {ui.fileSizeLabel}:
+                </span>{" "}
+                {fileInfo.size}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {previewUrl && (
+          <div className="space-y-2">
+            <div className="text-sm text-gray-600">{ui.previewLabel}</div>
+            <img
+              src={previewUrl}
+              alt="preview"
+              className="max-h-80 rounded border object-contain"
+            />
+          </div>
+        )}
+
+        <PrimaryButton
+          onClick={handleConvert}
+          disabled={!image || isProcessing}
+        >
+          {isProcessing ? ui.convertingButton : ui.convertButton}
+        </PrimaryButton>
+
+        <StatusMessage status={status} />
+      </div>
     </ToolPageLayout>
   );
 }
