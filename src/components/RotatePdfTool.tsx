@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { ChangeEvent, useMemo, useState } from "react";
 import { PDFDocument, degrees } from "pdf-lib";
@@ -422,7 +422,8 @@ export default function RotatePdfTool({ locale }: Props) {
       });
 
       const resultBytes = await pdfDoc.save();
-      const blob = new Blob([resultBytes], { type: "application/pdf" });
+      const pdfBytes = new Uint8Array(resultBytes);
+      const blob = new Blob([pdfBytes.buffer], { type: "application/pdf" });
 
       setResultBlob(blob);
       setMessage(ui.successMessage(pages.length));

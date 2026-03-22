@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { ChangeEvent, DragEvent, useMemo, useState } from "react";
 import { PDFDocument } from "pdf-lib";
@@ -430,7 +430,8 @@ export default function ImageToPdfTool({ locale }: Props) {
       }
 
       const pdfBytes = await pdfDoc.save();
-      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const normalizedPdfBytes = new Uint8Array(pdfBytes);
+      const blob = new Blob([normalizedPdfBytes.buffer], { type: "application/pdf" });
 
       setPdfBlob(blob);
       setMessage(ui.successMessage);

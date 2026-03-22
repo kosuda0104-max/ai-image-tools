@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { ChangeEvent, useMemo, useState } from "react";
 import { PDFDocument } from "pdf-lib";
@@ -407,7 +407,8 @@ export default function PdfRemovePagesTool({ locale }: Props) {
       });
 
       const resultBytes = await outputPdf.save();
-      const blob = new Blob([resultBytes], { type: "application/pdf" });
+      const normalizedResultBytes = new Uint8Array(resultBytes);
+      const blob = new Blob([normalizedResultBytes.buffer], { type: "application/pdf" });
 
       setResultBlob(blob);
       setMessage(ui.successMessage(removePages.length, keepIndexes.length));

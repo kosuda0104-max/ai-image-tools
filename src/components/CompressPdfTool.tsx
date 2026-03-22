@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { ChangeEvent, useMemo, useState } from "react";
 import { PDFDocument } from "pdf-lib";
@@ -415,7 +415,8 @@ export default function CompressPdfTool({ locale }: Props) {
       }
 
       const outBytes = await outPdf.save();
-      const blob = new Blob([outBytes], { type: "application/pdf" });
+      const pdfBytes = new Uint8Array(outBytes);
+      const blob = new Blob([pdfBytes.buffer], { type: "application/pdf" });
 
       setCompressedBlob(blob);
       setMessage(ui.successMessage);
