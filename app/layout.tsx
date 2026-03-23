@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import "./globals.css";
 
 const siteUrl =
@@ -29,7 +29,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body className="antialiased bg-white text-gray-900">{children}</body>
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9678380581323736"
+          crossOrigin="anonymous"
+        ></script>
+      </head>
+      <body className="antialiased bg-white text-gray-900">
+        {children}
+      </body>
     </html>
   );
 }
