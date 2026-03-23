@@ -1,4 +1,4 @@
-﻿import type { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 
 const siteUrl = "https://ai-image-tools.com";
 
@@ -49,6 +49,7 @@ const routes = [
 
   // その他
   "/contact",
+  "/privacy-policy",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
