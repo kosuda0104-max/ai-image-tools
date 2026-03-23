@@ -13,6 +13,13 @@ export const metadata: Metadata = {
   verification: {
     google: "Hb3W-lsQSQul1oGHNGt12-FVlUs1wZmxDUF_qR1zIzA",
   },
+  alternates: {
+    canonical: "/",
+    languages: {
+      ja: "/",
+      en: "/en",
+    },
+  },
 };
 
 export default function RootLayout({
