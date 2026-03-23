@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s | AI Image Tools",
   },
   verification: {
-    google: "YAHjjL4QTT_OD7cBWy9kQN6fQfzI3kVLxXJ96ihPVgg",
+    google: "Hb3W-lsQSQul1oGHNGt12-FVlUs1wZmxDUF_qR1zIzA",
   },
 };
 
