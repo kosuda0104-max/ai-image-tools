@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
+import { FormEvent, useState } from "react";
 
 type Locale = "ja" | "en";
 
@@ -13,12 +14,15 @@ const content = {
     badge: "Contact",
     heading: "お問い合わせ",
     subtext:
-      "不具合の報告、ツール追加の要望などがあれば以下のフォームからご連絡ください。",
+      "不具合の報告、機能追加の要望、その他ご相談があれば、以下のフォームからお気軽にご連絡ください。",
     name: "お名前",
     email: "メールアドレス",
     tool: "対象ツール",
     message: "メッセージ",
     submit: "送信する",
+    sending: "送信中...",
+    success: "送信が完了しました。ありがとうございます。",
+    error: "送信に失敗しました。時間をおいてもう一度お試しください。",
     placeholder: "例: PDF to JPG",
     home: "トップページ",
     tools: "ツール一覧",
@@ -29,12 +33,15 @@ const content = {
     badge: "Contact",
     heading: "Contact",
     subtext:
-      "If you have any bug reports or feature requests, please contact us using the form below.",
+      "If you have any bug reports, feature requests, or other questions, please contact us using the form below.",
     name: "Name",
     email: "Email",
     tool: "Tool",
     message: "Message",
     submit: "Send",
+    sending: "Sending...",
+    success: "Your message has been sent successfully. Thank you.",
+    error: "Failed to send your message. Please try again later.",
     placeholder: "e.g. PDF to JPG",
     home: "Home",
     tools: "Tools",
@@ -45,6 +52,49 @@ const content = {
 
 export default function ContactPage({ locale }: Props) {
   const t = content[locale];
+  const [isSending, setIsSending] = useState(false);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    const name = String(formData.get("name") ?? "");
+    const email = String(formData.get("email") ?? "");
+    const tool = String(formData.get("tool") ?? "");
+    const message = String(formData.get("message") ?? "");
+
+    try {
+      setIsSending(true);
+      setStatus("idle");
+
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message: tool ? `Tool: ${tool}\n\n${message}` : message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send");
+      }
+
+      setStatus("success");
+      form.reset();
+    } catch (error) {
+      console.error(error);
+      setStatus("error");
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   return (
     <main className="min-h-screen bg-white">
@@ -64,8 +114,7 @@ export default function ContactPage({ locale }: Props) {
 
       <section className="mx-auto max-w-3xl px-4 py-12">
         <form
-          action="https://formspree.io/f/xreybdaa"
-          method="POST"
+          onSubmit={handleSubmit}
           className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
         >
           <div>
@@ -118,10 +167,19 @@ export default function ContactPage({ locale }: Props) {
 
           <button
             type="submit"
-            className="inline-flex rounded-xl bg-black px-6 py-3 text-white hover:opacity-90"
+            disabled={isSending}
+            className="inline-flex rounded-xl bg-black px-6 py-3 text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {t.submit}
+            {isSending ? t.sending : t.submit}
           </button>
+
+          {status === "success" ? (
+            <p className="text-sm text-green-600">{t.success}</p>
+          ) : null}
+
+          {status === "error" ? (
+            <p className="text-sm text-red-600">{t.error}</p>
+          ) : null}
         </form>
 
         <div className="mt-10 flex gap-3">
