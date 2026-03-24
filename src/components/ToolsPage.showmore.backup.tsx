@@ -71,17 +71,10 @@ function getPopularityScore(tool: ToolItem) {
 
 export default function ToolsPage({ locale }: Props) {
   const t = toolsPageContent[locale];
+  const basePath = locale === "en" ? "/en" : "";
+
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<SortKey>("default");
-  const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
-
-  const toggleCategory = (title: string) => {
-    setExpandedCategories((prev) =>
-      prev.includes(title)
-        ? prev.filter((item) => item !== title)
-        : [...prev, title]
-    );
-  };
 
   const labels =
     locale === "en"
@@ -92,7 +85,6 @@ export default function ToolsPage({ locale }: Props) {
           sortPopular: "Popular",
           sortName: "Name",
           more: "View more",
-          less: "Show less",
           noResults: "No tools matched your search."
         }
       : {
@@ -102,7 +94,6 @@ export default function ToolsPage({ locale }: Props) {
           sortPopular: "人気順",
           sortName: "名前順",
           more: "もっと見る",
-          less: "閉じる",
           noResults: "一致するツールがありません。"
         };
 
@@ -256,56 +247,46 @@ export default function ToolsPage({ locale }: Props) {
           </div>
         ) : (
           <div className="space-y-6">
-            {filteredCategories.map((category) => {
-              const isExpanded = expandedCategories.includes(category.title);
-              const visibleTools = isExpanded
-                ? category.tools
-                : category.tools.slice(0, 6);
+            {filteredCategories.map((category) => (
+              <div key={category.title}>
+                <h2 className="mb-3 text-base font-bold text-gray-900">
+                  {category.title}
+                </h2>
 
-              return (
-                <div key={category.title}>
-                  <h2 className="mb-3 text-base font-bold text-gray-900">
-                    {category.title}
-                  </h2>
-
-                  <div className="grid grid-cols-2 gap-2.5">
-                    {visibleTools.map((tool) => (
-                      <Link
-                        key={tool.href}
-                        href={
-                          locale === "en"
-                            ? tool.href.replace(/^\/tools/, "/en/tools")
-                            : tool.href
-                        }
-                        className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm"
-                      >
-                        <div className="mb-2 inline-flex rounded-full border border-gray-200 bg-gray-50 px-2 py-0.5 text-[10px] font-semibold text-gray-600">
-                          {getIconLabel(tool)}
-                        </div>
-
-                        <p className="text-sm font-medium leading-5 text-gray-900">
-                          {tool.name}
-                        </p>
-
-                        <p className="mt-1 text-[11px] leading-4 text-gray-500 line-clamp-2">
-                          {tool.description}
-                        </p>
-                      </Link>
-                    ))}
-                  </div>
-
-                  {category.tools.length > 6 && (
-                    <button
-                      type="button"
-                      onClick={() => toggleCategory(category.title)}
-                      className="mt-2 block text-sm text-gray-600 underline"
+                <div className="grid grid-cols-2 gap-2.5">
+                  {category.tools.slice(0, 6).map((tool) => (
+                    <Link
+                      key={tool.href}
+                      href={
+                        locale === "en"
+                          ? tool.href.replace(/^\/tools/, "/en/tools")
+                          : tool.href
+                      }
+                      className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm"
                     >
-                      {isExpanded ? labels.less : labels.more}
-                    </button>
-                  )}
+                      <div className="mb-2 inline-flex rounded-full border border-gray-200 bg-gray-50 px-2 py-0.5 text-[10px] font-semibold text-gray-600">
+                        {getIconLabel(tool)}
+                      </div>
+
+                      <p className="text-sm font-medium leading-5 text-gray-900">
+                        {tool.name}
+                      </p>
+
+                      <p className="mt-1 text-[11px] leading-4 text-gray-500 line-clamp-2">
+                        {tool.description}
+                      </p>
+                    </Link>
+                  ))}
                 </div>
-              );
-            })}
+
+                <Link
+                  href={`${basePath}/tools`}
+                  className="mt-2 block text-sm text-gray-600 underline"
+                >
+                  {labels.more}
+                </Link>
+              </div>
+            ))}
           </div>
         )}
       </div>
