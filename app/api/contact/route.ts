@@ -12,9 +12,10 @@ export async function POST(req: Request) {
     const resend = new Resend(apiKey);
     const { name, email, message } = await req.json();
 
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: "onboarding@resend.dev",
       to: "kosudalepra0104@gmail.com",
+      replyTo: email,
       subject: "お問い合わせ",
       text: `Name: ${name}
 Email: ${email}
@@ -22,9 +23,17 @@ Message:
 ${message}`,
     });
 
-    return Response.json({ success: true });
+    if (result.error) {
+      console.error("Resend error:", result.error);
+      return Response.json(
+        { error: "resend_failed", detail: result.error },
+        { status: 500 }
+      );
+    }
+
+    return Response.json({ success: true, id: result.data?.id ?? null });
   } catch (error) {
-    console.error(error);
+    console.error("Contact API error:", error);
     return Response.json({ error: "failed" }, { status: 500 });
   }
 }
