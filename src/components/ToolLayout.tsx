@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { getLocale } from "@/src/lib/get-locale";
@@ -26,10 +26,10 @@ export default function ToolLayout({ title, description, children }: Props) {
         {children}
       </section>
 
-      <section className="text-center py-10">
+      <section className="py-10 text-center">
         <Link
           href={`${basePath}/tools`}
-          className="inline-block bg-black text-white px-5 py-3 rounded-xl"
+          className="inline-block rounded-xl bg-black px-5 py-3 text-white"
         >
           {locale === "en" ? "Back to Tools" : "ツール一覧へ戻る"}
         </Link>

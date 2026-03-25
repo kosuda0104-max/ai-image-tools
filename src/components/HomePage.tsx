@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import {
   createHomeFaqJsonLd,
   homePageContent,
@@ -8,6 +8,16 @@ type Props = {
   locale: "ja" | "en";
 };
 
+
+function getIconClasses(name: string) {
+  const n = name.toLowerCase();
+
+  if (n.includes("jpg")) return "bg-orange-50 text-orange-700";
+  if (n.includes("png")) return "bg-blue-50 text-blue-700";
+  if (n.includes("pdf")) return "bg-red-50 text-red-700";
+  if (n.includes("webp")) return "bg-violet-50 text-violet-700";
+  return "bg-gray-100 text-gray-700";
+}
 export default function HomePage({ locale }: Props) {
   const contactHref = locale === "en" ? "/en/contact" : "/contact";
   const t = homePageContent[locale];
@@ -43,13 +53,15 @@ export default function HomePage({ locale }: Props) {
               </h1>
 
               <p className="text-lg leading-8 text-gray-600">
-                {t.hero.description}
-              </p>
+                {t.hero.description}</p>
+<div className="mt-4 inline-flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700 border border-green-200">
+  🔒 すべてブラウザ内処理・ファイルは保存されません
+</div>
 
               <div className="flex flex-wrap gap-3">
                 <Link
                   href={`${basePath}/tools`}
-                  className="inline-flex rounded-xl bg-black px-5 py-3 text-sm font-medium text-white hover:opacity-90"
+                  className="inline-flex rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-3 text-sm font-medium text-white hover:opacity-90"
                 >
                   {t.hero.primaryButtonLabel}
                 </Link>
@@ -63,12 +75,12 @@ export default function HomePage({ locale }: Props) {
               </div>
 
               <div className="grid gap-4 pt-6 sm:grid-cols-3">
-                {t.stats.map((stat) => (
+                {t.stats.map((stat, i) => (
                   <div
                     key={`${stat.value}-${stat.label}`}
-                    className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
+                    className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition"
                   >
-                    <div className="text-2xl font-bold text-gray-900">
+                    <div className="text-2xl font-bold ">
                       {stat.value}
                     </div>
                     <div className="text-sm text-gray-600">{stat.label}</div>
@@ -82,7 +94,7 @@ export default function HomePage({ locale }: Props) {
         <section className="border-b border-gray-200 bg-white">
           <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
             <div className="mb-5 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-900">
+              <h2 className="text-2xl font-bold ">
                 {t.popularToolsTitle}
               </h2>
 
@@ -105,7 +117,7 @@ export default function HomePage({ locale }: Props) {
                   }
                   className="group rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900">
+                  <div className={`inline-flex px-2 py-1 rounded text-xs font-bold mb-2 ${getIconClasses(tool.name)}`}>{tool.name.split(" ")[0]}</div><h3 className="text-lg font-semibold text-gray-900">
                     {tool.name}
                   </h3>
 
@@ -123,7 +135,7 @@ export default function HomePage({ locale }: Props) {
             {t.categories.map((category) => (
               <section key={category.title} className="space-y-5">
                 <div className="space-y-2">
-                  <h2 className="text-2xl font-bold text-gray-900">
+                  <h2 className="text-2xl font-bold ">
                     {category.title}
                   </h2>
 
@@ -141,7 +153,7 @@ export default function HomePage({ locale }: Props) {
                       }
                       className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-gray-300 hover:shadow-md"
                     >
-                      <h3 className="text-lg font-semibold text-gray-900">
+                      <div className={`inline-flex px-2 py-1 rounded text-xs font-bold mb-2 ${getIconClasses(tool.name)}`}>{tool.name.split(" ")[0]}</div><h3 className="text-lg font-semibold text-gray-900">
                         {tool.name}
                       </h3>
 
@@ -194,7 +206,7 @@ export default function HomePage({ locale }: Props) {
         <section className="border-t border-gray-200 bg-white">
           <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
             <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-900">
+              <h2 className="text-2xl font-bold ">
                 {t.faqSectionTitle}
               </h2>
 
@@ -253,8 +265,10 @@ export default function HomePage({ locale }: Props) {
               </h1>
 
               <p className="text-sm leading-7 text-gray-600">
-                {t.hero.description}
-              </p>
+                {t.hero.description}</p>
+<div className="mt-4 inline-flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700 border border-green-200">
+  🔒 すべてブラウザ内処理・ファイルは保存されません
+</div>
 
               <div className="grid grid-cols-2 gap-2">
                 <Link
@@ -273,7 +287,7 @@ export default function HomePage({ locale }: Props) {
               </div>
 
               <div className="grid grid-cols-3 gap-2 pt-2">
-                {t.stats.map((stat) => (
+                {t.stats.map((stat, i) => (
                   <div
                     key={`mobile-${stat.value}-${stat.label}`}
                     className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm"
@@ -335,7 +349,7 @@ export default function HomePage({ locale }: Props) {
             {mobileCategories.map((category) => (
               <section key={`mobile-${category.title}`} className="space-y-4">
                 <div className="space-y-1">
-                  <h2 className="text-2xl font-bold text-gray-900">
+                  <h2 className="text-2xl font-bold ">
                     {category.title}
                   </h2>
                   <p className="text-sm leading-6 text-gray-600">
@@ -451,3 +465,10 @@ export default function HomePage({ locale }: Props) {
     </main>
   );
 }
+
+
+
+
+
+
+

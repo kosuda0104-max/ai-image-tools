@@ -47,6 +47,52 @@ function getIconLabel(tool: ToolItem) {
   return "TOOL";
 }
 
+
+function getIconClasses(tool: ToolItem) {
+  const slug = tool.href.split("/").pop() ?? "";
+  const name = tool.name.toLowerCase();
+
+  if (slug.includes("pdf") || name.includes("pdf")) {
+    return "bg-red-50 text-red-700 ring-1 ring-inset ring-red-200";
+  }
+  if (slug.includes("jpg") || name.includes("jpg") || slug.includes("jpeg") || name.includes("jpeg")) {
+    return "bg-orange-50 text-orange-700 ring-1 ring-inset ring-orange-200";
+  }
+  if (slug.includes("png") || name.includes("png")) {
+    return "bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-200";
+  }
+  if (slug.includes("webp") || name.includes("webp")) {
+    return "bg-violet-50 text-violet-700 ring-1 ring-inset ring-violet-200";
+  }
+  if (slug.includes("gif") || name.includes("gif")) {
+    return "bg-pink-50 text-pink-700 ring-1 ring-inset ring-pink-200";
+  }
+  if (slug.includes("heic") || name.includes("heic") || slug.includes("avif") || name.includes("avif")) {
+    return "bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-200";
+  }
+  if (slug.includes("svg") || name.includes("svg")) {
+    return "bg-sky-50 text-sky-700 ring-1 ring-inset ring-sky-200";
+  }
+  if (slug.includes("bmp") || name.includes("bmp") || slug.includes("tiff") || name.includes("tiff") || slug.includes("ico") || name.includes("ico")) {
+    return "bg-cyan-50 text-cyan-700 ring-1 ring-inset ring-cyan-200";
+  }
+  if (slug.includes("compress")) {
+    return "bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-200";
+  }
+  if (
+    slug.includes("resize") ||
+    slug.includes("crop") ||
+    slug.includes("rotate") ||
+    slug.includes("flip") ||
+    slug.includes("watermark") ||
+    slug.includes("grayscale")
+  ) {
+    return "bg-slate-100 text-slate-700 ring-1 ring-inset ring-slate-200";
+  }
+
+  return "bg-gray-100 text-gray-700 ring-1 ring-inset ring-gray-200";
+}
+
 function getPopularityScore(tool: ToolItem) {
   const slug = tool.href.split("/").pop() ?? "";
 
@@ -206,10 +252,16 @@ export default function ToolsPage({ locale }: Props) {
                             ? tool.href.replace(/^\/tools/, "/en/tools")
                             : tool.href
                         }
-                        className="group rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                        className="group rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md"
                       >
-                        <div className="mb-3 inline-flex rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-gray-600">
-                          {getIconLabel(tool)}
+                        <div className="mb-4 flex items-start justify-between gap-3">
+                          <div className={`inline-flex h-10 min-w-10 items-center justify-center rounded-xl px-3 text-[11px] font-bold tracking-wide ${getIconClasses(tool)}`}>
+                            {getIconLabel(tool)}
+                          </div>
+
+                          <span className="opacity-0 text-lg text-gray-400 transition group-hover:translate-x-0.5 group-hover:opacity-100">
+                            →
+                          </span>
                         </div>
 
                         <h3 className="text-lg font-semibold text-gray-900 transition group-hover:text-gray-700">
@@ -279,15 +331,18 @@ export default function ToolsPage({ locale }: Props) {
                         }
                         className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm"
                       >
-                        <div className="mb-2 inline-flex rounded-full border border-gray-200 bg-gray-50 px-2 py-0.5 text-[10px] font-semibold text-gray-600">
-                          {getIconLabel(tool)}
+                        <div className="mb-2 flex items-start justify-between gap-2">
+                          <div className={`inline-flex h-8 min-w-8 items-center justify-center rounded-lg px-2 text-[10px] font-bold ${getIconClasses(tool)}`}>
+                            {getIconLabel(tool)}
+                          </div>
+                          <span className="text-sm text-gray-300 opacity-60">→</span>
                         </div>
 
                         <p className="text-sm font-medium leading-5 text-gray-900">
                           {tool.name}
                         </p>
 
-                        <p className="mt-1 text-[11px] leading-4 text-gray-500 line-clamp-2">
+                        <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-gray-500">
                           {tool.description}
                         </p>
                       </Link>
@@ -312,3 +367,6 @@ export default function ToolsPage({ locale }: Props) {
     </main>
   );
 }
+
+
+
