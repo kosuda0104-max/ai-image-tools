@@ -1,4 +1,4 @@
-import type { JpgToPngContent, ToolLocale } from "./types";
+﻿import type { JpgToPngContent, ToolLocale } from "./types";
 
 export const jpgToPngContent: Record<ToolLocale, JpgToPngContent> = {
   ja: {
@@ -19,24 +19,29 @@ export const jpgToPngContent: Record<ToolLocale, JpgToPngContent> = {
       faqTitle: "よくある質問",
       faqs: [
         {
-          question: "画質は落ちますか？",
+          question: "JPGとPNGの違いは何ですか？",
           answer:
-            "JPGからPNGへの変換では、変換後のPNGをそのまま保存できます。ただし元画像がJPGなので、元の圧縮状態までは戻りません。",
+            "JPGは圧縮形式でファイルサイズが小さくなりますが、画質が劣化します。一方PNGは非圧縮形式で保存されるため、再編集や再保存でも画質を維持しやすい形式です。",
         },
         {
-          question: "インストールは必要ですか？",
+          question: "PNGに変換すると画質は良くなりますか？",
           answer:
-            "不要です。ソフトを入れなくても、ブラウザだけでJPGをPNGに変換できます。",
+            "いいえ。JPGからPNGに変換しても、元のJPGで失われた画質が回復するわけではありません。ただし、その後PNGとして保存することで追加の劣化を防ぎやすくなります。",
+        },
+        {
+          question: "スマホでも使えますか？",
+          answer:
+            "はい。スマートフォンやタブレットのブラウザでも利用できます。アプリのインストールや会員登録は不要です。",
         },
         {
           question: "安全に使えますか？",
           answer:
-            "はい。変換はブラウザ内で行われるため、ファイルを外部サーバーへ送信せずに利用できます。",
+            "はい。このツールはブラウザ内で処理されるため、画像ファイルを外部サーバーへ送信せずに変換できます。",
         },
         {
-          question: "アップロードなしで変換できますか？",
+          question: "透過PNGを作れますか？",
           answer:
-            "はい。このツールはブラウザ上で処理されるため、画像ファイルは外部サーバーにアップロードされません。",
+            "JPGは透過情報を持たないため、変換だけで背景が透明になるわけではありません。透過が必要な場合は、別途背景を削除する編集が必要です。",
         },
       ],
       relatedTools: [
@@ -83,24 +88,29 @@ export const jpgToPngContent: Record<ToolLocale, JpgToPngContent> = {
       faqTitle: "FAQ",
       faqs: [
         {
-          question: "Will image quality improve after converting to PNG?",
+          question: "What is the difference between JPG and PNG?",
           answer:
-            "The converted file is saved as PNG, but converting from JPG does not restore quality that was already lost in the original JPG compression.",
+            "JPG uses lossy compression to reduce file size, while PNG uses lossless compression and is better for keeping image quality during repeated editing and saving.",
         },
         {
-          question: "Do I need to install anything?",
+          question: "Will converting JPG to PNG improve image quality?",
           answer:
-            "No. You can convert JPG to PNG directly in your browser without installing any software.",
+            "No. Converting JPG to PNG does not restore quality already lost in the original JPG file. However, saving as PNG can help prevent additional quality loss afterward.",
+        },
+        {
+          question: "Can I use this tool on mobile?",
+          answer:
+            "Yes. You can use this tool on smartphones and tablets in your browser without installing any app.",
         },
         {
           question: "Is it safe to use?",
           answer:
-            "Yes. The conversion runs in your browser, so your files do not need to be sent to an external server.",
+            "Yes. The conversion is processed in your browser, so your files are not uploaded to an external server.",
         },
         {
-          question: "Can I convert without uploading?",
+          question: "Can I create a transparent PNG from JPG?",
           answer:
-            "Yes. This tool works entirely in your browser, so your image files are not uploaded to any external server.",
+            "Not automatically. JPG files do not support transparency, so converting to PNG will not remove the background by itself.",
         },
       ],
       relatedTools: [

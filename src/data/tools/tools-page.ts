@@ -1,4 +1,4 @@
-export type ToolPageLocale = "ja" | "en";
+﻿export type ToolPageLocale = "ja" | "en";
 
 type ToolItem = {
   name: string;
@@ -73,7 +73,7 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
           {
             name: "JPG to PNG",
             href: "/tools/jpg-to-png",
-            description: "JPG画像をPNG形式に変換します。",
+            description: "JPG画像をPNG形式に変換できる無料オンラインツールです。画質を保ったまま透過対応のPNGに変換できるため、ロゴやイラストの保存に最適です。すべてブラウザ内で処理されるため、安全に利用できます。",
           },
           {
             name: "PNG to JPG",
