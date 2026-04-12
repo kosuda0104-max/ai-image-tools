@@ -167,7 +167,7 @@ export default function ToolsPage({ locale }: Props) {
           sortName: "名前順",
           more: "もっと見る",
           less: "閉じる",
-          noResults: "一致するツールがありません。",
+          noResults: "一致するツールが見つかりませんでした。",
         };
 
   const normalizedSearch = search.trim().toLowerCase();

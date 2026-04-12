@@ -28,7 +28,6 @@ type SeoFallbackContent = {
 
 export function buildSeoFallbackContent({
   title,
-  description,
   relatedTools,
 }: {
   title: string;
@@ -44,58 +43,61 @@ export function buildSeoFallbackContent({
 
   if (category === "conversion") {
     const pair = parseConversionPair(title, locale);
+
     return locale === "ja"
       ? {
           contentSections: [
             {
-              title: `${title}が役立つ場面`,
+              title: `${title}が向いている場面`,
               paragraphs: [
-                `${title}は、${description.replace(/。$/, "")}用途に向いた基本ツールです。共有、保存、編集、アップロードなどの実務フローで、形式の違いによる不便を減らしたいときに役立ちます。`,
-                `元の形式のままでは扱いにくい環境でも、目的に合った形式へ変換しておくことで、その後の作業や受け渡しがスムーズになります。`,
+                `${title}は、今の形式だと少し扱いづらい画像を、次の作業に合う形へ整えたいときに役立ちます。アップロード先の指定に合わせたいとき、共有先で開きやすくしたいとき、編集工程に入りやすい形式へ寄せたいときに使いやすい変換です。`,
+                "変換そのものが目的というより、このあと送る、載せる、編集する、そのどれかを楽にするための一手として考えると選びやすくなります。",
               ],
             },
             {
-              title: "変換前に確認したいポイント",
+              title: "変換前に決めておくと迷いにくいこと",
               paragraphs: [
-                "どの形式が向いているかは、軽さを優先するのか、互換性を優先するのか、再編集しやすさを優先するのかで変わります。",
-                "元ファイルを残したまま変換後ファイルを用途別に使い分けると、後から作業しやすくなります。",
+                "まず決めたいのは、軽さを優先するのか、互換性を優先するのか、透明背景や編集しやすさを残したいのかという点です。",
+                "元ファイルはそのまま残し、必要な用途に合わせたコピーだけを変換して使う形にしておくと、あとからやり直しやすくなります。",
               ],
             },
           ],
           listSections: [
             {
-              title: "失敗しにくくするコツ",
+              title: "失敗しにくくするポイント",
               items: [
-                `${pair.source} から ${pair.target} へ変換しても、元画像で失われた情報が自動で戻るわけではありません。`,
-                "提出先や共有先の推奨形式がある場合は、先に確認してから変換するとやり直しを減らせます。",
-                "公開用にさらに軽量化したい場合は、変換後に圧縮やリサイズも組み合わせると効果的です。",
-                "文字や図版を含む画像では、形式によって見え方が変わることがあるため、ダウンロード前に確認すると安心です。",
+                `${pair.source} から ${pair.target} へ変換しても、元画像で失われた情報が戻るわけではありません。`,
+                "提出先やアップロード先に指定形式がある場合は、先にその条件を見てから変換すると無駄がありません。",
+                "変換後もファイルが重いと感じる場合は、圧縮やリサイズを組み合わせると扱いやすくなります。",
+                "文字が多い画像、透明背景付きの画像、写真では、形式ごとに見え方やサイズ差が出やすいので一度確認しておくと安心です。",
               ],
             },
           ],
           comparisonTitle: `${pair.source} と ${pair.target} の考え方`,
           comparisonItems: [
             {
-              label: "互換性",
-              value: `${pair.target} のほうが利用環境に合う場面では、変換することで共有や提出がしやすくなります。`,
-            },
-            {
-              label: "画質と容量",
-              value: "形式ごとに画質の保ちやすさやファイルサイズの傾向が異なります。用途に応じて使い分けるのが基本です。",
-            },
-            {
               label: "向いている用途",
-              value: `${pair.target} を求められる作業、より扱いやすい保存形式が必要な場面、次の編集工程へ渡したいケースで有効です。`,
+              value: `${pair.target} が扱いやすいのは、変換後の共有先や作業先がその形式と相性のいい場面です。`,
             },
             {
-              label: "次の一手",
+              label: "サイズと見た目",
+              value:
+                "形式ごとに、軽さ、見た目の安定感、透明背景への対応、再編集しやすさが少しずつ違います。",
+            },
+            {
+              label: "判断の軸",
+              value:
+                "何となく変換するより、このあと何に使うのかを先に決めておくと失敗しにくくなります。",
+            },
+            {
+              label: "次の作業",
               value:
                 relatedTools.length > 0
-                  ? `変換後に ${relatedTools
+                  ? `変換のあとに ${relatedTools
                       .slice(0, 2)
                       .map((tool) => tool.name)
-                      .join(" や ")} を使うと作業を続けやすくなります。`
-                  : "変換後は圧縮、リサイズ、共有用の書き出しまで考えると運用しやすくなります。",
+                      .join(" や ")} を続けて使う流れもよくあります。`
+                  : "変換のあとに、圧縮やリサイズで仕上げると扱いやすくなることがあります。",
             },
           ],
           relatedToolsTitle,
@@ -103,56 +105,57 @@ export function buildSeoFallbackContent({
       : {
           contentSections: [
             {
-              title: `When this ${title} tool is useful`,
+              title: `When ${title} makes sense`,
               paragraphs: [
-                `${title} is a practical format-conversion step when you need better compatibility, easier sharing, smoother uploads, or a format that fits the next editing workflow more naturally.`,
-                "In many real-world cases, the goal is not conversion for its own sake but making the file easier to send, publish, store, or continue working with.",
+                `${title} is useful when the current format gets in the way of sharing, uploading, editing, or compatibility.`,
+                "Most people convert because the next step matters more than the current file format. The real goal is usually to make the file easier to send, publish, or keep working with.",
               ],
             },
             {
-              title: "What to think about before converting",
+              title: "What to decide before converting",
               paragraphs: [
-                "The right output format depends on whether your priority is smaller file size, broader compatibility, transparency support, or edit-friendly behavior.",
-                "A reliable workflow is to keep the original file, convert a working copy for the current task, and then optimize further only if needed.",
+                "The main question is whether you care most about file size, compatibility, transparency, or an editing-friendly workflow.",
+                "A safe pattern is to keep the original file untouched, export a working copy, and only optimize that copy if the next step actually calls for it.",
               ],
             },
           ],
           listSections: [
             {
-              title: "Tips for better results",
+              title: "Practical reminders",
               items: [
-                `Converting from ${pair.source} to ${pair.target} does not magically recover detail already missing in the source file.`,
-                "If a website, client, or upload form asks for a specific format, check that requirement before exporting.",
+                `Converting from ${pair.source} to ${pair.target} does not restore detail that is already missing in the source file.`,
+                "If a site, client, or upload form asks for a specific format, check that requirement before exporting.",
                 "If file size still matters after conversion, compression or resizing is often the next useful step.",
-                "Graphics with text, transparency, or sharp edges may behave differently depending on the format you choose.",
+                "Text-heavy graphics, transparent assets, and photos can behave very differently depending on the target format.",
               ],
             },
           ],
           comparisonTitle: `${pair.source} vs ${pair.target}`,
           comparisonItems: [
             {
-              label: "Compatibility",
+              label: "Why convert",
               value:
-                "A conversion usually makes sense when the target format fits more of the apps, services, or workflows you need to use next.",
+                "A conversion usually makes sense when the target format matches the next app, site, or workflow more naturally.",
             },
             {
-              label: "Quality and size",
+              label: "Tradeoff",
               value:
-                "Different formats make different tradeoffs between image stability, compression, transparency, and file size.",
+                "Most format choices come down to tradeoffs between compatibility, compression, transparency, and editing behavior.",
             },
             {
-              label: "Best use case",
-              value: `${pair.target} is usually the better choice when it matches the destination platform, sharing method, or editing workflow more closely.`,
+              label: "Best mindset",
+              value:
+                "Start with the destination. Once you know where the file needs to end up, the right format is usually easier to pick.",
             },
             {
               label: "Next step",
               value:
                 relatedTools.length > 0
-                  ? `After converting, users often continue with ${relatedTools
+                  ? `After converting, people often continue with ${relatedTools
                       .slice(0, 2)
                       .map((tool) => tool.name)
                       .join(" or ")}.`
-                  : "After converting, it often helps to compress, resize, or prepare a final sharing version.",
+                  : "After converting, the next step is often compression, resizing, or preparing a final delivery copy.",
             },
           ],
           relatedToolsTitle,
@@ -164,54 +167,57 @@ export function buildSeoFallbackContent({
       ? {
           contentSections: [
             {
-              title: `${title}の用途`,
+              title: `${title}が役立つ場面`,
               paragraphs: [
-                `${title}は、PDF作業をもっと扱いやすくするための基本ツールです。資料整理、提出前の調整、ページ抽出、画像化、結合など、日常業務で発生しやすいPDF作業に向いています。`,
-                "ブラウザだけで作業できるため、急ぎの修正や簡単な整形をしたいときにも使いやすいのが特徴です。",
+                `${title}は、PDF を提出前に整えたいとき、共有しやすい形に直したいとき、必要なページだけを取り出したいときなどに便利です。`,
+                "デスクトップソフトを開くほどではない、でも今すぐ少し整えたい、そんな場面で使いやすい PDF 作業を想定しています。",
               ],
             },
             {
-              title: "PDF作業でよくある使い方",
+              title: "PDF作業で迷いにくくする考え方",
               paragraphs: [
-                "複数ファイルをまとめたい、不要ページを外したい、画像として書き出したい、ページ向きを整えたいなど、目的ごとにツールを使い分けると効率的です。",
-                "完成したPDFをそのまま渡すのか、画像化して共有するのかでも最適な作業が変わります。",
+                "先に確認したいのは、最終的に PDF のまま使うのか、画像に変換したいのか、ページ構成を整えたいのかという目的です。",
+                "ページ順や不要ページの整理を先に済ませてから、変換や圧縮を行うと、やり直しが少なくなります。",
               ],
             },
           ],
           listSections: [
             {
-              title: "作業前のチェックポイント",
+              title: "始める前のチェック",
               items: [
-                "ページ順、向き、不要ページの有無を最初に確認すると手戻りを減らせます。",
-                "共有先が PDF をそのまま受け付けるのか、画像や軽量版が必要なのかで次のツールが変わります。",
-                "複数工程が必要な場合は、結合・削除・変換の順で進めると整理しやすいです。",
-                "大きなファイルでは処理後の見た目やページ順をダウンロード前に確認すると安心です。",
+                "ページ順、向き、不要ページの有無を先に確認しておくと流れがスムーズです。",
+                "提出先が PDF を求めているのか、画像化したファイルを求めているのかを先に見ておくと判断しやすくなります。",
+                "複数工程になる場合は、結合や整理を先に済ませ、そのあとに変換や圧縮へ進むのが基本です。",
+                "大きい PDF では、最終結果を一度見てから共有すると安心です。",
               ],
             },
           ],
-          comparisonTitle: "このPDFツールの考え方",
+          comparisonTitle: "このPDF作業の考え方",
           comparisonItems: [
             {
-              label: "向いている場面",
-              value: "資料整理、提出前の微調整、ページ単位の編集、共有形式の変更に向いています。",
+              label: "向いている用途",
+              value:
+                "提出前の調整、社内共有、資料整理、ページ単位の編集など、日常的な PDF 作業に向いています。",
             },
             {
-              label: "作業の流れ",
-              value: "PDFのまま扱うか、画像化するか、ページ構成を変えるかを決めると次の選択がしやすくなります。",
+              label: "作業の順番",
+              value:
+                "ページ構成を整える作業と、形式を変える作業は分けて考えると失敗しにくくなります。",
             },
             {
-              label: "関連作業",
+              label: "関連する処理",
               value:
                 relatedTools.length > 0
                   ? `${relatedTools
                       .slice(0, 3)
                       .map((tool) => tool.name)
-                      .join("、")} などと組み合わせると一連の作業を進めやすくなります。`
-                  : "結合、分割、変換、圧縮を順番に使い分けると実務に乗せやすくなります。",
+                      .join("、")} などと組み合わせる流れが自然です。`
+                  : "結合、分割、圧縮、画像変換を順番に使う流れになることが多いです。",
             },
             {
-              label: "おすすめの使い方",
-              value: "最終提出前にページ構成や向きを見直し、その後に必要なら軽量化や画像変換へ進むのがおすすめです。",
+              label: "進め方のコツ",
+              value:
+                "まず内容と順番を整え、そのあとに変換や軽量化を行うと、最終確認がしやすくなります。",
             },
           ],
           relatedToolsTitle,
@@ -219,57 +225,57 @@ export function buildSeoFallbackContent({
       : {
           contentSections: [
             {
-              title: `What this PDF tool is good for`,
+              title: `What ${title} is good for`,
               paragraphs: [
-                `${title} is meant to make common PDF tasks easier, such as cleaning up pages, preparing files for sharing, converting documents, or reorganizing multi-page materials.`,
-                "It is most useful when you need a quick browser-based workflow instead of opening a heavier desktop app for a simple adjustment.",
+                `${title} is useful when you need to clean up a PDF, prepare it for sharing, extract part of it, or turn it into a format that fits the next task better.`,
+                "It is meant for everyday document work, not for heavy publishing workflows. Think of it as the quick step between receiving a PDF and sending the finished version on.",
               ],
             },
             {
-              title: "Typical PDF workflows",
+              title: "A better way to think about PDF tasks",
               paragraphs: [
-                "People often need to merge files, remove pages, rotate documents, extract image versions, or prepare a lighter file before sending it.",
-                "The best next step depends on whether the final destination expects a PDF, an image, or a more compact version of the document.",
+                "Start by deciding whether the final result should stay a PDF, become images, or simply be a cleaner and smaller version of the same document.",
+                "That one decision usually tells you whether to merge, split, remove pages, convert, or compress first.",
               ],
             },
           ],
           listSections: [
             {
-              title: "Checklist before you start",
+              title: "Quick checklist",
               items: [
-                "Check page order, orientation, and whether any pages should be removed before exporting.",
-                "Know whether the destination wants a PDF, an image, or a smaller optimized file.",
-                "If you need multiple steps, merging or cleanup usually comes before format conversion.",
-                "For large files, review the final output before sharing it.",
+                "Review page order and orientation before exporting anything.",
+                "Know whether the destination expects a PDF, an image set, or a lighter optimized copy.",
+                "If the workflow has multiple steps, cleanup usually comes before conversion.",
+                "For large files, review the output once before sharing it.",
               ],
             },
           ],
-          comparisonTitle: "How to think about this PDF task",
+          comparisonTitle: "How this PDF step fits the workflow",
           comparisonItems: [
             {
               label: "Best use case",
               value:
-                "This type of tool is most useful for everyday document preparation, sharing, and cleanup workflows.",
+                "This kind of tool works best for everyday document cleanup, page preparation, and sharing workflows.",
             },
             {
               label: "Workflow fit",
               value:
-                "Decide first whether you need to keep the file as a PDF, convert it to images, or reorganize the pages.",
+                "Think first about whether the file should remain a PDF or become something else. That usually narrows the right tool quickly.",
             },
             {
               label: "Related tasks",
               value:
                 relatedTools.length > 0
-                  ? `Users often continue with ${relatedTools
+                  ? `People often continue with ${relatedTools
                       .slice(0, 3)
                       .map((tool) => tool.name)
                       .join(", ")} after this step.`
-                  : "PDF cleanup, compression, and conversion often work best as a sequence rather than a single isolated step.",
+                  : "PDF tasks often work best as a sequence: organize first, convert or compress later.",
             },
             {
               label: "Practical approach",
               value:
-                "Review structure first, then convert or optimize only after the document content and page order are correct.",
+                "Fix structure first, then optimize or convert only after the document is already in the right order.",
             },
           ],
           relatedToolsTitle,
@@ -280,56 +286,57 @@ export function buildSeoFallbackContent({
     ? {
         contentSections: [
           {
-            title: `${title}の活用シーン`,
+            title: `${title}の使いどころ`,
             paragraphs: [
-              `${title}は、画像を目的に合わせて整えるための基本ツールです。資料作成、Web掲載、SNS投稿、社内共有、画像整理など、見た目やサイズを調整したい場面で役立ちます。`,
-              "作業前に完成イメージを決めておくと、圧縮、リサイズ、切り抜き、回転などの次の工程も選びやすくなります。",
+              `${title}は、画像を整える途中で役立つ編集系ツールです。見た目を整えたいとき、掲載先に合わせたいとき、あとから使いやすい形にしたいときに向いています。`,
+              "画像編集では一つひとつの処理は小さく見えても、順番次第で仕上がりが変わります。どこで使うかを意識すると、この手のツールはかなり便利です。",
             ],
           },
           {
-            title: "画像加工ツールの考え方",
+            title: "編集系ツールを使うときの考え方",
             paragraphs: [
-              "どの処理を先に行うかで結果が変わることがあります。一般的には、切り抜きや回転で見た目を整えたあと、必要に応じて圧縮や形式変換を行うと管理しやすいです。",
-              "元画像を保存しつつ、公開用・共有用・編集用で別ファイルを作ると後から困りにくくなります。",
+              "まず見た目を整え、そのあとにサイズや形式を最終調整する流れにすると失敗が少なくなります。",
+              "元画像は残したまま、公開用や提出用のコピーを作る形にすると、あとからやり直しやすくなります。",
             ],
           },
         ],
         listSections: [
           {
-            title: "使う前のヒント",
+            title: "作業前のヒント",
             items: [
-              "最終的な掲載先や提出先のサイズ条件を先に確認すると効率的です。",
-              "複数の加工を行う場合は、見た目の調整を先に、軽量化や形式変換を後にすると扱いやすいです。",
-              "元画像を別で保管しておくと、やり直しや別用途への展開がしやすくなります。",
-              "仕上がりはスマホとPCの両方で見え方を確認すると安心です。",
+              "掲載先や提出先にサイズ制限があるなら、先にその条件を確認しておくと効率的です。",
+              "複数の処理を行う場合は、見た目の調整を先に、圧縮や形式変換を後に回すと分かりやすいです。",
+              "元画像は別に残しておくと、あとで別用途に流用しやすくなります。",
+              "Web掲載する画像なら、PCとスマホの両方で見え方を確認すると安心です。",
             ],
           },
         ],
-        comparisonTitle: "このツールの使いどころ",
+        comparisonTitle: "このツールがはまる場面",
         comparisonItems: [
           {
             label: "向いている用途",
-            value: "見た目調整、資料化、Web掲載前の整形、共有用画像の準備に向いています。",
+            value:
+              "掲載前の微調整、社内資料づくり、共有用の画像整備、見た目の下準備などに向いています。",
           },
           {
-            label: "前後の工程",
+            label: "次の流れ",
             value:
               relatedTools.length > 0
-                ? `${relatedTools
+                ? `このあとに ${relatedTools
                     .slice(0, 2)
                     .map((tool) => tool.name)
-                    .join(" や ")} と組み合わせると一連の作業を進めやすくなります。`
-                : "加工後に圧縮や形式変換を行うと、運用しやすい最終ファイルに近づけやすくなります。",
+                    .join(" や ")} を続ける流れもよくあります。`
+                : "編集のあとに、圧縮やリサイズ、形式変換で仕上げる流れが自然です。",
           },
           {
-            label: "注意点",
+            label: "気をつけたい点",
             value:
-              "加工内容によっては元に戻しにくいことがあるため、オリジナルを残したまま作業するのがおすすめです。",
+              "編集内容によっては元に戻しにくいので、元画像はそのまま残しておくのがおすすめです。",
           },
           {
-            label: "おすすめ運用",
+            label: "おすすめの進め方",
             value:
-              "作業目的を決めてから必要な編集だけを行い、最後に配信用の形式やサイズへ整えると効率的です。",
+              "最終的にどこで使う画像なのかを先に決めて、必要な処理だけを加えると無駄が少なくなります。",
           },
         ],
         relatedToolsTitle,
@@ -337,37 +344,37 @@ export function buildSeoFallbackContent({
     : {
         contentSections: [
           {
-            title: `When this ${title} tool is helpful`,
+            title: `Where ${title} fits best`,
             paragraphs: [
-              `${title} helps when you need to adjust how an image looks, behaves, or fits into the next part of your workflow.`,
-              "It is useful for publishing, presentation prep, sharing, asset cleanup, and day-to-day image handling tasks.",
+              `${title} is part of the image-preparation stage. It is most useful when you need to adjust how an image looks or behaves before publishing, sharing, or continuing with another step.`,
+              "These small edits matter more than they look. A quick resize, crop, or cleanup step often makes the final file much easier to use.",
             ],
           },
           {
-            title: "How to think about image editing steps",
+            title: "A simple editing workflow",
             paragraphs: [
-              "The order of your edits matters. Many workflows work better when visual cleanup comes first and file-size optimization comes later.",
-              "Keeping the original file and exporting a task-specific copy usually gives you a safer and more flexible workflow.",
+              "It usually helps to make visual changes first and worry about final file size or format afterward.",
+              "Keeping the original untouched and working from copies gives you a safer workflow when you are preparing multiple versions.",
             ],
           },
         ],
         listSections: [
           {
-            title: "Helpful tips before you start",
+            title: "Helpful reminders",
             items: [
-              "Check whether the destination platform has file-size or dimension limits.",
-              "If you plan to do multiple edits, visual adjustments often come before compression or format conversion.",
+              "Check whether the destination has dimension or file-size limits before you start.",
+              "If you plan to do more than one edit, visual cleanup usually comes before compression or format conversion.",
               "Keep the original image untouched so you can reuse it later.",
-              "Review the result on both desktop and mobile if the image will be published online.",
+              "Review the final result on the type of screen where people will actually see it.",
             ],
           },
         ],
-        comparisonTitle: "Where this tool fits in the workflow",
+        comparisonTitle: "How this tool fits the workflow",
         comparisonItems: [
           {
             label: "Best use case",
             value:
-              "This tool is most useful when you need to prepare an image for publishing, sharing, presentation, or follow-up editing.",
+              "This tool is most useful during image preparation, especially before publishing, sharing, or packaging a final version.",
           },
           {
             label: "Typical next step",
@@ -377,17 +384,17 @@ export function buildSeoFallbackContent({
                     .slice(0, 2)
                     .map((tool) => tool.name)
                     .join(" or ")}.`
-                : "After editing, the next step is often compression, resizing, or a final format conversion.",
+                : "After editing, the next step is often compression, resizing, or exporting a final delivery format.",
           },
           {
             label: "Main caution",
             value:
-              "Some image edits are hard to undo, so it is best to keep the original file separately.",
+              "Some edits are hard to undo, so keeping the original image separately is still the safest option.",
           },
           {
-            label: "Recommended workflow",
+            label: "Recommended approach",
             value:
-              "Decide the final destination first, make only the edits you need, then optimize the file for delivery.",
+              "Start with the final destination in mind, make only the edits you need, and optimize the finished copy last.",
           },
         ],
         relatedToolsTitle,
@@ -395,25 +402,17 @@ export function buildSeoFallbackContent({
 }
 
 function isJapanese(text: string) {
-  return /[ぁ-んァ-ン一-龯]/.test(text);
+  return /[ぁ-んァ-ン一-龠]/.test(text);
 }
 
 function detectCategory(title: string) {
   const normalized = title.toLowerCase();
 
-  if (
-    normalized.includes("pdf") ||
-    title.includes("PDF") ||
-    title.includes("ＰＤＦ")
-  ) {
+  if (normalized.includes("pdf") || title.includes("PDF")) {
     return "pdf";
   }
 
-  if (
-    normalized.includes(" to ") ||
-    title.includes("に変換") ||
-    title.includes("を変換")
-  ) {
+  if (normalized.includes(" to ") || (title.includes("を") && title.includes("に変換"))) {
     return "conversion";
   }
 
@@ -436,5 +435,5 @@ function parseConversionPair(title: string, locale: "ja" | "en") {
     };
   }
 
-  return { source: "元形式", target: "変換先形式" };
+  return { source: "元形式", target: "変換先" };
 }
