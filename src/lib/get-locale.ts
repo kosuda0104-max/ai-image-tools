@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
-export function getLocale(): "ja" | "en" {
+export function useLocale(): "ja" | "en" {
   const pathname = usePathname();
 
   if (pathname.startsWith("/en")) {

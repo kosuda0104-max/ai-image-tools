@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import Link from "next/link";
-import { getLocale } from "@/src/lib/get-locale";
+import { useLocale } from "@/src/lib/get-locale";
 
 type Props = {
   title: string;
@@ -10,7 +10,7 @@ type Props = {
 };
 
 export default function ToolLayout({ title, description, children }: Props) {
-  const locale = getLocale();
+  const locale = useLocale();
   const basePath = locale === "en" ? "/en" : "";
 
   return (

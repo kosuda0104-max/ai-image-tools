@@ -3,16 +3,12 @@
 import { useEffect, useMemo, useState } from "react";
 import ToolPageLayout from "@/components/ToolPageLayout";
 import FileDropzone from "@/components/FileDropzone";
+import PreviewImage from "@/components/PreviewImage";
 import PrimaryButton from "@/components/PrimaryButton";
 import StatusMessage from "@/components/StatusMessage";
 import FAQJsonLd from "@/components/FAQJsonLd";
 
 type Locale = "ja" | "en";
-
-type FAQItem = {
-  question: string;
-  answer: string;
-};
 
 type Props = {
   locale: Locale;
@@ -173,7 +169,9 @@ export default function TiffToJpgTool({ locale }: Props) {
         onFileSelect={setFile}
       />
 
-      {preview && <img src={preview} className="max-h-80" />}
+      {preview && (
+        <PreviewImage src={preview} alt={page.title} className="max-h-80" />
+      )}
 
       <PrimaryButton onClick={convert} disabled={!file || loading}>
         {loading ? ui.loading : ui.button}

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import ToolPageLayout from "@/components/ToolPageLayout";
 import FileDropzone from "@/components/FileDropzone";
+import PreviewImage from "@/components/PreviewImage";
 import PrimaryButton from "@/components/PrimaryButton";
 import StatusMessage from "@/components/StatusMessage";
 import FAQJsonLd from "@/components/FAQJsonLd";
@@ -278,7 +279,11 @@ export default function GrayscaleImageTool({ locale }: Props) {
       {originalPreview && (
         <div className="space-y-2">
           <div className="text-sm text-gray-600">{ui.previewLabel}</div>
-          <img src={preview || originalPreview} className="max-h-80 rounded border object-contain" />
+          <PreviewImage
+            src={preview || originalPreview}
+            alt={page.title}
+            className="max-h-80 rounded border object-contain"
+          />
         </div>
       )}
 

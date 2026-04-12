@@ -1,87 +1,51 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import ToolPageLayout from "@/components/ToolPageLayout";
-import FileDropzone from "@/components/FileDropzone";
-import PrimaryButton from "@/components/PrimaryButton";
-import StatusMessage from "@/components/StatusMessage";
+import SimpleImageConversionTool, {
+  type SimpleImageConversionContent,
+} from "@/src/components/SimpleImageConversionTool";
 
 type Locale = "ja" | "en";
-
-type FAQItem = {
-  question: string;
-  answer: string;
-};
-
-type RelatedToolItem = {
-  name: string;
-  href: string;
-};
 
 type Props = {
   locale: Locale;
 };
 
-const content: Record<
-  Locale,
-  {
-    page: {
-      title: string;
-      description: string;
-      aboutTitle: string;
-      aboutText: string;
-      stepsTitle: string;
-      steps: string[];
-      faqTitle: string;
-      faqs: FAQItem[];
-      relatedTools: RelatedToolItem[];
-    };
-    ui: {
-      emptyTitle: string;
-      emptyDescription: string;
-      selectButtonLabel: string;
-      button: string;
-      loading: string;
-      done: string;
-      invalidFile: string;
-      error: string;
-    };
-  }
-> = {
+const content: Record<Locale, SimpleImageConversionContent> = {
   ja: {
     page: {
       title: "PNGをJPGに変換",
       description: "PNG画像をJPG形式に変換できる無料オンラインツールです。",
       aboutTitle: "PNGをJPGに変換とは？",
       aboutText:
-        "PNG画像をJPG形式に変換できる無料オンラインツールです。写真や一般的な画像をJPGに変換したいときに便利です。透過部分は白背景として出力されます。",
+        "PNG画像をJPG形式に変換できる無料オンラインツールです。ブラウザ上で処理するためアップロード不要で、安全かつ高速に変換できます。JPG形式にすることで、ファイルサイズを小さくしやすく、共有しやすい画像として保存できます。",
       stepsTitle: "使い方",
       steps: [
         "PNG画像をアップロードします",
         "プレビューを確認します",
         "変換ボタンを押します",
-        "JPG画像をダウンロードします"
+        "JPG画像をダウンロードします",
       ],
       faqTitle: "よくある質問",
       faqs: [
         {
           question: "透過はどうなりますか？",
-          answer: "JPGは透過に対応していないため、透過部分は白背景として出力されます。"
+          answer:
+            "JPGは透過に対応していないため、透明部分は白背景として変換されます。",
         },
         {
           question: "インストールは必要ですか？",
-          answer: "不要です。ブラウザだけで変換できます。"
+          answer: "不要です。ブラウザだけで変換できます。",
         },
         {
           question: "画像はアップロードされますか？",
-          answer: "いいえ。変換はブラウザ内で行われます。"
-        }
+          answer: "いいえ。変換はブラウザ内で完結します。",
+        },
       ],
       relatedTools: [
         { name: "JPGをPNGに変換", href: "/tools/jpg-to-png" },
         { name: "PNGをWebPに変換", href: "/tools/png-to-webp" },
-        { name: "WebPをJPGに変換", href: "/tools/webp-to-jpg" }
-      ]
+        { name: "WebPをJPGに変換", href: "/tools/webp-to-jpg" },
+      ],
     },
     ui: {
       emptyTitle: "PNG画像をアップロード",
@@ -91,8 +55,8 @@ const content: Record<
       loading: "変換中...",
       done: "完了しました",
       invalidFile: "PNGファイルを選択してください。",
-      error: "変換に失敗しました。"
-    }
+      error: "変換に失敗しました。",
+    },
   },
   en: {
     page: {
@@ -106,28 +70,29 @@ const content: Record<
         "Upload a PNG image",
         "Check the preview",
         "Click convert",
-        "Download the JPG image"
+        "Download the JPG image",
       ],
       faqTitle: "FAQ",
       faqs: [
         {
           question: "What happens to transparency?",
-          answer: "JPG does not support transparency, so transparent areas are filled with white."
+          answer:
+            "JPG does not support transparency, so transparent areas are filled with white.",
         },
         {
           question: "Do I need to install anything?",
-          answer: "No. Everything works directly in your browser."
+          answer: "No. Everything works directly in your browser.",
         },
         {
           question: "Are my images uploaded?",
-          answer: "No. Files are processed locally in your browser."
-        }
+          answer: "No. Files are processed locally in your browser.",
+        },
       ],
       relatedTools: [
         { name: "JPG to PNG", href: "/en/tools/jpg-to-png" },
         { name: "PNG to WebP", href: "/en/tools/png-to-webp" },
-        { name: "WebP to JPG", href: "/en/tools/webp-to-jpg" }
-      ]
+        { name: "WebP to JPG", href: "/en/tools/webp-to-jpg" },
+      ],
     },
     ui: {
       emptyTitle: "Upload PNG image",
@@ -137,133 +102,23 @@ const content: Record<
       loading: "Converting...",
       done: "Done",
       invalidFile: "Please select a PNG file.",
-      error: "Conversion failed."
-    }
-  }
+      error: "Conversion failed.",
+    },
+  },
 };
 
 export default function PngToJpgTool({ locale }: Props) {
-  const { page, ui } = content[locale];
-
-  const [file, setFile] = useState<File | null>(null);
-  const [status, setStatus] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const preview = useMemo(() => {
-    if (!file) return "";
-    return URL.createObjectURL(file);
-  }, [file]);
-
-  useEffect(() => {
-    return () => {
-      if (preview) URL.revokeObjectURL(preview);
-    };
-  }, [preview]);
-
-  const convert = () => {
-    if (!file) return;
-
-    const isPng =
-      file.type === "image/png" || /\.png$/i.test(file.name);
-
-    if (!isPng) {
-      setStatus(ui.invalidFile);
-      return;
-    }
-
-    setLoading(true);
-    setStatus(ui.loading);
-
-    const imageUrl = URL.createObjectURL(file);
-    const img = new Image();
-
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.naturalWidth || img.width;
-      canvas.height = img.naturalHeight || img.height;
-
-      const ctx = canvas.getContext("2d");
-      if (!ctx) {
-        setLoading(false);
-        setStatus(ui.error);
-        URL.revokeObjectURL(imageUrl);
-        return;
-      }
-
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0);
-
-      canvas.toBlob(
-        (jpgBlob) => {
-          if (!jpgBlob) {
-            setLoading(false);
-            setStatus(ui.error);
-            URL.revokeObjectURL(imageUrl);
-            return;
-          }
-
-          const downloadUrl = URL.createObjectURL(jpgBlob);
-          const a = document.createElement("a");
-          a.href = downloadUrl;
-          a.download = file.name.replace(/\.png$/i, "") + ".jpg";
-          a.click();
-
-          URL.revokeObjectURL(downloadUrl);
-          URL.revokeObjectURL(imageUrl);
-
-          setLoading(false);
-          setStatus(ui.done);
-        },
-        "image/jpeg",
-        0.92
-      );
-    };
-
-    img.onerror = () => {
-      setLoading(false);
-      setStatus(ui.error);
-      URL.revokeObjectURL(imageUrl);
-    };
-
-    img.src = imageUrl;
-  };
-
   return (
-    <ToolPageLayout
-      title={page.title}
-      description={page.description}
-      aboutTitle={page.aboutTitle}
-      aboutText={page.aboutText}
-      stepsTitle={page.stepsTitle}
-      steps={page.steps}
-      faqTitle={page.faqTitle}
-      faqs={page.faqs}
-      relatedTools={page.relatedTools}
-    >
-      <FileDropzone
-        file={file}
-        accept="image/png,.png"
-        emptyTitle={ui.emptyTitle}
-        emptyDescription={ui.emptyDescription}
-        selectButtonLabel={ui.selectButtonLabel}
-        onFileSelect={(selected) => {
-          setStatus("");
-          setFile(selected);
-        }}
-      />
-
-      {preview && (
-        <div className="space-y-2">
-          <img src={preview} alt={page.title} className="max-h-80 rounded border object-contain" />
-        </div>
-      )}
-
-      <PrimaryButton onClick={convert} disabled={!file || loading}>
-        {loading ? ui.loading : ui.button}
-      </PrimaryButton>
-
-      <StatusMessage status={status} />
-    </ToolPageLayout>
+    <SimpleImageConversionTool
+      content={content[locale]}
+      accept="image/png,.png"
+      outputExtension="jpg"
+      outputType="image/jpeg"
+      fillBackground="#ffffff"
+      quality={0.92}
+      isValidFile={(file) =>
+        file.type === "image/png" || /\.png$/i.test(file.name)
+      }
+    />
   );
 }

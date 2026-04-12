@@ -78,7 +78,9 @@ export default function ContactPage({ locale }: Props) {
         body: JSON.stringify({
           name,
           email,
-          message: tool ? `Tool: ${tool}\n\n${message}` : message,
+          tool,
+          message,
+          locale,
         }),
       });
 

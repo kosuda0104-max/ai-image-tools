@@ -410,8 +410,8 @@ export default function CropImageTool({ locale }: Props) {
   ): CropRect => {
     const ratio = getAspectRatioValue(aspectRatio);
 
-    let x = Math.min(startX, currentX);
-    let y = Math.min(startY, currentY);
+    const x = Math.min(startX, currentX);
+    const y = Math.min(startY, currentY);
     let width = Math.abs(currentX - startX);
     let height = Math.abs(currentY - startY);
 

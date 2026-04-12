@@ -22,6 +22,10 @@ export default function HomePage({ locale }: Props) {
   const contactHref = locale === "en" ? "/en/contact" : "/contact";
   const t = homePageContent[locale];
   const faqJsonLd = createHomeFaqJsonLd(locale);
+  const trustMessage =
+    locale === "en"
+      ? "All processing stays in your browser. Files are not stored."
+      : "すべてブラウザ内処理・ファイルは保存されません";
 
   const basePath = locale === "en" ? "/en" : "";
 
@@ -53,10 +57,12 @@ export default function HomePage({ locale }: Props) {
               </h1>
 
               <p className="text-lg leading-8 text-gray-600">
-                {t.hero.description}</p>
-<div className="mt-4 inline-flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700 border border-green-200">
-  🔒 すべてブラウザ内処理・ファイルは保存されません
-</div>
+                {t.hero.description}
+              </p>
+              <div className="mt-4 inline-flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-700">
+                <span aria-hidden="true">🔒</span>
+                <span>{trustMessage}</span>
+              </div>
 
               <div className="flex flex-wrap gap-3">
                 <Link
@@ -75,7 +81,7 @@ export default function HomePage({ locale }: Props) {
               </div>
 
               <div className="grid gap-4 pt-6 sm:grid-cols-3">
-                {t.stats.map((stat, i) => (
+                {t.stats.map((stat) => (
                   <div
                     key={`${stat.value}-${stat.label}`}
                     className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition"
@@ -265,10 +271,12 @@ export default function HomePage({ locale }: Props) {
               </h1>
 
               <p className="text-sm leading-7 text-gray-600">
-                {t.hero.description}</p>
-<div className="mt-4 inline-flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700 border border-green-200">
-  🔒 すべてブラウザ内処理・ファイルは保存されません
-</div>
+                {t.hero.description}
+              </p>
+              <div className="mt-4 inline-flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-700">
+                <span aria-hidden="true">🔒</span>
+                <span>{trustMessage}</span>
+              </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <Link
@@ -287,7 +295,7 @@ export default function HomePage({ locale }: Props) {
               </div>
 
               <div className="grid grid-cols-3 gap-2 pt-2">
-                {t.stats.map((stat, i) => (
+                {t.stats.map((stat) => (
                   <div
                     key={`mobile-${stat.value}-${stat.label}`}
                     className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm"
