@@ -10,16 +10,36 @@ export type RelatedToolItem = {
   href: string;
 };
 
+export type ToolTextSection = {
+  title: string;
+  paragraphs: string[];
+};
+
+export type ToolListSection = {
+  title: string;
+  items: string[];
+};
+
+export type ToolComparisonItem = {
+  label: string;
+  value: string;
+};
+
 export type ToolPageContent = {
   title: string;
   description: string;
   aboutTitle: string;
   aboutText: string;
+  contentSections?: ToolTextSection[];
+  listSections?: ToolListSection[];
+  comparisonTitle?: string;
+  comparisonItems?: ToolComparisonItem[];
   stepsTitle: string;
   steps: string[];
   faqTitle: string;
   faqs: FAQItem[];
   relatedTools: RelatedToolItem[];
+  relatedToolsTitle?: string;
 };
 
 export type JpgToPngUiText = {

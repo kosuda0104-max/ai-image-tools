@@ -22,16 +22,36 @@ type RelatedToolItem = {
   href: string;
 };
 
+type ToolTextSection = {
+  title: string;
+  paragraphs: string[];
+};
+
+type ToolListSection = {
+  title: string;
+  items: string[];
+};
+
+type ToolComparisonItem = {
+  label: string;
+  value: string;
+};
+
 type SimplePageContent = {
   title: string;
   description: string;
   aboutTitle: string;
   aboutText: string;
+  contentSections?: ToolTextSection[];
+  listSections?: ToolListSection[];
+  comparisonTitle?: string;
+  comparisonItems?: ToolComparisonItem[];
   stepsTitle: string;
   steps: string[];
   faqTitle: string;
   faqs: FAQItem[];
   relatedTools: RelatedToolItem[];
+  relatedToolsTitle?: string;
 };
 
 export type SimpleImageConversionContent = {
@@ -45,6 +65,7 @@ export type SimpleImageConversionContent = {
     done: string;
     invalidFile: string;
     error: string;
+    resetButton?: string;
   };
 };
 
@@ -111,17 +132,27 @@ export default function SimpleImageConversionTool({
     }
   };
 
+  const reset = () => {
+    setFile(null);
+    setStatus("");
+  };
+
   return (
     <ToolPageLayout
       title={page.title}
       description={page.description}
       aboutTitle={page.aboutTitle}
       aboutText={page.aboutText}
+      contentSections={page.contentSections}
+      listSections={page.listSections}
+      comparisonTitle={page.comparisonTitle}
+      comparisonItems={page.comparisonItems}
       stepsTitle={page.stepsTitle}
       steps={page.steps}
       faqTitle={page.faqTitle}
       faqs={page.faqs}
       relatedTools={page.relatedTools}
+      relatedToolsTitle={page.relatedToolsTitle}
     >
       <FileDropzone
         file={file}
@@ -145,9 +176,20 @@ export default function SimpleImageConversionTool({
         </div>
       )}
 
-      <PrimaryButton onClick={convert} disabled={!file || loading}>
-        {loading ? ui.loading : ui.button}
-      </PrimaryButton>
+      <div className="flex flex-wrap gap-3">
+        <PrimaryButton onClick={convert} disabled={!file || loading}>
+          {loading ? ui.loading : ui.button}
+        </PrimaryButton>
+        {file ? (
+          <button
+            type="button"
+            onClick={reset}
+            className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+          >
+            {ui.resetButton ?? "Reset"}
+          </button>
+        ) : null}
+      </div>
 
       <StatusMessage status={status} />
     </ToolPageLayout>

@@ -55,90 +55,89 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
   ja: {
     badge: "AI Image Tools",
     hero: {
-      title: "無料で使える画像・PDF変換ツール",
+      title: "ブラウザで使える画像変換・PDFツール",
       description:
-        "JPG、PNG、WebP、GIF、PDFの変換や、画像圧縮・リサイズ・切り抜きができる無料ツール集です。すべてブラウザ上で処理するため、安全に利用できます。",
-      primaryButtonLabel: "すべてのツールを見る",
+        "JPG、PNG、WebP、HEIC、GIF、PDF などの変換や、画像圧縮、リサイズ、トリミングをブラウザ上で手早く進められる無料ツール集です。",
+      primaryButtonLabel: "ツール一覧を見る",
       secondaryButtonLabel: "お問い合わせ",
     },
     stats: [
-      {
-        value: "35ツール掲載",
-        label: "画像・PDFツールを公開中",
-      },
-      {
-        value: "無料",
-        label: "登録不要ですぐ使える",
-      },
-      {
-        value: "安全",
-        label: "ブラウザ内で処理",
-      },
+      { value: "35ツール掲載", label: "画像・PDFツールを公開中" },
+      { value: "無料", label: "登録不要ですぐ使える" },
+      { value: "安全", label: "ブラウザ内で処理" },
     ],
-    popularToolsTitle: "よく使うツール",
-    toolsPageLinkLabel: "一覧を見る →",
+    popularToolsTitle: "よく使われるツール",
+    toolsPageLinkLabel: "すべて見る",
     popularTools: [
       {
         name: "JPG to PNG",
         href: "/tools/jpg-to-png",
-        description: "JPG画像をPNG形式に変換します。",
+        description:
+          "写真の JPG を、編集しやすい PNG に変換したいときに使いやすい定番ツールです。",
       },
       {
         name: "PNG to JPG",
         href: "/tools/png-to-jpg",
-        description: "PNG画像をJPG形式に変換します。",
+        description:
+          "PNG を軽い JPG に変換して、共有やアップロードをしやすくします。",
       },
       {
         name: "Image Compress",
         href: "/tools/image-compress",
-        description: "画像を圧縮してファイルサイズを小さくします。",
+        description:
+          "画像の見た目を大きく崩さずにファイルサイズを抑えたいときに役立ちます。",
       },
       {
         name: "Resize Image",
         href: "/tools/resize-image",
-        description: "画像サイズを変更します。",
+        description:
+          "Web掲載、SNS投稿、資料添付向けに画像サイズを調整できます。",
       },
       {
         name: "PDF to JPG",
         href: "/tools/pdf-to-jpg",
-        description: "PDFをJPG画像に変換します。",
+        description:
+          "PDF の各ページを JPG に変換して、画像として扱いやすくします。",
       },
       {
         name: "Merge PDF",
         href: "/tools/merge-pdf",
-        description: "複数のPDFを1つに結合します。",
+        description:
+          "複数の PDF を 1 つにまとめて、提出や共有しやすい形に整えます。",
       },
     ],
     categories: [
       {
-        title: "画像変換",
-        description: "画像形式を別の形式へ変換できます。",
+        title: "画像形式変換",
+        description:
+          "JPG、PNG、WebP、HEIC などを別の形式へ変換したいときに使えるツールです。",
         tools: [
           {
             name: "JPG to PNG",
             href: "/tools/jpg-to-png",
-            description: "JPG画像をPNG形式に変換します。",
+            description: "JPG を PNG に変換します。",
           },
           {
             name: "PNG to JPG",
             href: "/tools/png-to-jpg",
-            description: "PNG画像をJPG形式に変換します。",
+            description: "PNG を JPG に変換します。",
           },
           {
             name: "WebP to JPG",
             href: "/tools/webp-to-jpg",
-            description: "WebP画像をJPG形式に変換します。",
+            description: "WebP を JPG に変換します。",
           },
           {
             name: "JPG to WebP",
             href: "/tools/jpg-to-webp",
-            description: "JPG画像をWebP形式に変換します。",
+            description: "JPG を WebP に変換します。",
           },
         ],
       },
       {
-        title: "画像加工",
-        description: "画像サイズ変更や圧縮などができます。",
+        title: "画像編集",
+        description:
+          "圧縮、サイズ変更、切り抜き、回転などの軽い編集をブラウザですぐ行えます。",
         tools: [
           {
             name: "Image Compress",
@@ -153,38 +152,39 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           {
             name: "Crop Image",
             href: "/tools/crop-image",
-            description: "画像を切り抜きます。",
+            description: "必要な範囲だけ切り抜きます。",
           },
           {
             name: "Rotate Image",
             href: "/tools/rotate-image",
-            description: "画像を回転します。",
+            description: "画像の向きを回転します。",
           },
         ],
       },
       {
-        title: "PDFツール",
-        description: "PDF変換や結合などができます。",
+        title: "PDF ツール",
+        description:
+          "PDF 変換、結合、分割、圧縮など、日常業務でよく使う PDF 作業をまとめています。",
         tools: [
           {
             name: "Image to PDF",
             href: "/tools/image-to-pdf",
-            description: "画像をPDFに変換します。",
+            description: "画像を PDF にまとめます。",
           },
           {
             name: "PDF to JPG",
             href: "/tools/pdf-to-jpg",
-            description: "PDFをJPG画像に変換します。",
+            description: "PDF を JPG 画像に変換します。",
           },
           {
             name: "PDF to PNG",
             href: "/tools/pdf-to-png",
-            description: "PDFをPNG画像に変換します。",
+            description: "PDF を PNG 画像に変換します。",
           },
           {
             name: "Merge PDF",
             href: "/tools/merge-pdf",
-            description: "PDFを結合します。",
+            description: "PDF を結合します。",
           },
         ],
       },
@@ -192,98 +192,88 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
     aboutSection: {
       title: "このサイトについて",
       paragraphs: [
-        "AI Image Toolsは、画像変換・画像加工・PDF変換をまとめて使える無料ツールサイトです。",
-        "軽量で使いやすい構成を意識し、よく使う形式変換から実用的な編集機能まで順次拡張しています。",
-        "個人利用でも仕事利用でも、すぐ使えるシンプルな操作感を目指しています。",
+        "AI Image Tools は、画像変換、画像編集、PDF 作業をブラウザだけで進められる無料ツールサイトです。",
+        "単にツールを並べるだけでなく、関連ツール、解説ページ、ポリシー情報も用意して、迷いにくい導線を意識しています。",
+        "検索で訪れた人にも、日常業務で使う人にも、必要な処理へすぐたどり着けることを目指しています。",
       ],
     },
     toolsSection: {
       title: "ツール一覧ページ",
       description:
-        "すべての画像変換ツール・画像加工ツール・PDFツールをカテゴリ別に探したい場合は、一覧ページから確認できます。",
+        "画像形式変換、画像編集、PDF ツールをカテゴリごとにまとめた一覧ページから、目的に合う処理を探せます。",
       buttonLabel: "ツール一覧へ",
     },
     faqSectionTitle: "よくある質問",
     faqItems: [
       {
-        question: "AI Image Toolsは無料で使えますか？",
+        question: "AI Image Tools は無料で使えますか？",
         answer:
-          "はい。現在公開している画像変換・画像加工・PDFツールは無料で使えます。",
+          "はい。公開中の画像変換、画像編集、PDF ツールは無料で使えます。",
       },
       {
         question: "アップロードしたファイルは安全ですか？",
         answer:
-          "はい。ツールはブラウザ内で処理する設計のため、ファイルを外部サーバーへ送信せずに使えます。",
+          "多くのツールはブラウザ内で処理する設計なので、外部サーバーへ送信せずに使える構成です。",
       },
       {
-        question: "どんなファイル形式に対応していますか？",
+        question: "どんな形式に対応していますか？",
         answer:
-          "JPG、PNG、WebP、GIF、PDFなどの形式に対応したツールを順次公開しています。",
+          "JPG、PNG、WebP、HEIC、GIF、AVIF、BMP、TIFF、ICO、SVG、PDF などに対応したツールがあります。",
       },
       {
-        question: "今後ツールは増えますか？",
+        question: "今後もツールは増えますか？",
         answer:
-          "はい。画像変換、画像加工、PDF関連の便利ツールを今後さらに追加予定です。",
+          "はい。既存ツールの改善に加えて、要望の多い形式変換や PDF ワークフローを順次追加していく予定です。",
       },
     ],
     contactSection: {
       title: "お問い合わせ",
       description:
-        "不具合の報告やツール追加の要望があれば、お問い合わせページからご連絡ください。",
+        "不具合報告、機能追加の要望、使い方の相談があればお問い合わせページから送れます。",
       buttonLabel: "お問い合わせページへ",
     },
   },
-
   en: {
     badge: "AI Image Tools",
     hero: {
       title: "Free Image and PDF Conversion Tools",
       description:
-        "A free collection of tools for converting JPG, PNG, WebP, GIF, and PDF files, plus image compression, resizing, and cropping. Everything runs in your browser, so you can use the tools safely.",
+        "A free collection of browser-based tools for converting JPG, PNG, WebP, HEIC, GIF, and PDF files, plus image compression, resizing, cropping, and other practical tasks.",
       primaryButtonLabel: "View All Tools",
       secondaryButtonLabel: "Contact",
     },
     stats: [
-      {
-        value: "35 Tools",
-        label: "Image and PDF tools available",
-      },
-      {
-        value: "Free",
-        label: "No signup required",
-      },
-      {
-        value: "Safe",
-        label: "Processed in your browser",
-      },
+      { value: "35 Tools", label: "Image and PDF tasks covered" },
+      { value: "Free", label: "No signup required" },
+      { value: "Safe", label: "Processed in your browser" },
     ],
     popularToolsTitle: "Popular Tools",
-    toolsPageLinkLabel: "View all →",
+    toolsPageLinkLabel: "View all",
     popularTools: [
       {
         name: "JPG to PNG",
         href: "/tools/jpg-to-png",
-        description: "Convert JPG images to PNG format.",
+        description: "Convert JPG images to PNG for editing-friendly output.",
       },
       {
         name: "PNG to JPG",
         href: "/tools/png-to-jpg",
-        description: "Convert PNG images to JPG format.",
+        description: "Convert PNG images to JPG for lighter sharing and uploads.",
       },
       {
         name: "Image Compress",
         href: "/tools/image-compress",
-        description: "Compress images to reduce file size.",
+        description: "Compress images to reduce file size directly in your browser.",
       },
       {
         name: "Resize Image",
         href: "/tools/resize-image",
-        description: "Resize an image.",
+        description: "Resize images for web, documents, and social media.",
       },
       {
         name: "PDF to JPG",
         href: "/tools/pdf-to-jpg",
-        description: "Convert PDF files to JPG images.",
+        description: "Convert PDF pages into JPG images.",
       },
       {
         name: "Merge PDF",
@@ -320,7 +310,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       },
       {
         title: "Image Editing",
-        description: "Resize, compress, and edit images.",
+        description: "Resize, compress, and edit images in a lightweight workflow.",
         tools: [
           {
             name: "Image Compress",
@@ -346,7 +336,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       },
       {
         title: "PDF Tools",
-        description: "Convert and merge PDF files.",
+        description: "Convert and reorganize PDF files.",
         tools: [
           {
             name: "Image to PDF",
@@ -374,15 +364,15 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
     aboutSection: {
       title: "About This Site",
       paragraphs: [
-        "AI Image Tools is a free website for image conversion, image editing, and PDF conversion.",
-        "It is designed to be lightweight and easy to use, with both common format conversions and practical editing features.",
-        "The goal is to provide a simple workflow that is easy to use for both personal and work purposes.",
+        "AI Image Tools is a free browser-based site for image conversion, image editing, and PDF workflows.",
+        "The site is designed to be practical, lightweight, and easy to navigate for both personal and work-related tasks.",
+        "In addition to tools, the site includes guides, related links, and support pages to make the overall workflow easier to understand.",
       ],
     },
     toolsSection: {
       title: "Tools List Page",
       description:
-        "If you want to browse all image conversion, image editing, and PDF tools by category, check the tools list page.",
+        "If you want to browse all image conversion, image editing, and PDF tools by category, visit the tools list page.",
       buttonLabel: "Go to Tools List",
     },
     faqSectionTitle: "Frequently Asked Questions",
@@ -395,17 +385,17 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       {
         question: "Are uploaded files safe?",
         answer:
-          "Yes. The tools are designed to process files in your browser, so files are not sent to an external server.",
+          "Yes. Most tools are designed to process files in your browser, so files are not sent to an external server.",
       },
       {
         question: "What file formats are supported?",
         answer:
-          "Tools supporting formats such as JPG, PNG, WebP, GIF, and PDF are being published gradually.",
+          "Tools supporting JPG, PNG, WebP, HEIC, GIF, AVIF, BMP, TIFF, ICO, SVG, and PDF workflows are available.",
       },
       {
         question: "Will more tools be added later?",
         answer:
-          "Yes. More useful image conversion, image editing, and PDF tools are planned for the future.",
+          "Yes. The site will continue to improve existing tools and add new workflows over time.",
       },
     ],
     contactSection: {

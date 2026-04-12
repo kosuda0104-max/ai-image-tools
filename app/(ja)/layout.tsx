@@ -4,9 +4,11 @@ import Link from "next/link";
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
+const siteDescription =
+  "ブラウザで使える無料の画像変換・画像編集・PDF ツール集です。JPG、PNG、WebP、HEIC、PDF などの変換や圧縮、リサイズ、切り抜き、結合をすばやく行えます。";
+
 export const metadata: Metadata = {
-  description:
-    "無料で使える画像・PDF変換ツール集。JPG、PNG、WebP、PDFの変換や、画像圧縮・リサイズ・切り抜きなどをブラウザ上で安全に利用できます。",
+  description: siteDescription,
   alternates: {
     languages: {
       ja: "/",
@@ -15,8 +17,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "AI Image Tools",
-    description:
-      "無料で使える画像・PDF変換ツール集。JPG、PNG、WebP、PDFの変換や、画像圧縮・リサイズ・切り抜きなどをブラウザ上で安全に利用できます。",
+    description: siteDescription,
     url: siteUrl,
     siteName: "AI Image Tools",
     images: [
@@ -33,8 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "AI Image Tools",
-    description:
-      "無料で使える画像・PDF変換ツール集。JPG、PNG、WebP、PDFの変換や、画像圧縮・リサイズ・切り抜きなどをブラウザ上で安全に利用できます。",
+    description: siteDescription,
     images: ["/og.png"],
   },
 };
@@ -47,23 +47,29 @@ export default function JaLayout({
   return (
     <>
       <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-4">
           <Link href="/" className="font-bold">
             AI Image Tools
           </Link>
 
-          <nav className="flex gap-4 text-sm">
+          <nav className="flex flex-wrap gap-4 text-sm">
             <Link className="hover:underline" href="/tools/jpg-to-png">
-              JPG→PNG
+              JPG to PNG
             </Link>
             <Link className="hover:underline" href="/tools/png-to-jpg">
-              PNG→JPG
+              PNG to JPG
             </Link>
             <Link className="hover:underline" href="/tools/image-compress">
-              圧縮
+              画像圧縮
             </Link>
             <Link className="hover:underline" href="/tools">
               ツール一覧
+            </Link>
+            <Link className="hover:underline" href="/guides">
+              ガイド
+            </Link>
+            <Link className="hover:underline" href="/about">
+              このサイトについて
             </Link>
             <Link className="font-semibold hover:underline" href="/en">
               EN
@@ -72,38 +78,52 @@ export default function JaLayout({
         </div>
       </header>
 
-      <div className="mx-auto max-w-5xl px-6 py-8">{children}</div>
+      <div className="mx-auto max-w-6xl px-6 py-8">{children}</div>
 
       <footer className="border-t border-gray-200 bg-gray-50">
-        <div className="mx-auto max-w-5xl px-6 py-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="text-sm text-gray-600">
-              © {new Date().getFullYear()} AI Image Tools
+        <div className="mx-auto max-w-6xl px-6 py-8">
+          <div className="space-y-5">
+            <div className="max-w-3xl space-y-2">
+              <div className="text-sm font-semibold text-gray-900">
+                AI Image Tools
+              </div>
+              <p className="text-sm leading-7 text-gray-600">
+                小須田が運営する、画像変換、画像編集、PDF ワークフロー向けの無料ツールサイトです。ツール本体だけでなく、ガイド、問い合わせ、ポリシー情報も公開し、使い方と運営方針が分かる状態を目指しています。
+              </p>
             </div>
 
-            <nav className="flex flex-wrap gap-4 text-sm text-gray-600">
-              <Link
-                href="/contact"
-                className="hover:text-black hover:underline"
-              >
-                Contact
-              </Link>
-              <Link
-                href="/privacy-policy"
-                className="hover:text-black hover:underline"
-              >
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="hover:text-black hover:underline">
-                Terms
-              </Link>
-              <Link href="/tools" className="hover:text-black hover:underline">
-                Tools
-              </Link>
-              <Link href="/en" className="hover:text-black hover:underline">
-                English
-              </Link>
-            </nav>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="text-sm text-gray-600">
+                Copyright {new Date().getFullYear()} AI Image Tools
+              </div>
+
+              <nav className="flex flex-wrap gap-4 text-sm text-gray-600">
+                <Link href="/about" className="hover:text-black hover:underline">
+                  このサイトについて
+                </Link>
+                <Link href="/guides" className="hover:text-black hover:underline">
+                  ガイド
+                </Link>
+                <Link href="/contact" className="hover:text-black hover:underline">
+                  お問い合わせ
+                </Link>
+                <Link
+                  href="/privacy-policy"
+                  className="hover:text-black hover:underline"
+                >
+                  プライバシーポリシー
+                </Link>
+                <Link href="/terms" className="hover:text-black hover:underline">
+                  利用規約
+                </Link>
+                <Link href="/tools" className="hover:text-black hover:underline">
+                  ツール一覧
+                </Link>
+                <Link href="/en" className="hover:text-black hover:underline">
+                  English
+                </Link>
+              </nav>
+            </div>
           </div>
         </div>
       </footer>

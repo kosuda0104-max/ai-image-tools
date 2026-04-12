@@ -31,7 +31,9 @@ describe("main image tools", () => {
       target: { files: [pngFile] },
     });
 
-    expect(screen.getByText("sample.png")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Convert PNG to JPG" })).toBeEnabled();
+    expect(screen.getAllByText("sample.png").length).toBeGreaterThan(0);
+    expect(
+      screen.getByRole("button", { name: "Convert PNG to JPG" })
+    ).toBeEnabled();
   });
 });

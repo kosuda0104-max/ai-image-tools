@@ -19,16 +19,36 @@ type RelatedToolItem = {
   href: string;
 };
 
+type ToolTextSection = {
+  title: string;
+  paragraphs: string[];
+};
+
+type ToolListSection = {
+  title: string;
+  items: string[];
+};
+
+type ToolComparisonItem = {
+  label: string;
+  value: string;
+};
+
 type PageContent = {
   title: string;
   description: string;
   aboutTitle: string;
   aboutText: string;
+  contentSections?: ToolTextSection[];
+  listSections?: ToolListSection[];
+  comparisonTitle?: string;
+  comparisonItems?: ToolComparisonItem[];
   stepsTitle: string;
   steps: string[];
   faqTitle: string;
   faqs: FAQItem[];
   relatedTools: RelatedToolItem[];
+  relatedToolsTitle?: string;
 };
 
 type UIContent = {
@@ -66,13 +86,65 @@ const content: Record<Locale, ToolContent> = {
   ja: {
     page: {
       title: "HEICをJPGに変換",
-      description: "HEIC画像をJPG形式に変換できる無料オンラインツールです。",
+      description:
+        "HEIC画像をJPG形式に変換できる無料オンラインツールです。iPhone写真を共有しやすいJPGへ、ブラウザだけで安全に変換できます。",
       aboutTitle: "HEICをJPGに変換とは？",
       aboutText:
-        "HEIC画像をJPG形式に変換できる無料オンラインツールです。iPhoneで撮影した写真を、より互換性の高いJPG形式へ変換したいときに便利です。ブラウザ上で処理するためアップロード不要で、安全かつ簡単に利用できます。",
+        "HEICをJPGに変換すると、iPhoneやApple製デバイスで撮影した写真を、より多くのアプリやサービスで扱いやすい形式にできます。メール添付、Webアップロード、資料作成、画像編集ソフトへの取り込みなど、互換性が必要な場面で特に便利です。",
+      contentSections: [
+        {
+          title: "HEICをJPGに変換したい代表例",
+          paragraphs: [
+            "iPhone写真をWindowsで開きたいとき、Webフォームにアップロードしたいとき、取引先や同僚に送りたいとき、対応アプリが限られる環境で画像を使いたいときに役立ちます。",
+            "HEICのまま保存効率を活かす使い方もありますが、共有先や提出先が幅広いほどJPGのほうがトラブルを避けやすいです。",
+          ],
+        },
+        {
+          title: "このツールが向いているユーザー",
+          paragraphs: [
+            "iPhoneユーザー、Web担当者、営業資料や報告書に画像を貼ることが多い人、画像提出のフォーマット指定がある人に向いています。",
+            "とくに、HEICに対応していないCMSやチャットツール、社内システムを使っている場合に効果を感じやすいです。",
+          ],
+        },
+      ],
+      listSections: [
+        {
+          title: "変換前に知っておきたいこと",
+          items: [
+            "JPGは互換性が高い一方、HEICよりファイルサイズが大きくなることがあります。",
+            "繰り返し編集する予定なら、元のHEICファイルも残しておくと安心です。",
+            "写真をさらに軽くしたい場合は、JPG変換後に画像圧縮を使うと効果的です。",
+            "Live Photos などの特殊情報は静止画として扱われる場合があります。",
+          ],
+        },
+      ],
+      comparisonTitle: "HEICとJPGの比較",
+      comparisonItems: [
+        {
+          label: "互換性",
+          value:
+            "JPGは多くのアプリやサービスで標準的に使えます。HEICはApple系では扱いやすい一方、環境によっては対応差があります。",
+        },
+        {
+          label: "ファイルサイズ",
+          value:
+            "HEICは高画質のまま軽く保存しやすい形式です。JPGは互換性重視で使われることが多いです。",
+        },
+        {
+          label: "共有のしやすさ",
+          value:
+            "メール添付、Webアップロード、資料作成ではJPGのほうが無難な場面が多いです。",
+        },
+        {
+          label: "おすすめ用途",
+          value:
+            "保存効率重視ならHEIC、提出や共有や一般利用ならJPGが向いています。",
+        },
+      ],
       stepsTitle: "使い方",
       steps: [
         "HEIC画像をアップロードします",
+        "画像情報を確認します",
         "「HEICをJPGに変換」ボタンを押します",
         "変換後のJPG画像をダウンロードします"
       ],
@@ -81,6 +153,11 @@ const content: Record<Locale, ToolContent> = {
         {
           question: "iPhoneの写真も変換できますか？",
           answer: "はい。HEIC形式のiPhone写真をJPGへ変換できます。"
+        },
+        {
+          question: "なぜHEICをJPGに変換するのですか？",
+          answer:
+            "JPGのほうが対応アプリや共有先が多く、画像提出やアップロードで失敗しにくいためです。"
         },
         {
           question: "インストールは必要ですか？",
@@ -97,9 +174,11 @@ const content: Record<Locale, ToolContent> = {
             "はい。このツールはブラウザ上で処理されるため、画像ファイルは外部サーバーにアップロードされません。"
         }
       ],
+      relatedToolsTitle: "一緒に使いやすい関連ツール",
       relatedTools: [
-        { name: "JPGをPNGに変換", href: "/tools/jpg-to-png" },
         { name: "PNGをJPGに変換", href: "/tools/png-to-jpg" },
+        { name: "画像圧縮", href: "/tools/image-compress" },
+        { name: "JPGをPNGに変換", href: "/tools/jpg-to-png" },
         { name: "AVIFをJPGに変換", href: "/tools/avif-to-jpg" }
       ]
     },
@@ -122,13 +201,65 @@ const content: Record<Locale, ToolContent> = {
   en: {
     page: {
       title: "HEIC to JPG Converter",
-      description: "Convert HEIC images to JPG format online for free.",
+      description:
+        "Convert HEIC images to JPG online for free. This is especially useful for making iPhone photos easier to open, share, and upload.",
       aboutTitle: "What is HEIC to JPG Converter?",
       aboutText:
-        "This free HEIC to JPG converter lets you convert images directly in your browser. It is useful for converting iPhone photos into the more widely supported JPG format. No upload is required, so the process is secure and easy to use.",
+        "A HEIC to JPG converter helps you turn iPhone and Apple device photos into a format that works more reliably across apps, websites, office workflows, and upload forms. JPG is still one of the most widely accepted image formats, so converting can remove compatibility friction quickly.",
+      contentSections: [
+        {
+          title: "When HEIC to JPG is most useful",
+          paragraphs: [
+            "Use it when you need to upload iPhone photos to a website, attach them to email, add them to documents, or share them with people using software that does not fully support HEIC.",
+            "It is also useful when your client, form, CMS, or internal workflow explicitly asks for JPG files.",
+          ],
+        },
+        {
+          title: "Who benefits from this tool",
+          paragraphs: [
+            "This is especially useful for iPhone users, office teams, marketers, support staff, and anyone moving photos between Apple devices and mixed software environments.",
+            "If compatibility matters more than storage efficiency, JPG is usually the safer delivery format.",
+          ],
+        },
+      ],
+      listSections: [
+        {
+          title: "Things to know before converting",
+          items: [
+            "JPG may be larger than HEIC for the same photo.",
+            "If you may need the original later, keep the HEIC file as your master copy.",
+            "If you want smaller JPG files afterward, you can run image compression as a second step.",
+            "Special photo behaviors such as Live Photo context are not preserved as rich media in a simple JPG export.",
+          ],
+        },
+      ],
+      comparisonTitle: "HEIC vs JPG",
+      comparisonItems: [
+        {
+          label: "Compatibility",
+          value:
+            "JPG is accepted by far more apps, websites, and office tools. HEIC can be excellent but still hits compatibility gaps.",
+        },
+        {
+          label: "Storage efficiency",
+          value:
+            "HEIC is often more efficient for storing high-quality photos. JPG is more about broad usability.",
+        },
+        {
+          label: "Best use",
+          value:
+            "Keep HEIC when storage matters and your workflow supports it. Convert to JPG when sharing or submitting files widely.",
+        },
+        {
+          label: "Typical workflow",
+          value:
+            "Many users keep original HEIC files for backup and create JPG copies only when needed for uploads or sharing.",
+        },
+      ],
       stepsTitle: "How to Use",
       steps: [
         "Upload a HEIC image",
+        "Check the file details",
         "Click the Convert HEIC to JPG button",
         "Download the converted JPG image"
       ],
@@ -137,6 +268,11 @@ const content: Record<Locale, ToolContent> = {
         {
           question: "Can I convert iPhone photos?",
           answer: "Yes. This tool can convert HEIC photos from iPhone to JPG."
+        },
+        {
+          question: "Why convert HEIC to JPG?",
+          answer:
+            "JPG is easier to upload, share, and open in many apps and services, especially outside Apple-focused workflows."
         },
         {
           question: "Do I need to install anything?",
@@ -153,9 +289,11 @@ const content: Record<Locale, ToolContent> = {
             "Yes. This tool works entirely in your browser, so your image files are not uploaded to any external server."
         }
       ],
+      relatedToolsTitle: "Related tools people often use next",
       relatedTools: [
-        { name: "JPG to PNG", href: "/en/tools/jpg-to-png" },
         { name: "PNG to JPG", href: "/en/tools/png-to-jpg" },
+        { name: "Image Compress", href: "/en/tools/image-compress" },
+        { name: "JPG to PNG", href: "/en/tools/jpg-to-png" },
         { name: "AVIF to JPG", href: "/en/tools/avif-to-jpg" }
       ]
     },
@@ -246,11 +384,16 @@ export default function HeicToJpgTool({ locale }: Props) {
       description={page.description}
       aboutTitle={page.aboutTitle}
       aboutText={page.aboutText}
+      contentSections={page.contentSections}
+      listSections={page.listSections}
+      comparisonTitle={page.comparisonTitle}
+      comparisonItems={page.comparisonItems}
       stepsTitle={page.stepsTitle}
       steps={page.steps}
       faqTitle={page.faqTitle}
       faqs={page.faqs}
       relatedTools={page.relatedTools}
+      relatedToolsTitle={page.relatedToolsTitle}
     >
       <div className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <FileDropzone

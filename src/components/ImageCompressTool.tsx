@@ -19,16 +19,36 @@ type RelatedToolItem = {
   href: string;
 };
 
+type ToolTextSection = {
+  title: string;
+  paragraphs: string[];
+};
+
+type ToolListSection = {
+  title: string;
+  items: string[];
+};
+
+type ToolComparisonItem = {
+  label: string;
+  value: string;
+};
+
 type PageContent = {
   title: string;
   description: string;
   aboutTitle: string;
   aboutText: string;
+  contentSections?: ToolTextSection[];
+  listSections?: ToolListSection[];
+  comparisonTitle?: string;
+  comparisonItems?: ToolComparisonItem[];
   stepsTitle: string;
   steps: string[];
   faqTitle: string;
   faqs: FAQItem[];
   relatedTools: RelatedToolItem[];
+  relatedToolsTitle?: string;
 };
 
 type UIContent = {
@@ -84,6 +104,56 @@ const content: Record<Locale, ToolContent> = {
       aboutTitle: "画像圧縮ツールとは？",
       aboutText:
         "画像圧縮ツールは、JPG・PNG・WebP画像のファイルサイズを小さくできる無料オンラインツールです。ブログ掲載用の画像、ECサイトの商品画像、SNS投稿画像、ポートフォリオ画像などを軽量化することで、表示速度の改善やアップロード時間の短縮に役立ちます。処理はブラウザ上で完結するため、画像ファイルを外部サーバーへアップロードせずに安全に利用できます。",
+      contentSections: [
+        {
+          title: "画像圧縮が役立つ場面",
+          paragraphs: [
+            "記事用の画像でページ表示を速くしたいとき、ECサイトの商品画像を軽量化したいとき、メール添付やチャット送信をしやすくしたいときに役立ちます。",
+            "ポートフォリオやスライド資料に入れる画像、SNS投稿用の画像、広告入稿用の素材など、容量制限や表示速度が気になる場面では特に効果を感じやすいです。",
+          ],
+        },
+        {
+          title: "圧縮方法の考え方",
+          paragraphs: [
+            "JPGやWebPでは品質スライダーを少し下げるだけでも容量が大きく減ることがあります。PNGは構造上、写真よりも図版や透過素材向きなので、画像の内容によって削減率が変わります。",
+            "まずは元画像を保管したうえで、品質80前後から試し、見た目とサイズのバランスを確認しながら調整するのがおすすめです。",
+          ],
+        },
+      ],
+      listSections: [
+        {
+          title: "失敗しにくくするコツ",
+          items: [
+            "文字が多い画像は強く圧縮しすぎるとにじみやすいです。",
+            "商品画像や人物写真は、品質70〜85あたりから試すとバランスを取りやすいです。",
+            "PNGは圧縮だけではあまり軽くならない場合があるため、必要に応じて JPG や WebP への変換も検討すると効果的です。",
+            "公開前の最終調整として、リサイズと圧縮を組み合わせるとさらに軽くできます。",
+          ],
+        },
+      ],
+      comparisonTitle: "出力形式ごとの特徴",
+      comparisonItems: [
+        {
+          label: "元の形式のまま圧縮",
+          value:
+            "元の見た目や運用フローを大きく変えたくない場合に向いています。まずはここから試すのが安全です。",
+        },
+        {
+          label: "JPGに変換して圧縮",
+          value:
+            "写真の容量を軽くしたいときに向いています。透過は保持されません。",
+        },
+        {
+          label: "WebPに変換して圧縮",
+          value:
+            "Web掲載向けにより軽量化を狙いたい場合に有効です。対応環境は十分広がっていますが、提出先の仕様は確認すると安心です。",
+        },
+        {
+          label: "PNGとして出力",
+          value:
+            "図版や透過画像を扱いたい場合に便利ですが、容量はあまり下がらないこともあります。",
+        },
+      ],
       stepsTitle: "使い方",
       steps: [
         "画像ファイルをアップロードします",
@@ -121,6 +191,7 @@ const content: Record<Locale, ToolContent> = {
         { name: "画像回転", href: "/tools/rotate-image" },
         { name: "JPGをWebPに変換", href: "/tools/jpg-to-webp" },
       ],
+      relatedToolsTitle: "圧縮と一緒に使いやすい関連ツール",
     },
     ui: {
       emptyTitle: "画像をドラッグ＆ドロップ、または選択",
@@ -168,6 +239,56 @@ const content: Record<Locale, ToolContent> = {
       aboutTitle: "What is Image Compressor?",
       aboutText:
         "This free image compressor helps you reduce the file size of JPG, PNG, and WebP images directly in your browser. It is useful for blog images, ecommerce product images, social media assets, portfolio screenshots, and other web graphics. Smaller files can improve page speed, reduce upload time, and save storage space. Since processing happens locally in your browser, your files are not uploaded to an external server.",
+      contentSections: [
+        {
+          title: "When image compression helps most",
+          paragraphs: [
+            "Compression is especially helpful for blog images, ecommerce product photos, portfolio screenshots, slide decks, social media assets, and any upload where speed or file limits matter.",
+            "Smaller files can improve page speed, shorten upload time, reduce storage usage, and make image-heavy pages feel much faster.",
+          ],
+        },
+        {
+          title: "How to choose the right approach",
+          paragraphs: [
+            "For photos, lowering quality a little often saves a lot of space with only a small visual tradeoff. For PNG graphics, size savings can be more limited depending on the image structure.",
+            "A practical starting point is quality 80, then move downward only if the result still looks good at the size people will actually view.",
+          ],
+        },
+      ],
+      listSections: [
+        {
+          title: "Tips for better results",
+          items: [
+            "Do not over-compress text-heavy images, because small text and sharp edges can degrade quickly.",
+            "Product shots and portraits often work well in the 70 to 85 quality range.",
+            "If PNG files barely shrink, try converting to JPG or WebP instead.",
+            "Combining resize and compression often gives a much better result than compression alone.",
+          ],
+        },
+      ],
+      comparisonTitle: "Output format tradeoffs",
+      comparisonItems: [
+        {
+          label: "Keep original format",
+          value:
+            "Best when you want a safer first pass without changing the overall workflow or file type.",
+        },
+        {
+          label: "Convert to JPG",
+          value:
+            "Usually a strong choice for photos and general lightweight sharing. Transparency is lost.",
+        },
+        {
+          label: "Convert to WebP",
+          value:
+            "Often the most efficient choice for web delivery when compatibility requirements allow it.",
+        },
+        {
+          label: "Export as PNG",
+          value:
+            "Useful for graphics or transparency, but often less effective for aggressive file-size reduction.",
+        },
+      ],
       stepsTitle: "How to Use",
       steps: [
         "Upload an image file",
@@ -205,6 +326,7 @@ const content: Record<Locale, ToolContent> = {
         { name: "Rotate Image", href: "/en/tools/rotate-image" },
         { name: "JPG to WebP", href: "/en/tools/jpg-to-webp" },
       ],
+      relatedToolsTitle: "Related tools that pair well with compression",
     },
     ui: {
       emptyTitle: "Drag and drop an image here, or select a file",
@@ -496,11 +618,16 @@ export default function ImageCompressTool({ locale }: Props) {
       description={page.description}
       aboutTitle={page.aboutTitle}
       aboutText={page.aboutText}
+      contentSections={page.contentSections}
+      listSections={page.listSections}
+      comparisonTitle={page.comparisonTitle}
+      comparisonItems={page.comparisonItems}
       stepsTitle={page.stepsTitle}
       steps={page.steps}
       faqTitle={page.faqTitle}
       faqs={page.faqs}
       relatedTools={page.relatedTools}
+      relatedToolsTitle={page.relatedToolsTitle}
     >
       <div className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <FileDropzone

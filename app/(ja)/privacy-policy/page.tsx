@@ -1,63 +1,39 @@
+import StaticContentPage from "@/src/components/StaticContentPage";
+
 export const metadata = {
   title: "プライバシーポリシー | AI Image Tools",
-  description: "AI Image Toolsのプライバシーポリシー",
+  description: "AI Image Tools のプライバシーポリシーです。",
 };
 
-export default function PrivacyPolicy() {
+export default function Page() {
   return (
-    <main className="min-h-screen bg-white">
-
-      <section className="mx-auto max-w-4xl px-4 py-16">
-        <h1 className="text-4xl font-bold text-gray-900">
-          プライバシーポリシー
-        </h1>
-
-        <div className="mt-8 space-y-6 text-gray-600 leading-7">
-
-          <p>
-            AI Image Tools（以下「当サイト」）では、ユーザーのプライバシーを尊重し、
-            個人情報の保護に努めます。
-          </p>
-
-          <h2 className="text-xl font-semibold text-gray-900">
-            個人情報の利用目的
-          </h2>
-
-          <p>
-            当サイトではお問い合わせの際に名前やメールアドレスなどの
-            個人情報をご入力いただく場合があります。
-          </p>
-
-          <h2 className="text-xl font-semibold text-gray-900">
-            広告について
-          </h2>
-
-          <p>
-            当サイトではGoogle AdSenseなどの第三者配信の広告サービスを
-            利用する場合があります。
-          </p>
-
-          <h2 className="text-xl font-semibold text-gray-900">
-            Cookieについて
-          </h2>
-
-          <p>
-            当サイトではアクセス解析や広告配信のためにCookieを使用することがあります。
-          </p>
-
-          <h2 className="text-xl font-semibold text-gray-900">
-            免責事項
-          </h2>
-
-          <p>
-            当サイトの情報によって生じた損害について、
-            一切の責任を負いかねますのでご了承ください。
-          </p>
-
-        </div>
-
-      </section>
-
-    </main>
+    <StaticContentPage
+      locale="ja"
+      title="プライバシーポリシー"
+      description="AI Image Tools における、アクセス情報、広告、解析、問い合わせ時の情報の取り扱いについて記載しています。"
+      sections={[
+        {
+          title: "取得する情報について",
+          paragraphs: [
+            "本サイトでは、アクセス状況の把握やサービス改善のために、閲覧に関する基本的な情報を収集する場合があります。",
+            "お問い合わせ時には、返信や内容確認のために、氏名、メールアドレス、メッセージ内容などの情報を受け取ることがあります。",
+          ],
+        },
+        {
+          title: "広告と解析について",
+          paragraphs: [
+            "本サイトでは、第三者配信の広告サービスやアクセス解析ツールを利用する場合があります。",
+            "これらのサービスでは、利便性向上や広告最適化のために Cookie などの技術が使われることがあります。",
+          ],
+        },
+        {
+          title: "免責事項",
+          paragraphs: [
+            "本サイトの内容や提供するツールについて、正確性、完全性、特定目的への適合性を常に保証するものではありません。",
+            "本サイトの利用または利用不能によって生じた損害について、運営者は責任を負いません。",
+          ],
+        },
+      ]}
+    />
   );
 }

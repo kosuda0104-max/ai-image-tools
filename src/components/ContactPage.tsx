@@ -15,6 +15,7 @@ const content = {
     heading: "お問い合わせ",
     subtext:
       "不具合の報告、機能追加の要望、その他ご相談があれば、以下のフォームからお気軽にご連絡ください。",
+    note: "内容を確認のうえ、必要に応じて改善や返信に活用します。営業目的の送信はご遠慮ください。",
     name: "お名前",
     email: "メールアドレス",
     tool: "対象ツール",
@@ -34,6 +35,7 @@ const content = {
     heading: "Contact",
     subtext:
       "If you have any bug reports, feature requests, or other questions, please contact us using the form below.",
+    note: "Messages are reviewed for support and product improvement. Please avoid sending sales outreach through this form.",
     name: "Name",
     email: "Email",
     tool: "Tool",
@@ -110,6 +112,7 @@ export default function ContactPage({ locale }: Props) {
             <h1 className="text-4xl font-bold text-gray-900">{t.heading}</h1>
 
             <p className="text-lg text-gray-600">{t.subtext}</p>
+            <p className="text-sm leading-7 text-gray-500">{t.note}</p>
           </div>
         </div>
       </section>
