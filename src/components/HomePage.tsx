@@ -131,7 +131,7 @@ export default function HomePage({ locale }: Props) {
         ];
 
   return (
-    <main className="min-h-screen bg-transparent">
+    <main className="min-h-screen bg-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -139,23 +139,21 @@ export default function HomePage({ locale }: Props) {
 
       {/* PC */}
       <div className="hidden md:block">
-        <section className="border-b border-stone-200/70 bg-transparent">
+        <section className="border-b border-gray-200 bg-white">
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-            <div className="relative overflow-hidden rounded-[2rem] border border-stone-200/80 bg-[linear-gradient(135deg,rgba(255,253,250,0.98),rgba(240,245,255,0.9))] px-8 py-10 shadow-[0_24px_80px_-40px_rgba(22,32,51,0.35)]">
-              <div className="absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top_left,rgba(31,94,255,0.14),transparent_58%),radial-gradient(circle_at_top_right,rgba(31,122,92,0.14),transparent_44%)]" />
-              <div className="relative max-w-3xl space-y-6">
-              <span className="inline-flex rounded-full border border-stone-200 bg-white/90 px-3 py-1 text-sm text-slate-600 shadow-sm">
+            <div className="max-w-3xl space-y-6">
+              <span className="inline-flex rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-600">
                 {t.badge}
               </span>
 
-              <h1 className="text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                 {t.hero.title}
               </h1>
 
-              <p className="text-lg leading-8 text-slate-600">
+              <p className="text-lg leading-8 text-gray-600">
                 {t.hero.description}
               </p>
-              <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50/90 px-4 py-2 text-sm text-emerald-800 shadow-sm">
+              <div className="mt-4 inline-flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-700">
                 <span aria-hidden="true">🔒</span>
                 <span>{trustMessage}</span>
               </div>
@@ -163,14 +161,14 @@ export default function HomePage({ locale }: Props) {
               <div className="flex flex-wrap gap-3">
                 <Link
                   href={`${basePath}/tools`}
-                  className="inline-flex rounded-xl bg-[linear-gradient(135deg,#1f5eff,#2850c4)] px-5 py-3 text-sm font-medium text-white shadow-[0_18px_30px_-18px_rgba(31,94,255,0.9)] transition hover:-translate-y-0.5 hover:opacity-95"
+                  className="inline-flex rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-3 text-sm font-medium text-white hover:opacity-90"
                 >
                   {t.hero.primaryButtonLabel}
                 </Link>
 
                 <Link
                   href={contactHref}
-                  className="inline-flex rounded-xl border border-stone-300 bg-white/90 px-5 py-3 text-sm font-medium text-slate-800 transition hover:-translate-y-0.5 hover:bg-stone-50"
+                  className="inline-flex rounded-xl border border-gray-300 bg-white px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50"
                 >
                   {t.hero.secondaryButtonLabel}
                 </Link>
@@ -180,16 +178,13 @@ export default function HomePage({ locale }: Props) {
                 {t.stats.map((stat) => (
                   <div
                     key={`${stat.value}-${stat.label}`}
-                    className="rounded-2xl border border-stone-200 bg-white/90 p-5 shadow-[0_16px_30px_-24px_rgba(22,32,51,0.55)] transition hover:-translate-y-0.5 hover:shadow-[0_24px_40px_-26px_rgba(22,32,51,0.55)]"
+                    className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-md"
                   >
-                    <div className="text-2xl font-bold text-slate-950">
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-slate-600">{stat.label}</div>
+                    <div className="text-2xl font-bold">{stat.value}</div>
+                    <div className="text-sm text-gray-600">{stat.label}</div>
                   </div>
                 ))}
               </div>
-            </div>
             </div>
           </div>
         </section>

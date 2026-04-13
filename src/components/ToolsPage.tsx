@@ -221,26 +221,23 @@ export default function ToolsPage({ locale }: Props) {
   };
 
   return (
-    <main className="min-h-screen bg-transparent">
+    <main className="min-h-screen bg-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
 
       <div className="hidden md:block">
-        <section className="border-b border-stone-200/70 bg-transparent">
+        <section className="border-b border-gray-200 bg-white">
           <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
-            <div className="relative overflow-hidden rounded-[2rem] border border-stone-200/80 bg-[linear-gradient(135deg,rgba(255,253,250,0.98),rgba(240,245,255,0.9))] px-8 py-10 shadow-[0_24px_80px_-40px_rgba(22,32,51,0.35)]">
-              <div className="absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top_left,rgba(31,94,255,0.14),transparent_58%),radial-gradient(circle_at_top_right,rgba(31,122,92,0.14),transparent_44%)]" />
-              <div className="relative max-w-3xl space-y-6">
-              <span className="inline-flex rounded-full border border-stone-200 bg-white/90 px-3 py-1 text-sm text-slate-600 shadow-sm">
+            <div className="max-w-3xl space-y-6">
+              <span className="inline-flex rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-600">
                 {t.badge}
               </span>
 
-              <h1 className="text-4xl font-bold text-slate-950">{t.hero.title}</h1>
+              <h1 className="text-4xl font-bold text-gray-900">{t.hero.title}</h1>
 
-              <p className="text-lg leading-8 text-slate-600">{t.hero.description}</p>
-              </div>
+              <p className="text-lg text-gray-600">{t.hero.description}</p>
             </div>
           </div>
         </section>
