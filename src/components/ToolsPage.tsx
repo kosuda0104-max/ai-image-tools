@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -165,13 +165,13 @@ export default function ToolsPage({ locale }: Props) {
         }
       : {
           searchPlaceholder: "ツールを検索...",
-          sortLabel: "並び替え",
+          sortLabel: "並び順",
           sortDefault: "おすすめ順",
           sortPopular: "人気順",
           sortName: "名前順",
           more: "もっと見る",
-          less: "閉じる",
-          noResults: "一致するツールが見つかりませんでした。",
+          less: "表示を減らす",
+          noResults: "検索条件に一致するツールが見つかりませんでした。",
         };
 
   const normalizedSearch = search.trim().toLowerCase();
@@ -365,8 +365,7 @@ export default function ToolsPage({ locale }: Props) {
                           </div>
 
                           <span className="text-lg text-gray-400 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100">
-                            →
-                          </span>
+                            竊・                          </span>
                         </div>
 
                         <h3 className="text-lg font-semibold text-gray-900 transition group-hover:text-gray-700">
@@ -495,8 +494,7 @@ export default function ToolsPage({ locale }: Props) {
                             {getIconLabel(tool)}
                           </div>
                           <span className="text-sm text-gray-300 opacity-60">
-                            →
-                          </span>
+                            竊・                          </span>
                         </div>
 
                         <p className="text-sm font-medium leading-5 text-gray-900">
@@ -528,3 +526,4 @@ export default function ToolsPage({ locale }: Props) {
     </main>
   );
 }
+

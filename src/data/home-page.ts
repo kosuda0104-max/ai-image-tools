@@ -1,3 +1,5 @@
+import { getToolItems } from "@/src/data/tool-directory";
+
 type ToolItem = {
   name: string;
   href: string;
@@ -106,44 +108,44 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
     stats: ja.stats,
     popularToolsTitle: ja.popularTitle,
     toolsPageLinkLabel: ja.viewAll,
-    popularTools: [
-      { name: "JPG to PNG", href: "/tools/jpg-to-png", description: "Convert JPG images to PNG for editing-friendly output." },
-      { name: "PNG to JPG", href: "/tools/png-to-jpg", description: "Convert PNG images to JPG for lighter sharing and uploads." },
-      { name: "HEIC to JPG", href: "/tools/heic-to-jpg", description: "Convert iPhone-friendly HEIC files into widely accepted JPG." },
-      { name: "JPG Compress", href: "/tools/jpg-compress", description: "Reduce JPG file size for web delivery, email, or uploads." },
-      { name: "Image Compress", href: "/tools/image-compress", description: "Compress images to reduce file size directly in your browser." },
-      { name: "PDF to JPG", href: "/tools/pdf-to-jpg", description: "Convert PDF pages into JPG images." },
-    ],
+    popularTools: getToolItems("ja", [
+      "jpg-to-png",
+      "png-to-jpg",
+      "heic-to-jpg",
+      "jpg-compress",
+      "image-compress",
+      "pdf-to-jpg",
+    ]),
     categories: [
       {
         title: ja.cat1,
         description: ja.cat1d,
-        tools: [
-          { name: "JPG to PNG", href: "/tools/jpg-to-png", description: "Convert JPG to PNG." },
-          { name: "PNG to JPG", href: "/tools/png-to-jpg", description: "Convert PNG to JPG." },
-          { name: "HEIC to JPG", href: "/tools/heic-to-jpg", description: "Convert HEIC to JPG." },
-          { name: "HEIC to PNG", href: "/tools/heic-to-png", description: "Convert HEIC to PNG." },
-        ],
+        tools: getToolItems("ja", [
+          "jpg-to-png",
+          "png-to-jpg",
+          "heic-to-jpg",
+          "heic-to-png",
+        ]),
       },
       {
         title: ja.cat2,
         description: ja.cat2d,
-        tools: [
-          { name: "Image Compress", href: "/tools/image-compress", description: "Compress JPG, PNG, and WebP images." },
-          { name: "JPG Compress", href: "/tools/jpg-compress", description: "Compress JPG files." },
-          { name: "PNG Compress", href: "/tools/png-compress", description: "Try reducing PNG size." },
-          { name: "WebP Compress", href: "/tools/webp-compress", description: "Compress WebP files." },
-        ],
+        tools: getToolItems("ja", [
+          "image-compress",
+          "jpg-compress",
+          "png-compress",
+          "webp-compress",
+        ]),
       },
       {
         title: ja.cat3,
         description: ja.cat3d,
-        tools: [
-          { name: "Image to PDF", href: "/tools/image-to-pdf", description: "Convert images to PDF." },
-          { name: "PDF to JPG", href: "/tools/pdf-to-jpg", description: "Convert PDF files to JPG images." },
-          { name: "PDF to PNG", href: "/tools/pdf-to-png", description: "Convert PDF files to PNG images." },
-          { name: "Merge PDF", href: "/tools/merge-pdf", description: "Merge PDF files." },
-        ],
+        tools: getToolItems("ja", [
+          "image-to-pdf",
+          "pdf-to-jpg",
+          "pdf-to-png",
+          "merge-pdf",
+        ]),
       },
     ],
     aboutSection: {
@@ -184,44 +186,44 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
     ],
     popularToolsTitle: "Popular Tools",
     toolsPageLinkLabel: "View all",
-    popularTools: [
-      { name: "JPG to PNG", href: "/tools/jpg-to-png", description: "Convert JPG images to PNG for editing-friendly output." },
-      { name: "PNG to JPG", href: "/tools/png-to-jpg", description: "Convert PNG images to JPG for lighter sharing and uploads." },
-      { name: "HEIC to JPG", href: "/tools/heic-to-jpg", description: "Convert iPhone-friendly HEIC files into widely accepted JPG." },
-      { name: "JPG Compress", href: "/tools/jpg-compress", description: "Reduce JPG file size for web delivery, email, or uploads." },
-      { name: "Image Compress", href: "/tools/image-compress", description: "Compress images to reduce file size directly in your browser." },
-      { name: "PDF to JPG", href: "/tools/pdf-to-jpg", description: "Convert PDF pages into JPG images." },
-    ],
+    popularTools: getToolItems("en", [
+      "jpg-to-png",
+      "png-to-jpg",
+      "heic-to-jpg",
+      "jpg-compress",
+      "image-compress",
+      "pdf-to-jpg",
+    ]),
     categories: [
       {
         title: "Image Conversion",
         description: "Convert images from one format to another.",
-        tools: [
-          { name: "JPG to PNG", href: "/tools/jpg-to-png", description: "Convert JPG to PNG." },
-          { name: "PNG to JPG", href: "/tools/png-to-jpg", description: "Convert PNG to JPG." },
-          { name: "HEIC to JPG", href: "/tools/heic-to-jpg", description: "Convert HEIC to JPG." },
-          { name: "HEIC to PNG", href: "/tools/heic-to-png", description: "Convert HEIC to PNG." },
-        ],
+        tools: getToolItems("en", [
+          "jpg-to-png",
+          "png-to-jpg",
+          "heic-to-jpg",
+          "heic-to-png",
+        ]),
       },
       {
         title: "Image Editing",
         description: "Resize, compress, and edit images in a lightweight workflow.",
-        tools: [
-          { name: "Image Compress", href: "/tools/image-compress", description: "Compress JPG, PNG, and WebP images." },
-          { name: "JPG Compress", href: "/tools/jpg-compress", description: "Compress JPG files." },
-          { name: "PNG Compress", href: "/tools/png-compress", description: "Try reducing PNG size." },
-          { name: "WebP Compress", href: "/tools/webp-compress", description: "Compress WebP files." },
-        ],
+        tools: getToolItems("en", [
+          "image-compress",
+          "jpg-compress",
+          "png-compress",
+          "webp-compress",
+        ]),
       },
       {
         title: "PDF Tools",
         description: "Convert and reorganize PDF files.",
-        tools: [
-          { name: "Image to PDF", href: "/tools/image-to-pdf", description: "Convert images to PDF." },
-          { name: "PDF to JPG", href: "/tools/pdf-to-jpg", description: "Convert PDF files to JPG images." },
-          { name: "PDF to PNG", href: "/tools/pdf-to-png", description: "Convert PDF files to PNG images." },
-          { name: "Merge PDF", href: "/tools/merge-pdf", description: "Merge PDF files." },
-        ],
+        tools: getToolItems("en", [
+          "image-to-pdf",
+          "pdf-to-jpg",
+          "pdf-to-png",
+          "merge-pdf",
+        ]),
       },
     ],
     aboutSection: {

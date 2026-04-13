@@ -1,3 +1,5 @@
+import { getToolItem, getToolItems } from "@/src/data/tool-directory";
+
 export type ToolPageLocale = "ja" | "en";
 
 type ToolItem = {
@@ -57,53 +59,53 @@ type ToolsPageContent = {
   };
 };
 
-const imageConversionTools: ToolItem[] = [
-  { name: "JPG to PNG", href: "/tools/jpg-to-png", description: "Convert JPG to PNG." },
-  { name: "PNG to JPG", href: "/tools/png-to-jpg", description: "Convert PNG to JPG." },
-  { name: "WebP to PNG", href: "/tools/webp-to-png", description: "Convert WebP to PNG." },
-  { name: "WebP to JPG", href: "/tools/webp-to-jpg", description: "Convert WebP to JPG." },
-  { name: "JPG to WebP", href: "/tools/jpg-to-webp", description: "Convert JPG to WebP." },
-  { name: "PNG to WebP", href: "/tools/png-to-webp", description: "Convert PNG to WebP." },
-  { name: "HEIC to JPG", href: "/tools/heic-to-jpg", description: "Convert HEIC to JPG." },
-  { name: "HEIC to PNG", href: "/tools/heic-to-png", description: "Convert HEIC to PNG." },
-  { name: "GIF to PNG", href: "/tools/gif-to-png", description: "Convert GIF to PNG." },
-  { name: "GIF to JPG", href: "/tools/gif-to-jpg", description: "Convert GIF to JPG." },
-  { name: "AVIF to JPG", href: "/tools/avif-to-jpg", description: "Convert AVIF to JPG." },
-  { name: "AVIF to PNG", href: "/tools/avif-to-png", description: "Convert AVIF to PNG." },
-  { name: "BMP to JPG", href: "/tools/bmp-to-jpg", description: "Convert BMP to JPG." },
-  { name: "BMP to PNG", href: "/tools/bmp-to-png", description: "Convert BMP to PNG." },
-  { name: "TIFF to JPG", href: "/tools/tiff-to-jpg", description: "Convert TIFF to JPG." },
-  { name: "TIFF to PNG", href: "/tools/tiff-to-png", description: "Convert TIFF to PNG." },
-  { name: "ICO to PNG", href: "/tools/ico-to-png", description: "Convert ICO to PNG." },
-  { name: "ICO to JPG", href: "/tools/ico-to-jpg", description: "Convert ICO to JPG." },
-  { name: "SVG to PNG", href: "/tools/svg-to-png", description: "Convert SVG to PNG." },
-  { name: "SVG to JPG", href: "/tools/svg-to-jpg", description: "Convert SVG to JPG." },
-];
+const imageConversionSlugs = [
+  "jpg-to-png",
+  "png-to-jpg",
+  "webp-to-png",
+  "webp-to-jpg",
+  "jpg-to-webp",
+  "png-to-webp",
+  "heic-to-jpg",
+  "heic-to-png",
+  "gif-to-png",
+  "gif-to-jpg",
+  "avif-to-jpg",
+  "avif-to-png",
+  "bmp-to-jpg",
+  "bmp-to-png",
+  "tiff-to-jpg",
+  "tiff-to-png",
+  "ico-to-png",
+  "ico-to-jpg",
+  "svg-to-png",
+  "svg-to-jpg",
+] as const;
 
-const imageEditingTools: ToolItem[] = [
-  { name: "Image Compress", href: "/tools/image-compress", description: "Compress JPG, PNG, and WebP images." },
-  { name: "JPG Compress", href: "/tools/jpg-compress", description: "Compress JPG files." },
-  { name: "PNG Compress", href: "/tools/png-compress", description: "Try reducing PNG size." },
-  { name: "WebP Compress", href: "/tools/webp-compress", description: "Compress WebP files." },
-  { name: "Resize Image", href: "/tools/resize-image", description: "Resize an image." },
-  { name: "Crop Image", href: "/tools/crop-image", description: "Crop an image." },
-  { name: "Rotate Image", href: "/tools/rotate-image", description: "Rotate an image." },
-  { name: "Flip Image", href: "/tools/flip-image", description: "Flip an image." },
-  { name: "Grayscale Image", href: "/tools/grayscale-image", description: "Convert an image to grayscale." },
-  { name: "Watermark Image", href: "/tools/watermark-image", description: "Add text watermark to an image." },
-];
+const imageEditingSlugs = [
+  "image-compress",
+  "jpg-compress",
+  "png-compress",
+  "webp-compress",
+  "resize-image",
+  "crop-image",
+  "rotate-image",
+  "flip-image",
+  "grayscale-image",
+  "watermark-image",
+] as const;
 
-const pdfTools: ToolItem[] = [
-  { name: "Image to PDF", href: "/tools/image-to-pdf", description: "Convert images to PDF." },
-  { name: "PDF to JPG", href: "/tools/pdf-to-jpg", description: "Convert PDF pages to JPG." },
-  { name: "PDF to PNG", href: "/tools/pdf-to-png", description: "Convert PDF pages to PNG." },
-  { name: "PDF to WebP", href: "/tools/pdf-to-webp", description: "Convert PDF pages to WebP." },
-  { name: "Merge PDF", href: "/tools/merge-pdf", description: "Merge PDF files." },
-  { name: "Split PDF", href: "/tools/split-pdf", description: "Extract selected PDF pages." },
-  { name: "Compress PDF", href: "/tools/compress-pdf", description: "Reduce PDF file size." },
-  { name: "Rotate PDF", href: "/tools/rotate-pdf", description: "Rotate PDF pages." },
-  { name: "PDF Remove Pages", href: "/tools/pdf-remove-pages", description: "Remove pages from a PDF." },
-];
+const pdfToolSlugs = [
+  "image-to-pdf",
+  "pdf-to-jpg",
+  "pdf-to-png",
+  "pdf-to-webp",
+  "merge-pdf",
+  "split-pdf",
+  "compress-pdf",
+  "rotate-pdf",
+  "pdf-remove-pages",
+] as const;
 
 const ja = {
   heroTitle: "\u30d6\u30e9\u30a6\u30b6\u3067\u4f7f\u3048\u308b\u753b\u50cf\u30fbPDF\u30c4\u30fc\u30eb\u4e00\u89a7",
@@ -159,20 +161,52 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
     seoSpotlightTitle: ja.seoSpotlightTitle,
     seoSpotlightDescription: ja.seoSpotlightDescription,
     seoSpotlightTools: [
-      { name: "JPG to PNG", href: "/tools/jpg-to-png", reason: "Editing-friendly output for screenshots and handoff." },
-      { name: "PNG to JPG", href: "/tools/png-to-jpg", reason: "A practical tool for lighter uploads and easier sharing." },
-      { name: "HEIC to JPG", href: "/tools/heic-to-jpg", reason: "Useful for iPhone photo uploads and broader compatibility." },
-      { name: "JPG Compress", href: "/tools/jpg-compress", reason: "A focused compression page for photo-heavy workflows." },
-      { name: "Image Compress", href: "/tools/image-compress", reason: "A broad utility for page speed, storage, and upload limits." },
+      {
+        ...getToolItem("ja", "jpg-to-png"),
+        reason:
+          "スクリーンショットや資料画像を扱いやすい形式に整えたいときに向いています。",
+      },
+      {
+        ...getToolItem("ja", "png-to-jpg"),
+        reason:
+          "容量を軽くして共有しやすくしたいときに使いやすい定番ツールです。",
+      },
+      {
+        ...getToolItem("ja", "heic-to-jpg"),
+        reason:
+          "iPhone 写真を幅広い環境で使える形にしたいときに便利です。",
+      },
+      {
+        ...getToolItem("ja", "jpg-compress"),
+        reason:
+          "写真中心の画像を公開前に軽くしたいときに使いやすいです。",
+      },
+      {
+        ...getToolItem("ja", "image-compress"),
+        reason:
+          "画像の容量調整をまとめて考えたいときの入口に向いています。",
+      },
     ],
     guideSections: [
       { title: ja.guide1, paragraphs: [ja.guide1a, ja.guide1b] },
       { title: ja.guide2, paragraphs: [ja.guide2a, ja.guide2b] },
     ],
     categories: [
-      { title: ja.cat1, description: ja.cat1d, tools: imageConversionTools },
-      { title: ja.cat2, description: ja.cat2d, tools: imageEditingTools },
-      { title: ja.cat3, description: ja.cat3d, tools: pdfTools },
+      {
+        title: ja.cat1,
+        description: ja.cat1d,
+        tools: getToolItems("ja", imageConversionSlugs),
+      },
+      {
+        title: ja.cat2,
+        description: ja.cat2d,
+        tools: getToolItems("ja", imageEditingSlugs),
+      },
+      {
+        title: ja.cat3,
+        description: ja.cat3d,
+        tools: getToolItems("ja", pdfToolSlugs),
+      },
     ],
     aboutSection: {
       title: ja.aboutTitle,
@@ -209,11 +243,27 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
     seoSpotlightDescription:
       "These tools cover the most common format conversion, compatibility, and optimization needs. They are strong starting points for high-intent search traffic.",
     seoSpotlightTools: [
-      { name: "JPG to PNG", href: "/tools/jpg-to-png", reason: "Useful for screenshots, design handoff, and editing-friendly output." },
-      { name: "PNG to JPG", href: "/tools/png-to-jpg", reason: "A practical tool for lighter uploads and easier sharing." },
-      { name: "WebP to JPG", href: "/tools/webp-to-jpg", reason: "A strong compatibility-focused conversion for mixed workflows." },
-      { name: "HEIC to JPG", href: "/tools/heic-to-jpg", reason: "A common need for iPhone photo uploads and broader sharing." },
-      { name: "Image Compress", href: "/tools/image-compress", reason: "A broad utility for page speed, storage, and upload limits." },
+      {
+        ...getToolItem("en", "jpg-to-png"),
+        reason:
+          "Useful for screenshots, design handoff, and editing-friendly output.",
+      },
+      {
+        ...getToolItem("en", "png-to-jpg"),
+        reason: "A practical tool for lighter uploads and easier sharing.",
+      },
+      {
+        ...getToolItem("en", "webp-to-jpg"),
+        reason: "A strong compatibility-focused conversion for mixed workflows.",
+      },
+      {
+        ...getToolItem("en", "heic-to-jpg"),
+        reason: "A common need for iPhone photo uploads and broader sharing.",
+      },
+      {
+        ...getToolItem("en", "image-compress"),
+        reason: "A broad utility for page speed, storage, and upload limits.",
+      },
     ],
     guideSections: [
       {
@@ -232,9 +282,22 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
       },
     ],
     categories: [
-      { title: "Image Conversion", description: "Tools for converting images from one format to another.", tools: imageConversionTools },
-      { title: "Image Editing", description: "Tools for adjusting image size and appearance.", tools: imageEditingTools },
-      { title: "PDF Tools", description: "Tools for converting between images and PDFs and editing PDF files.", tools: pdfTools },
+      {
+        title: "Image Conversion",
+        description: "Tools for converting images from one format to another.",
+        tools: getToolItems("en", imageConversionSlugs),
+      },
+      {
+        title: "Image Editing",
+        description: "Tools for adjusting image size and appearance.",
+        tools: getToolItems("en", imageEditingSlugs),
+      },
+      {
+        title: "PDF Tools",
+        description:
+          "Tools for converting between images and PDFs and editing PDF files.",
+        tools: getToolItems("en", pdfToolSlugs),
+      },
     ],
     aboutSection: {
       title: "About This Tools Page",
@@ -259,10 +322,10 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
 };
 
 export const popularTools = [
-  { name: "JPG to PNG", href: "/tools/jpg-to-png" },
-  { name: "PNG to JPG", href: "/tools/png-to-jpg" },
-  { name: "HEIC to JPG", href: "/tools/heic-to-jpg" },
-  { name: "JPG Compress", href: "/tools/jpg-compress" },
-  { name: "Image Compress", href: "/tools/image-compress" },
-  { name: "PDF to JPG", href: "/tools/pdf-to-jpg" },
+  getToolItem("en", "jpg-to-png"),
+  getToolItem("en", "png-to-jpg"),
+  getToolItem("en", "heic-to-jpg"),
+  getToolItem("en", "jpg-compress"),
+  getToolItem("en", "image-compress"),
+  getToolItem("en", "pdf-to-jpg"),
 ];
