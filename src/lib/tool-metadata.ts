@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { siteUrl } from "@/src/lib/site";
+import {
+  buildToolKeywords,
+  TOOL_CONTENT_LAST_UPDATED,
+} from "@/src/lib/seo-signals";
 
 type Locale = "ja" | "en";
 
@@ -24,6 +28,11 @@ export function createToolMetadata({
 
   const title = isEn ? enTitle : jaTitle;
   const description = isEn ? enDescription : jaDescription;
+  const keywords = buildToolKeywords({
+    locale,
+    slug,
+    title,
+  });
 
   const jaPath = `/tools/${slug}`;
   const enPath = `/en/tools/${slug}`;
@@ -32,6 +41,13 @@ export function createToolMetadata({
   return {
     title,
     description,
+    applicationName: "AI Image Tools",
+    category: "Utilities",
+    keywords,
+    robots: {
+      index: true,
+      follow: true,
+    },
     alternates: {
       canonical: `${siteUrl}${canonicalPath}`,
       languages: {
@@ -46,11 +62,23 @@ export function createToolMetadata({
       siteName: "AI Image Tools",
       locale: isEn ? "en_US" : "ja_JP",
       type: "website",
+      images: [
+        {
+          url: `${siteUrl}/og.png`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
       card: "summary",
       title,
       description,
+    },
+    other: {
+      "article:modified_time": TOOL_CONTENT_LAST_UPDATED,
+      "og:updated_time": TOOL_CONTENT_LAST_UPDATED,
     },
   };
 }

@@ -221,46 +221,49 @@ export default function ToolsPage({ locale }: Props) {
   };
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-transparent">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
 
       <div className="hidden md:block">
-        <section className="border-b border-gray-200 bg-gradient-to-b from-gray-50 to-white">
+        <section className="border-b border-stone-200/70 bg-transparent">
           <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
-            <div className="max-w-3xl space-y-6">
-              <span className="inline-flex rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-600">
+            <div className="relative overflow-hidden rounded-[2rem] border border-stone-200/80 bg-[linear-gradient(135deg,rgba(255,253,250,0.98),rgba(240,245,255,0.9))] px-8 py-10 shadow-[0_24px_80px_-40px_rgba(22,32,51,0.35)]">
+              <div className="absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top_left,rgba(31,94,255,0.14),transparent_58%),radial-gradient(circle_at_top_right,rgba(31,122,92,0.14),transparent_44%)]" />
+              <div className="relative max-w-3xl space-y-6">
+              <span className="inline-flex rounded-full border border-stone-200 bg-white/90 px-3 py-1 text-sm text-slate-600 shadow-sm">
                 {t.badge}
               </span>
 
-              <h1 className="text-4xl font-bold text-gray-900">{t.hero.title}</h1>
+              <h1 className="text-4xl font-bold text-slate-950">{t.hero.title}</h1>
 
-              <p className="text-lg text-gray-600">{t.hero.description}</p>
+              <p className="text-lg leading-8 text-slate-600">{t.hero.description}</p>
+              </div>
             </div>
           </div>
         </section>
 
         <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-          <div className="mb-8 rounded-3xl border border-gray-200 bg-gray-50 p-6 shadow-sm">
+          <div className="mb-8 rounded-[1.9rem] border border-stone-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(242,239,228,0.8))] p-6 shadow-[0_22px_46px_-32px_rgba(22,32,51,0.52)]">
             <div className="grid gap-6 lg:grid-cols-[1.2fr,0.8fr]">
               <div className="space-y-4">
-                <h2 className="text-2xl font-bold text-gray-900">
+                <h2 className="text-2xl font-bold text-slate-950">
                   {t.seoSpotlightTitle}
                 </h2>
-                <p className="text-sm leading-7 text-gray-600">
+                <p className="text-sm leading-7 text-slate-600">
                   {t.seoSpotlightDescription}
                 </p>
                 {t.guideSections.map((section) => (
                   <div key={section.title} className="space-y-2">
-                    <h3 className="text-lg font-semibold text-gray-900">
+                    <h3 className="text-lg font-semibold text-slate-950">
                       {section.title}
                     </h3>
                     {section.paragraphs.map((paragraph) => (
                       <p
                         key={paragraph}
-                        className="text-sm leading-7 text-gray-600"
+                        className="text-sm leading-7 text-slate-600"
                       >
                         {paragraph}
                       </p>
@@ -269,11 +272,11 @@ export default function ToolsPage({ locale }: Props) {
                 ))}
               </div>
 
-              <div className="rounded-2xl border border-gray-200 bg-white p-5">
-                <h3 className="text-lg font-semibold text-gray-900">
+              <div className="rounded-[1.6rem] border border-stone-200 bg-white/95 p-5 shadow-[0_16px_30px_-26px_rgba(22,32,51,0.5)]">
+                <h3 className="text-lg font-semibold text-slate-950">
                   {t.popularToolsTitle}
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-gray-600">
+                <p className="mt-2 text-sm leading-6 text-slate-600">
                   {t.popularToolsDescription}
                 </p>
                 <div className="mt-4 space-y-3">
@@ -285,12 +288,12 @@ export default function ToolsPage({ locale }: Props) {
                           ? tool.href.replace(/^\/tools/, "/en/tools")
                           : tool.href
                       }
-                      className="block rounded-2xl border border-gray-200 p-4 transition hover:border-gray-300 hover:bg-gray-50"
+                      className="block rounded-2xl border border-stone-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(250,248,243,0.96))] p-4 transition hover:-translate-y-0.5 hover:border-stone-300 hover:shadow-[0_18px_34px_-28px_rgba(22,32,51,0.56)]"
                     >
-                      <div className="text-sm font-semibold text-gray-900">
+                      <div className="text-sm font-semibold text-slate-950">
                         {tool.name}
                       </div>
-                      <p className="mt-1 text-sm leading-6 text-gray-600">
+                      <p className="mt-1 text-sm leading-6 text-slate-600">
                         {tool.reason}
                       </p>
                     </Link>
@@ -300,25 +303,25 @@ export default function ToolsPage({ locale }: Props) {
             </div>
           </div>
 
-          <div className="mb-8 flex flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm md:flex-row md:items-center md:justify-between">
+          <div className="mb-8 flex flex-col gap-4 rounded-[1.6rem] border border-stone-200 bg-white/95 p-4 shadow-[0_18px_34px_-30px_rgba(22,32,51,0.52)] md:flex-row md:items-center md:justify-between">
             <div className="flex-1">
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={labels.searchPlaceholder}
-                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-gray-500"
+                className="w-full rounded-xl border border-stone-300 bg-stone-50/70 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:bg-white"
               />
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-sm font-medium text-slate-700">
                 {labels.sortLabel}
               </span>
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as SortKey)}
-                className="rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-gray-500"
+                className="rounded-xl border border-stone-300 bg-stone-50/70 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:bg-white"
               >
                 <option value="default">{labels.sortDefault}</option>
                 <option value="popular">{labels.sortPopular}</option>
@@ -328,7 +331,7 @@ export default function ToolsPage({ locale }: Props) {
           </div>
 
           {filteredCategories.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-gray-300 px-6 py-12 text-center text-gray-600">
+            <div className="rounded-[1.6rem] border border-dashed border-stone-300 bg-white/70 px-6 py-12 text-center text-slate-600">
               {labels.noResults}
             </div>
           ) : (
@@ -336,10 +339,10 @@ export default function ToolsPage({ locale }: Props) {
               {filteredCategories.map((category) => (
                 <section key={category.title} className="space-y-5">
                   <div className="space-y-2">
-                    <h2 className="text-2xl font-bold text-gray-900">
+                    <h2 className="text-2xl font-bold text-slate-950">
                       {category.title}
                     </h2>
-                    <p className="text-sm leading-6 text-gray-600">
+                    <p className="text-sm leading-6 text-slate-600">
                       {category.description}
                     </p>
                   </div>
@@ -353,7 +356,7 @@ export default function ToolsPage({ locale }: Props) {
                             ? tool.href.replace(/^\/tools/, "/en/tools")
                             : tool.href
                         }
-                        className="group rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md"
+                        className="group rounded-[1.5rem] border border-stone-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(250,248,243,0.96))] p-5 shadow-[0_18px_34px_-28px_rgba(22,32,51,0.56)] transition hover:-translate-y-1 hover:border-stone-300 hover:shadow-[0_24px_42px_-28px_rgba(22,32,51,0.56)]"
                       >
                         <div className="mb-4 flex items-start justify-between gap-3">
                           <div
@@ -364,15 +367,19 @@ export default function ToolsPage({ locale }: Props) {
                             {getIconLabel(tool)}
                           </div>
 
-                          <span className="text-lg text-gray-400 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100">
-                            竊・                          </span>
+                          <span
+                            aria-hidden="true"
+                            className="text-lg text-stone-400 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100"
+                          >
+                            →
+                          </span>
                         </div>
 
-                        <h3 className="text-lg font-semibold text-gray-900 transition group-hover:text-gray-700">
+                        <h3 className="text-lg font-semibold text-slate-950 transition group-hover:text-slate-800">
                           {tool.name}
                         </h3>
 
-                        <p className="mt-2 text-sm leading-6 text-gray-600">
+                        <p className="mt-2 text-sm leading-6 text-slate-600">
                           {tool.description}
                         </p>
                       </Link>
@@ -493,8 +500,12 @@ export default function ToolsPage({ locale }: Props) {
                           >
                             {getIconLabel(tool)}
                           </div>
-                          <span className="text-sm text-gray-300 opacity-60">
-                            竊・                          </span>
+                          <span
+                            aria-hidden="true"
+                            className="text-sm text-gray-300 opacity-60"
+                          >
+                            →
+                          </span>
                         </div>
 
                         <p className="text-sm font-medium leading-5 text-gray-900">
