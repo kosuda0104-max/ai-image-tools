@@ -1,8 +1,9 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import "./globals.css";
+import { siteUrl } from "@/src/lib/site";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const googleVerification =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s | AI Image Tools",
   },
   verification: {
-    google: "Hb3W-lsQSQul1oGHNGt12-FVlUs1wZmxDUF_qR1zIzA",
+    google: googleVerification,
   },
   alternates: {
     canonical: "/",

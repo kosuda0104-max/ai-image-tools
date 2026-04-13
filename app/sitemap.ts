@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-
-const siteUrl = "https://ai-image-tools.com";
+import { siteUrl } from "@/src/lib/site";
 
 const routes = [
   "",
@@ -27,6 +26,7 @@ const routes = [
   "/tools/svg-to-png",
   "/tools/svg-to-jpg",
   "/tools/heic-to-jpg",
+  "/tools/heic-to-png",
   "/tools/bmp-to-jpg",
   "/tools/bmp-to-png",
   "/tools/tiff-to-jpg",
@@ -38,6 +38,9 @@ const routes = [
   "/tools/rotate-image",
   "/tools/flip-image",
   "/tools/image-compress",
+  "/tools/jpg-compress",
+  "/tools/png-compress",
+  "/tools/webp-compress",
   "/tools/grayscale-image",
   "/tools/watermark-image",
   "/tools/image-to-pdf",
