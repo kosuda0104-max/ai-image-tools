@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SiteLogo from "@/src/components/SiteLogo";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 const siteDescription =
-  "ブラウザで使える無料の画像変換・画像編集・PDF ツール集です。JPG、PNG、WebP、HEIC、PDF などの変換や圧縮、リサイズ、切り抜き、結合をすばやく行えます。";
+  "ブラウザで使える無料の画像変換・画像編集・PDFツール集です。JPG、PNG、WebP、HEIC、PDF などの変換や圧縮、リサイズ、切り抜きまで安全に行えます。";
 
 export const metadata: Metadata = {
   description: siteDescription,
@@ -48,16 +49,16 @@ export default function JaLayout({
     <>
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-4">
-          <Link href="/" className="font-bold">
-            AI Image Tools
+          <Link href="/" className="shrink-0">
+            <SiteLogo />
           </Link>
 
-          <nav className="flex flex-wrap gap-4 text-sm">
+          <nav className="flex flex-wrap items-center gap-4 text-sm text-gray-700">
             <Link className="hover:underline" href="/tools/jpg-to-png">
-              JPG to PNG
+              JPGをPNGに変換
             </Link>
             <Link className="hover:underline" href="/tools/png-to-jpg">
-              PNG to JPG
+              PNGをJPGに変換
             </Link>
             <Link className="hover:underline" href="/tools/image-compress">
               画像圧縮
@@ -83,12 +84,11 @@ export default function JaLayout({
       <footer className="border-t border-gray-200 bg-gray-50">
         <div className="mx-auto max-w-6xl px-6 py-8">
           <div className="space-y-5">
-            <div className="max-w-3xl space-y-2">
-              <div className="text-sm font-semibold text-gray-900">
-                AI Image Tools
-              </div>
+            <div className="max-w-3xl space-y-3">
+              <SiteLogo compact />
               <p className="text-sm leading-7 text-gray-600">
-                小須田が運営する、画像変換、画像編集、PDF ワークフロー向けの無料ツールサイトです。ツール本体だけでなく、ガイド、問い合わせ、ポリシー情報も公開し、使い方と運営方針が分かる状態を目指しています。
+                画像変換、画像編集、PDF 作業をブラウザだけで進められる無料ツールサイトです。
+                ツールページだけでなく、ガイドや運営情報も公開して、用途に合う作業を見つけやすくしています。
               </p>
             </div>
 

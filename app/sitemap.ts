@@ -1,4 +1,4 @@
-import type { MetadataRoute } from "next";
+﻿import type { MetadataRoute } from "next";
 import { siteUrl } from "@/src/lib/site";
 
 const routes = [
@@ -9,6 +9,13 @@ const routes = [
   "/guides/jpg-vs-png",
   "/guides/png-vs-webp",
   "/guides/pdf-workflows",
+  "/guides/heic-to-jpg-guide",
+  "/guides/compress-images-without-losing-quality",
+  "/guides/pdf-to-jpg-guide",
+  "/guides/resize-images-for-web",
+  "/guides/merge-or-split-pdf",
+  "/guides/choose-best-image-format-for-web",
+  "/guides/how-to-remove-pages-from-pdf",
   "/about",
   "/contact",
   "/privacy-policy",
@@ -87,3 +94,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...jaRoutes, ...enRoutes];
 }
+

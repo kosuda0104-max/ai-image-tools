@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 type Section = {
   title: string;
@@ -100,3 +100,4 @@ export default function StaticContentPage({
     </main>
   );
 }
+

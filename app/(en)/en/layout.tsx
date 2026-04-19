@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SiteLogo from "@/src/components/SiteLogo";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -48,8 +49,8 @@ export default function EnLayout({
     <>
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-4">
-          <Link href="/en" className="font-bold">
-            AI Image Tools
+          <Link href="/en" className="shrink-0">
+            <SiteLogo />
           </Link>
 
           <nav className="flex flex-wrap gap-4 text-sm">
@@ -84,9 +85,7 @@ export default function EnLayout({
         <div className="mx-auto max-w-6xl px-6 py-8">
           <div className="space-y-5">
             <div className="max-w-3xl space-y-2">
-              <div className="text-sm font-semibold text-gray-900">
-                AI Image Tools
-              </div>
+              <SiteLogo compact />
               <p className="text-sm leading-7 text-gray-600">
                 A browser-based tools site for image conversion, image editing,
                 and PDF workflows. The site publishes tool pages, guide content,
