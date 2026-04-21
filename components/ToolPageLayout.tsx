@@ -3,7 +3,6 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { buildSeoFallbackContent } from "@/src/lib/seo-tool-content";
 import {
-  formatToolUpdatedLabel,
   isJapaneseText,
   TOOL_CONTENT_LAST_UPDATED,
 } from "@/src/lib/seo-signals";
@@ -86,7 +85,6 @@ export default function ToolPageLayout({
       ? fallback.relatedToolsTitle
       : relatedToolsTitle;
   const isJapanesePage = isJapaneseText(title);
-  const updatedLabel = formatToolUpdatedLabel(title);
   const webApplicationJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -121,9 +119,6 @@ export default function ToolPageLayout({
           <header className="space-y-3">
             <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
             <p className="text-sm text-neutral-600">{description}</p>
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-neutral-500">
-              {updatedLabel}
-            </p>
           </header>
 
           <section>{children}</section>
