@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { ChangeEvent, DragEvent, useMemo, useState } from "react";
 import { PDFDocument } from "pdf-lib";
@@ -86,56 +86,56 @@ type ImageItem = {
 const content: Record<Locale, ToolContent> = {
   ja: {
     page: {
-      title: "画像をPDFに変換",
+      title: "画像を PDF に変換",
       description:
-        "複数の画像を1つのPDFに変換できる無料オンラインツールです。ブラウザ上で安全に処理できます。",
-      aboutTitle: "画像をPDFに変換とは？",
+        "複数の画像を 1 つの PDF にまとめられる無料オンラインツールです。ブラウザ上だけで順番変更やページサイズ調整まで行えます。",
+      aboutTitle: "画像を PDF に変換とは",
       aboutText:
-        "画像をPDFに変換ツールは、JPG・PNG・WebPなどの画像を1つのPDFへまとめられる無料オンラインツールです。スキャン画像をPDF化したいとき、複数の写真を1つの資料として共有したいとき、応募書類やレポート用に画像をPDF形式へ変換したいときに便利です。画像の順番変更や余白設定にも対応し、処理はブラウザ上で完結するため、画像ファイルを外部サーバーにアップロードせず安全に利用できます。",
+        "画像を PDF に変換ツールは、JPG・PNG・WebP などの画像を 1 つの PDF にまとめるための無料オンラインツールです。スキャン画像を PDF にしたいときや、複数の画像をひとつの資料として共有したいときに向いています。画像の並び順を入れ替えたり、ページサイズや余白を調整したりできるので、提出前の資料整理にも使いやすい構成です。処理はブラウザ内で完結するため、画像を外部サーバーへアップロードせずに作業しやすい点も特長です。",
       stepsTitle: "使い方",
       steps: [
-        "PDF化したい画像を追加します",
-        "必要に応じて画像の順番を並び替えます",
-        "ページサイズと余白を設定します",
-        "「画像をPDFに変換」ボタンを押します",
-        "作成されたPDFをダウンロードします",
+        "PDF にまとめたい画像を追加します。",
+        "必要に応じて画像の順番を並び替えます。",
+        "ページサイズと余白を設定します。",
+        "「画像を PDF に変換」を押します。",
+        "完成した PDF をダウンロードします。",
       ],
       faqTitle: "よくある質問",
       faqs: [
         {
           question: "画像はサーバーにアップロードされますか？",
           answer:
-            "いいえ。画像はブラウザ上で処理されるため、外部サーバーには送信されません。",
+            "いいえ。画像はブラウザ上で処理されるため、外部サーバーへ送信されません。",
         },
         {
-          question: "複数画像を1つのPDFにできますか？",
+          question: "複数の画像を 1 つの PDF にできますか？",
           answer:
-            "はい。複数の画像を追加して、順番を並び替えてから1つのPDFにまとめられます。",
+            "はい。複数の画像を追加して順番を並び替えたうえで、1 つの PDF にまとめられます。",
         },
         {
-          question: "対応画像形式は何ですか？",
+          question: "対応している画像形式は何ですか？",
           answer:
-            "JPG、JPEG、PNG、WebP に対応しています。",
+            "JPG、JPEG、PNG、WebP の画像に対応しています。",
         },
         {
-          question: "A4サイズで出力できますか？",
+          question: "A4 サイズで出力できますか？",
           answer:
             "はい。Auto、A4、Letter からページサイズを選べます。",
         },
       ],
       relatedTools: [
-        { name: "PDF結合", href: "/tools/merge-pdf" },
-        { name: "PDF分割", href: "/tools/split-pdf" },
-        { name: "PDFをJPGに変換", href: "/tools/pdf-to-jpg" },
-        { name: "PDFをPNGに変換", href: "/tools/pdf-to-png" },
+        { name: "PDF 結合", href: "/tools/merge-pdf" },
+        { name: "PDF 分割", href: "/tools/split-pdf" },
+        { name: "PDF を JPG に変換", href: "/tools/pdf-to-jpg" },
+        { name: "PDF を PNG に変換", href: "/tools/pdf-to-png" },
       ],
     },
     ui: {
       dropTitle: "画像をドラッグ＆ドロップ、または選択",
       dropDescription:
-        "複数画像を追加して、1つのPDFにまとめられます。",
+        "複数の画像を追加して、1 つの PDF にまとめられます。",
       selectButtonLabel: "画像を追加",
-      selectedFilesTitle: "PDFにする画像一覧",
+      selectedFilesTitle: "PDF にする画像一覧",
       fileNameLabel: "ファイル名",
       fileTypeLabel: "形式",
       fileSizeLabel: "サイズ",
@@ -149,17 +149,17 @@ const content: Record<Locale, ToolContent> = {
       moveDownLabel: "下へ",
       removeLabel: "削除",
       addMoreLabel: "さらに画像を追加",
-      createButton: "画像をPDFに変換",
+      createButton: "画像を PDF に変換",
       creatingButton: "作成中...",
-      downloadButton: "PDFをダウンロード",
+      downloadButton: "PDF をダウンロード",
       resetButton: "リセット",
-      noFilesError: "エラー: PDFに変換する画像を1つ以上追加してください。",
+      noFilesError: "エラー: PDF に変換する画像を 1 つ以上追加してください。",
       invalidFileError: "エラー: JPG / PNG / WebP 画像を選択してください。",
       loadingStatus: "画像を読み込み中です...",
-      creatingStatus: "PDFを作成中です...",
-      successMessage: "完了: PDFの作成が完了しました。",
-      createError: "エラー: PDFの作成に失敗しました。",
-      emptyListText: "追加した画像はここに表示されます。",
+      creatingStatus: "PDF を作成中です...",
+      successMessage: "PDF を作成しました。",
+      createError: "エラー: PDF の作成に失敗しました。",
+      emptyListText: "追加した画像がここに表示されます。",
     },
   },
   en: {
@@ -609,7 +609,7 @@ export default function ImageToPdfTool({ locale }: Props) {
                         <span className="font-medium text-gray-800">
                           {ui.imageSizeLabel}:
                         </span>{" "}
-                        {item.width} × {item.height}
+                        {item.width} x {item.height}
                       </p>
                     </div>
 
@@ -676,5 +676,6 @@ export default function ImageToPdfTool({ locale }: Props) {
     </>
   );
 }
+
 
 

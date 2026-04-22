@@ -1,4 +1,4 @@
-import { getToolItem, getToolItems } from "@/src/data/tool-directory";
+﻿import { getToolItem, getToolItems } from "@/src/data/tool-directory";
 
 export type ToolPageLocale = "ja" | "en";
 
@@ -97,6 +97,7 @@ const imageEditingSlugs = [
 
 const pdfToolSlugs = [
   "image-to-pdf",
+  "jpg-to-pdf",
   "pdf-to-jpg",
   "pdf-to-png",
   "pdf-to-webp",
@@ -108,46 +109,46 @@ const pdfToolSlugs = [
 ] as const;
 
 const ja = {
-  heroTitle: "\u30d6\u30e9\u30a6\u30b6\u3067\u4f7f\u3048\u308b\u753b\u50cf\u30fbPDF\u30c4\u30fc\u30eb\u4e00\u89a7",
+  heroTitle: "ブラウザで使える画像・PDFツール一覧",
   heroDescription:
-    "\u753b\u50cf\u5909\u63db\u3001\u753b\u50cf\u5727\u7e2e\u3001\u30ea\u30b5\u30a4\u30ba\u3001PDF \u5909\u63db\u3084\u7d50\u5408\u307e\u3067\u3001\u3088\u304f\u4f7f\u3046\u4f5c\u696d\u3092\u30d6\u30e9\u30a6\u30b6\u3060\u3051\u3067\u9032\u3081\u3089\u308c\u308b\u7121\u6599\u30c4\u30fc\u30eb\u3092\u307e\u3068\u3081\u3066\u3044\u307e\u3059\u3002",
+    "画像変換、画像圧縮、リサイズ、PDF 変換や結合まで、よく使う作業をブラウザだけで進められる無料ツールをまとめています。形式の違いで迷ったときも、近い作業を並べて見比べやすい構成です。",
   stats: [
-    { value: "39\u30c4\u30fc\u30eb", label: "\u753b\u50cf\u30fbPDF\u4f5c\u696d\u3092\u30ab\u30d0\u30fc" },
-    { value: "\u7121\u6599", label: "\u767b\u9332\u4e0d\u8981\u3067\u3059\u3050\u4f7f\u3048\u308b" },
-    { value: "\u5b89\u5168", label: "\u30d6\u30e9\u30a6\u30b6\u5185\u3067\u51e6\u7406" },
+    { value: "40ツール", label: "画像・PDF 作業をカバー" },
+    { value: "無料", label: "登録不要ですぐ使える" },
+    { value: "安全", label: "ブラウザ内で処理" },
   ],
-  popularToolsTitle: "\u6ce8\u76ee\u30c4\u30fc\u30eb",
+  popularToolsTitle: "注目ツール",
   popularToolsDescription:
-    "\u307e\u305a\u4f7f\u308f\u308c\u3084\u3059\u3044\u5909\u63db\u3001\u4e92\u63db\u6027\u5bfe\u5fdc\u3001\u5727\u7e2e\u7cfb\u306e\u30c4\u30fc\u30eb\u3092\u4e2d\u5fc3\u306b\u4e26\u3079\u3066\u3044\u307e\u3059\u3002",
-  topPageLinkLabel: "\u30c8\u30c3\u30d7\u30da\u30fc\u30b8\u3078",
-  seoSpotlightTitle: "\u691c\u7d22\u9700\u8981\u304c\u5f37\u3044\u30c4\u30fc\u30eb",
+    "変換、互換性対応、軽量化のように、最初に探されやすい作業を中心に並べています。",
+  topPageLinkLabel: "トップページへ",
+  seoSpotlightTitle: "まず見ておきたいツール",
   seoSpotlightDescription:
-    "\u5f62\u5f0f\u5909\u63db\u3001\u4e92\u63db\u6027\u5bfe\u5fdc\u3001\u5bb9\u91cf\u524a\u6e1b\u306f\u691c\u7d22\u610f\u56f3\u304c\u306f\u3063\u304d\u308a\u3057\u3066\u3044\u308b\u305f\u3081\u3001\u307e\u305a\u306f\u3053\u306e\u3042\u305f\u308a\u304b\u3089\u63a2\u3059\u3068\u76ee\u7684\u306b\u5408\u3046\u30c4\u30fc\u30eb\u3092\u898b\u3064\u3051\u3084\u3059\u3044\u3067\u3059\u3002",
-  guide1: "\u3053\u306e\u4e00\u89a7\u30da\u30fc\u30b8\u306e\u898b\u65b9",
+    "検索流入が多い変換系だけでなく、実際には次の作業につながりやすい補助ツールも混ぜています。どこから触るか迷うときの入口として使いやすい並びです。",
+  guide1: "この一覧ページの使い方",
   guide1a:
-    "\u76ee\u7684\u306b\u8fd1\u3044\u30ab\u30c6\u30b4\u30ea\u304b\u3089\u898b\u308b\u3068\u3001\u753b\u50cf\u5909\u63db\u3001\u753b\u50cf\u8abf\u6574\u3001PDF \u4f5c\u696d\u306e\u3069\u308c\u304b\u306b\u3059\u3050\u305f\u3069\u308a\u7740\u3051\u307e\u3059\u3002",
+    "まずは目的に近いカテゴリを見るのがおすすめです。形式を変えたいのか、容量を軽くしたいのか、PDF を整えたいのかで入口を分けると迷いにくくなります。",
   guide1b:
-    "\u5bb9\u91cf\u3092\u8efd\u304f\u3057\u305f\u3044\u306a\u3089 JPG\u3001WebP\u3001\u5727\u7e2e\u7cfb\u30c4\u30fc\u30eb\u3001\u900f\u904e\u3084\u518d\u7de8\u96c6\u3092\u91cd\u8996\u3059\u308b\u306a\u3089 PNG \u7cfb\u30c4\u30fc\u30eb\u304b\u3089\u63a2\u3059\u306e\u304c\u304a\u3059\u3059\u3081\u3067\u3059\u3002",
-  guide2: "\u4e00\u89a7\u3060\u3051\u3067\u7d42\u308f\u3089\u305b\u306a\u3044\u305f\u3081\u306b",
+    "たとえば共有向けなら JPG や WebP、編集前提なら PNG、提出資料なら PDF 系のツールから探すと流れを作りやすいです。",
+  guide2: "埋もれやすいけれど便利なツール",
   guide2a:
-    "\u5404\u30c4\u30fc\u30eb\u30da\u30fc\u30b8\u306b\u306f\u6bd4\u8f03\u3001\u6ce8\u610f\u70b9\u3001\u95a2\u9023\u30c4\u30fc\u30eb\u3082\u7f6e\u3044\u3066\u3044\u308b\u306e\u3067\u3001\u5909\u63db\u5f8c\u306e\u6b21\u306e\u4f5c\u696d\u306b\u3082\u3064\u306a\u3052\u3084\u3059\u304f\u3057\u3066\u3044\u307e\u3059\u3002",
+    "回転、反転、透かし、白黒化、ページ削除のような補助系ツールは、検索では見つけにくくても実作業ではかなり役立ちます。",
   guide2b:
-    "\u3069\u306e\u5f62\u5f0f\u3092\u9078\u3076\u3079\u304d\u304b\u8ff7\u3046\u5834\u5408\u306f\u3001\u30ac\u30a4\u30c9\u30da\u30fc\u30b8\u304b\u3089\u8003\u3048\u65b9\u3092\u6574\u7406\u3057\u3066\u304b\u3089\u9078\u3076\u3068\u5931\u6557\u3057\u306b\u304f\u3044\u3067\u3059\u3002",
-  cat1: "\u753b\u50cf\u5f62\u5f0f\u306e\u5909\u63db",
-  cat1d: "\u753b\u50cf\u3092\u5225\u306e\u5f62\u5f0f\u3078\u5909\u63db\u3057\u305f\u3044\u3068\u304d\u306e\u30c4\u30fc\u30eb\u3067\u3059\u3002",
-  cat2: "\u753b\u50cf\u306e\u8abf\u6574\u3068\u5727\u7e2e",
-  cat2d: "\u5bb9\u91cf\u8abf\u6574\u3001\u30b5\u30a4\u30ba\u5909\u66f4\u3001\u5207\u308a\u629c\u304d\u3001\u56de\u8ee2\u306a\u3069\u3001\u753b\u50cf\u3092\u4f7f\u3044\u3084\u3059\u304f\u6574\u3048\u308b\u305f\u3081\u306e\u30c4\u30fc\u30eb\u3067\u3059\u3002",
-  cat3: "PDF \u30c4\u30fc\u30eb",
-  cat3d: "PDF \u306e\u5909\u63db\u3001\u7d50\u5408\u3001\u5206\u5272\u3001\u5727\u7e2e\u3001\u56de\u8ee2\u306a\u3069\u3092\u307e\u3068\u3081\u3066\u3044\u307e\u3059\u3002",
-  aboutTitle: "\u3053\u306e\u4e00\u89a7\u30da\u30fc\u30b8\u306b\u3064\u3044\u3066",
-  about1: "\u3053\u306e\u30da\u30fc\u30b8\u3067\u306f\u3001\u753b\u50cf\u5909\u63db\u3001\u753b\u50cf\u8abf\u6574\u3001PDF \u30c4\u30fc\u30eb\u3092\u30ab\u30c6\u30b4\u30ea\u3054\u3068\u306b\u307e\u3068\u3081\u3066\u3044\u307e\u3059\u3002",
-  about2: "\u691c\u7d22\u304b\u3089\u6765\u305f\u4eba\u3067\u3082\u95a2\u9023\u30c4\u30fc\u30eb\u3092\u898b\u3064\u3051\u3084\u3059\u3044\u3088\u3046\u306b\u3001\u7528\u9014\u306e\u8fd1\u3044\u4f5c\u696d\u3092\u4e00\u7dd2\u306b\u63a2\u305b\u308b\u69cb\u6210\u306b\u3057\u3066\u3044\u307e\u3059\u3002",
-  homeTitle: "\u30c8\u30c3\u30d7\u30da\u30fc\u30b8",
-  homeDescription: "\u3088\u304f\u4f7f\u3046\u30c4\u30fc\u30eb\u3060\u3051\u3092\u7d20\u65e9\u304f\u898b\u305f\u3044\u5834\u5408\u306f\u3001\u30c8\u30c3\u30d7\u30da\u30fc\u30b8\u304b\u3089\u4eba\u6c17\u30c4\u30fc\u30eb\u306b\u3059\u3050\u79fb\u52d5\u3067\u304d\u307e\u3059\u3002",
-  homeButton: "\u30c8\u30c3\u30d7\u30da\u30fc\u30b8\u3078",
-  contactTitle: "\u304a\u554f\u3044\u5408\u308f\u305b",
-  contactDescription: "\u4e0d\u5177\u5408\u5831\u544a\u3084\u8ffd\u52a0\u5e0c\u671b\u306e\u30c4\u30fc\u30eb\u304c\u3042\u308c\u3070\u3001\u304a\u554f\u3044\u5408\u308f\u305b\u30da\u30fc\u30b8\u304b\u3089\u6c17\u8efd\u306b\u9001\u308c\u307e\u3059\u3002",
-  contactButton: "\u304a\u554f\u3044\u5408\u308f\u305b\u30da\u30fc\u30b8\u3078",
+    "変換だけで終わらず、その次の微調整までできるのがこの一覧ページの強みです。必要に応じて関連ツールもたどってみてください。",
+  cat1: "画像形式の変換",
+  cat1d: "画像を別の形式へ変換したいときのツールです。互換性を広げたいときや、編集しやすい形式へ寄せたいときに向いています。",
+  cat2: "画像の調整と圧縮",
+  cat2d: "容量調整、サイズ変更、切り抜き、回転など、画像を使いやすく整えるためのツールです。公開前や提出前の仕上げにも使えます。",
+  cat3: "PDF ツール",
+  cat3d: "PDF の変換、結合、分割、圧縮、回転、ページ削除など、実務でよく使う PDF 作業をまとめています。",
+  aboutTitle: "この一覧ページについて",
+  about1: "このページでは、画像変換、画像調整、PDF ツールをカテゴリごとにまとめています。どの作業に近いかが分かるよう、役割の似たツールを近くに置いています。",
+  about2: "検索から来た人でも関連ツールを見つけやすいようにしているので、変換の次に圧縮、圧縮の次にリサイズといった流れも追いやすくなっています。",
+  homeTitle: "トップページ",
+  homeDescription: "よく使うツールだけを素早く見たい場合は、トップページから人気ツールにすぐ移動できます。",
+  homeButton: "トップページへ",
+  contactTitle: "お問い合わせ",
+  contactDescription: "不具合報告や追加してほしいツールがあれば、お問い合わせページから気軽に送れます。",
+  contactButton: "お問い合わせページへ",
 };
 
 export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
@@ -164,27 +165,27 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
       {
         ...getToolItem("ja", "jpg-to-png"),
         reason:
-          "スクリーンショットや資料画像を扱いやすい形式に整えたいときに向いています。",
-      },
-      {
-        ...getToolItem("ja", "png-to-jpg"),
-        reason:
-          "容量を軽くして共有しやすくしたいときに使いやすい定番ツールです。",
+          "スクリーンショットや資料用画像を、あとから扱いやすい形に変えたいときの定番です。",
       },
       {
         ...getToolItem("ja", "heic-to-jpg"),
         reason:
-          "iPhone 写真を幅広い環境で使える形にしたいときに便利です。",
-      },
-      {
-        ...getToolItem("ja", "jpg-compress"),
-        reason:
-          "写真中心の画像を公開前に軽くしたいときに使いやすいです。",
+          "iPhone 写真を送信や入稿で詰まりにくい形式へそろえたいときに便利です。",
       },
       {
         ...getToolItem("ja", "image-compress"),
         reason:
-          "画像の容量調整をまとめて考えたいときの入口に向いています。",
+          "画像の容量をまとめて見直したいときの入口にしやすく、公開前の調整にも向いています。",
+      },
+      {
+        ...getToolItem("ja", "webp-compress"),
+        reason:
+          "すでに WebP にしてある画像を、さらに軽くしたいときに役立つ補助ツールです。",
+      },
+      {
+        ...getToolItem("ja", "pdf-remove-pages"),
+        reason:
+          "PDF を分割するほどではないけれど、余計なページだけ外したい場面でかなり使いやすいです。",
       },
     ],
     guideSections: [
@@ -231,7 +232,7 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
         "A free collection of tools for converting JPG, PNG, WebP, HEIC, GIF, AVIF, BMP, TIFF, ICO, SVG, and PDF files, plus image compression, resizing, cropping, grayscale conversion, and watermarking. Everything runs in your browser, so your files are not uploaded to an external server.",
     },
     stats: [
-      { value: "39 Tools", label: "Image and PDF tools available" },
+      { value: "40 Tools", label: "Image and PDF tools available" },
       { value: "Free", label: "No signup required" },
       { value: "Safe", label: "Processed in your browser" },
     ],
@@ -329,3 +330,5 @@ export const popularTools = [
   getToolItem("en", "image-compress"),
   getToolItem("en", "pdf-to-jpg"),
 ];
+
+

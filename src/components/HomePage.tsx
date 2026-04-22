@@ -233,6 +233,46 @@ export default function HomePage({ locale }: Props) {
           </div>
         </section>
 
+
+        <section className="border-b border-stone-200/70 bg-transparent">
+          <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+            <div className="mb-5 space-y-2">
+              <h2 className="text-2xl font-bold text-slate-950">
+                {t.taskPathsSection.title}
+              </h2>
+              <p className="max-w-3xl text-sm leading-7 text-slate-600">
+                {t.taskPathsSection.description}
+              </p>
+            </div>
+
+            <div className="grid gap-4 lg:grid-cols-3">
+              {t.taskPathsSection.items.map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-[1.6rem] border border-stone-200 bg-white/92 p-5 shadow-[0_18px_34px_-28px_rgba(22,32,51,0.56)]"
+                >
+                  <h3 className="text-lg font-semibold text-slate-950">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {item.tools.map((tool) => (
+                      <Link
+                        key={`${item.title}-${tool.href}`}
+                        href={
+                          locale === "en"
+                            ? tool.href.replace(/^\/tools/, "/en/tools")
+                            : tool.href
+                        }
+                        className="inline-flex rounded-full border border-stone-200 bg-stone-50 px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-stone-300 hover:bg-white"
+                      >
+                        {tool.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
         <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="space-y-12">
             {t.categories.map((category) => (
@@ -516,6 +556,46 @@ export default function HomePage({ locale }: Props) {
           </div>
         </section>
 
+
+        <section className="border-b border-gray-200 bg-white">
+          <div className="px-4 py-8">
+            <div className="mb-4 space-y-2">
+              <h2 className="text-xl font-bold text-gray-900">
+                {t.taskPathsSection.title}
+              </h2>
+              <p className="text-sm leading-6 text-gray-600">
+                {t.taskPathsSection.description}
+              </p>
+            </div>
+
+            <div className="grid gap-3">
+              {t.taskPathsSection.items.map((item) => (
+                <div
+                  key={`mobile-task-${item.title}`}
+                  className="rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow-sm"
+                >
+                  <h3 className="text-base font-semibold text-gray-900">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-gray-600">{item.description}</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {item.tools.map((tool) => (
+                      <Link
+                        key={`mobile-task-link-${item.title}-${tool.href}`}
+                        href={
+                          locale === "en"
+                            ? tool.href.replace(/^\/tools/, "/en/tools")
+                            : tool.href
+                        }
+                        className="inline-flex rounded-full border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-800"
+                      >
+                        {tool.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
         <section className="bg-white">
           <div className="space-y-8 px-4 py-8">
             {mobileCategories.map((category) => (
@@ -683,6 +763,7 @@ export default function HomePage({ locale }: Props) {
     </main>
   );
 }
+
 
 
 

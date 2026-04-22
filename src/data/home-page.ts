@@ -1,4 +1,4 @@
-import { getToolItems } from "@/src/data/tool-directory";
+﻿import { getToolItems } from "@/src/data/tool-directory";
 
 type ToolItem = {
   name: string;
@@ -15,6 +15,12 @@ type ToolCategory = {
 type FaqItem = {
   question: string;
   answer: string;
+};
+
+type TaskPathItem = {
+  title: string;
+  description: string;
+  tools: ToolItem[];
 };
 
 type HomePageLocale = "ja" | "en";
@@ -34,6 +40,11 @@ type HomePageContent = {
   popularToolsTitle: string;
   toolsPageLinkLabel: string;
   popularTools: ToolItem[];
+  taskPathsSection: {
+    title: string;
+    description: string;
+    items: TaskPathItem[];
+  };
   categories: ToolCategory[];
   aboutSection: {
     title: string;
@@ -54,46 +65,49 @@ type HomePageContent = {
 };
 
 const ja = {
-  heroTitle: "\u30d6\u30e9\u30a6\u30b6\u3067\u4f7f\u3048\u308b\u753b\u50cf\u5909\u63db\u30fbPDF\u30c4\u30fc\u30eb",
+  heroTitle: "ブラウザで使える画像変換・PDF ツール",
   heroDescription:
-    "JPG\u3001PNG\u3001WebP\u3001HEIC\u3001GIF\u3001PDF \u306a\u3069\u306e\u5909\u63db\u3084\u3001\u753b\u50cf\u5727\u7e2e\u3001\u30ea\u30b5\u30a4\u30ba\u3001\u5207\u308a\u629c\u304d\u307e\u3067\u3092\u30d6\u30e9\u30a6\u30b6\u4e0a\u3067\u624b\u8efd\u306b\u884c\u3048\u308b\u7121\u6599\u30c4\u30fc\u30eb\u96c6\u3067\u3059\u3002",
-  viewTools: "\u30c4\u30fc\u30eb\u4e00\u89a7\u3092\u898b\u308b",
-  contact: "\u304a\u554f\u3044\u5408\u308f\u305b",
+    "JPG、PNG、WebP、HEIC、GIF、PDF まわりの変換や、画像圧縮、リサイズ、切り抜きまでをブラウザ上でそのまま進められる無料ツール集です。提出前の調整、共有前の軽量化、形式変換のやり直しなど、実務でも日常でも使いやすい作業をまとめています。",
+  viewTools: "ツール一覧を見る",
+  contact: "お問い合わせ",
   stats: [
-    { value: "39\u30c4\u30fc\u30eb\u63b2\u8f09", label: "\u753b\u50cf\u30fbPDF\u4f5c\u696d\u3092\u5e45\u5e83\u304f\u30ab\u30d0\u30fc" },
-    { value: "\u7121\u6599", label: "\u767b\u9332\u4e0d\u8981\u3067\u3059\u3050\u4f7f\u3048\u308b" },
-    { value: "\u5b89\u5168", label: "\u30d6\u30e9\u30a6\u30b6\u5185\u3067\u51e6\u7406" },
+    { value: "40ツール掲載", label: "画像と PDF の定番作業をひと通りカバー" },
+    { value: "無料", label: "登録なしですぐ試せる" },
+    { value: "ブラウザ処理", label: "多くの作業を端末内で完結" },
   ],
-  popularTitle: "\u3088\u304f\u4f7f\u308f\u308c\u308b\u30c4\u30fc\u30eb",
-  viewAll: "\u3059\u3079\u3066\u898b\u308b",
-  aboutTitle: "\u3053\u306e\u30b5\u30a4\u30c8\u306b\u3064\u3044\u3066",
+  popularTitle: "よく使われるツール",
+  viewAll: "すべて見る",
+  taskPathsTitle: "目的から選べるおすすめ導線",
+  taskPathsDescription:
+    "何をしたいかが決まっているときは、ツール名から探すよりも目的から辿るほうが早いです。提出前、共有前、形式のやり直しなど、よくある流れごとに入口をまとめています。",
+  aboutTitle: "このサイトについて",
   aboutBody1:
-    "AI Image Tools \u306f\u3001\u753b\u50cf\u5909\u63db\u3001\u753b\u50cf\u8abf\u6574\u3001PDF \u4f5c\u696d\u3092\u30d6\u30e9\u30a6\u30b6\u3060\u3051\u3067\u9032\u3081\u3089\u308c\u308b\u7121\u6599\u30c4\u30fc\u30eb\u30b5\u30a4\u30c8\u3067\u3059\u3002",
+    "AI Image Tools は、画像変換、画像調整、PDF 作業をブラウザだけで進めやすくするための無料ツールサイトです。単に変換ボタンを置くだけでなく、用途ごとに迷いにくい導線や説明も整えることを重視しています。",
   aboutBody2:
-    "\u521d\u3081\u3066\u4f7f\u3046\u4eba\u3067\u3082\u8ff7\u3044\u306b\u304f\u3044 UI \u3068\u3001\u5b9f\u52d9\u3067\u3082\u4f7f\u3044\u3084\u3059\u3044\u8efd\u3055\u3092\u91cd\u8996\u3057\u3066\u3044\u307e\u3059\u3002",
-  toolsTitle: "\u30c4\u30fc\u30eb\u4e00\u89a7\u30da\u30fc\u30b8",
+    "初めて使う人でも流れが追いやすいこと、仕事の途中でもすぐ使えること、形式の違いで困りにくいことを意識して更新しています。",
+  toolsTitle: "ツール一覧ページ",
   toolsDescription:
-    "\u753b\u50cf\u5909\u63db\u3001\u753b\u50cf\u7de8\u96c6\u3001PDF \u30c4\u30fc\u30eb\u3092\u30ab\u30c6\u30b4\u30ea\u3054\u3068\u306b\u3055\u304c\u305b\u307e\u3059\u3002",
-  toolsButton: "\u30c4\u30fc\u30eb\u4e00\u89a7\u3078",
-  faqTitle: "\u3088\u304f\u3042\u308b\u8cea\u554f",
-  faq1q: "AI Image Tools \u306f\u7121\u6599\u3067\u4f7f\u3048\u307e\u3059\u304b\uff1f",
-  faq1a: "\u306f\u3044\u3002\u516c\u958b\u4e2d\u306e\u30c4\u30fc\u30eb\u306f\u7121\u6599\u3067\u4f7f\u3048\u307e\u3059\u3002",
-  faq2q: "\u753b\u50cf\u306f\u5b89\u5168\u306b\u6271\u308f\u308c\u307e\u3059\u304b\uff1f",
-  faq2a: "\u591a\u304f\u306e\u30c4\u30fc\u30eb\u306f\u30d6\u30e9\u30a6\u30b6\u5185\u3067\u51e6\u7406\u3059\u308b\u305f\u3081\u3001\u30d5\u30a1\u30a4\u30eb\u306f\u5916\u90e8\u30b5\u30fc\u30d0\u30fc\u3078\u9001\u4fe1\u3055\u308c\u307e\u305b\u3093\u3002",
-  faq3q: "\u3069\u306e\u5f62\u5f0f\u306b\u5bfe\u5fdc\u3057\u3066\u3044\u307e\u3059\u304b\uff1f",
-  faq3a: "JPG\u3001PNG\u3001WebP\u3001HEIC\u3001GIF\u3001AVIF\u3001BMP\u3001TIFF\u3001ICO\u3001SVG\u3001PDF \u306a\u3069\u306b\u5bfe\u5fdc\u3057\u305f\u30c4\u30fc\u30eb\u304c\u3042\u308a\u307e\u3059\u3002",
-  faq4q: "\u4eca\u5f8c\u3082\u30c4\u30fc\u30eb\u306f\u5897\u3048\u307e\u3059\u304b\uff1f",
-  faq4a: "\u306f\u3044\u3002\u9700\u8981\u306e\u9ad8\u3044\u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u3092\u9806\u6b21\u8ffd\u52a0\u3057\u3066\u3044\u304f\u4e88\u5b9a\u3067\u3059\u3002",
-  contactTitle: "\u304a\u554f\u3044\u5408\u308f\u305b",
+    "画像変換、画像編集、PDF ツールをカテゴリごとにまとめています。やりたい作業が決まっているときも、似たツールを見比べたいときも探しやすい構成です。",
+  toolsButton: "ツール一覧へ",
+  faqTitle: "よくある質問",
+  faq1q: "AI Image Tools は無料で使えますか？",
+  faq1a: "はい。公開しているツールは無料で使えます。まず試してから使い勝手を確認したい人向けのサイトです。",
+  faq2q: "画像は安全に扱われますか？",
+  faq2a: "多くのツールはブラウザ内で処理するため、画像を外部サーバーに送らずに済みます。提出前の画像や社内資料でも使いやすいよう、この点は特に重視しています。",
+  faq3q: "どの形式に対応していますか？",
+  faq3a: "JPG、PNG、WebP、HEIC、GIF、AVIF、BMP、TIFF、ICO、SVG、PDF まわりの作業に対応しています。変換だけでなく、圧縮やリサイズ、結合や分割まで扱えます。",
+  faq4q: "今後もツールは増えますか？",
+  faq4a: "増やす予定はありますが、数だけを増やすよりも、いまあるツールの使い勝手や説明を先に改善する方針です。必要性の高いものから順に追加します。",
+  contactTitle: "お問い合わせ",
   contactBody:
-    "\u4e0d\u5177\u5408\u5831\u544a\u3001\u6a5f\u80fd\u8981\u671b\u3001\u8ffd\u52a0\u3057\u3066\u307b\u3057\u3044\u30c4\u30fc\u30eb\u306e\u76f8\u8ac7\u304c\u3042\u308c\u3070\u3001\u304a\u554f\u3044\u5408\u308f\u305b\u30da\u30fc\u30b8\u304b\u3089\u9001\u308c\u307e\u3059\u3002",
-  contactButton: "\u304a\u554f\u3044\u5408\u308f\u305b\u30da\u30fc\u30b8\u3078",
-  cat1: "\u753b\u50cf\u5f62\u5f0f\u306e\u5909\u63db",
-  cat1d: "JPG\u3001PNG\u3001WebP\u3001HEIC \u306a\u3069\u3092\u5225\u306e\u5f62\u5f0f\u3078\u5909\u63db\u3057\u305f\u3044\u3068\u304d\u306e\u30c4\u30fc\u30eb\u3067\u3059\u3002",
-  cat2: "\u753b\u50cf\u306e\u8abf\u6574\u3068\u5727\u7e2e",
-  cat2d: "\u5bb9\u91cf\u8abf\u6574\u3001\u30b5\u30a4\u30ba\u5909\u66f4\u3001\u5207\u308a\u629c\u304d\u306a\u3069\u3001\u753b\u50cf\u3092\u4f7f\u3044\u3084\u3059\u304f\u6574\u3048\u308b\u305f\u3081\u306e\u30c4\u30fc\u30eb\u3067\u3059\u3002",
-  cat3: "PDF \u30c4\u30fc\u30eb",
-  cat3d: "PDF \u306e\u5909\u63db\u3001\u7d50\u5408\u3001\u5206\u5272\u3001\u5727\u7e2e\u306a\u3069\u3001\u5b9f\u52d9\u3067\u3088\u304f\u4f7f\u3046\u4f5c\u696d\u3092\u307e\u3068\u3081\u3066\u3044\u307e\u3059\u3002",
+    "不具合報告、機能要望、追加してほしいツールの相談があれば、お問い合わせページから送れます。実際の困りごとをもとに改善内容を決めることが多いです。",
+  contactButton: "お問い合わせページへ",
+  cat1: "画像形式の変換",
+  cat1d: "JPG、PNG、WebP、HEIC などを別の形式へ変換したいときのツールです。互換性を広げたいときや、編集しやすい形式へ寄せたいときに向いています。",
+  cat2: "画像の調整と圧縮",
+  cat2d: "容量調整、サイズ変更、切り抜きなど、画像を使いやすい状態に整えるためのツールです。公開前や提出前の仕上げにも使えます。",
+  cat3: "PDF ツール",
+  cat3d: "PDF の変換、結合、分割、圧縮など、実務でよくある PDF 作業をまとめています。資料整理や提出前の調整にも向いています。",
 };
 
 export const homePageContent: Record<HomePageLocale, HomePageContent> = {
@@ -116,6 +130,27 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       "image-compress",
       "pdf-to-jpg",
     ]),
+    taskPathsSection: {
+      title: ja.taskPathsTitle,
+      description: ja.taskPathsDescription,
+      items: [
+        {
+          title: "提出用にまとめたい",
+          description: "複数画像を PDF にまとめたり、PDF を軽くしたりして、そのまま提出しやすい形へ整える流れです。",
+          tools: getToolItems("ja", ["image-to-pdf", "jpg-to-pdf", "compress-pdf"]),
+        },
+        {
+          title: "共有前に軽くしたい",
+          description: "アップロード制限や送信前の容量調整が気になるときに、画像を軽くしやすい入口をまとめています。",
+          tools: getToolItems("ja", ["image-compress", "jpg-compress", "webp-compress"]),
+        },
+        {
+          title: "形式で詰まったとき",
+          description: "iPhone 写真や PNG / JPG の行き来など、相手先の環境に合わせて変換したいときに便利です。",
+          tools: getToolItems("ja", ["heic-to-jpg", "png-to-jpg", "jpg-to-png"]),
+        },
+      ],
+    },
     categories: [
       {
         title: ja.cat1,
@@ -142,8 +177,8 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
         description: ja.cat3d,
         tools: getToolItems("ja", [
           "image-to-pdf",
+          "jpg-to-pdf",
           "pdf-to-jpg",
-          "pdf-to-png",
           "merge-pdf",
         ]),
       },
@@ -175,14 +210,14 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
     hero: {
       title: "Free Image and PDF Conversion Tools",
       description:
-        "A free collection of browser-based tools for converting JPG, PNG, WebP, HEIC, GIF, and PDF files, plus image compression, resizing, cropping, and other practical tasks.",
+        "A free browser-based collection for image conversion, compression, resizing, cropping, and practical PDF work. It is designed for real tasks such as uploads, submissions, publishing prep, and quick format fixes.",
       primaryButtonLabel: "View All Tools",
       secondaryButtonLabel: "Contact",
     },
     stats: [
-      { value: "39 Tools", label: "Image and PDF tasks covered" },
+      { value: "40 Tools", label: "Covering common image and PDF tasks" },
       { value: "Free", label: "No signup required" },
-      { value: "Safe", label: "Processed in your browser" },
+      { value: "Browser-based", label: "Many workflows stay on your device" },
     ],
     popularToolsTitle: "Popular Tools",
     toolsPageLinkLabel: "View all",
@@ -194,10 +229,32 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       "image-compress",
       "pdf-to-jpg",
     ]),
+    taskPathsSection: {
+      title: "Choose by what you need to finish",
+      description:
+        "Many visitors know the task before they know the tool name. These grouped entry points make it easier to jump into the right workflow without guessing.",
+      items: [
+        {
+          title: "Prepare a file for submission",
+          description: "Turn images into PDF, organize the output, and reduce file size before sending or uploading.",
+          tools: getToolItems("en", ["image-to-pdf", "jpg-to-pdf", "compress-pdf"]),
+        },
+        {
+          title: "Make images lighter before sharing",
+          description: "Start here when upload limits or email size limits are the main problem and you need a smaller file quickly.",
+          tools: getToolItems("en", ["image-compress", "jpg-compress", "webp-compress"]),
+        },
+        {
+          title: "Fix a compatibility problem",
+          description: "Use these when a phone photo, PNG, or JPG is not accepted by the destination and you need a safer format fast.",
+          tools: getToolItems("en", ["heic-to-jpg", "png-to-jpg", "jpg-to-png"]),
+        },
+      ],
+    },
     categories: [
       {
         title: "Image Conversion",
-        description: "Convert images from one format to another.",
+        description: "Use these when you need better compatibility, easier editing, or a different delivery format.",
         tools: getToolItems("en", [
           "jpg-to-png",
           "png-to-jpg",
@@ -207,7 +264,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       },
       {
         title: "Image Editing",
-        description: "Resize, compress, and edit images in a lightweight workflow.",
+        description: "Resize, compress, crop, and clean up images before publishing, uploading, or sharing.",
         tools: getToolItems("en", [
           "image-compress",
           "jpg-compress",
@@ -217,11 +274,11 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       },
       {
         title: "PDF Tools",
-        description: "Convert and reorganize PDF files.",
+        description: "Convert, merge, split, and adjust PDF files for practical work and submission flows.",
         tools: getToolItems("en", [
           "image-to-pdf",
+          "jpg-to-pdf",
           "pdf-to-jpg",
-          "pdf-to-png",
           "merge-pdf",
         ]),
       },
@@ -229,27 +286,27 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
     aboutSection: {
       title: "About This Site",
       paragraphs: [
-        "AI Image Tools is a free browser-based site for image conversion, image editing, and PDF workflows.",
-        "The site is designed to be practical, lightweight, and easy to navigate for both personal and work-related tasks.",
+        "AI Image Tools is a free browser-based site for image conversion, image cleanup, and PDF workflows.",
+        "The goal is not just to publish tools, but to make common file tasks easier to understand and easier to finish without extra friction.",
       ],
     },
     toolsSection: {
       title: "Tools List Page",
       description:
-        "If you want to browse all image conversion, image editing, and PDF tools by category, visit the tools list page.",
+        "If you want to compare formats, editing tools, and PDF workflows in one place, the tools list page is the fastest starting point.",
       buttonLabel: "Go to Tools List",
     },
     faqSectionTitle: "Frequently Asked Questions",
     faqItems: [
-      { question: "Is AI Image Tools free to use?", answer: "Yes. The currently published tools are free to use." },
-      { question: "Are uploaded files safe?", answer: "Most tools process files in your browser, so they are not sent to an external server." },
-      { question: "What file formats are supported?", answer: "JPG, PNG, WebP, HEIC, GIF, AVIF, BMP, TIFF, ICO, SVG, and PDF workflows are covered." },
-      { question: "Will more tools be added later?", answer: "Yes. The site will continue to improve existing tools and add new workflows over time." },
+      { question: "Is AI Image Tools free to use?", answer: "Yes. The published tools are free to use, and the site is meant to be easy to try without setup." },
+      { question: "Are uploaded files safe?", answer: "Most tools process files in your browser, which helps keep images off external servers and makes the tools easier to use for sensitive everyday tasks." },
+      { question: "What file formats are supported?", answer: "The site covers JPG, PNG, WebP, HEIC, GIF, AVIF, BMP, TIFF, ICO, SVG, and several PDF workflows including conversion, splitting, merging, and compression." },
+      { question: "Will more tools be added later?", answer: "Probably, but the priority is improving the usefulness and clarity of the tools already here before expanding the list further." },
     ],
     contactSection: {
       title: "Contact",
       description:
-        "If you find a bug or want to request a new tool, please contact us through the contact page.",
+        "If you run into a bug or want a new workflow covered, you can send a note through the contact page.",
       buttonLabel: "Go to Contact Page",
     },
   },
