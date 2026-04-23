@@ -1,21 +1,14 @@
 import type { MetadataRoute } from "next";
+import { getGuides } from "@/src/data/guides";
 import { siteUrl } from "@/src/lib/site";
+
+const guideRoutes = getGuides("ja").map((guide) => `/guides/${guide.slug}`);
 
 const routes = [
   "",
   "/tools",
   "/guides",
-  "/guides/image-format-basics",
-  "/guides/jpg-vs-png",
-  "/guides/png-vs-webp",
-  "/guides/pdf-workflows",
-  "/guides/heic-to-jpg-guide",
-  "/guides/compress-images-without-losing-quality",
-  "/guides/pdf-to-jpg-guide",
-  "/guides/resize-images-for-web",
-  "/guides/merge-or-split-pdf",
-  "/guides/choose-best-image-format-for-web",
-  "/guides/how-to-remove-pages-from-pdf",
+  ...guideRoutes,
   "/about",
   "/contact",
   "/privacy-policy",

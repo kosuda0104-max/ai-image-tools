@@ -509,6 +509,141 @@ const jaGuides: GuideEntry[] = [
       },
     ],
   },
+  {
+    slug: "prepare-images-for-upload",
+    title: "アップロード前に画像を整える手順",
+    description:
+      "フォーム提出、メール添付、管理画面への登録前に、画像形式、容量、サイズ、見た目をどう確認すると失敗しにくいかをまとめた実用ガイドです。",
+    cardDescription:
+      "画像を送る前に、形式、容量、サイズ、見た目を順番に確認するための実用手順です。",
+    sections: [
+      {
+        title: "まず提出先の条件を見る",
+        paragraphs: [
+          "画像アップロードでつまずく原因の多くは、画質そのものではなく、提出先の条件と画像の状態が合っていないことです。対応形式、最大容量、推奨サイズ、縦横比、透過の可否を先に確認すると、変換や圧縮の順番を決めやすくなります。",
+          "たとえば、JPG しか受け付けないフォームに PNG や HEIC を入れると弾かれることがあります。逆に、透過が必要なロゴを JPG にすると背景が失われます。最初に条件を見るだけで、やり直しをかなり減らせます。",
+        ],
+      },
+      {
+        title: "形式を合わせる",
+        paragraphs: [
+          "受け付け形式が決まっている場合は、まず形式変換から始めます。iPhone 写真なら HEIC から JPG、Web で拾った画像なら WebP から JPG や PNG、スクリーンショットなら PNG のまま使うか JPG に軽くするかを判断します。",
+          "ここで大切なのは、変換だけで画質が良くなるわけではないという点です。目的は、相手先で開ける形式にそろえることです。見た目を保ちたい場合は、変換後に一度開いて文字や色味を確認します。",
+        ],
+      },
+      {
+        title: "容量とサイズを整える",
+        paragraphs: [
+          "形式を合わせても容量が大きい場合は、画像圧縮やリサイズを使います。アップロード制限に引っかかる画像は、まず表示に必要な大きさまでリサイズし、そのあと圧縮すると自然に軽くなりやすいです。",
+          "写真は圧縮で軽くなりやすい一方、文字が多い画像や図版は崩れが目立ちやすいことがあります。容量だけで判断せず、変換後の画像を開いて読みにくくなっていないかを見るのが安全です。",
+        ],
+      },
+      {
+        title: "見た目を最終確認する",
+        paragraphs: [
+          "提出前には、ファイル名、向き、余白、切り抜き、透かし、文字の読みやすさを確認します。スマホで撮った写真は向きがずれて見えることがあり、スクリーンショットは不要な余白が残りやすいです。",
+          "必要なら画像回転、切り抜き、リサイズを使って、相手が見やすい状態に整えます。単にアップロードできるだけでなく、開いたときに伝わる状態にすることが実務では重要です。",
+        ],
+      },
+      {
+        title: "おすすめの作業順",
+        paragraphs: [
+          "迷ったときは、条件確認、形式変換、リサイズ、圧縮、見た目確認の順番で進めると整理しやすいです。最初から圧縮だけを試すより、原因を分けて対応したほうが失敗しにくくなります。",
+          "このサイトでは、HEIC to JPG、WebP to JPG、画像リサイズ、画像圧縮、画像切り抜きなどをまとめて使えます。アップロード前の準備をブラウザだけで進めたいときに、一連の流れとして使いやすい構成です。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "iphone-photos-to-pdf",
+    title: "iPhone写真を提出用PDFにする手順",
+    description:
+      "iPhoneで撮った写真を、学校、仕事、申請、共有用のPDFにまとめるときの形式変換、容量調整、ページ順確認の流れを整理します。",
+    cardDescription:
+      "HEIC写真をJPGに変換し、必要に応じて軽くしてからPDFにまとめる流れを説明します。",
+    sections: [
+      {
+        title: "iPhone写真はそのまま提出できないことがある",
+        paragraphs: [
+          "iPhone の写真は HEIC 形式になっていることがあり、提出先によっては開けない、アップロードできない、プレビューが出ないことがあります。自分の端末では問題なく見えても、相手側の環境では扱いづらい場合があります。",
+          "提出用にするなら、まず JPG に変換して互換性を上げるのが分かりやすいです。特に学校や会社のフォーム、古い業務システム、メール添付では JPG のほうが安全なことが多いです。",
+        ],
+      },
+      {
+        title: "最初に写真を選び直す",
+        paragraphs: [
+          "PDF にまとめる前に、必要な写真だけを選びます。似た写真、失敗した写真、個人情報が写り込んだ写真、不要な余白が多い写真を外しておくと、後の作業がかなり楽になります。",
+          "書類やメモを撮影した写真は、文字が読めるか、斜めになりすぎていないか、影で見えにくくないかを確認します。必要なら撮り直したほうが、変換や補正で無理に直すよりきれいに仕上がります。",
+        ],
+      },
+      {
+        title: "HEICをJPGにしてから整える",
+        paragraphs: [
+          "HEIC の写真は、まず HEIC to JPG ツールで JPG に変換します。その後、容量が大きい場合は JPG 圧縮、向きが違う場合は画像回転、余白が多い場合は切り抜きで整えます。",
+          "PDF にする前に画像単位で整えておくと、完成後のページが見やすくなります。あとから PDF 側で直そうとすると、ページ全体の調整になりやすいので、画像の段階で確認するのが効率的です。",
+        ],
+      },
+      {
+        title: "PDFにまとめるときの注意点",
+        paragraphs: [
+          "画像を PDF にまとめるときは、ページ順が特に大切です。申請書、領収書、資料写真などは、見る人が自然に追える順番に並べるだけで伝わりやすくなります。",
+          "また、写真の枚数が多いとPDFの容量が大きくなりやすいです。提出先に容量制限がある場合は、画像圧縮や PDF 圧縮を組み合わせて、読める範囲で軽くします。",
+        ],
+      },
+      {
+        title: "提出前の最終チェック",
+        paragraphs: [
+          "完成したPDFは必ず一度開き、ページ抜け、順番、文字の読みやすさ、不要な写真の混入がないか確認します。スマホだけで確認すると見落とすことがあるので、できれば大きめの画面でも見ると安心です。",
+          "このサイトでは HEIC to JPG、JPG 圧縮、画像回転、画像切り抜き、Image to PDF、PDF 圧縮までまとめて使えます。写真を提出用PDFにする流れを一か所で進めやすくなっています。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "optimize-blog-and-site-images",
+    title: "ブログやサイト画像を軽くする手順",
+    description:
+      "ブログ、LP、EC、ポートフォリオなどで使う画像を、見た目を保ちながら軽くするための形式選び、リサイズ、圧縮の考え方をまとめます。",
+    cardDescription:
+      "Web掲載前に画像形式、サイズ、圧縮を見直し、表示速度と見た目のバランスを取りやすくします。",
+    sections: [
+      {
+        title: "Web画像は見た目と軽さの両方を見る",
+        paragraphs: [
+          "ブログやサイト画像は、きれいに見えることだけでなく、ページの読み込みを重くしすぎないことも大切です。大きすぎる写真や未圧縮の画像が多いと、スマホ回線では表示が遅くなり、ユーザーが離れやすくなります。",
+          "ただし、軽さだけを優先して画質を落としすぎると、商品写真や説明画像の信頼感が下がります。用途ごとに、どこまで軽くしてよいかを決めるのが現実的です。",
+        ],
+      },
+      {
+        title: "まず表示サイズに合わせる",
+        paragraphs: [
+          "画像が重い原因の一つは、表示サイズよりも大きすぎる画像をそのまま使っていることです。横幅 800px で表示する画像に、4000px の写真を置いても、見た目以上にデータ量が増えます。",
+          "そのため、最初に画像リサイズで必要な大きさへ近づけるのがおすすめです。リサイズしてから圧縮すると、見た目の劣化を抑えながら容量を減らしやすくなります。",
+        ],
+      },
+      {
+        title: "形式を使い分ける",
+        paragraphs: [
+          "写真は JPG や WebP、ロゴや透過素材は PNG、Web公開の最終出力は WebP も候補にする、という切り分けが分かりやすいです。すべてを同じ形式にするより、画像の種類で選んだほうが自然に軽くなります。",
+          "特にWebPは軽量化に向いていますが、再編集や相手先への再提出がある場合は、PNGやJPGも残しておくと安心です。公開用と保管用を分ける考え方が役立ちます。",
+        ],
+      },
+      {
+        title: "圧縮後は必ず見比べる",
+        paragraphs: [
+          "圧縮後は、容量だけでなく見た目も確認します。人物写真なら肌や背景のざらつき、商品写真なら輪郭や細部、スクリーンショットなら文字の読みやすさを見ます。",
+          "画像の種類によって、同じ圧縮でも目立ち方が違います。問題があれば圧縮を弱める、サイズを少し小さくする、形式を変えるなど、いくつかの手段を組み合わせると調整しやすくなります。",
+        ],
+      },
+      {
+        title: "公開前のおすすめフロー",
+        paragraphs: [
+          "おすすめは、用途確認、リサイズ、形式変換、圧縮、表示確認の順番です。先にサイズを整えることで、圧縮だけに頼らず自然に軽くできます。",
+          "このサイトでは画像リサイズ、JPG圧縮、PNG圧縮、WebP圧縮、JPG to WebP、PNG to WebP をブラウザだけで使えます。公開前の画像準備をまとめて進めたいときに使いやすい流れです。",
+        ],
+      },
+    ],
+  },
 ];
 
 const enGuides: GuideEntry[] = [
@@ -1003,6 +1138,141 @@ const enGuides: GuideEntry[] = [
         paragraphs: [
           "Use page removal when you want the same PDF, just cleaner. Use splitting when you need multiple outputs. Use merging when the job is the opposite and scattered files need to become one document.",
           "Thinking about those three operations together makes PDF cleanup much easier to manage in real projects.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "prepare-images-for-upload",
+    title: "How to prepare images before upload",
+    description:
+      "A practical upload checklist for matching image format, file size, dimensions, and visual quality before sending files to forms, dashboards, email, or CMS tools.",
+    cardDescription:
+      "Check format, size, dimensions, and image quality in the right order before uploading or sending images.",
+    sections: [
+      {
+        title: "Start with the upload requirements",
+        paragraphs: [
+          "Many upload problems happen because the image does not match the destination requirements. Before converting or compressing, check the accepted formats, maximum file size, recommended dimensions, aspect ratio, and whether transparency is allowed.",
+          "For example, a form that only accepts JPG may reject PNG, WebP, or HEIC. A logo that needs transparency should not be flattened into JPG. Reading the requirements first can prevent a lot of unnecessary trial and error.",
+        ],
+      },
+      {
+        title: "Match the file format first",
+        paragraphs: [
+          "If the destination requires a specific format, start with conversion. iPhone photos may need HEIC to JPG, downloaded web images may need WebP to JPG or PNG, and screenshots may need to stay PNG if text clarity matters.",
+          "Conversion does not magically improve quality. Its main purpose is compatibility. After converting, open the result once and check text edges, colors, and transparency before continuing.",
+        ],
+      },
+      {
+        title: "Resize and compress only after the format is right",
+        paragraphs: [
+          "If the image is still too large, use resizing and compression. A good order is to resize the image close to the final display size first, then compress it. That usually gives a cleaner result than heavy compression alone.",
+          "Photos often compress well, while screenshots, diagrams, and images with small text can show artifacts faster. Always check readability after reducing file size.",
+        ],
+      },
+      {
+        title: "Do a visual check before sending",
+        paragraphs: [
+          "Before upload, check file name, orientation, blank margins, cropping, watermark placement, and text readability. Phone photos can sometimes appear rotated, and screenshots often include extra space that does not need to be sent.",
+          "If needed, rotate, crop, resize, or compress the image before submitting. The goal is not just a file that uploads, but a file that is easy for the recipient to understand.",
+        ],
+      },
+      {
+        title: "A practical upload workflow",
+        paragraphs: [
+          "A reliable order is: check requirements, convert format, resize dimensions, compress file size, then review the final image. This keeps each decision separate and easier to fix.",
+          "AI Image Tools includes HEIC to JPG, WebP to JPG, image resize, image compress, crop image, and other tools that fit this upload preparation workflow in the browser.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "iphone-photos-to-pdf",
+    title: "How to turn iPhone photos into a submission PDF",
+    description:
+      "A step-by-step guide for converting iPhone photos into a clean PDF for school, work, forms, applications, or document sharing.",
+    cardDescription:
+      "Convert HEIC photos to JPG, clean them up if needed, and combine them into a readable PDF.",
+    sections: [
+      {
+        title: "iPhone photos may need conversion first",
+        paragraphs: [
+          "iPhone photos are often stored as HEIC files. That format works well inside Apple devices, but it can cause problems in older systems, workplace tools, upload forms, or email workflows.",
+          "If the goal is submission, JPG is usually the safer intermediate format. Converting HEIC to JPG first makes the files easier to review, compress, and combine into a PDF.",
+        ],
+      },
+      {
+        title: "Select only the photos you need",
+        paragraphs: [
+          "Before making a PDF, remove duplicate shots, blurry photos, screenshots with private information, and images with too much irrelevant background. A cleaner input set creates a cleaner PDF.",
+          "For photos of documents, check whether the text is readable, the page is not too skewed, and shadows are not hiding important details. Retaking the photo is often better than trying to fix a poor source later.",
+        ],
+      },
+      {
+        title: "Convert and clean up before creating the PDF",
+        paragraphs: [
+          "Convert HEIC photos to JPG first. If the files are large, compress the JPG images. If orientation or framing is wrong, use rotate or crop before creating the PDF.",
+          "Cleaning the images first usually creates a better final document than trying to fix everything after the PDF has already been created.",
+        ],
+      },
+      {
+        title: "Watch page order and file size",
+        paragraphs: [
+          "When combining images into a PDF, page order matters. Receipts, application photos, study notes, and scanned documents should be arranged in the order the reader expects.",
+          "Many photos can create a large PDF, so check any file size limit before submission. If needed, compress images before creating the PDF or compress the finished PDF afterward.",
+        ],
+      },
+      {
+        title: "Final review before sending",
+        paragraphs: [
+          "Open the PDF once before sending it. Check missing pages, page order, readability, and whether any unwanted image slipped in. A quick review can prevent a lot of submission mistakes.",
+          "AI Image Tools includes HEIC to JPG, JPG compress, rotate image, crop image, image to PDF, and compress PDF tools that fit this workflow.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "optimize-blog-and-site-images",
+    title: "How to optimize blog and website images",
+    description:
+      "A practical guide to making blog, landing page, ecommerce, and portfolio images lighter without losing the visual quality that matters.",
+    cardDescription:
+      "Resize, convert, and compress website images while keeping a good balance between loading speed and appearance.",
+    sections: [
+      {
+        title: "Website images need both quality and speed",
+        paragraphs: [
+          "Images for blogs and websites should look good, but they should not make pages unnecessarily heavy. Oversized or uncompressed images can slow down mobile visitors and make the page feel less reliable.",
+          "At the same time, excessive compression can damage trust, especially for product photos, portfolio images, and instructional graphics. The goal is a balanced final file.",
+        ],
+      },
+      {
+        title: "Resize before compressing",
+        paragraphs: [
+          "One common mistake is uploading images that are much larger than they will ever appear on the page. A 4000px image displayed at 800px is wasting data before compression even begins.",
+          "Resize the image near the real display size first, then compress it. This often gives a cleaner and lighter result than trying to solve everything with heavy compression.",
+        ],
+      },
+      {
+        title: "Choose the format by image type",
+        paragraphs: [
+          "JPG is a practical choice for photos, PNG is useful for transparent graphics and screenshots, and WebP is often strong for final web delivery. Choosing by image type usually works better than forcing every image into one format.",
+          "If you may need to edit the asset later, keep a source-friendly version such as PNG or JPG and create a lighter WebP only for publishing.",
+        ],
+      },
+      {
+        title: "Compare the compressed result",
+        paragraphs: [
+          "After compression, check the image visually. For portraits, look at skin and background texture. For product photos, check edges and small details. For screenshots, confirm text is still readable.",
+          "If the result looks too rough, reduce compression strength, resize more carefully, or try another format. Image optimization is usually a combination of small decisions rather than one setting.",
+        ],
+      },
+      {
+        title: "A reliable publishing workflow",
+        paragraphs: [
+          "A simple workflow is: confirm use case, resize dimensions, choose or convert format, compress, then preview on the page. Resizing first reduces the need for aggressive compression.",
+          "AI Image Tools includes resize image, JPG compress, PNG compress, WebP compress, JPG to WebP, and PNG to WebP tools for preparing web images in the browser.",
         ],
       },
     ],
