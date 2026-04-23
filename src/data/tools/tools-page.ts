@@ -25,6 +25,12 @@ type SeoGuideSection = {
   paragraphs: string[];
 };
 
+type ChooserItem = {
+  title: string;
+  description: string;
+  tools: ToolItem[];
+};
+
 type ToolsPageContent = {
   badge: string;
   hero: {
@@ -41,6 +47,11 @@ type ToolsPageContent = {
   seoSpotlightTitle: string;
   seoSpotlightDescription: string;
   seoSpotlightTools: SeoSpotlightItem[];
+  chooserSection: {
+    title: string;
+    description: string;
+    items: ChooserItem[];
+  };
   guideSections: SeoGuideSection[];
   categories: ToolCategory[];
   aboutSection: {
@@ -123,10 +134,13 @@ const ja = {
   topPageLinkLabel: "トップページへ",
   seoSpotlightTitle: "まず見ておきたいツール",
   seoSpotlightDescription:
-    "検索流入が多い変換系だけでなく、実際には次の作業につながりやすい補助ツールも混ぜています。どこから触るか迷うときの入口として使いやすい並びです。",
+    "形式変換だけでなく、圧縮、リサイズ、PDF 整理のように次の作業につながりやすいツールもまとめています。何から始めればよいか迷うときにも選びやすい並びです。",
+  chooserTitle: "目的から選ぶ",
+  chooserDescription:
+    "拡張子や専門用語が分からなくても、やりたい作業から近いツールへ進めるようにしました。",
   guide1: "この一覧ページの使い方",
   guide1a:
-    "まずは目的に近いカテゴリを見るのがおすすめです。形式を変えたいのか、容量を軽くしたいのか、PDF を整えたいのかで入口を分けると迷いにくくなります。",
+    "まずは目的に近いカテゴリを見るのがおすすめです。形式を変えたいのか、容量を軽くしたいのか、PDF を整えたいのかで分けると迷いにくくなります。",
   guide1b:
     "たとえば共有向けなら JPG や WebP、編集前提なら PNG、提出資料なら PDF 系のツールから探すと流れを作りやすいです。",
   guide2: "埋もれやすいけれど便利なツール",
@@ -188,6 +202,62 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
           "PDF を分割するほどではないけれど、余計なページだけ外したい場面でかなり使いやすいです。",
       },
     ],
+    chooserSection: {
+      title: ja.chooserTitle,
+      description: ja.chooserDescription,
+      items: [
+        {
+          title: "画像を軽くしたい",
+          description:
+            "アップロード制限、メール添付、Web 掲載前に容量を小さくしたいときに使います。",
+          tools: [
+            getToolItem("ja", "image-compress"),
+            getToolItem("ja", "jpg-compress"),
+            getToolItem("ja", "webp-compress"),
+          ],
+        },
+        {
+          title: "形式が合わない",
+          description:
+            "送信先で開けない画像や、指定された形式に合わせたい画像を変換します。",
+          tools: [
+            getToolItem("ja", "heic-to-jpg"),
+            getToolItem("ja", "webp-to-jpg"),
+            getToolItem("ja", "png-to-jpg"),
+          ],
+        },
+        {
+          title: "提出用 PDF を作りたい",
+          description:
+            "画像を PDF にまとめたり、PDF から画像を取り出したりするときに便利です。",
+          tools: [
+            getToolItem("ja", "image-to-pdf"),
+            getToolItem("ja", "jpg-to-pdf"),
+            getToolItem("ja", "pdf-to-jpg"),
+          ],
+        },
+        {
+          title: "PDF を整理したい",
+          description:
+            "ページをまとめる、分ける、不要ページを外すなど、提出前の調整に使います。",
+          tools: [
+            getToolItem("ja", "merge-pdf"),
+            getToolItem("ja", "split-pdf"),
+            getToolItem("ja", "pdf-remove-pages"),
+          ],
+        },
+        {
+          title: "画像の見た目を整えたい",
+          description:
+            "サイズ変更、切り抜き、回転、透かし追加など、公開前の仕上げに使います。",
+          tools: [
+            getToolItem("ja", "resize-image"),
+            getToolItem("ja", "crop-image"),
+            getToolItem("ja", "watermark-image"),
+          ],
+        },
+      ],
+    },
     guideSections: [
       { title: ja.guide1, paragraphs: [ja.guide1a, ja.guide1b] },
       { title: ja.guide2, paragraphs: [ja.guide2a, ja.guide2b] },
@@ -242,7 +312,7 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
     topPageLinkLabel: "Back to Home",
     seoSpotlightTitle: "High-demand tools",
     seoSpotlightDescription:
-      "These tools cover the most common format conversion, compatibility, and optimization needs. They are strong starting points for high-intent search traffic.",
+      "These tools cover common conversion, compatibility, compression, and PDF cleanup needs. Use them when you know the task but are not sure which exact format tool to open first.",
     seoSpotlightTools: [
       {
         ...getToolItem("en", "jpg-to-png"),
@@ -266,6 +336,63 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
         reason: "A broad utility for page speed, storage, and upload limits.",
       },
     ],
+    chooserSection: {
+      title: "Choose by goal",
+      description:
+        "If you are not sure which file format or tool name you need, start with the task you want to finish.",
+      items: [
+        {
+          title: "Make images smaller",
+          description:
+            "Use these before uploads, email attachments, storage cleanup, or publishing images on a page.",
+          tools: [
+            getToolItem("en", "image-compress"),
+            getToolItem("en", "jpg-compress"),
+            getToolItem("en", "webp-compress"),
+          ],
+        },
+        {
+          title: "Fix format compatibility",
+          description:
+            "Convert images that will not open, upload, or match the requested file format.",
+          tools: [
+            getToolItem("en", "heic-to-jpg"),
+            getToolItem("en", "webp-to-jpg"),
+            getToolItem("en", "png-to-jpg"),
+          ],
+        },
+        {
+          title: "Create submission PDFs",
+          description:
+            "Turn images into PDF files or extract images from PDFs for reuse.",
+          tools: [
+            getToolItem("en", "image-to-pdf"),
+            getToolItem("en", "jpg-to-pdf"),
+            getToolItem("en", "pdf-to-jpg"),
+          ],
+        },
+        {
+          title: "Organize PDF pages",
+          description:
+            "Merge, split, or remove pages when a PDF needs cleanup before sharing.",
+          tools: [
+            getToolItem("en", "merge-pdf"),
+            getToolItem("en", "split-pdf"),
+            getToolItem("en", "pdf-remove-pages"),
+          ],
+        },
+        {
+          title: "Prepare images visually",
+          description:
+            "Resize, crop, rotate, or add a watermark before publishing or sending an image.",
+          tools: [
+            getToolItem("en", "resize-image"),
+            getToolItem("en", "crop-image"),
+            getToolItem("en", "watermark-image"),
+          ],
+        },
+      ],
+    },
     guideSections: [
       {
         title: "How to use this tools page",
@@ -275,9 +402,9 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
         ],
       },
       {
-        title: "Designed for search and discovery",
+        title: "Useful after the first conversion",
         paragraphs: [
-          "This page is built so users can arrive from a specific search query and still discover the next useful step.",
+          "Many image and PDF jobs do not end with one conversion. You may need to compress, resize, crop, merge, or remove pages next.",
           "That makes it useful not only as a directory but also as a workflow hub for common image and PDF tasks.",
         ],
       },

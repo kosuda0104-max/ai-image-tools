@@ -317,6 +317,49 @@ export default function ToolsPage({ locale }: Props) {
             </div>
           </div>
 
+          <div className="mb-8 rounded-[1.9rem] border border-sky-100 bg-[linear-gradient(135deg,rgba(240,249,255,0.95),rgba(236,254,255,0.86))] p-6 shadow-[0_22px_46px_-34px_rgba(8,47,73,0.42)]">
+            <div className="mb-5 max-w-3xl space-y-2">
+              <h2 className="text-2xl font-bold text-slate-950">
+                {t.chooserSection.title}
+              </h2>
+              <p className="text-sm leading-7 text-slate-600">
+                {t.chooserSection.description}
+              </p>
+            </div>
+
+            <div className="grid gap-4 lg:grid-cols-5">
+              {t.chooserSection.items.map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-[1.4rem] border border-sky-100 bg-white/90 p-4 shadow-[0_16px_30px_-28px_rgba(8,47,73,0.42)]"
+                >
+                  <h3 className="text-base font-semibold text-slate-950">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    {item.description}
+                  </p>
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {item.tools.map((tool) => (
+                      <Link
+                        key={`chooser-${item.title}-${tool.href}`}
+                        href={
+                          locale === "en"
+                            ? tool.href.replace(/^\/tools/, "/en/tools")
+                            : tool.href
+                        }
+                        className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-semibold text-sky-800 transition hover:border-sky-300 hover:bg-white"
+                      >
+                        {tool.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div className="mb-8 flex flex-col gap-4 rounded-[1.6rem] border border-stone-200 bg-white/95 p-4 shadow-[0_18px_34px_-30px_rgba(22,32,51,0.52)] md:flex-row md:items-center md:justify-between">
             <div className="flex-1">
               <input
@@ -439,6 +482,48 @@ export default function ToolsPage({ locale }: Props) {
           </div>
         </div>
 
+        <div className="mb-6 space-y-4 rounded-2xl border border-sky-100 bg-sky-50 p-4">
+          <div>
+            <h2 className="text-lg font-bold text-gray-900">
+              {t.chooserSection.title}
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-gray-600">
+              {t.chooserSection.description}
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            {t.chooserSection.items.map((item) => (
+              <div
+                key={`mobile-chooser-${item.title}`}
+                className="rounded-xl border border-sky-100 bg-white p-3"
+              >
+                <h3 className="text-sm font-semibold text-gray-900">
+                  {item.title}
+                </h3>
+                <p className="mt-1 text-xs leading-5 text-gray-600">
+                  {item.description}
+                </p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {item.tools.slice(0, 2).map((tool) => (
+                    <Link
+                      key={`mobile-chooser-link-${item.title}-${tool.href}`}
+                      href={
+                        locale === "en"
+                          ? tool.href.replace(/^\/tools/, "/en/tools")
+                          : tool.href
+                      }
+                      className="rounded-full border border-sky-200 bg-sky-50 px-2.5 py-1 text-[11px] font-semibold text-sky-800"
+                    >
+                      {tool.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="mb-5 space-y-3">
           <input
             type="text"
@@ -551,4 +636,3 @@ export default function ToolsPage({ locale }: Props) {
     </main>
   );
 }
-

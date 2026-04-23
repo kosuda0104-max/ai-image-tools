@@ -409,7 +409,7 @@ export default function HomePage({ locale }: Props) {
               <p className="text-sm leading-7 text-slate-600">
                 {locale === "en"
                   ? "The site also includes policy pages, support routes, and short guides so visitors can understand how the service works."
-                  : "運営情報、ガイド、問い合わせ導線も公開して、初めての人でも使い方やサイトの方針が分かるようにしています。"}
+                  : "運営情報、ガイド、お問い合わせページも公開して、初めての人でも使い方やサイトの方針が分かるようにしています。"}
               </p>
             </div>
 

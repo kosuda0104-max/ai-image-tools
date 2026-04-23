@@ -141,7 +141,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
         },
         {
           title: "共有前に軽くしたい",
-          description: "アップロード制限や送信前の容量調整が気になるときに、画像を軽くしやすい入口をまとめています。",
+          description: "アップロード制限や送信前の容量調整が気になるときに、画像を軽くしやすいツールをまとめています。",
           tools: getToolItems("ja", ["image-compress", "jpg-compress", "webp-compress"]),
         },
         {
