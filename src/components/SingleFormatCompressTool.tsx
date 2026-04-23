@@ -29,28 +29,28 @@ function formatFileSize(bytes: number) {
 function getText(locale: Locale, format: FormatKey) {
   const ja = locale === "ja";
   const titleMap = {
-    jpg: ja ? "JPG\u5727\u7e2e" : "JPG Compressor",
-    png: ja ? "PNG\u5727\u7e2e" : "PNG Compressor",
-    webp: ja ? "WebP\u5727\u7e2e" : "WebP Compressor",
+    jpg: ja ? "JPG圧縮" : "JPG Compressor",
+    png: ja ? "PNG圧縮" : "PNG Compressor",
+    webp: ja ? "WebP圧縮" : "WebP Compressor",
   };
 
   return {
     title: titleMap[format],
     description: ja
-      ? "\u753b\u50cf\u306e\u5bb9\u91cf\u3092\u30d6\u30e9\u30a6\u30b6\u4e0a\u3067\u8abf\u6574\u3067\u304d\u308b\u7121\u6599\u30c4\u30fc\u30eb\u3067\u3059\u3002"
+      ? "画像の容量をブラウザ上で調整できる無料ツールです。"
       : "A free browser-based tool for reducing image file size.",
     about: ja
-      ? "\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u3084\u5171\u6709\u3092\u3057\u3084\u3059\u304f\u3059\u308b\u305f\u3081\u306b\u3001\u753b\u50cf\u3092\u8efd\u304f\u3057\u305f\u3044\u3068\u304d\u306b\u5411\u3044\u3066\u3044\u307e\u3059\u3002"
+      ? "アップロードや共有をしやすくするために、画像を軽くしたいときに向いています。"
       : "Useful when you want a lighter image for uploads, pages, or sharing.",
-    sectionTitle: ja ? "\u4f7f\u3044\u3069\u3053\u308d" : "When it helps",
+    sectionTitle: ja ? "使いどころ" : "When it helps",
     sectionBody: ja
-      ? "\u8a18\u4e8b\u753b\u50cf\u3001\u30e1\u30fc\u30eb\u6dfb\u4ed8\u3001\u753b\u50cf\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u306a\u3069\u3067\u30b5\u30a4\u30ba\u3092\u843d\u3068\u3057\u305f\u3044\u3068\u304d\u306b\u4fbf\u5229\u3067\u3059\u3002"
+      ? "記事画像、メール添付、画像アップロードなどでサイズを落としたいときに便利です。"
       : "A practical fit for article images, uploads, email attachments, and lighter web delivery.",
-    listTitle: ja ? "\u30dd\u30a4\u30f3\u30c8" : "Tips",
+    listTitle: ja ? "ポイント" : "Tips",
     list: ja
       ? [
-          "\u54c1\u8cea 80 \u524d\u5f8c\u304b\u3089\u8a66\u3059\u3068\u30d0\u30e9\u30f3\u30b9\u3092\u898b\u3084\u3059\u3044\u3067\u3059\u3002",
-          "\u5143\u753b\u50cf\u3092\u6b8b\u3057\u3066\u304a\u304f\u3068\u518d\u8abf\u6574\u3057\u3084\u3059\u304f\u306a\u308a\u307e\u3059\u3002",
+          "品質 80 前後から試すとバランスを見やすいです。",
+          "元画像を残しておくと再調整しやすくなります。",
         ]
       : [
           "Starting around quality 80 is usually a safe first pass.",
@@ -59,8 +59,8 @@ function getText(locale: Locale, format: FormatKey) {
     relatedTools:
       locale === "ja"
         ? [
-            { name: "\u753b\u50cf\u5727\u7e2e", href: "/tools/image-compress" },
-            { name: "\u753b\u50cf\u30ea\u30b5\u30a4\u30ba", href: "/tools/resize-image" },
+            { name: "画像圧縮", href: "/tools/image-compress" },
+            { name: "画像リサイズ", href: "/tools/resize-image" },
           ]
         : [
             { name: "Image Compress", href: "/en/tools/image-compress" },
@@ -145,7 +145,7 @@ export default function SingleFormatCompressTool({ locale, format }: Props) {
     const isSupported = file.type === config.mimeType || config.test.test(file.name);
     if (!isSupported) {
       setImage(null);
-      setMessage(isJa ? "\u5bfe\u5fdc\u3059\u308b\u753b\u50cf\u3092\u9078\u629e\u3057\u3066\u304f\u3060\u3055\u3044\u3002" : "Please choose a supported image.");
+      setMessage(isJa ? "対応する画像を選択してください。" : "Please choose a supported image.");
       return;
     }
 
@@ -162,7 +162,7 @@ export default function SingleFormatCompressTool({ locale, format }: Props) {
 
     try {
       setIsProcessing(true);
-      setMessage(isJa ? "\u5727\u7e2e\u4e2d\u3067\u3059..." : "Compressing...");
+      setMessage(isJa ? "圧縮中です..." : "Compressing...");
       const loaded = await loadImageFromFile(image);
       const canvas = document.createElement("canvas");
       canvas.width = loaded.width;
@@ -175,10 +175,10 @@ export default function SingleFormatCompressTool({ locale, format }: Props) {
       const nextUrl = URL.createObjectURL(blob);
       setCompressedBlob(blob);
       setCompressedPreviewUrl(nextUrl);
-      setMessage(isJa ? "\u5727\u7e2e\u304c\u5b8c\u4e86\u3057\u307e\u3057\u305f\u3002" : "Compression completed.");
+      setMessage(isJa ? "圧縮が完了しました。" : "Compression completed.");
     } catch (error) {
       console.error(error);
-      setMessage(isJa ? "\u5727\u7e2e\u306b\u5931\u6557\u3057\u307e\u3057\u305f\u3002" : "Compression failed.");
+      setMessage(isJa ? "圧縮に失敗しました。" : "Compression failed.");
     } finally {
       setIsProcessing(false);
     }
@@ -197,36 +197,36 @@ export default function SingleFormatCompressTool({ locale, format }: Props) {
     <ToolPageLayout
       title={text.title}
       description={text.description}
-      aboutTitle={isJa ? "\u3053\u306e\u30c4\u30fc\u30eb\u306b\u3064\u3044\u3066" : "About this tool"}
+      aboutTitle={isJa ? "このツールについて" : "About this tool"}
       aboutText={text.about}
       contentSections={[{ title: text.sectionTitle, paragraphs: [text.sectionBody] }]}
       listSections={[{ title: text.listTitle, items: text.list }]}
-      stepsTitle={isJa ? "\u4f7f\u3044\u65b9" : "How to Use"}
+      stepsTitle={isJa ? "使い方" : "How to Use"}
       steps={
         isJa
-          ? ["\u753b\u50cf\u3092\u9078\u629e\u3057\u307e\u3059", "\u54c1\u8cea\u3092\u8abf\u6574\u3057\u307e\u3059", "\u5727\u7e2e\u3057\u3066\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u3057\u307e\u3059"]
+          ? ["画像を選択します", "品質を調整します", "圧縮してダウンロードします"]
           : ["Choose an image", "Adjust quality", "Compress and download the result"]
       }
       faqTitle="FAQ"
       faqs={[
         {
-          question: isJa ? "\u753b\u50cf\u306f\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u3055\u308c\u307e\u3059\u304b\uff1f" : "Are files uploaded?",
-          answer: isJa ? "\u3044\u3044\u3048\u3002\u51e6\u7406\u306f\u30d6\u30e9\u30a6\u30b6\u5185\u3067\u884c\u308f\u308c\u307e\u3059\u3002" : "No. Processing stays in your browser.",
+          question: isJa ? "画像はアップロードされますか？" : "Are files uploaded?",
+          answer: isJa ? "いいえ。処理はブラウザ内で行われます。" : "No. Processing stays in your browser.",
         },
       ]}
       relatedTools={text.relatedTools}
-      relatedToolsTitle={isJa ? "\u95a2\u9023\u30c4\u30fc\u30eb" : "Related Tools"}
+      relatedToolsTitle={isJa ? "関連ツール" : "Related Tools"}
     >
       <div className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <FileDropzone
           file={image}
           accept={config.accept}
-          emptyTitle={isJa ? "\u753b\u50cf\u3092\u9078\u629e" : "Choose an image"}
+          emptyTitle={isJa ? "画像を選択" : "Choose an image"}
           emptyDescription={text.description}
-          selectButtonLabel={isJa ? "\u753b\u50cf\u3092\u9078\u629e" : "Choose Image"}
-          dropHereLabel={isJa ? "\u3053\u3053\u306b\u30c9\u30ed\u30c3\u30d7" : "Drop file here"}
-          clickToSelectLabel={isJa ? "\u307e\u305f\u306f\u30af\u30ea\u30c3\u30af\u3057\u3066\u9078\u629e" : "or click to browse"}
-          selectedFileLabel={isJa ? "\u9078\u629e\u4e2d\u306e\u30d5\u30a1\u30a4\u30eb" : "Selected File"}
+          selectButtonLabel={isJa ? "画像を選択" : "Choose Image"}
+          dropHereLabel={isJa ? "ここにドロップ" : "Drop file here"}
+          clickToSelectLabel={isJa ? "またはクリックして選択" : "or click to browse"}
+          selectedFileLabel={isJa ? "選択中のファイル" : "Selected File"}
           onFileSelect={handleFileSelect}
         />
 
@@ -244,7 +244,7 @@ export default function SingleFormatCompressTool({ locale, format }: Props) {
             </div>
             <div className="space-y-2">
               <label htmlFor="quality" className="text-sm font-medium text-gray-800">
-                {isJa ? "\u5727\u7e2e\u54c1\u8cea" : "Compression Quality"}: {quality}
+                {isJa ? "圧縮品質" : "Compression Quality"}: {quality}
               </label>
               <input
                 id="quality"
@@ -267,7 +267,7 @@ export default function SingleFormatCompressTool({ locale, format }: Props) {
               <img src={compressedPreviewUrl} alt="after preview" className="max-h-80 w-full rounded border object-contain" />
             ) : (
               <div className="flex h-80 items-center justify-center rounded border border-dashed bg-gray-50 px-4 text-center text-sm text-gray-500">
-                {isJa ? "\u5727\u7e2e\u5f8c\u306e\u30d7\u30ec\u30d3\u30e5\u30fc\u304c\u3053\u3053\u306b\u8868\u793a\u3055\u308c\u307e\u3059\u3002" : "The compressed preview will appear here."}
+                {isJa ? "圧縮後のプレビューがここに表示されます。" : "The compressed preview will appear here."}
               </div>
             )}
           </div>
@@ -275,19 +275,19 @@ export default function SingleFormatCompressTool({ locale, format }: Props) {
 
         {compressedInfo && (
           <div className="space-y-2 rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
-            <p>{isJa ? "\u5143\u306e\u30b5\u30a4\u30ba" : "Original Size"}: {compressedInfo.original}</p>
-            <p>{isJa ? "\u5727\u7e2e\u5f8c\u30b5\u30a4\u30ba" : "Compressed Size"}: {compressedInfo.compressed}</p>
-            <p>{isJa ? "\u524a\u6e1b\u7387" : "Reduction"}: {compressedInfo.reduction}</p>
+            <p>{isJa ? "元のサイズ" : "Original Size"}: {compressedInfo.original}</p>
+            <p>{isJa ? "圧縮後サイズ" : "Compressed Size"}: {compressedInfo.compressed}</p>
+            <p>{isJa ? "削減率" : "Reduction"}: {compressedInfo.reduction}</p>
           </div>
         )}
 
         <div className="flex flex-wrap gap-3">
           <PrimaryButton onClick={handleCompress} disabled={!image || isProcessing}>
-            {isProcessing ? (isJa ? "\u5727\u7e2e\u4e2d..." : "Compressing...") : isJa ? "\u5727\u7e2e\u3059\u308b" : "Compress"}
+            {isProcessing ? (isJa ? "圧縮中..." : "Compressing...") : isJa ? "圧縮する" : "Compress"}
           </PrimaryButton>
           {compressedBlob && (
             <PrimaryButton onClick={handleDownload}>
-              {isJa ? "\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9" : "Download"}
+              {isJa ? "ダウンロード" : "Download"}
             </PrimaryButton>
           )}
           <button
@@ -295,7 +295,7 @@ export default function SingleFormatCompressTool({ locale, format }: Props) {
             onClick={() => handleFileSelect(null)}
             className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
           >
-            {isJa ? "\u30ea\u30bb\u30c3\u30c8" : "Reset"}
+            {isJa ? "リセット" : "Reset"}
           </button>
         </div>
 

@@ -1,4 +1,4 @@
-﻿import PdfToJpgTool from "@/src/components/PdfToJpgTool";
+import PdfToJpgTool from "@/src/components/PdfToJpgTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

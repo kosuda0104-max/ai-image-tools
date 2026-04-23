@@ -1,4 +1,4 @@
-﻿import MergePdfTool from "@/src/components/MergePdfTool";
+import MergePdfTool from "@/src/components/MergePdfTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

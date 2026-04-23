@@ -1,4 +1,4 @@
-﻿import { getGuide } from "@/src/data/guides";
+import { getGuide } from "@/src/data/guides";
 import StaticContentPage from "@/src/components/StaticContentPage";
 
 const guide = getGuide("en", "jpg-vs-png")!;

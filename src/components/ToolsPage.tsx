@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -204,6 +204,19 @@ export default function ToolsPage({ locale }: Props) {
     return categories.filter((category) => category.tools.length > 0);
   }, [locale, normalizedSearch, sort, t.categories]);
 
+  const collectionPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: t.hero.title,
+    description: t.hero.description,
+    url: `${siteUrl}${locale === "en" ? "/en/tools" : "/tools"}`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "AI Image Tools",
+      url: siteUrl,
+    },
+  };
+
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -222,6 +235,10 @@ export default function ToolsPage({ locale }: Props) {
 
   return (
     <main className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}

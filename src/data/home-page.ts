@@ -1,4 +1,4 @@
-﻿import { getToolItems } from "@/src/data/tool-directory";
+import { getToolItems } from "@/src/data/tool-directory";
 
 type ToolItem = {
   name: string;

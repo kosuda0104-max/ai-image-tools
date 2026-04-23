@@ -1,7 +1,8 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
+import { siteUrl } from "@/src/lib/site";
 
 type Locale = "ja" | "en";
 
@@ -29,6 +30,7 @@ const content = {
     tools: "ツール一覧",
     homeHref: "/",
     toolsHref: "/tools",
+    pageUrl: `${siteUrl}/contact`,
   },
   en: {
     badge: "Contact",
@@ -49,6 +51,7 @@ const content = {
     tools: "Tools",
     homeHref: "/en",
     toolsHref: "/en/tools",
+    pageUrl: `${siteUrl}/en/contact`,
   },
 } as const;
 
@@ -56,6 +59,25 @@ export default function ContactPage({ locale }: Props) {
   const t = content[locale];
   const [isSending, setIsSending] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+
+  const contactJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: t.heading,
+    url: t.pageUrl,
+    description: t.subtext,
+    mainEntity: {
+      "@type": "Organization",
+      name: "AI Image Tools",
+      url: siteUrl,
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: locale === "ja" ? "customer support" : "customer support",
+        availableLanguage: locale === "ja" ? ["ja", "en"] : ["en", "ja"],
+        url: t.pageUrl,
+      },
+    },
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -101,108 +123,114 @@ export default function ContactPage({ locale }: Props) {
   };
 
   return (
-    <main className="min-h-screen bg-white">
-      <section className="border-b border-gray-200 bg-gradient-to-b from-gray-50 to-white">
-        <div className="mx-auto max-w-3xl px-4 py-16">
-          <div className="space-y-6">
-            <span className="inline-flex rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-600">
-              {t.badge}
-            </span>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactJsonLd) }}
+      />
+      <main className="min-h-screen bg-white">
+        <section className="border-b border-gray-200 bg-gradient-to-b from-gray-50 to-white">
+          <div className="mx-auto max-w-3xl px-4 py-16">
+            <div className="space-y-6">
+              <span className="inline-flex rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-600">
+                {t.badge}
+              </span>
 
-            <h1 className="text-4xl font-bold text-gray-900">{t.heading}</h1>
+              <h1 className="text-4xl font-bold text-gray-900">{t.heading}</h1>
 
-            <p className="text-lg text-gray-600">{t.subtext}</p>
-            <p className="text-sm leading-7 text-gray-500">{t.note}</p>
+              <p className="text-lg text-gray-600">{t.subtext}</p>
+              <p className="text-sm leading-7 text-gray-500">{t.note}</p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="mx-auto max-w-3xl px-4 py-12">
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
-        >
-          <div>
-            <label className="text-sm font-medium text-gray-900">
-              {t.name}
-            </label>
-            <input
-              type="text"
-              name="name"
-              required
-              className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm font-medium text-gray-900">
-              {t.email}
-            </label>
-            <input
-              type="email"
-              name="email"
-              required
-              className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm font-medium text-gray-900">
-              {t.tool}
-            </label>
-            <input
-              type="text"
-              name="tool"
-              placeholder={t.placeholder}
-              className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm font-medium text-gray-900">
-              {t.message}
-            </label>
-            <textarea
-              name="message"
-              rows={6}
-              required
-              className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={isSending}
-            className="inline-flex rounded-xl bg-black px-6 py-3 text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+        <section className="mx-auto max-w-3xl px-4 py-12">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
           >
-            {isSending ? t.sending : t.submit}
-          </button>
+            <div>
+              <label className="text-sm font-medium text-gray-900">
+                {t.name}
+              </label>
+              <input
+                type="text"
+                name="name"
+                required
+                className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3"
+              />
+            </div>
 
-          {status === "success" ? (
-            <p className="text-sm text-green-600">{t.success}</p>
-          ) : null}
+            <div>
+              <label className="text-sm font-medium text-gray-900">
+                {t.email}
+              </label>
+              <input
+                type="email"
+                name="email"
+                required
+                className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3"
+              />
+            </div>
 
-          {status === "error" ? (
-            <p className="text-sm text-red-600">{t.error}</p>
-          ) : null}
-        </form>
+            <div>
+              <label className="text-sm font-medium text-gray-900">
+                {t.tool}
+              </label>
+              <input
+                type="text"
+                name="tool"
+                placeholder={t.placeholder}
+                className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3"
+              />
+            </div>
 
-        <div className="mt-10 flex gap-3">
-          <Link
-            href={t.homeHref}
-            className="rounded-xl border border-gray-300 px-5 py-3 text-sm"
-          >
-            {t.home}
-          </Link>
+            <div>
+              <label className="text-sm font-medium text-gray-900">
+                {t.message}
+              </label>
+              <textarea
+                name="message"
+                rows={6}
+                required
+                className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3"
+              />
+            </div>
 
-          <Link
-            href={t.toolsHref}
-            className="rounded-xl bg-black px-5 py-3 text-sm text-white"
-          >
-            {t.tools}
-          </Link>
-        </div>
-      </section>
-    </main>
+            <button
+              type="submit"
+              disabled={isSending}
+              className="inline-flex rounded-xl bg-black px-6 py-3 text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {isSending ? t.sending : t.submit}
+            </button>
+
+            {status === "success" ? (
+              <p className="text-sm text-green-600">{t.success}</p>
+            ) : null}
+
+            {status === "error" ? (
+              <p className="text-sm text-red-600">{t.error}</p>
+            ) : null}
+          </form>
+
+          <div className="mt-10 flex gap-3">
+            <Link
+              href={t.homeHref}
+              className="rounded-xl border border-gray-300 px-5 py-3 text-sm"
+            >
+              {t.home}
+            </Link>
+
+            <Link
+              href={t.toolsHref}
+              className="rounded-xl bg-black px-5 py-3 text-sm text-white"
+            >
+              {t.tools}
+            </Link>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }

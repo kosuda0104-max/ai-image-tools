@@ -1,4 +1,4 @@
-﻿import RotateImageTool from "@/src/components/RotateImageTool";
+import RotateImageTool from "@/src/components/RotateImageTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

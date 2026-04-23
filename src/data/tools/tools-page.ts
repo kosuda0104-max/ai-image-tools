@@ -1,4 +1,4 @@
-﻿import { getToolItem, getToolItems } from "@/src/data/tool-directory";
+import { getToolItem, getToolItems } from "@/src/data/tool-directory";
 
 export type ToolPageLocale = "ja" | "en";
 

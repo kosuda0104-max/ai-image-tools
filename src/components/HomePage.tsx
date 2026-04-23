@@ -1,8 +1,9 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import {
   createHomeFaqJsonLd,
   homePageContent,
 } from "@/src/data/home-page";
+import { siteUrl } from "@/src/lib/site";
 
 type Props = {
   locale: "ja" | "en";
@@ -60,6 +61,46 @@ export default function HomePage({ locale }: Props) {
       : "すべてブラウザ内処理・ファイルは保存されません";
 
   const basePath = locale === "en" ? "/en" : "";
+  const homeUrl = `${siteUrl}${basePath || ""}` || siteUrl;
+  const allToolItems = t.categories.flatMap((category) => category.tools);
+  const websiteCollectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: t.hero.title,
+    description: t.hero.description,
+    url: homeUrl,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "AI Image Tools",
+      url: siteUrl,
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      name: locale === "en" ? "Featured tool collection" : "掲載ツール一覧",
+      numberOfItems: allToolItems.length,
+      itemListElement: allToolItems.map((tool, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: tool.name,
+        url: `${siteUrl}${locale === "en" ? tool.href.replace(/^\/tools/, "/en/tools") : tool.href}`,
+      })),
+    },
+  };
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "AI Image Tools",
+    url: siteUrl,
+    founder: {
+      "@type": "Person",
+      name: "Kosuda",
+      jobTitle: "Web Engineer",
+    },
+    description:
+      locale === "en"
+        ? "A browser-based collection of free image and PDF workflow tools."
+        : "ブラウザだけで使える画像変換・画像編集・PDF作業の無料ツール集です。",
+  };
 
   const popularTools = t.popularTools.slice(0, 4);
   const mobileCategories = t.categories.map((category) => ({
@@ -135,6 +176,14 @@ export default function HomePage({ locale }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteCollectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
       />
 
       {/* PC */}
@@ -763,11 +812,3 @@ export default function HomePage({ locale }: Props) {
     </main>
   );
 }
-
-
-
-
-
-
-
-

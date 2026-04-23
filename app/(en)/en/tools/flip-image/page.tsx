@@ -1,4 +1,4 @@
-﻿import FlipImageTool from "@/src/components/FlipImageTool";
+import FlipImageTool from "@/src/components/FlipImageTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

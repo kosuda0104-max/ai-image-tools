@@ -1,4 +1,4 @@
-﻿import PdfToPngTool from "@/src/components/PdfToPngTool";
+import PdfToPngTool from "@/src/components/PdfToPngTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

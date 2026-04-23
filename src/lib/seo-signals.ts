@@ -1,4 +1,4 @@
-const JAPANESE_TEXT_PATTERN = /[\u3040-\u30ff\u3400-\u9faf]/;
+const JAPANESE_TEXT_PATTERN = /[ぁ-ヿ㐀-龯]/;
 
 export const TOOL_CONTENT_LAST_UPDATED = "2026-04-13";
 

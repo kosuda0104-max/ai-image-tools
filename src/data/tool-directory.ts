@@ -1,4 +1,4 @@
-﻿export type ToolDirectoryLocale = "ja" | "en";
+export type ToolDirectoryLocale = "ja" | "en";
 
 export type ToolDirectoryItem = {
   slug: string;

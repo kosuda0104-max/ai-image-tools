@@ -1,4 +1,4 @@
-﻿import ImageToPdfTool from "@/src/components/ImageToPdfTool";
+import ImageToPdfTool from "@/src/components/ImageToPdfTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

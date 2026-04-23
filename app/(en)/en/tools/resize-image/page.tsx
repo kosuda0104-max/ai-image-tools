@@ -1,4 +1,4 @@
-﻿import ResizeImageTool from "@/src/components/ResizeImageTool";
+import ResizeImageTool from "@/src/components/ResizeImageTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

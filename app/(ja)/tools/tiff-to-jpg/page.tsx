@@ -1,4 +1,4 @@
-﻿import TiffToJpgTool from "@/src/components/TiffToJpgTool";
+import TiffToJpgTool from "@/src/components/TiffToJpgTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

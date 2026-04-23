@@ -1,4 +1,4 @@
-﻿import type { ResizeImageContent, ToolLocale } from "./types";
+import type { ResizeImageContent, ToolLocale } from "./types";
 
 export const heicToJpgContent: Record<ToolLocale, ResizeImageContent> = {
   ja: {
@@ -128,13 +128,65 @@ export const heicToJpgContent: Record<ToolLocale, ResizeImageContent> = {
   en: {
     page: {
       title: "HEIC to JPG",
-      description: "Convert HEIC images to JPG format online for free.",
-      aboutTitle: "What is HEIC to JPG?",
+      description:
+        "Convert HEIC images to JPG online for free. This is useful when iPhone photos need to work in upload forms, shared folders, office tools, or older Windows environments.",
+      aboutTitle: "When HEIC to JPG is the practical choice",
       aboutText:
-        "This free tool converts HEIC images into JPG format. It is useful when you want to convert iPhone HEIC photos into a more compatible JPG format.",
+        "HEIC is efficient for Apple devices, but it can still cause friction in business forms, CMS uploads, internal tools, and cross-device sharing. Converting to JPG makes iPhone photos easier to send, upload, review, and reuse in environments where HEIC support is inconsistent.",
+      contentSections: [
+        {
+          title: "Common situations where conversion helps",
+          paragraphs: [
+            "HEIC to JPG is especially useful for job applications, report attachments, marketplace listings, client deliveries, and any workflow where the receiver may not be using an Apple device.",
+            "In practice, many problems are not about image quality. They are about whether the other side can open the file at all. Converting to JPG first avoids unnecessary back-and-forth when compatibility matters more than storage efficiency.",
+          ],
+        },
+        {
+          title: "When keeping HEIC is still reasonable",
+          paragraphs: [
+            "If the photo stays inside your own Apple workflow, keeping the original HEIC file can still make sense. It is efficient for storage and works well for personal photo libraries.",
+            "A practical habit is to keep the HEIC original for archiving, then create JPG copies only for delivery, upload, or document use. That gives you both compatibility and a cleaner master file.",
+          ],
+        },
+      ],
+      listSections: [
+        {
+          title: "Things worth deciding before converting",
+          items: [
+            "If the destination explicitly asks for JPG, converting early usually saves time.",
+            "If file size matters after conversion, compression or resizing is often the next useful step.",
+            "Keep the original HEIC if you may need another export later.",
+            "For business and shared workflows, compatibility is often more important than the storage benefit of HEIC.",
+          ],
+        },
+      ],
+      comparisonTitle: "HEIC vs JPG in real workflows",
+      comparisonItems: [
+        {
+          label: "Compatibility",
+          value:
+            "JPG works almost everywhere, while HEIC support still depends on the device, app, or browser.",
+        },
+        {
+          label: "Best role",
+          value:
+            "HEIC is often a good storage format for iPhone photos, while JPG is usually the safer delivery format.",
+        },
+        {
+          label: "Typical reason to convert",
+          value:
+            "Most people convert because someone else needs the file, not because HEIC itself is bad.",
+        },
+        {
+          label: "Useful next step",
+          value:
+            "After converting, many workflows continue with compression or resizing before upload or submission.",
+        },
+      ],
       stepsTitle: "How to use",
       steps: [
         "Upload a HEIC image",
+        "Check the preview and image details",
         "Click the Convert to JPG button",
         "Download the converted JPG image",
       ],
@@ -148,9 +200,20 @@ export const heicToJpgContent: Record<ToolLocale, ResizeImageContent> = {
         {
           question: "Why convert HEIC to JPG?",
           answer:
-            "JPG is widely supported by many apps and services, making it easier to share and edit.",
+            "JPG is supported almost everywhere, so it is easier to upload, share, attach, and open across different devices and services.",
+        },
+        {
+          question: "Will converting to JPG improve image quality?",
+          answer:
+            "No. The main benefit is compatibility, not quality recovery. The reason to convert is usually to make the file easier to use elsewhere.",
+        },
+        {
+          question: "Should I keep the original HEIC file?",
+          answer:
+            "Usually yes. Keeping the original gives you a clean source if you later want another export or a different workflow.",
         },
       ],
+      relatedToolsTitle: "Related tools for the next step",
       relatedTools: [
         { name: "JPG to PNG", href: "/tools/jpg-to-png" },
         { name: "PNG to JPG", href: "/tools/png-to-jpg" },

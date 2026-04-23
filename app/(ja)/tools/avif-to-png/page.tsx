@@ -1,4 +1,4 @@
-﻿import AvifToPngTool from "@/src/components/AvifToPngTool";
+import AvifToPngTool from "@/src/components/AvifToPngTool";
 
 export const metadata = {
   title: "AVIFをPNGに変換【無料・高速・安全】オンラインツール",

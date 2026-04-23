@@ -1,4 +1,4 @@
-﻿import SplitPdfTool from "@/src/components/SplitPdfTool";
+import SplitPdfTool from "@/src/components/SplitPdfTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

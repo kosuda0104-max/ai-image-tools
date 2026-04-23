@@ -1,4 +1,4 @@
-﻿import WatermarkImageTool from "@/src/components/WatermarkImageTool";
+import WatermarkImageTool from "@/src/components/WatermarkImageTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

@@ -1,4 +1,4 @@
-﻿import type { ResizeImageContent, ToolLocale } from "./types";
+import type { ResizeImageContent, ToolLocale } from "./types";
 
 export const webpToPngContent: Record<ToolLocale, ResizeImageContent> = {
   ja: {

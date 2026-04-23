@@ -1,4 +1,4 @@
-﻿import ContactPage from "@/src/components/ContactPage";
+import ContactPage from "@/src/components/ContactPage";
 
 export const metadata = {
   title: "お問い合わせ | AI Image Tools",

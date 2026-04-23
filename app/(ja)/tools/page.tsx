@@ -1,4 +1,4 @@
-﻿import ToolsPage from "@/src/components/ToolsPage";
+import ToolsPage from "@/src/components/ToolsPage";
 
 export const metadata = {
   title: "ツール一覧 | AI Image Tools",

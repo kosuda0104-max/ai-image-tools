@@ -1,4 +1,4 @@
-﻿import CompressPdfTool from "@/src/components/CompressPdfTool";
+import CompressPdfTool from "@/src/components/CompressPdfTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

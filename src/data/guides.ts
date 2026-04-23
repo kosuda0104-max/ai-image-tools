@@ -1,4 +1,4 @@
-﻿type GuideSection = {
+type GuideSection = {
   title: string;
   paragraphs: string[];
 };

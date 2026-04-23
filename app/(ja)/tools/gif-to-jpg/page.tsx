@@ -1,4 +1,4 @@
-﻿import GifToJpgTool from "@/src/components/GifToJpgTool";
+import GifToJpgTool from "@/src/components/GifToJpgTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

@@ -1,4 +1,4 @@
-﻿import GrayscaleImageTool from "@/src/components/GrayscaleImageTool";
+import GrayscaleImageTool from "@/src/components/GrayscaleImageTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

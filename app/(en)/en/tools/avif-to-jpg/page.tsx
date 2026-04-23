@@ -1,4 +1,4 @@
-﻿import AvifToJpgTool from "@/src/components/AvifToJpgTool";
+import AvifToJpgTool from "@/src/components/AvifToJpgTool";
 
 export const metadata = {
   title: "AVIF to JPG Converter Free Online",

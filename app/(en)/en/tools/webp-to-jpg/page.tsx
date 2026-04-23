@@ -1,4 +1,4 @@
-﻿import WebpToJpgTool from "@/src/components/WebpToJpgTool";
+import WebpToJpgTool from "@/src/components/WebpToJpgTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

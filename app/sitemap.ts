@@ -1,4 +1,4 @@
-﻿import type { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 import { siteUrl } from "@/src/lib/site";
 
 const routes = [
@@ -51,6 +51,7 @@ const routes = [
   "/tools/grayscale-image",
   "/tools/watermark-image",
   "/tools/image-to-pdf",
+  "/tools/jpg-to-pdf",
   "/tools/pdf-to-jpg",
   "/tools/pdf-to-png",
   "/tools/pdf-to-webp",
@@ -94,4 +95,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...jaRoutes, ...enRoutes];
 }
-

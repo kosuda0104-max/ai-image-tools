@@ -1,4 +1,4 @@
-﻿import PdfToWebpTool from "@/src/components/PdfToWebpTool";
+import PdfToWebpTool from "@/src/components/PdfToWebpTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

@@ -1,4 +1,4 @@
-﻿import IcoToJpgTool from "@/src/components/IcoToJpgTool";
+import IcoToJpgTool from "@/src/components/IcoToJpgTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

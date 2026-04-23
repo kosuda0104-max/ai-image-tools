@@ -1,4 +1,4 @@
-﻿import PdfRemovePagesTool from "@/src/components/PdfRemovePagesTool";
+import PdfRemovePagesTool from "@/src/components/PdfRemovePagesTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

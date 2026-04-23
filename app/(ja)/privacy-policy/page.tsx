@@ -1,4 +1,4 @@
-﻿import StaticContentPage from "@/src/components/StaticContentPage";
+import StaticContentPage from "@/src/components/StaticContentPage";
 
 export const metadata = {
   title: "プライバシーポリシー | AI Image Tools",

@@ -1,4 +1,4 @@
-﻿import type { JpgToPngContent, ToolLocale } from "./types";
+import type { JpgToPngContent, ToolLocale } from "./types";
 
 export const imageCompressContent: Record<ToolLocale, JpgToPngContent> = {
   ja: {
@@ -139,6 +139,13 @@ export const imageCompressContent: Record<ToolLocale, JpgToPngContent> = {
           paragraphs: [
             "JPG and WebP often compress well for photos, while PNG behaves differently depending on the image content. Screenshots, diagrams, logos, and text-heavy graphics may not shrink much, or they may lose clarity if you push too hard.",
             "That is why a practical workflow often combines format choice, dimensions, and compression. If compression alone is not enough, resizing or converting to a more suitable format can help more than another compression pass.",
+          ],
+        },
+        {
+          title: "When compression is not the whole answer",
+          paragraphs: [
+            "If the main problem is that the image is physically too large, resizing may help more than stronger compression. This is common with smartphone photos and oversized upload images.",
+            "For screenshots, diagrams, and design assets, the best result sometimes comes from changing the format first and compressing second. Thinking in terms of workflow, not just file size, usually gives better output.",
           ],
         },
       ],

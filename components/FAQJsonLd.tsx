@@ -1,4 +1,4 @@
-﻿type FAQItem = {
+type FAQItem = {
   question: string;
   answer: string;
 };

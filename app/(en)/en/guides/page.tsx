@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { getGuides } from "@/src/data/guides";
 
 export const metadata = {

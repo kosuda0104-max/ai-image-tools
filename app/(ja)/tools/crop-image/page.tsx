@@ -1,4 +1,4 @@
-﻿import CropImageTool from "@/src/components/CropImageTool";
+import CropImageTool from "@/src/components/CropImageTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

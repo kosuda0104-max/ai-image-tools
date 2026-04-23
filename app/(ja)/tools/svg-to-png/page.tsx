@@ -1,4 +1,4 @@
-﻿import SvgToPngTool from "@/src/components/SvgToPngTool";
+import SvgToPngTool from "@/src/components/SvgToPngTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

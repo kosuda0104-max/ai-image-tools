@@ -1,4 +1,4 @@
-﻿import ImageCompressTool from "@/src/components/ImageCompressTool";
+import ImageCompressTool from "@/src/components/ImageCompressTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

@@ -1,4 +1,4 @@
-﻿import JpgToPngTool from "@/src/components/JpgToPngTool";
+import JpgToPngTool from "@/src/components/JpgToPngTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

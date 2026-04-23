@@ -1,7 +1,9 @@
-﻿import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import StaticContentPage from "@/src/components/StaticContentPage";
 import { getGuide, getGuides } from "@/src/data/guides";
+import { siteUrl } from "@/src/lib/site";
+import { TOOL_CONTENT_LAST_UPDATED } from "@/src/lib/seo-signals";
 
 type Props = {
   params: Promise<{
@@ -23,9 +25,44 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {};
   }
 
+  const url = `${siteUrl}/guides/${guide.slug}`;
+
   return {
     title: `${guide.title} | AI Image Tools`,
     description: guide.description,
+    alternates: {
+      canonical: url,
+      languages: {
+        ja: url,
+        en: `${siteUrl}/en/guides/${guide.slug}`,
+      },
+    },
+    openGraph: {
+      title: guide.title,
+      description: guide.description,
+      url,
+      siteName: "AI Image Tools",
+      locale: "ja_JP",
+      type: "article",
+      images: [
+        {
+          url: `${siteUrl}/og.png`,
+          width: 1200,
+          height: 630,
+          alt: guide.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: guide.title,
+      description: guide.description,
+      images: [`${siteUrl}/og.png`],
+    },
+    other: {
+      "article:published_time": TOOL_CONTENT_LAST_UPDATED,
+      "article:modified_time": TOOL_CONTENT_LAST_UPDATED,
+    },
   };
 }
 
@@ -37,13 +74,37 @@ export default async function Page({ params }: Props) {
     notFound();
   }
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: guide.title,
+    description: guide.description,
+    inLanguage: "ja",
+    datePublished: TOOL_CONTENT_LAST_UPDATED,
+    dateModified: TOOL_CONTENT_LAST_UPDATED,
+    author: {
+      "@type": "Organization",
+      name: "AI Image Tools",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "AI Image Tools",
+    },
+    mainEntityOfPage: `${siteUrl}/guides/${guide.slug}`,
+  };
+
   return (
-    <StaticContentPage
-      locale="ja"
-      title={guide.title}
-      description={guide.description}
-      sections={guide.sections}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <StaticContentPage
+        locale="ja"
+        title={guide.title}
+        description={guide.description}
+        sections={guide.sections}
+      />
+    </>
   );
 }
-

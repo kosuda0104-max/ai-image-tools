@@ -1,4 +1,4 @@
-﻿import PngToWebpTool from "@/src/components/PngToWebpTool";
+import PngToWebpTool from "@/src/components/PngToWebpTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

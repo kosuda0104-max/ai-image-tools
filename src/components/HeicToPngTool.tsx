@@ -24,16 +24,16 @@ export default function HeicToPngTool({ locale }: Props) {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const isJa = locale === "ja";
-  const title = isJa ? "HEIC\u3092PNG\u306b\u5909\u63db" : "HEIC to PNG Converter";
+  const title = isJa ? "HEICをPNGに変換" : "HEIC to PNG Converter";
   const description = isJa
-    ? "HEIC\u753b\u50cf\u3092PNG\u5f62\u5f0f\u3078\u5909\u63db\u3067\u304d\u308b\u7121\u6599\u30aa\u30f3\u30e9\u30a4\u30f3\u30c4\u30fc\u30eb\u3067\u3059\u3002"
+    ? "HEIC画像をPNG形式へ変換できる無料オンラインツールです。"
     : "Convert HEIC images to PNG online for free.";
 
   const fileInfo = useMemo(() => {
     if (!image) return null;
     return {
       name: image.name,
-      type: image.type || (isJa ? "\u4e0d\u660e" : "Unknown"),
+      type: image.type || (isJa ? "不明" : "Unknown"),
       size: formatFileSize(image.size),
     };
   }, [image, isJa]);
@@ -43,14 +43,14 @@ export default function HeicToPngTool({ locale }: Props) {
 
     try {
       setIsProcessing(true);
-      setStatus(isJa ? "\u5909\u63db\u4e2d\u3067\u3059..." : "Converting...");
+      setStatus(isJa ? "変換中です..." : "Converting...");
 
       const heic2any = (await import("heic2any")).default;
       const converted = await heic2any({ blob: image, toType: "image/png" });
       const blob = Array.isArray(converted) ? converted[0] : converted;
 
       if (!(blob instanceof Blob)) {
-        setStatus(isJa ? "\u5909\u63db\u306b\u5931\u6557\u3057\u307e\u3057\u305f\u3002" : "Conversion failed.");
+        setStatus(isJa ? "変換に失敗しました。" : "Conversion failed.");
         setIsProcessing(false);
         return;
       }
@@ -65,12 +65,12 @@ export default function HeicToPngTool({ locale }: Props) {
 
       setStatus(
         isJa
-          ? `${baseName}.png \u3092\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u3057\u307e\u3057\u305f\u3002`
+          ? `${baseName}.png をダウンロードしました。`
           : `${baseName}.png has been downloaded.`
       );
     } catch (error) {
       console.error(error);
-      setStatus(isJa ? "\u5909\u63db\u306b\u5931\u6557\u3057\u307e\u3057\u305f\u3002" : "Conversion failed.");
+      setStatus(isJa ? "変換に失敗しました。" : "Conversion failed.");
     } finally {
       setIsProcessing(false);
     }
@@ -80,29 +80,29 @@ export default function HeicToPngTool({ locale }: Props) {
     <ToolPageLayout
       title={title}
       description={description}
-      aboutTitle={isJa ? "\u3053\u306e\u30c4\u30fc\u30eb\u306b\u3064\u3044\u3066" : "About this tool"}
+      aboutTitle={isJa ? "このツールについて" : "About this tool"}
       aboutText={
         isJa
-          ? "iPhone \u5199\u771f\u306e HEIC \u3092 PNG \u306b\u5909\u63db\u3057\u3066\u3001\u7de8\u96c6\u3057\u3084\u3059\u3044\u5f62\u5f0f\u3067\u6271\u3044\u305f\u3044\u3068\u304d\u306b\u5411\u3044\u3066\u3044\u307e\u3059\u3002"
+          ? "iPhone 写真の HEIC を PNG に変換して、編集しやすい形式で扱いたいときに向いています。"
           : "Useful when you want to convert iPhone-friendly HEIC files into a more edit-friendly PNG export."
       }
       contentSections={[
         {
-          title: isJa ? "\u4f7f\u3044\u3069\u3053\u308d" : "When HEIC to PNG helps",
+          title: isJa ? "使いどころ" : "When HEIC to PNG helps",
           paragraphs: [
             isJa
-              ? "\u753b\u8cea\u3092\u91cd\u8996\u3057\u305f\u3044\u3068\u304d\u3084\u3001\u518d\u7de8\u96c6\u3057\u3084\u3059\u3044\u5f62\u5f0f\u3078\u5909\u3048\u305f\u3044\u3068\u304d\u306b\u4fbf\u5229\u3067\u3059\u3002"
+              ? "画質を重視したいときや、再編集しやすい形式へ変えたいときに便利です。"
               : "A practical option when you want a reusable image export from a HEIC photo.",
           ],
         },
       ]}
       listSections={[
         {
-          title: isJa ? "\u5909\u63db\u524d\u306e\u30dd\u30a4\u30f3\u30c8" : "Things to know",
+          title: isJa ? "変換前のポイント" : "Things to know",
           items: isJa
             ? [
-                "PNG \u306f JPG \u3088\u308a\u5bb9\u91cf\u304c\u5927\u304d\u304f\u306a\u308a\u3084\u3059\u3044\u3067\u3059\u3002",
-                "\u5171\u6709\u3057\u3084\u3059\u3055\u91cd\u8996\u306a\u3089 HEIC \u304b\u3089 JPG \u3082\u5019\u88dc\u3067\u3059\u3002",
+                "PNG は JPG より容量が大きくなりやすいです。",
+                "共有しやすさ重視なら HEIC から JPG も候補です。",
               ]
             : [
                 "PNG files can be larger than JPG exports.",
@@ -110,37 +110,37 @@ export default function HeicToPngTool({ locale }: Props) {
               ],
         },
       ]}
-      stepsTitle={isJa ? "\u4f7f\u3044\u65b9" : "How to Use"}
+      stepsTitle={isJa ? "使い方" : "How to Use"}
       steps={
         isJa
-          ? ["HEIC\u753b\u50cf\u3092\u9078\u629e\u3057\u307e\u3059", "\u5909\u63db\u30dc\u30bf\u30f3\u3092\u62bc\u3057\u307e\u3059", "PNG\u3092\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u3057\u307e\u3059"]
+          ? ["HEIC画像を選択します", "変換ボタンを押します", "PNGをダウンロードします"]
           : ["Choose a HEIC image", "Click convert", "Download the PNG file"]
       }
       faqTitle="FAQ"
       faqs={[
         {
-          question: isJa ? "\u753b\u50cf\u306f\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u3055\u308c\u307e\u3059\u304b\uff1f" : "Are files uploaded?",
-          answer: isJa ? "\u3044\u3044\u3048\u3002\u51e6\u7406\u306f\u30d6\u30e9\u30a6\u30b6\u5185\u3067\u884c\u308f\u308c\u307e\u3059\u3002" : "No. Processing stays in your browser.",
+          question: isJa ? "画像はアップロードされますか？" : "Are files uploaded?",
+          answer: isJa ? "いいえ。処理はブラウザ内で行われます。" : "No. Processing stays in your browser.",
         },
       ]}
       relatedTools={
         isJa
           ? [
-              { name: "HEIC\u3092JPG\u306b\u5909\u63db", href: "/tools/heic-to-jpg" },
-              { name: "\u753b\u50cf\u5727\u7e2e", href: "/tools/image-compress" },
+              { name: "HEICをJPGに変換", href: "/tools/heic-to-jpg" },
+              { name: "画像圧縮", href: "/tools/image-compress" },
             ]
           : [
               { name: "HEIC to JPG", href: "/en/tools/heic-to-jpg" },
               { name: "Image Compress", href: "/en/tools/image-compress" },
             ]
       }
-      relatedToolsTitle={isJa ? "\u95a2\u9023\u30c4\u30fc\u30eb" : "Related Tools"}
+      relatedToolsTitle={isJa ? "関連ツール" : "Related Tools"}
     >
       <div className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <FileDropzone
           file={image}
           accept=".heic,image/heic"
-          emptyTitle={isJa ? "HEIC\u753b\u50cf\u3092\u30c9\u30e9\u30c3\u30b0\uff06\u30c9\u30ed\u30c3\u30d7\u3001\u307e\u305f\u306f\u9078\u629e" : "Drag and drop a HEIC image here, or select a file"}
+          emptyTitle={isJa ? "HEIC画像をドラッグ＆ドロップ、または選択" : "Drag and drop a HEIC image here, or select a file"}
           onFileSelect={(file: File | null) => {
             setStatus("");
             if (!file) {
@@ -150,7 +150,7 @@ export default function HeicToPngTool({ locale }: Props) {
             const isHeic = file.type === "image/heic" || /\.heic$/i.test(file.name);
             if (!isHeic) {
               setImage(null);
-              setStatus(isJa ? "HEIC\u30d5\u30a1\u30a4\u30eb\u3092\u9078\u629e\u3057\u3066\u304f\u3060\u3055\u3044\u3002" : "Please select a HEIC file.");
+              setStatus(isJa ? "HEICファイルを選択してください。" : "Please select a HEIC file.");
               return;
             }
             setImage(file);
@@ -166,7 +166,7 @@ export default function HeicToPngTool({ locale }: Props) {
         )}
 
         <PrimaryButton onClick={handleConvert} disabled={!image || isProcessing}>
-          {isProcessing ? (isJa ? "\u5909\u63db\u4e2d..." : "Converting...") : isJa ? "HEIC\u3092PNG\u306b\u5909\u63db" : "Convert HEIC to PNG"}
+          {isProcessing ? (isJa ? "変換中..." : "Converting...") : isJa ? "HEICをPNGに変換" : "Convert HEIC to PNG"}
         </PrimaryButton>
 
         {status && <StatusMessage status={status} />}

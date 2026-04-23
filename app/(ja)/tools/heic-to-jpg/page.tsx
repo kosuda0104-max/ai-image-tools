@@ -1,4 +1,4 @@
-﻿import HeicToJpgTool from "@/src/components/HeicToJpgTool";
+import HeicToJpgTool from "@/src/components/HeicToJpgTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

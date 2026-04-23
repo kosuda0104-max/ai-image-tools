@@ -1,4 +1,4 @@
-﻿import RotatePdfTool from "@/src/components/RotatePdfTool";
+import RotatePdfTool from "@/src/components/RotatePdfTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

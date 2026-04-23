@@ -1,4 +1,4 @@
-﻿import BmpToPngTool from "@/src/components/BmpToPngTool";
+import BmpToPngTool from "@/src/components/BmpToPngTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({

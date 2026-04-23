@@ -1,4 +1,4 @@
-﻿import BmpToJpgTool from "@/src/components/BmpToJpgTool";
+import BmpToJpgTool from "@/src/components/BmpToJpgTool";
 
 export const metadata = {
   title: "BMPをJPGに変換【無料・高速・安全】オンラインツール",

@@ -1,4 +1,4 @@
-﻿import GifToPngTool from "@/src/components/GifToPngTool";
+import GifToPngTool from "@/src/components/GifToPngTool";
 import { createToolMetadata } from "@/src/lib/tool-metadata";
 
 export const metadata = createToolMetadata({
