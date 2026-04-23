@@ -40,6 +40,14 @@ type WorkflowSuggestion = {
   reason: string;
 };
 
+type PracticalChecklist = {
+  title: string;
+  beforeTitle: string;
+  beforeItems: string[];
+  afterTitle: string;
+  afterItems: string[];
+};
+
 type Props = {
   title: string;
   description: string;
@@ -143,6 +151,117 @@ function buildWorkflowSuggestions({
   }));
 }
 
+function buildPracticalChecklist({
+  locale,
+  title,
+}: {
+  locale: "ja" | "en";
+  title: string;
+}): PracticalChecklist {
+  const category = detectToolCategory(title);
+  const isJa = locale === "ja";
+
+  if (category === "pdf") {
+    return isJa
+      ? {
+          title: "失敗しにくいPDF作業のコツ",
+          beforeTitle: "作業前に確認",
+          beforeItems: [
+            "元のPDFを念のため残してから作業します。",
+            "ページ順、不要ページ、提出先の容量制限を先に確認します。",
+            "機密性の高い書類は、共有前に個人情報や不要なページが残っていないか見直します。",
+          ],
+          afterTitle: "保存後に確認",
+          afterItems: [
+            "保存したPDFを一度開き、ページ抜けや順番のズレがないか確認します。",
+            "メールやフォームで送る前に、ファイルサイズが制限内か確認します。",
+            "画質を落とした場合は、文字が読めるか拡大して確認します。",
+          ],
+        }
+      : {
+          title: "How to avoid common PDF mistakes",
+          beforeTitle: "Before you start",
+          beforeItems: [
+            "Keep a copy of the original PDF before editing.",
+            "Check page order, unwanted pages, and the file size limit for the destination.",
+            "For sensitive documents, review whether personal details or extra pages should be removed.",
+          ],
+          afterTitle: "After saving",
+          afterItems: [
+            "Open the saved PDF once and check page order and missing pages.",
+            "Before email or form upload, confirm the file size is within the limit.",
+            "If compression changed quality, zoom in and confirm the text is still readable.",
+          ],
+        };
+  }
+
+  if (category === "conversion") {
+    return isJa
+      ? {
+          title: "変換で失敗しにくくする確認ポイント",
+          beforeTitle: "変換前に確認",
+          beforeItems: [
+            "提出先やアップロード先が指定している形式を確認します。",
+            "透過、アニメーション、画質など、変換で変わりやすい要素を先に確認します。",
+            "容量を小さくしたいのか、互換性を上げたいのか、目的を決めてから形式を選びます。",
+          ],
+          afterTitle: "変換後に確認",
+          afterItems: [
+            "変換後の画像を開いて、色味や文字のにじみがないか確認します。",
+            "ファイルサイズが大きい場合は、続けて圧縮やリサイズを使うと調整しやすいです。",
+            "編集途中ならPNG、共有や掲載ならJPGやWebPなど、最後の用途に合わせて保存します。",
+          ],
+        }
+      : {
+          title: "Checks that make conversion safer",
+          beforeTitle: "Before converting",
+          beforeItems: [
+            "Confirm the format required by the app, upload form, or person receiving the file.",
+            "Check details that may change during conversion, such as transparency, animation, or image quality.",
+            "Decide whether your main goal is compatibility, editing, or a smaller file size.",
+          ],
+          afterTitle: "After converting",
+          afterItems: [
+            "Open the converted image and check colors, text edges, and visible artifacts.",
+            "If the result is too large, continue with compression or resizing.",
+            "Use PNG for editing stages, and JPG or WebP when the final goal is sharing or publishing.",
+          ],
+        };
+  }
+
+  return isJa
+    ? {
+        title: "画像編集で失敗しにくくする確認ポイント",
+        beforeTitle: "編集前に確認",
+        beforeItems: [
+          "元画像を残してから、コピーを編集すると戻しやすくなります。",
+          "SNS、ブログ、提出先など、最終的に使う場所のサイズ指定を確認します。",
+          "文字やロゴが入っている画像は、切り抜きやリサイズ後に読めるか意識します。",
+        ],
+        afterTitle: "編集後に確認",
+        afterItems: [
+          "スマホ表示とPC表示の両方で、見切れや余白を確認します。",
+          "容量が大きい場合は、公開前に画像圧縮を使うと扱いやすくなります。",
+          "透かしや白黒化などの加工は、元画像と見比べて目的に合っているか確認します。",
+        ],
+      }
+    : {
+        title: "Checks that make image editing safer",
+        beforeTitle: "Before editing",
+        beforeItems: [
+          "Keep the original image and edit a copy when possible.",
+          "Check the final size requirements for social posts, blogs, forms, or documents.",
+          "For images with text or logos, make sure cropping and resizing will keep them readable.",
+        ],
+        afterTitle: "After editing",
+        afterItems: [
+          "Preview the result on both mobile and desktop if it will be published online.",
+          "If the file is still large, use image compression before publishing or sharing.",
+          "Compare visual edits such as watermarking or grayscale with the original to confirm the result fits the goal.",
+        ],
+      };
+}
+
 export default function ToolPageLayout({
   title,
   description,
@@ -181,6 +300,10 @@ export default function ToolPageLayout({
     locale: isJapanesePage ? "ja" : "en",
     title,
   }).filter((tool) => tool.name !== title);
+  const practicalChecklist = buildPracticalChecklist({
+    locale: isJapanesePage ? "ja" : "en",
+    title,
+  });
   const workflowSuggestionsTitle = isJapanesePage
     ? "次に続けやすい作業"
     : "Common next steps";
@@ -325,6 +448,34 @@ export default function ToolPageLayout({
           </header>
 
           <section>{children}</section>
+
+          <section className="rounded-3xl border border-sky-100 bg-sky-50/70 p-6">
+            <h2 className="text-2xl font-semibold">
+              {practicalChecklist.title}
+            </h2>
+            <div className="mt-5 grid gap-5 md:grid-cols-2">
+              <div className="rounded-2xl border border-sky-100 bg-white p-5">
+                <h3 className="text-base font-semibold text-neutral-900">
+                  {practicalChecklist.beforeTitle}
+                </h3>
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-neutral-700">
+                  {practicalChecklist.beforeItems.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-2xl border border-sky-100 bg-white p-5">
+                <h3 className="text-base font-semibold text-neutral-900">
+                  {practicalChecklist.afterTitle}
+                </h3>
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-neutral-700">
+                  {practicalChecklist.afterItems.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
 
           <section className="rounded-3xl border bg-neutral-50 p-6">
             <div className="space-y-2">
