@@ -360,6 +360,61 @@ export default function ToolsPage({ locale }: Props) {
             </div>
           </div>
 
+          <div className="mb-8 rounded-[1.9rem] border border-emerald-100 bg-[linear-gradient(135deg,rgba(236,253,245,0.92),rgba(240,253,250,0.86))] p-6 shadow-[0_22px_46px_-34px_rgba(6,78,59,0.38)]">
+            <div className="mb-5 max-w-3xl space-y-2">
+              <h2 className="text-2xl font-bold text-slate-950">
+                {t.decisionMatrix.title}
+              </h2>
+              <p className="text-sm leading-7 text-slate-600">
+                {t.decisionMatrix.description}
+              </p>
+            </div>
+
+            <div className="overflow-hidden rounded-[1.4rem] border border-emerald-100 bg-white/90">
+              {t.decisionMatrix.items.map((item) => (
+                <div
+                  key={item.situation}
+                  className="grid gap-4 border-b border-emerald-50 p-5 last:border-b-0 lg:grid-cols-[1fr,0.72fr,1.1fr,1fr]"
+                >
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">
+                      {locale === "en" ? "Situation" : "状況"}
+                    </div>
+                    <p className="mt-1 text-sm font-semibold text-slate-950">
+                      {item.situation}
+                    </p>
+                  </div>
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">
+                      {locale === "en" ? "Best start" : "まず選ぶもの"}
+                    </div>
+                    <p className="mt-1 text-sm font-semibold text-slate-950">
+                      {item.recommended}
+                    </p>
+                  </div>
+                  <p className="text-sm leading-6 text-slate-600">
+                    {item.reason}
+                  </p>
+                  <div className="flex flex-wrap gap-2 lg:justify-end">
+                    {item.tools.map((tool) => (
+                      <Link
+                        key={`decision-${item.situation}-${tool.href}`}
+                        href={
+                          locale === "en"
+                            ? tool.href.replace(/^\/tools/, "/en/tools")
+                            : tool.href
+                        }
+                        className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-800 transition hover:border-emerald-300 hover:bg-white"
+                      >
+                        {tool.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div className="mb-8 flex flex-col gap-4 rounded-[1.6rem] border border-stone-200 bg-white/95 p-4 shadow-[0_18px_34px_-30px_rgba(22,32,51,0.52)] md:flex-row md:items-center md:justify-between">
             <div className="flex-1">
               <input
@@ -514,6 +569,51 @@ export default function ToolsPage({ locale }: Props) {
                           : tool.href
                       }
                       className="rounded-full border border-sky-200 bg-sky-50 px-2.5 py-1 text-[11px] font-semibold text-sky-800"
+                    >
+                      {tool.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-6 space-y-4 rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
+          <div>
+            <h2 className="text-lg font-bold text-gray-900">
+              {t.decisionMatrix.title}
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-gray-600">
+              {t.decisionMatrix.description}
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            {t.decisionMatrix.items.map((item) => (
+              <div
+                key={`mobile-decision-${item.situation}`}
+                className="rounded-xl border border-emerald-100 bg-white p-3"
+              >
+                <div className="text-sm font-semibold text-gray-900">
+                  {item.situation}
+                </div>
+                <p className="mt-1 text-xs font-semibold text-emerald-700">
+                  {item.recommended}
+                </p>
+                <p className="mt-1 text-xs leading-5 text-gray-600">
+                  {item.reason}
+                </p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {item.tools.slice(0, 2).map((tool) => (
+                    <Link
+                      key={`mobile-decision-link-${item.situation}-${tool.href}`}
+                      href={
+                        locale === "en"
+                          ? tool.href.replace(/^\/tools/, "/en/tools")
+                          : tool.href
+                      }
+                      className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-800"
                     >
                       {tool.name}
                     </Link>

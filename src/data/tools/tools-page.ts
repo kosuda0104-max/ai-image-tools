@@ -31,6 +31,13 @@ type ChooserItem = {
   tools: ToolItem[];
 };
 
+type DecisionMatrixItem = {
+  situation: string;
+  recommended: string;
+  reason: string;
+  tools: ToolItem[];
+};
+
 type ToolsPageContent = {
   badge: string;
   hero: {
@@ -51,6 +58,11 @@ type ToolsPageContent = {
     title: string;
     description: string;
     items: ChooserItem[];
+  };
+  decisionMatrix: {
+    title: string;
+    description: string;
+    items: DecisionMatrixItem[];
   };
   guideSections: SeoGuideSection[];
   categories: ToolCategory[];
@@ -138,6 +150,9 @@ const ja = {
   chooserTitle: "目的から選ぶ",
   chooserDescription:
     "拡張子や専門用語が分からなくても、やりたい作業から近いツールへ進めるようにしました。",
+  decisionTitle: "迷ったときの判断表",
+  decisionDescription:
+    "どの形式や作業を選ぶべきか分からないときは、状況に近い行から始めると失敗しにくくなります。",
   guide1: "この一覧ページの使い方",
   guide1a:
     "まずは目的に近いカテゴリを見るのがおすすめです。形式を変えたいのか、容量を軽くしたいのか、PDF を整えたいのかで分けると迷いにくくなります。",
@@ -254,6 +269,62 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
             getToolItem("ja", "resize-image"),
             getToolItem("ja", "crop-image"),
             getToolItem("ja", "watermark-image"),
+          ],
+        },
+      ],
+    },
+    decisionMatrix: {
+      title: ja.decisionTitle,
+      description: ja.decisionDescription,
+      items: [
+        {
+          situation: "写真を軽くして共有したい",
+          recommended: "JPG または WebP",
+          reason:
+            "写真はJPGやWebPと相性が良く、見た目を保ちながら容量を抑えやすいです。",
+          tools: [
+            getToolItem("ja", "jpg-compress"),
+            getToolItem("ja", "jpg-to-webp"),
+          ],
+        },
+        {
+          situation: "スクリーンショットや図版をきれいに残したい",
+          recommended: "PNG",
+          reason:
+            "文字や線が多い画像はPNGのほうがにじみにくく、再編集にも向いています。",
+          tools: [
+            getToolItem("ja", "jpg-to-png"),
+            getToolItem("ja", "webp-to-png"),
+          ],
+        },
+        {
+          situation: "iPhone写真を送信・提出したい",
+          recommended: "HEIC から JPG",
+          reason:
+            "HEICは環境によって扱いづらいため、共有前にJPGへそろえるとトラブルを減らせます。",
+          tools: [
+            getToolItem("ja", "heic-to-jpg"),
+            getToolItem("ja", "jpg-compress"),
+          ],
+        },
+        {
+          situation: "画像を資料としてまとめたい",
+          recommended: "画像から PDF",
+          reason:
+            "複数画像を1つのPDFにすると、提出や共有で順番を保ちやすくなります。",
+          tools: [
+            getToolItem("ja", "image-to-pdf"),
+            getToolItem("ja", "jpg-to-pdf"),
+          ],
+        },
+        {
+          situation: "PDFを送る前に整理したい",
+          recommended: "結合・分割・ページ削除",
+          reason:
+            "ページ順や不要ページを整えてから送ると、受け手が確認しやすくなります。",
+          tools: [
+            getToolItem("ja", "merge-pdf"),
+            getToolItem("ja", "pdf-remove-pages"),
           ],
         },
       ],
@@ -389,6 +460,63 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
             getToolItem("en", "resize-image"),
             getToolItem("en", "crop-image"),
             getToolItem("en", "watermark-image"),
+          ],
+        },
+      ],
+    },
+    decisionMatrix: {
+      title: "Quick decision table",
+      description:
+        "If you are unsure which format or workflow to choose, start with the row closest to your situation.",
+      items: [
+        {
+          situation: "You want to share a lighter photo",
+          recommended: "JPG or WebP",
+          reason:
+            "Photos usually compress well as JPG or WebP while staying visually acceptable.",
+          tools: [
+            getToolItem("en", "jpg-compress"),
+            getToolItem("en", "jpg-to-webp"),
+          ],
+        },
+        {
+          situation: "You need clean screenshots or diagrams",
+          recommended: "PNG",
+          reason:
+            "PNG is usually better for text, sharp lines, screenshots, and follow-up editing.",
+          tools: [
+            getToolItem("en", "jpg-to-png"),
+            getToolItem("en", "webp-to-png"),
+          ],
+        },
+        {
+          situation: "You need to submit iPhone photos",
+          recommended: "HEIC to JPG",
+          reason:
+            "HEIC can be rejected by some upload forms or older workflows, while JPG is widely accepted.",
+          tools: [
+            getToolItem("en", "heic-to-jpg"),
+            getToolItem("en", "jpg-compress"),
+          ],
+        },
+        {
+          situation: "You need one document from several images",
+          recommended: "Image to PDF",
+          reason:
+            "A PDF keeps image order together and is often easier to submit or share.",
+          tools: [
+            getToolItem("en", "image-to-pdf"),
+            getToolItem("en", "jpg-to-pdf"),
+          ],
+        },
+        {
+          situation: "You need to clean a PDF before sending",
+          recommended: "Merge, split, or remove pages",
+          reason:
+            "Organizing pages before sharing makes the document easier for the recipient to review.",
+          tools: [
+            getToolItem("en", "merge-pdf"),
+            getToolItem("en", "pdf-remove-pages"),
           ],
         },
       ],
