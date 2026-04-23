@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ToolPageLayout from "@/components/ToolPageLayout";
 import FileDropzone from "@/components/FileDropzone";
 import PrimaryButton from "@/components/PrimaryButton";
@@ -60,6 +60,10 @@ type UIContent = {
   selectedFileLabel: string;
   qualityLabel: string;
   qualityHint: string;
+  qualityPresetTitle: string;
+  highQualityPreset: string;
+  balancedPreset: string;
+  smallSizePreset: string;
   outputFormatLabel: string;
   keepOriginalFormat: string;
   convertToJpg: string;
@@ -72,6 +76,9 @@ type UIContent = {
   originalSizeLabel: string;
   compressedSizeLabel: string;
   reductionLabel: string;
+  increaseLabel: string;
+  resultHintBetter: string;
+  resultHintLarger: string;
   previewBeforeLabel: string;
   previewAfterLabel: string;
   previewPlaceholder: string;
@@ -203,7 +210,11 @@ const content: Record<Locale, ToolContent> = {
       selectedFileLabel: "選択中のファイル",
       qualityLabel: "圧縮品質",
       qualityHint:
-        "数値を下げるほどファイルサイズは小さくなります。写真なら 70〜85 程度が目安です。",
+        "迷ったら「標準」から試してください。文字が多い画像は高画質、写真は容量優先も試しやすいです。",
+      qualityPresetTitle: "圧縮の強さ",
+      highQualityPreset: "高画質",
+      balancedPreset: "標準",
+      smallSizePreset: "容量優先",
       outputFormatLabel: "出力形式",
       keepOriginalFormat: "元の形式のまま",
       convertToJpg: "JPG に変換して圧縮",
@@ -216,6 +227,9 @@ const content: Record<Locale, ToolContent> = {
       originalSizeLabel: "元のサイズ",
       compressedSizeLabel: "圧縮後サイズ",
       reductionLabel: "削減率",
+      increaseLabel: "増加率",
+      resultHintBetter: "容量を減らせています。見た目に問題がなければダウンロードできます。",
+      resultHintLarger: "圧縮後のほうが大きくなっています。別の形式や低めの品質を試してください。",
       previewBeforeLabel: "圧縮前プレビュー",
       previewAfterLabel: "圧縮後プレビュー",
       previewPlaceholder: "圧縮後のプレビューはここに表示されます。",
@@ -338,7 +352,11 @@ const content: Record<Locale, ToolContent> = {
       selectedFileLabel: "Selected File",
       qualityLabel: "Compression Quality",
       qualityHint:
-        "Lower values create smaller files. A quality range of 70–85 is a good starting point for photos.",
+        "If you are unsure, start with Balanced. Use High quality for text-heavy images and Small size for photos.",
+      qualityPresetTitle: "Compression strength",
+      highQualityPreset: "High quality",
+      balancedPreset: "Balanced",
+      smallSizePreset: "Small size",
       outputFormatLabel: "Output Format",
       keepOriginalFormat: "Keep original format",
       convertToJpg: "Convert to JPG",
@@ -351,6 +369,9 @@ const content: Record<Locale, ToolContent> = {
       originalSizeLabel: "Original Size",
       compressedSizeLabel: "Compressed Size",
       reductionLabel: "Reduction",
+      increaseLabel: "Increase",
+      resultHintBetter: "The result is smaller. If it still looks good, it is ready to download.",
+      resultHintLarger: "The result is larger than the original. Try another format or a lower quality setting.",
       previewBeforeLabel: "Before Compression",
       previewAfterLabel: "After Compression",
       previewPlaceholder: "The compressed preview will appear here.",
@@ -369,6 +390,12 @@ const content: Record<Locale, ToolContent> = {
 };
 
 type OutputFormat = "original" | "image/jpeg" | "image/webp" | "image/png";
+
+const qualityPresets = [
+  { key: "high", value: 90 },
+  { key: "balanced", value: 80 },
+  { key: "small", value: 60 },
+] as const;
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -488,17 +515,16 @@ export default function ImageCompressTool({ locale }: Props) {
   const compressedInfo = useMemo(() => {
     if (!compressedBlob || !image) return null;
 
-    const reduction =
+    const changeRatio =
       image.size > 0
-        ? Math.max(
-            0,
-            ((image.size - compressedBlob.size) / image.size) * 100
-          ).toFixed(1)
-        : "0.0";
+        ? ((image.size - compressedBlob.size) / image.size) * 100
+        : 0;
+    const isLarger = changeRatio < 0;
 
     return {
       size: formatFileSize(compressedBlob.size),
-      reduction: `${reduction}%`,
+      change: `${Math.abs(changeRatio).toFixed(1)}%`,
+      isLarger,
     };
   }, [compressedBlob, image]);
 
@@ -530,12 +556,6 @@ export default function ImageCompressTool({ locale }: Props) {
     }
 
     setImage(file);
-  };
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0] ?? null;
-    handleFileSelect(file);
-    event.target.value = "";
   };
 
   const handleCompress = async () => {
@@ -642,18 +662,6 @@ export default function ImageCompressTool({ locale }: Props) {
           onFileSelect={handleFileSelect}
         />
 
-        <div>
-          <label className="mb-2 block text-sm font-medium text-gray-800">
-            {ui.selectButtonLabel}
-          </label>
-          <input
-            type="file"
-            accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"
-            onChange={handleInputChange}
-            className="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700 file:mr-4 file:rounded-lg file:border-0 file:bg-gray-100 file:px-4 file:py-2 file:text-sm file:font-medium file:text-gray-700"
-          />
-        </div>
-
         {fileInfo && (
           <div className="space-y-4 rounded-xl border border-gray-200 bg-gray-50 p-4">
             <div className="space-y-2">
@@ -683,6 +691,37 @@ export default function ImageCompressTool({ locale }: Props) {
             </div>
 
             <div className="space-y-2">
+              <div className="text-sm font-medium text-gray-800">
+                {ui.qualityPresetTitle}
+              </div>
+              <div className="grid gap-2 sm:grid-cols-3">
+                {qualityPresets.map((preset) => {
+                  const label =
+                    preset.key === "high"
+                      ? ui.highQualityPreset
+                      : preset.key === "balanced"
+                        ? ui.balancedPreset
+                        : ui.smallSizePreset;
+
+                  return (
+                    <button
+                      key={preset.key}
+                      type="button"
+                      onClick={() => setQuality(preset.value)}
+                      className={`rounded-xl border px-4 py-3 text-sm font-medium transition ${
+                        quality === preset.value
+                          ? "border-blue-600 bg-blue-50 text-blue-700"
+                          : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
+                      }`}
+                    >
+                      {label}
+                      <span className="mt-1 block text-xs text-gray-500">
+                        {preset.value}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
               <label
                 htmlFor="quality"
                 className="text-sm font-medium text-gray-800"
@@ -770,9 +809,18 @@ export default function ImageCompressTool({ locale }: Props) {
             </p>
             <p>
               <span className="font-medium text-gray-800">
-                {ui.reductionLabel}:
+                {compressedInfo.isLarger ? ui.increaseLabel : ui.reductionLabel}:
               </span>{" "}
-              {compressedInfo.reduction}
+              {compressedInfo.change}
+            </p>
+            <p
+              className={`rounded-lg px-3 py-2 ${
+                compressedInfo.isLarger
+                  ? "bg-amber-50 text-amber-800"
+                  : "bg-green-50 text-green-800"
+              }`}
+            >
+              {compressedInfo.isLarger ? ui.resultHintLarger : ui.resultHintBetter}
             </p>
           </div>
         )}

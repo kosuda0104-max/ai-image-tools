@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ToolPageLayout from "@/components/ToolPageLayout";
 import FileDropzone from "@/components/FileDropzone";
 import PrimaryButton from "@/components/PrimaryButton";
@@ -19,6 +19,12 @@ const formatConfig = {
   png: { mimeType: "image/png", accept: "image/png,.png", test: /\.png$/i, ext: "png" },
   webp: { mimeType: "image/webp", accept: "image/webp,.webp", test: /\.webp$/i, ext: "webp" },
 } as const;
+
+const qualityPresets = [
+  { key: "high", value: 90 },
+  { key: "balanced", value: 80 },
+  { key: "small", value: 60 },
+] as const;
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
@@ -49,11 +55,13 @@ function getText(locale: Locale, format: FormatKey) {
     listTitle: ja ? "ポイント" : "Tips",
     list: ja
       ? [
-          "品質 80 前後から試すとバランスを見やすいです。",
+          "迷ったら標準プリセットから試すとバランスを見やすいです。",
+          "写真は容量優先、文字や線が多い画像は高画質が向いています。",
           "元画像を残しておくと再調整しやすくなります。",
         ]
       : [
-          "Starting around quality 80 is usually a safe first pass.",
+          "Start with the Balanced preset if you are unsure.",
+          "Use Small size for photos and High quality for text-heavy images.",
           "Keep the original file if you may need it later.",
         ],
     relatedTools:
@@ -124,10 +132,16 @@ export default function SingleFormatCompressTool({ locale, format }: Props) {
 
   const compressedInfo = useMemo(() => {
     if (!image || !compressedBlob) return null;
+    const changeRatio =
+      image.size > 0
+        ? ((image.size - compressedBlob.size) / image.size) * 100
+        : 0;
+
     return {
       original: formatFileSize(image.size),
       compressed: formatFileSize(compressedBlob.size),
-      reduction: `${Math.max(0, ((image.size - compressedBlob.size) / image.size) * 100).toFixed(1)}%`,
+      change: `${Math.abs(changeRatio).toFixed(1)}%`,
+      isLarger: changeRatio < 0,
     };
   }, [compressedBlob, image]);
 
@@ -150,11 +164,6 @@ export default function SingleFormatCompressTool({ locale, format }: Props) {
     }
 
     setImage(file);
-  };
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    handleFileSelect(event.target.files?.[0] ?? null);
-    event.target.value = "";
   };
 
   const handleCompress = async () => {
@@ -230,19 +239,49 @@ export default function SingleFormatCompressTool({ locale, format }: Props) {
           onFileSelect={handleFileSelect}
         />
 
-        <input
-          type="file"
-          accept={config.accept}
-          onChange={handleInputChange}
-          className="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700"
-        />
-
         {image && (
           <div className="space-y-4 rounded-xl border border-gray-200 bg-gray-50 p-4">
             <div className="text-sm text-gray-700">
               {image.name} / {image.type || "unknown"} / {formatFileSize(image.size)}
             </div>
             <div className="space-y-2">
+              <div className="text-sm font-medium text-gray-800">
+                {isJa ? "圧縮の強さ" : "Compression strength"}
+              </div>
+              <div className="grid gap-2 sm:grid-cols-3">
+                {qualityPresets.map((preset) => {
+                  const label =
+                    preset.key === "high"
+                      ? isJa
+                        ? "高画質"
+                        : "High quality"
+                      : preset.key === "balanced"
+                        ? isJa
+                          ? "標準"
+                          : "Balanced"
+                        : isJa
+                          ? "容量優先"
+                          : "Small size";
+
+                  return (
+                    <button
+                      key={preset.key}
+                      type="button"
+                      onClick={() => setQuality(preset.value)}
+                      className={`rounded-xl border px-4 py-3 text-sm font-medium transition ${
+                        quality === preset.value
+                          ? "border-blue-600 bg-blue-50 text-blue-700"
+                          : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
+                      }`}
+                    >
+                      {label}
+                      <span className="mt-1 block text-xs text-gray-500">
+                        {preset.value}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
               <label htmlFor="quality" className="text-sm font-medium text-gray-800">
                 {isJa ? "圧縮品質" : "Compression Quality"}: {quality}
               </label>
@@ -277,7 +316,31 @@ export default function SingleFormatCompressTool({ locale, format }: Props) {
           <div className="space-y-2 rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
             <p>{isJa ? "元のサイズ" : "Original Size"}: {compressedInfo.original}</p>
             <p>{isJa ? "圧縮後サイズ" : "Compressed Size"}: {compressedInfo.compressed}</p>
-            <p>{isJa ? "削減率" : "Reduction"}: {compressedInfo.reduction}</p>
+            <p>
+              {compressedInfo.isLarger
+                ? isJa
+                  ? "増加率"
+                  : "Increase"
+                : isJa
+                  ? "削減率"
+                  : "Reduction"}
+              : {compressedInfo.change}
+            </p>
+            <p
+              className={`rounded-lg px-3 py-2 ${
+                compressedInfo.isLarger
+                  ? "bg-amber-50 text-amber-800"
+                  : "bg-green-50 text-green-800"
+              }`}
+            >
+              {compressedInfo.isLarger
+                ? isJa
+                  ? "圧縮後のほうが大きくなっています。品質を下げるか、別の形式も試してください。"
+                  : "The result is larger than the original. Try a lower quality setting or another format."
+                : isJa
+                  ? "容量を減らせています。見た目に問題がなければダウンロードできます。"
+                  : "The result is smaller. If it still looks good, it is ready to download."}
+            </p>
           </div>
         )}
 
