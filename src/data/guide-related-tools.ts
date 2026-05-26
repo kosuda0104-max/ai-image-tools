@@ -1,0 +1,28 @@
+import { getToolItems } from "@/src/data/tool-directory";
+import type { ToolDirectoryLocale, ToolDirectoryItem } from "@/src/data/tool-directory";
+
+const guideToolMap: Record<string, string[]> = {
+  "image-format-basics": ["jpg-to-png", "png-to-jpg", "jpg-to-webp", "heic-to-jpg", "webp-to-jpg"],
+  "jpg-vs-png": ["jpg-to-png", "png-to-jpg", "image-compress", "resize-image"],
+  "png-vs-webp": ["png-to-webp", "webp-to-png", "image-compress", "jpg-to-webp"],
+  "pdf-workflows": ["merge-pdf", "split-pdf", "compress-pdf", "pdf-to-jpg", "pdf-remove-pages"],
+  "heic-to-jpg-guide": ["heic-to-jpg", "heic-to-png", "jpg-compress", "image-compress"],
+  "compress-images-without-losing-quality": ["image-compress", "jpg-compress", "png-compress", "resize-image"],
+  "pdf-to-jpg-guide": ["pdf-to-jpg", "pdf-to-png", "pdf-to-webp", "compress-pdf"],
+  "resize-images-for-web": ["resize-image", "image-compress", "jpg-to-webp", "png-to-webp"],
+  "merge-or-split-pdf": ["merge-pdf", "split-pdf", "pdf-remove-pages", "compress-pdf"],
+  "choose-best-image-format-for-web": ["jpg-to-webp", "png-to-webp", "image-compress", "resize-image"],
+  "how-to-remove-pages-from-pdf": ["pdf-remove-pages", "split-pdf", "merge-pdf", "compress-pdf"],
+  "prepare-images-for-upload": ["heic-to-jpg", "image-compress", "resize-image", "jpg-to-png"],
+  "iphone-photos-to-pdf": ["heic-to-jpg", "image-to-pdf", "compress-pdf", "jpg-compress"],
+  "parquet-csv-workflows": ["parquet-to-csv", "csv-to-parquet"],
+  "optimize-blog-and-site-images": ["image-compress", "jpg-to-webp", "png-to-webp", "resize-image"],
+};
+
+export function getGuideRelatedTools(
+  locale: ToolDirectoryLocale,
+  slug: string,
+): ToolDirectoryItem[] {
+  const slugs = guideToolMap[slug] ?? [];
+  return getToolItems(locale, slugs);
+}

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getGuides } from "@/src/data/guides";
 import { siteUrl } from "@/src/lib/site";
+import { TOOL_CONTENT_LAST_UPDATED } from "@/src/lib/seo-signals";
 
 const guideRoutes = getGuides("ja").map((guide) => `/guides/${guide.slug}`);
 
@@ -53,10 +54,12 @@ const routes = [
   "/tools/compress-pdf",
   "/tools/rotate-pdf",
   "/tools/pdf-remove-pages",
+  "/tools/parquet-to-csv",
+  "/tools/csv-to-parquet",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  const lastModified = new Date(TOOL_CONTENT_LAST_UPDATED);
 
   const jaRoutes = routes.map((path) => ({
     url: `${siteUrl}${path}`,

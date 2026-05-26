@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteLogo from "@/src/components/SiteLogo";
+import CookieBanner from "@/src/components/CookieBanner";
+import LangAttribute from "@/src/components/LangAttribute";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -14,6 +16,7 @@ export const metadata: Metadata = {
     languages: {
       ja: "/",
       en: "/en",
+      "x-default": "/",
     },
   },
   openGraph: {
@@ -47,6 +50,7 @@ export default function EnLayout({
 }) {
   return (
     <>
+      <LangAttribute lang="en" />
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-4">
           <Link href="/en" className="shrink-0">
@@ -144,6 +148,7 @@ export default function EnLayout({
           </div>
         </div>
       </footer>
+      <CookieBanner locale="en" />
     </>
   );
 }

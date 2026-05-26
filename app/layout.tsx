@@ -80,6 +80,7 @@ export const metadata: Metadata = {
     languages: {
       ja: "/",
       en: "/en",
+      "x-default": "/",
     },
   },
   category: "technology",
@@ -91,7 +92,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja">
+    <html lang="ja" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"

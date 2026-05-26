@@ -52,6 +52,8 @@ const toolEntries: ToolEntry[] = [
   { slug: "svg-to-png", jaName: "SVG を PNG に変換", jaDescription: "SVG を PNG にして画像素材として使いやすくします。", enName: "SVG to PNG", enDescription: "Convert SVG into PNG for easier image reuse." },
   { slug: "tiff-to-jpg", jaName: "TIFF を JPG に変換", jaDescription: "TIFF 画像を軽めの JPG に変換して扱いやすくします。", enName: "TIFF to JPG", enDescription: "Convert TIFF images into lighter JPG files." },
   { slug: "tiff-to-png", jaName: "TIFF を PNG に変換", jaDescription: "TIFF 画像を PNG に変換して編集や共有に使いやすくします。", enName: "TIFF to PNG", enDescription: "Convert TIFF images into PNG for easier editing or sharing." },
+  { slug: "csv-to-parquet", jaName: "CSV を Parquet に変換", jaDescription: "CSV ファイルをブラウザ上で Parquet に変換できます。AWS S3・BigQuery・Spark への取り込みに。", enName: "CSV to Parquet", enDescription: "Convert CSV files to Parquet in your browser. Ideal for AWS S3, BigQuery, and Spark." },
+  { slug: "parquet-to-csv", jaName: "Parquet を CSV に変換", jaDescription: "Parquet ファイルをブラウザ上で CSV に変換できます。AWS・BigQuery データ作業に。", enName: "Parquet to CSV", enDescription: "Convert Parquet files to CSV in your browser. Great for AWS and BigQuery workflows." },
   { slug: "watermark-image", jaName: "画像に透かしを追加", jaDescription: "画像に名前や注意書きを重ねて保存できます。", enName: "Watermark Image", enDescription: "Add a text watermark or note onto an image." },
   { slug: "webp-compress", jaName: "WebP 圧縮", jaDescription: "WebP の軽さを活かしつつ、さらにサイズを抑えたいときに使えます。", enName: "WebP Compress", enDescription: "Reduce WebP size even further for web delivery." },
   { slug: "webp-to-jpg", jaName: "WebP を JPG に変換", jaDescription: "WebP を JPG にして、より広い環境で扱いやすくします。", enName: "WebP to JPG", enDescription: "Convert WebP into JPG for broader compatibility." },
@@ -72,7 +74,7 @@ export function getToolItem(locale: ToolDirectoryLocale, slug: string): ToolDire
     name: locale === "ja" ? entry.jaName : entry.enName,
     description:
       locale === "ja" ? entry.jaDescription : entry.enDescription,
-    href: `/tools/${slug}`,
+    href: locale === "en" ? `/en/tools/${slug}` : `/tools/${slug}`,
   };
 }
 

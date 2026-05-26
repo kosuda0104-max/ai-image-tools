@@ -600,6 +600,44 @@ const jaGuides: GuideEntry[] = [
     ],
   },
   {
+    slug: "parquet-csv-workflows",
+    title: "Parquet と CSV の使い分け（AWS・BigQuery 対応）",
+    description:
+      "AWS S3 / Athena や BigQuery で Parquet を使うメリットと、CSV との変換タイミングをまとめたガイドです。ブラウザだけで変換できるツールも紹介します。",
+    cardDescription:
+      "Athena・Redshift・BigQuery で Parquet を使うとコストが下がる理由と、CSV との使い分けを整理します。",
+    sections: [
+      {
+        title: "AWS で Parquet を使う理由",
+        paragraphs: [
+          "AWS S3 にデータを置いて Athena でクエリする場合、ファイル形式が料金に直結します。Athena はスキャンしたデータ量に対して課金されるため、CSV のまま置いておくと読み取り量が多くなりがちです。Parquet に変換しておくと、列単位の読み飛ばしと圧縮の効果でスキャン量が大幅に減り、コストを抑えやすくなります。",
+          "Glue カタログでテーブルを管理している場合も、Parquet 形式にしておくと ETL ジョブの処理速度が上がります。同じデータでも CSV と比べてファイルサイズが 5〜10 分の 1 程度になることがあり、S3 のストレージ代にも効いてきます。",
+        ],
+      },
+      {
+        title: "Redshift・BigQuery・Spark での使い方",
+        paragraphs: [
+          "Redshift Spectrum や BigQuery への外部テーブルとして S3 上のデータを参照するとき、Parquet 形式だとパーティションの効きも良く、クエリが速くなります。BigQuery も Athena 同様にスキャン量課金なので、CSV より Parquet のほうが毎クエリのコストが下がります。",
+          "Spark や EMR でバッチ処理するときも、入力が Parquet だとシリアライズのオーバーヘッドが減るため、ジョブの実行時間が短くなりやすいです。大きめのデータセットを扱うなら、最初から Parquet で持っておくほうが後々ラクです。",
+        ],
+      },
+      {
+        title: "CSV のほうが向いている場面",
+        paragraphs: [
+          "Excel で開いて確認したい、エンジニア以外のメンバーに渡したい、BI ツールに読み込ませたい、といった場面では CSV のほうがずっと扱いやすいです。Parquet はバイナリ形式なので、テキストエディタや普通のスプレッドシートでは開けません。",
+          "S3 上の Parquet の中身をちょっと確認したいだけのときも、クエリエンジンを立ち上げるより CSV に変換して手元で開くほうが早いことが多いです。データパイプラインのデバッグや、担当者への一時的な共有にもよく使います。",
+        ],
+      },
+      {
+        title: "ブラウザで変換する（インストール不要）",
+        paragraphs: [
+          "このサイトの「Parquet を CSV に変換」ツールと「CSV を Parquet に変換」ツールは、どちらもブラウザ内で処理します。ファイルを外部サーバーに送らないので、本番データや機密データを含むファイルもそのまま使えます。",
+          "S3 からダウンロードした Parquet を手元でさっと確認したいときは Parquet → CSV、ローカルで作った CSV を S3 に上げる前に Parquet に変換しておきたいときは CSV → Parquet を使うと、余計なツールなしに作業が進みます。",
+        ],
+      },
+    ],
+  },
+  {
     slug: "optimize-blog-and-site-images",
     title: "ブログやサイト画像を軽くする手順",
     description:
@@ -1228,6 +1266,44 @@ const enGuides: GuideEntry[] = [
         paragraphs: [
           "Open the PDF once before sending it. Check missing pages, page order, readability, and whether any unwanted image slipped in. A quick review can prevent a lot of submission mistakes.",
           "AI Image Tools includes HEIC to JPG, JPG compress, rotate image, crop image, image to PDF, and compress PDF tools that fit this workflow.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "parquet-csv-workflows",
+    title: "Parquet vs CSV for AWS, BigQuery, and Spark",
+    description:
+      "Why Parquet cuts AWS Athena and BigQuery costs, when CSV still makes more sense, and how to convert between the two formats directly in your browser.",
+    cardDescription:
+      "How Parquet reduces costs on AWS Athena and BigQuery, when to stick with CSV, and browser-based conversion tools that require no setup.",
+    sections: [
+      {
+        title: "Why Parquet matters on AWS",
+        paragraphs: [
+          "AWS Athena charges per terabyte scanned. If your data sits in S3 as CSV, every query reads every row of every column — even the ones you don't need. Parquet stores data column by column and compresses each one independently, so Athena only reads what the query actually asks for. The same dataset in Parquet format is often 5–10x smaller than CSV, and that difference shows up directly on your AWS bill.",
+          "If you're managing tables with AWS Glue, keeping data in Parquet also makes ETL jobs faster and cheaper. Glue reads less data, processes it faster, and you pay for fewer DPU-hours.",
+        ],
+      },
+      {
+        title: "Redshift, BigQuery, and Spark",
+        paragraphs: [
+          "BigQuery also charges based on bytes scanned, so the same logic applies — Parquet files mean smaller scans and lower per-query costs. Redshift Spectrum works similarly when reading from S3-backed external tables.",
+          "For Spark or EMR batch jobs, Parquet input reduces the time spent deserializing data. If you're running daily jobs against large S3 datasets, switching from CSV to Parquet is one of the easier wins.",
+        ],
+      },
+      {
+        title: "When CSV is still the right call",
+        paragraphs: [
+          "Parquet is a binary format — you can't open it in Excel or a text editor. If you need to share data with someone who isn't going to query it through Athena or Spark, CSV is usually more practical. Analysts who work in spreadsheets, BI tools, or simple import wizards will have an easier time with a CSV.",
+          "CSV also wins for quick manual inspection. If you pulled a Parquet file from S3 and just want to check a few values, converting it to CSV and opening it locally is often faster than spinning up a query.",
+        ],
+      },
+      {
+        title: "Convert in your browser, no setup needed",
+        paragraphs: [
+          "Both the Parquet-to-CSV and CSV-to-Parquet converters on this site run entirely in your browser — nothing is uploaded to a server. That makes them safe to use with production data or anything proprietary.",
+          "Grab a Parquet file from S3, convert it to CSV here, and open it in Excel — done in under a minute. Or take a local CSV and convert it to Parquet before uploading to S3, so your Athena queries are cheaper from day one.",
         ],
       },
     ],

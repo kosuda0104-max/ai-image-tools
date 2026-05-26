@@ -53,6 +53,7 @@ export function createToolMetadata({
       languages: {
         ja: `${siteUrl}${jaPath}`,
         en: `${siteUrl}${enPath}`,
+        "x-default": `${siteUrl}${jaPath}`,
       },
     },
     openGraph: {
@@ -72,9 +73,10 @@ export function createToolMetadata({
       ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description,
+      images: [`${siteUrl}/og.png`],
     },
     other: {
       "article:modified_time": TOOL_CONTENT_LAST_UPDATED,

@@ -1,21 +1,11 @@
 import { getGuide } from "@/src/data/guides";
-import StaticContentPage from "@/src/components/StaticContentPage";
+import { generateGuideMetadata } from "@/src/lib/guide-seo";
+import GuidePageTemplate from "@/src/components/GuidePageTemplate";
 
 const guide = getGuide("ja", "png-vs-webp")!;
 
-export const metadata = {
-  title: `${guide.title} | AI Image Tools`,
-  description: guide.description,
-};
+export const metadata = generateGuideMetadata(guide, "ja");
 
 export default function Page() {
-  return (
-    <StaticContentPage
-      locale="ja"
-      title={guide.title}
-      description={guide.description}
-      sections={guide.sections}
-    />
-  );
+  return <GuidePageTemplate guide={guide} locale="ja" />;
 }
-

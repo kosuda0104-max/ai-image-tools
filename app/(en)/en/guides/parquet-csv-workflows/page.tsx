@@ -2,7 +2,7 @@ import { getGuide } from "@/src/data/guides";
 import { generateGuideMetadata } from "@/src/lib/guide-seo";
 import GuidePageTemplate from "@/src/components/GuidePageTemplate";
 
-const guide = getGuide("en", "pdf-workflows")!;
+const guide = getGuide("en", "parquet-csv-workflows")!;
 
 export const metadata = generateGuideMetadata(guide, "en");
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteLogo from "@/src/components/SiteLogo";
+import CookieBanner from "@/src/components/CookieBanner";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
     languages: {
       ja: "/",
       en: "/en",
+      "x-default": "/",
     },
   },
   openGraph: {
@@ -127,6 +129,7 @@ export default function JaLayout({
           </div>
         </div>
       </footer>
+      <CookieBanner locale="ja" />
     </>
   );
 }
