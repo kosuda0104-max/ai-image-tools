@@ -71,7 +71,7 @@ const ja = {
   viewTools: "ツール一覧を見る",
   contact: "お問い合わせ",
   stats: [
-    { value: "40ツール掲載", label: "画像と PDF の定番作業をひと通りカバー" },
+    { value: "44ツール掲載", label: "画像・PDF・データ変換をひと通りカバー" },
     { value: "無料", label: "登録なしですぐ試せる" },
     { value: "ブラウザ処理", label: "多くの作業を端末内で完結" },
   ],
@@ -187,7 +187,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       {
         title: ja.cat4,
         description: ja.cat4d,
-        tools: getToolItems("ja", ["parquet-to-csv", "csv-to-parquet"]),
+        tools: getToolItems("ja", ["parquet-to-csv", "csv-to-parquet", "json-to-csv", "csv-to-json"]),
       },
     ],
     aboutSection: {
@@ -222,7 +222,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       secondaryButtonLabel: "Contact",
     },
     stats: [
-      { value: "40 Tools", label: "Covering common image and PDF tasks" },
+      { value: "44 Tools", label: "Covering image, PDF, and data conversion" },
       { value: "Free", label: "No signup required" },
       { value: "Browser-based", label: "Many workflows stay on your device" },
     ],
@@ -292,7 +292,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       {
         title: "Data Tools",
         description: "Convert between Parquet and CSV in your browser. Useful for AWS Athena, BigQuery, and Spark workflows.",
-        tools: getToolItems("en", ["parquet-to-csv", "csv-to-parquet"]),
+        tools: getToolItems("en", ["parquet-to-csv", "csv-to-parquet", "json-to-csv", "csv-to-json"]),
       },
     ],
     aboutSection: {

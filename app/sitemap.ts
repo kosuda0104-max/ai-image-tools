@@ -56,6 +56,8 @@ const routes = [
   "/tools/pdf-remove-pages",
   "/tools/parquet-to-csv",
   "/tools/csv-to-parquet",
+  "/tools/json-to-csv",
+  "/tools/csv-to-json",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
