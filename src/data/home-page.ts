@@ -108,6 +108,8 @@ const ja = {
   cat2d: "容量調整、サイズ変更、切り抜きなど、画像を使いやすい状態に整えるためのツールです。公開前や提出前の仕上げにも使えます。",
   cat3: "PDF ツール",
   cat3d: "PDF の変換、結合、分割、圧縮など、実務でよくある PDF 作業をまとめています。資料整理や提出前の調整にも向いています。",
+  cat4: "データツール",
+  cat4d: "Parquet と CSV の相互変換ツールです。AWS Athena・BigQuery・Spark などのデータ基盤で扱うファイルをブラウザ上で変換できます。",
 };
 
 export const homePageContent: Record<HomePageLocale, HomePageContent> = {
@@ -181,6 +183,11 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "pdf-to-jpg",
           "merge-pdf",
         ]),
+      },
+      {
+        title: ja.cat4,
+        description: ja.cat4d,
+        tools: getToolItems("ja", ["parquet-to-csv", "csv-to-parquet"]),
       },
     ],
     aboutSection: {
@@ -281,6 +288,11 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "pdf-to-jpg",
           "merge-pdf",
         ]),
+      },
+      {
+        title: "Data Tools",
+        description: "Convert between Parquet and CSV in your browser. Useful for AWS Athena, BigQuery, and Spark workflows.",
+        tools: getToolItems("en", ["parquet-to-csv", "csv-to-parquet"]),
       },
     ],
     aboutSection: {
