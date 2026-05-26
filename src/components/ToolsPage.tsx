@@ -233,6 +233,8 @@ export default function ToolsPage({ locale }: Props) {
     ),
   };
 
+  const hintsLabel = locale === "en" ? "Browse by goal / decision table" : "目的から選ぶ / 判断表を見る";
+
   return (
     <main className="min-h-screen bg-white">
       <script
@@ -244,399 +246,26 @@ export default function ToolsPage({ locale }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
 
-      <div className="hidden md:block">
-        <section className="border-b border-gray-200 bg-white">
-          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
-            <div className="max-w-3xl space-y-6">
-              <span className="inline-flex rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-600">
-                {t.badge}
-              </span>
-
-              <h1 className="text-4xl font-bold text-gray-900">{t.hero.title}</h1>
-
-              <p className="text-lg text-gray-600">{t.hero.description}</p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-          <div className="mb-8 rounded-[1.9rem] border border-stone-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(242,239,228,0.8))] p-6 shadow-[0_22px_46px_-32px_rgba(22,32,51,0.52)]">
-            <div className="grid gap-6 lg:grid-cols-[1.2fr,0.8fr]">
-              <div className="space-y-4">
-                <h2 className="text-2xl font-bold text-slate-950">
-                  {t.seoSpotlightTitle}
-                </h2>
-                <p className="text-sm leading-7 text-slate-600">
-                  {t.seoSpotlightDescription}
-                </p>
-                {t.guideSections.map((section) => (
-                  <div key={section.title} className="space-y-2">
-                    <h3 className="text-lg font-semibold text-slate-950">
-                      {section.title}
-                    </h3>
-                    {section.paragraphs.map((paragraph) => (
-                      <p
-                        key={paragraph}
-                        className="text-sm leading-7 text-slate-600"
-                      >
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-                ))}
-              </div>
-
-              <div className="rounded-[1.6rem] border border-stone-200 bg-white/95 p-5 shadow-[0_16px_30px_-26px_rgba(22,32,51,0.5)]">
-                <h3 className="text-lg font-semibold text-slate-950">
-                  {t.popularToolsTitle}
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
-                  {t.popularToolsDescription}
-                </p>
-                <div className="mt-4 space-y-3">
-                  {t.seoSpotlightTools.map((tool) => (
-                    <Link
-                      key={`spotlight-${tool.href}`}
-                      href={
-                        locale === "en"
-                          ? tool.href.replace(/^\/tools/, "/en/tools")
-                          : tool.href
-                      }
-                      className="block rounded-2xl border border-stone-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(250,248,243,0.96))] p-4 transition hover:-translate-y-0.5 hover:border-stone-300 hover:shadow-[0_18px_34px_-28px_rgba(22,32,51,0.56)]"
-                    >
-                      <div className="text-sm font-semibold text-slate-950">
-                        {tool.name}
-                      </div>
-                      <p className="mt-1 text-sm leading-6 text-slate-600">
-                        {tool.reason}
-                      </p>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mb-8 rounded-[1.9rem] border border-sky-100 bg-[linear-gradient(135deg,rgba(240,249,255,0.95),rgba(236,254,255,0.86))] p-6 shadow-[0_22px_46px_-34px_rgba(8,47,73,0.42)]">
-            <div className="mb-5 max-w-3xl space-y-2">
-              <h2 className="text-2xl font-bold text-slate-950">
-                {t.chooserSection.title}
-              </h2>
-              <p className="text-sm leading-7 text-slate-600">
-                {t.chooserSection.description}
-              </p>
-            </div>
-
-            <div className="grid gap-4 lg:grid-cols-5">
-              {t.chooserSection.items.map((item) => (
-                <div
-                  key={item.title}
-                  className="rounded-[1.4rem] border border-sky-100 bg-white/90 p-4 shadow-[0_16px_30px_-28px_rgba(8,47,73,0.42)]"
-                >
-                  <h3 className="text-base font-semibold text-slate-950">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">
-                    {item.description}
-                  </p>
-
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {item.tools.map((tool) => (
-                      <Link
-                        key={`chooser-${item.title}-${tool.href}`}
-                        href={
-                          locale === "en"
-                            ? tool.href.replace(/^\/tools/, "/en/tools")
-                            : tool.href
-                        }
-                        className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-semibold text-sky-800 transition hover:border-sky-300 hover:bg-white"
-                      >
-                        {tool.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mb-8 rounded-[1.9rem] border border-emerald-100 bg-[linear-gradient(135deg,rgba(236,253,245,0.92),rgba(240,253,250,0.86))] p-6 shadow-[0_22px_46px_-34px_rgba(6,78,59,0.38)]">
-            <div className="mb-5 max-w-3xl space-y-2">
-              <h2 className="text-2xl font-bold text-slate-950">
-                {t.decisionMatrix.title}
-              </h2>
-              <p className="text-sm leading-7 text-slate-600">
-                {t.decisionMatrix.description}
-              </p>
-            </div>
-
-            <div className="overflow-hidden rounded-[1.4rem] border border-emerald-100 bg-white/90">
-              {t.decisionMatrix.items.map((item) => (
-                <div
-                  key={item.situation}
-                  className="grid gap-4 border-b border-emerald-50 p-5 last:border-b-0 lg:grid-cols-[1fr,0.72fr,1.1fr,1fr]"
-                >
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">
-                      {locale === "en" ? "Situation" : "状況"}
-                    </div>
-                    <p className="mt-1 text-sm font-semibold text-slate-950">
-                      {item.situation}
-                    </p>
-                  </div>
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">
-                      {locale === "en" ? "Best start" : "まず選ぶもの"}
-                    </div>
-                    <p className="mt-1 text-sm font-semibold text-slate-950">
-                      {item.recommended}
-                    </p>
-                  </div>
-                  <p className="text-sm leading-6 text-slate-600">
-                    {item.reason}
-                  </p>
-                  <div className="flex flex-wrap gap-2 lg:justify-end">
-                    {item.tools.map((tool) => (
-                      <Link
-                        key={`decision-${item.situation}-${tool.href}`}
-                        href={
-                          locale === "en"
-                            ? tool.href.replace(/^\/tools/, "/en/tools")
-                            : tool.href
-                        }
-                        className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-800 transition hover:border-emerald-300 hover:bg-white"
-                      >
-                        {tool.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mb-8 flex flex-col gap-4 rounded-[1.6rem] border border-stone-200 bg-white/95 p-4 shadow-[0_18px_34px_-30px_rgba(22,32,51,0.52)] md:flex-row md:items-center md:justify-between">
-            <div className="flex-1">
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder={labels.searchPlaceholder}
-                className="w-full rounded-xl border border-stone-300 bg-stone-50/70 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:bg-white"
-              />
-            </div>
-
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-slate-700">
-                {labels.sortLabel}
-              </span>
-              <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value as SortKey)}
-                className="rounded-xl border border-stone-300 bg-stone-50/70 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:bg-white"
-              >
-                <option value="default">{labels.sortDefault}</option>
-                <option value="popular">{labels.sortPopular}</option>
-                <option value="name">{labels.sortName}</option>
-              </select>
-            </div>
-          </div>
-
-          {filteredCategories.length === 0 ? (
-            <div className="rounded-[1.6rem] border border-dashed border-stone-300 bg-white/70 px-6 py-12 text-center text-slate-600">
-              {labels.noResults}
-            </div>
-          ) : (
-            <div className="space-y-12">
-              {filteredCategories.map((category) => (
-                <section key={category.title} className="space-y-5">
-                  <div className="space-y-2">
-                    <h2 className="text-2xl font-bold text-slate-950">
-                      {category.title}
-                    </h2>
-                    <p className="text-sm leading-6 text-slate-600">
-                      {category.description}
-                    </p>
-                  </div>
-
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    {category.tools.map((tool) => (
-                      <Link
-                        key={tool.href}
-                        href={
-                          locale === "en"
-                            ? tool.href.replace(/^\/tools/, "/en/tools")
-                            : tool.href
-                        }
-                        className="group rounded-[1.5rem] border border-stone-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(250,248,243,0.96))] p-5 shadow-[0_18px_34px_-28px_rgba(22,32,51,0.56)] transition hover:-translate-y-1 hover:border-stone-300 hover:shadow-[0_24px_42px_-28px_rgba(22,32,51,0.56)]"
-                      >
-                        <div className="mb-4 flex items-start justify-between gap-3">
-                          <div
-                            className={`inline-flex h-10 min-w-10 items-center justify-center rounded-xl px-3 text-[11px] font-bold tracking-wide ${getIconClasses(
-                              tool
-                            )}`}
-                          >
-                            {getIconLabel(tool)}
-                          </div>
-
-                          <span
-                            aria-hidden="true"
-                            className="text-lg text-stone-400 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100"
-                          >
-                            →
-                          </span>
-                        </div>
-
-                        <h3 className="text-lg font-semibold text-slate-950 transition group-hover:text-slate-800">
-                          {tool.name}
-                        </h3>
-
-                        <p className="mt-2 text-sm leading-6 text-slate-600">
-                          {tool.description}
-                        </p>
-                      </Link>
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
-          )}
-        </section>
-      </div>
-
-      <div className="block px-4 py-6 md:hidden">
-        <div className="mb-6 space-y-4 rounded-2xl border border-gray-200 bg-gray-50 p-4">
-          <div>
-            <h2 className="text-lg font-bold text-gray-900">
-              {t.seoSpotlightTitle}
-            </h2>
-            <p className="mt-2 text-sm leading-6 text-gray-600">
-              {t.seoSpotlightDescription}
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {t.seoSpotlightTools.slice(0, 3).map((tool) => (
-              <Link
-                key={`mobile-spotlight-${tool.href}`}
-                href={
-                  locale === "en"
-                    ? tool.href.replace(/^\/tools/, "/en/tools")
-                    : tool.href
-                }
-                className="block rounded-xl border border-gray-200 bg-white p-3"
-              >
-                <div className="text-sm font-semibold text-gray-900">
-                  {tool.name}
-                </div>
-                <p className="mt-1 text-xs leading-5 text-gray-600">
-                  {tool.reason}
-                </p>
-              </Link>
-            ))}
-          </div>
+      <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
+        {/* ── コンパクトヘッダー ── */}
+        <div className="mb-5">
+          <h1 className="text-2xl font-bold text-gray-900">{t.hero.title}</h1>
+          <p className="mt-1 text-sm text-gray-500">{t.hero.description}</p>
         </div>
 
-        <div className="mb-6 space-y-4 rounded-2xl border border-sky-100 bg-sky-50 p-4">
-          <div>
-            <h2 className="text-lg font-bold text-gray-900">
-              {t.chooserSection.title}
-            </h2>
-            <p className="mt-2 text-sm leading-6 text-gray-600">
-              {t.chooserSection.description}
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {t.chooserSection.items.map((item) => (
-              <div
-                key={`mobile-chooser-${item.title}`}
-                className="rounded-xl border border-sky-100 bg-white p-3"
-              >
-                <h3 className="text-sm font-semibold text-gray-900">
-                  {item.title}
-                </h3>
-                <p className="mt-1 text-xs leading-5 text-gray-600">
-                  {item.description}
-                </p>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {item.tools.slice(0, 2).map((tool) => (
-                    <Link
-                      key={`mobile-chooser-link-${item.title}-${tool.href}`}
-                      href={
-                        locale === "en"
-                          ? tool.href.replace(/^\/tools/, "/en/tools")
-                          : tool.href
-                      }
-                      className="rounded-full border border-sky-200 bg-sky-50 px-2.5 py-1 text-[11px] font-semibold text-sky-800"
-                    >
-                      {tool.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mb-6 space-y-4 rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
-          <div>
-            <h2 className="text-lg font-bold text-gray-900">
-              {t.decisionMatrix.title}
-            </h2>
-            <p className="mt-2 text-sm leading-6 text-gray-600">
-              {t.decisionMatrix.description}
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {t.decisionMatrix.items.map((item) => (
-              <div
-                key={`mobile-decision-${item.situation}`}
-                className="rounded-xl border border-emerald-100 bg-white p-3"
-              >
-                <div className="text-sm font-semibold text-gray-900">
-                  {item.situation}
-                </div>
-                <p className="mt-1 text-xs font-semibold text-emerald-700">
-                  {item.recommended}
-                </p>
-                <p className="mt-1 text-xs leading-5 text-gray-600">
-                  {item.reason}
-                </p>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {item.tools.slice(0, 2).map((tool) => (
-                    <Link
-                      key={`mobile-decision-link-${item.situation}-${tool.href}`}
-                      href={
-                        locale === "en"
-                          ? tool.href.replace(/^\/tools/, "/en/tools")
-                          : tool.href
-                      }
-                      className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-800"
-                    >
-                      {tool.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mb-5 space-y-3">
+        {/* ── 検索 + 並び替え ── */}
+        <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center">
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={labels.searchPlaceholder}
-            className="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm outline-none transition focus:border-gray-500"
+            className="flex-1 rounded-xl border border-gray-300 bg-gray-50 px-4 py-2.5 text-sm outline-none transition focus:border-blue-500 focus:bg-white"
           />
-
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
-            className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none transition focus:border-gray-500"
+            className="rounded-xl border border-gray-300 bg-gray-50 px-4 py-2.5 text-sm outline-none transition focus:border-blue-500 focus:bg-white sm:w-40"
           >
             <option value="default">{labels.sortDefault}</option>
             <option value="popular">{labels.sortPopular}</option>
@@ -644,43 +273,27 @@ export default function ToolsPage({ locale }: Props) {
           </select>
         </div>
 
+        {/* ── ツールグリッド ── */}
         {filteredCategories.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-gray-300 px-4 py-10 text-center text-sm text-gray-600">
+          <div className="rounded-xl border border-dashed border-gray-300 px-6 py-10 text-center text-sm text-gray-500">
             {labels.noResults}
           </div>
         ) : (
-          <div className="space-y-6">
-            <div className="space-y-4 rounded-2xl border border-gray-200 bg-gray-50 p-4">
-              {t.guideSections.map((section) => (
-                <div key={`mobile-guide-${section.title}`} className="space-y-2">
-                  <h2 className="text-base font-bold text-gray-900">
-                    {section.title}
-                  </h2>
-                  {section.paragraphs.map((paragraph) => (
-                    <p
-                      key={paragraph}
-                      className="text-sm leading-6 text-gray-600"
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              ))}
-            </div>
-
+          <div className="space-y-8">
             {filteredCategories.map((category) => {
               const isExpanded = expandedCategories.includes(category.title);
               const visibleTools = isExpanded
                 ? category.tools
-                : category.tools.slice(0, 6);
+                : category.tools.slice(0, 8);
 
               return (
-                <div key={category.title}>
-                  <h2 className="mb-3 text-base font-bold text-gray-900">
+                <section key={category.title}>
+                  <h2 className="mb-1 text-base font-semibold text-gray-900">
                     {category.title}
                   </h2>
+                  <p className="mb-3 text-xs text-gray-500">{category.description}</p>
 
-                  <div className="grid grid-cols-2 gap-2.5">
+                  <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4">
                     {visibleTools.map((tool) => (
                       <Link
                         key={tool.href}
@@ -689,49 +302,93 @@ export default function ToolsPage({ locale }: Props) {
                             ? tool.href.replace(/^\/tools/, "/en/tools")
                             : tool.href
                         }
-                        className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm"
+                        className="group rounded-xl border border-gray-200 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md"
                       >
                         <div className="mb-2 flex items-start justify-between gap-2">
                           <div
-                            className={`inline-flex h-8 min-w-8 items-center justify-center rounded-lg px-2 text-[10px] font-bold ${getIconClasses(
-                              tool
-                            )}`}
+                            className={`inline-flex h-7 min-w-7 items-center justify-center rounded-lg px-2 text-[10px] font-bold ${getIconClasses(tool)}`}
                           >
                             {getIconLabel(tool)}
                           </div>
-                          <span
-                            aria-hidden="true"
-                            className="text-sm text-gray-300 opacity-60"
-                          >
-                            →
-                          </span>
+                          <span aria-hidden="true" className="text-xs text-gray-300 opacity-0 transition group-hover:opacity-100">→</span>
                         </div>
-
-                        <p className="text-sm font-medium leading-5 text-gray-900">
-                          {tool.name}
-                        </p>
-
-                        <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-gray-500">
-                          {tool.description}
-                        </p>
+                        <p className="text-sm font-medium text-gray-900 leading-5">{tool.name}</p>
+                        <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-gray-500">{tool.description}</p>
                       </Link>
                     ))}
                   </div>
 
-                  {category.tools.length > 6 && (
+                  {category.tools.length > 8 && (
                     <button
                       type="button"
                       onClick={() => toggleCategory(category.title)}
-                      className="mt-2 block text-sm text-gray-600 underline"
+                      className="mt-2 text-sm text-gray-500 underline"
                     >
                       {isExpanded ? labels.less : labels.more}
                     </button>
                   )}
-                </div>
+                </section>
               );
             })}
           </div>
         )}
+
+        {/* ── 折りたたみヒントセクション ── */}
+        <details className="mt-10 rounded-xl border border-gray-200 bg-gray-50">
+          <summary className="cursor-pointer select-none px-5 py-3 text-sm font-medium text-gray-700 hover:text-gray-900">
+            {hintsLabel}
+          </summary>
+          <div className="space-y-6 px-5 pb-6 pt-2">
+
+            {/* 目的から選ぶ */}
+            <div>
+              <h2 className="mb-3 text-sm font-semibold text-gray-900">{t.chooserSection.title}</h2>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {t.chooserSection.items.map((item) => (
+                  <div key={item.title} className="rounded-lg border border-gray-200 bg-white p-3">
+                    <h3 className="text-xs font-semibold text-gray-900">{item.title}</h3>
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {item.tools.map((tool) => (
+                        <Link
+                          key={`hint-chooser-${tool.href}`}
+                          href={locale === "en" ? tool.href.replace(/^\/tools/, "/en/tools") : tool.href}
+                          className="rounded-full border border-sky-200 bg-sky-50 px-2.5 py-1 text-[11px] font-semibold text-sky-800 hover:bg-white"
+                        >
+                          {tool.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 判断表 */}
+            <div>
+              <h2 className="mb-3 text-sm font-semibold text-gray-900">{t.decisionMatrix.title}</h2>
+              <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
+                {t.decisionMatrix.items.map((item) => (
+                  <div key={item.situation} className="flex flex-wrap items-center gap-2 border-b border-gray-100 px-4 py-3 last:border-b-0">
+                    <span className="min-w-0 flex-1 text-xs font-medium text-gray-900">{item.situation}</span>
+                    <span className="shrink-0 text-xs font-semibold text-emerald-700">{item.recommended}</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {item.tools.map((tool) => (
+                        <Link
+                          key={`hint-decision-${tool.href}`}
+                          href={locale === "en" ? tool.href.replace(/^\/tools/, "/en/tools") : tool.href}
+                          className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-800 hover:bg-white"
+                        >
+                          {tool.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </details>
       </div>
     </main>
   );
