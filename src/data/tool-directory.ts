@@ -26,6 +26,7 @@ const toolEntries: ToolEntry[] = [
   { slug: "gif-to-jpg", jaName: "GIF を JPG に変換", jaDescription: "GIF 画像を静止画の JPG に変換したいときに使えます。", enName: "GIF to JPG", enDescription: "Convert GIF images into still JPG output." },
   { slug: "gif-to-png", jaName: "GIF を PNG に変換", jaDescription: "GIF 画像を PNG に変換して編集しやすくします。", enName: "GIF to PNG", enDescription: "Convert GIF images into PNG for easier editing." },
   { slug: "grayscale-image", jaName: "画像を白黒化", jaDescription: "カラー画像を落ち着いたモノクロ表現に変えられます。", enName: "Grayscale Image", enDescription: "Turn a color image into grayscale." },
+  { slug: "image-to-base64", jaName: "画像を Base64 に変換", jaDescription: "画像を Base64 文字列に変換して、HTML・CSS・API にインラインで埋め込めます。", enName: "Image to Base64", enDescription: "Convert images to Base64 strings for inline use in HTML, CSS, and APIs." },
   { slug: "heic-to-jpg", jaName: "HEIC を JPG に変換", jaDescription: "iPhone 写真を幅広い環境で扱いやすい JPG に変換します。", enName: "HEIC to JPG", enDescription: "Convert iPhone HEIC photos into widely supported JPG." },
   { slug: "heic-to-png", jaName: "HEIC を PNG に変換", jaDescription: "HEIC 画像を PNG にして、編集用に残しやすくします。", enName: "HEIC to PNG", enDescription: "Convert HEIC images into PNG for editing workflows." },
   { slug: "ico-to-jpg", jaName: "ICO を JPG に変換", jaDescription: "アイコン画像を JPG として書き出したいときに便利です。", enName: "ICO to JPG", enDescription: "Convert ICO files into JPG images." },

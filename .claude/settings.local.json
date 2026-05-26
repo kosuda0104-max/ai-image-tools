@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem C:\\\\Users\\\\TJS\\\\dev\\\\ai-image-tools | Where-Object { $_.Name -ne 'node_modules' } | Select-Object Name)",
+      "Bash(npm install *)",
+      "Bash(npm uninstall *)",
+      "Bash(npx tsc *)",
+      "Bash(npx next *)",
+      "Bash(npm show *)",
+      "Bash(git add *)",
+      "Bash(git reset *)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "WebFetch(domain:squoosh.app)",
+      "WebFetch(domain:tinypng.com)",
+      "WebFetch(domain:www.ilovepdf.com)"
+    ]
+  }
+}

@@ -71,7 +71,7 @@ const ja = {
   viewTools: "ツール一覧を見る",
   contact: "お問い合わせ",
   stats: [
-    { value: "44ツール掲載", label: "画像・PDF・データ変換をひと通りカバー" },
+    { value: "45ツール掲載", label: "画像・PDF・データ変換をひと通りカバー" },
     { value: "無料", label: "登録なしですぐ試せる" },
     { value: "ブラウザ処理", label: "多くの作業を端末内で完結" },
   ],
@@ -222,7 +222,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       secondaryButtonLabel: "Contact",
     },
     stats: [
-      { value: "44 Tools", label: "Covering image, PDF, and data conversion" },
+      { value: "45 Tools", label: "Covering image, PDF, and data conversion" },
       { value: "Free", label: "No signup required" },
       { value: "Browser-based", label: "Many workflows stay on your device" },
     ],

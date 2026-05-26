@@ -58,6 +58,7 @@ const routes = [
   "/tools/csv-to-parquet",
   "/tools/json-to-csv",
   "/tools/csv-to-json",
+  "/tools/image-to-base64",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

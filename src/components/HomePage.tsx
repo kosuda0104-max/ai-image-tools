@@ -9,71 +9,68 @@ type Props = {
   locale: "ja" | "en";
 };
 
-
-function getIconClasses(name: string) {
+function getBadgeClasses(name: string): string {
   const n = name.toLowerCase();
-
-  if (n.includes("jpg")) return "bg-orange-50 text-orange-700 ring-1 ring-orange-100";
-  if (n.includes("png")) return "bg-blue-50 text-blue-700 ring-1 ring-blue-100";
-  if (n.includes("pdf")) return "bg-rose-50 text-rose-700 ring-1 ring-rose-100";
-  if (n.includes("webp")) return "bg-violet-50 text-violet-700 ring-1 ring-violet-100";
-  return "bg-stone-100 text-slate-700 ring-1 ring-stone-200";
+  if (n.includes("jpg") || n.includes("jpeg")) return "bg-orange-100 text-orange-700";
+  if (n.includes("png")) return "bg-blue-100 text-blue-700";
+  if (n.includes("pdf")) return "bg-rose-100 text-rose-700";
+  if (n.includes("webp")) return "bg-violet-100 text-violet-700";
+  if (n.includes("heic")) return "bg-emerald-100 text-emerald-700";
+  if (n.includes("gif")) return "bg-pink-100 text-pink-700";
+  if (n.includes("svg")) return "bg-sky-100 text-sky-700";
+  return "bg-gray-100 text-gray-600";
 }
 
-function getToolBadgeLabel(
-  name: string,
-  href: string,
-  locale: "ja" | "en",
-) {
+function getToolBadgeLabel(name: string, href: string, locale: "ja" | "en"): string {
   const slug = href.split("/").pop() ?? "";
-  const lowerName = name.toLowerCase();
-
-  if (slug.includes("pdf") || lowerName.includes("pdf")) return "PDF";
-  if (slug.includes("jpg") || lowerName.includes("jpg")) return "JPG";
-  if (slug.includes("png") || lowerName.includes("png")) return "PNG";
-  if (slug.includes("webp") || lowerName.includes("webp")) return "WebP";
-  if (slug.includes("heic") || lowerName.includes("heic")) return "HEIC";
-  if (slug.includes("gif") || lowerName.includes("gif")) return "GIF";
-  if (slug.includes("svg") || lowerName.includes("svg")) return "SVG";
-  if (slug.includes("avif") || lowerName.includes("avif")) return "AVIF";
-  if (slug.includes("bmp") || lowerName.includes("bmp")) return "BMP";
-  if (slug.includes("tiff") || lowerName.includes("tiff")) return "TIFF";
-  if (slug.includes("ico") || lowerName.includes("ico")) return "ICO";
-  if (slug.includes("compress")) return locale === "ja" ? "画像" : "Image";
-  if (slug.includes("resize")) return locale === "ja" ? "サイズ" : "Size";
-  if (slug.includes("crop")) return locale === "ja" ? "切り抜き" : "Crop";
+  const n = name.toLowerCase();
+  if (slug.includes("pdf") || n.includes("pdf")) return "PDF";
+  if (slug.includes("jpg") || n.includes("jpg")) return "JPG";
+  if (slug.includes("png") || n.includes("png")) return "PNG";
+  if (slug.includes("webp") || n.includes("webp")) return "WebP";
+  if (slug.includes("heic") || n.includes("heic")) return "HEIC";
+  if (slug.includes("gif") || n.includes("gif")) return "GIF";
+  if (slug.includes("svg") || n.includes("svg")) return "SVG";
+  if (slug.includes("avif") || n.includes("avif")) return "AVIF";
+  if (slug.includes("bmp") || n.includes("bmp")) return "BMP";
+  if (slug.includes("tiff") || n.includes("tiff")) return "TIFF";
+  if (slug.includes("ico") || n.includes("ico")) return "ICO";
+  if (slug.includes("base64")) return "B64";
+  if (slug.includes("compress")) return locale === "ja" ? "圧縮" : "ZIP";
+  if (slug.includes("resize")) return locale === "ja" ? "リサイズ" : "Size";
+  if (slug.includes("crop")) return locale === "ja" ? "切抜" : "Crop";
   if (slug.includes("rotate")) return locale === "ja" ? "回転" : "Rotate";
   if (slug.includes("flip")) return locale === "ja" ? "反転" : "Flip";
   if (slug.includes("watermark")) return locale === "ja" ? "透かし" : "Mark";
   if (slug.includes("grayscale")) return locale === "ja" ? "白黒" : "Gray";
-
+  if (slug.includes("parquet")) return "Parquet";
+  if (slug.includes("json")) return "JSON";
+  if (slug.includes("csv")) return "CSV";
   return locale === "ja" ? "ツール" : "Tool";
 }
+
 export default function HomePage({ locale }: Props) {
+  const t = homePageContent[locale];
+  const faqJsonLd = createHomeFaqJsonLd(locale);
+  const basePath = locale === "en" ? "/en" : "";
   const contactHref = locale === "en" ? "/en/contact" : "/contact";
   const aboutHref = locale === "en" ? "/en/about" : "/about";
   const guidesHref = locale === "en" ? "/en/guides" : "/guides";
-  const t = homePageContent[locale];
-  const faqJsonLd = createHomeFaqJsonLd(locale);
+  const homeUrl = `${siteUrl}${basePath || ""}` || siteUrl;
   const trustMessage =
     locale === "en"
-      ? "All processing stays in your browser. Files are not stored."
+      ? "All processing stays in your browser — files are not stored."
       : "すべてブラウザ内処理・ファイルは保存されません";
 
-  const basePath = locale === "en" ? "/en" : "";
-  const homeUrl = `${siteUrl}${basePath || ""}` || siteUrl;
-  const allToolItems = t.categories.flatMap((category) => category.tools);
+  const allToolItems = t.categories.flatMap((c) => c.tools);
+
   const websiteCollectionJsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: t.hero.title,
     description: t.hero.description,
     url: homeUrl,
-    isPartOf: {
-      "@type": "WebSite",
-      name: "AI Image Tools",
-      url: siteUrl,
-    },
+    isPartOf: { "@type": "WebSite", name: "AI Image Tools", url: siteUrl },
     mainEntity: {
       "@type": "ItemList",
       name: locale === "en" ? "Featured tool collection" : "掲載ツール一覧",
@@ -86,728 +83,176 @@ export default function HomePage({ locale }: Props) {
       })),
     },
   };
+
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "AI Image Tools",
     url: siteUrl,
-    founder: {
-      "@type": "Person",
-      name: "Kosuda",
-      jobTitle: "Web Engineer",
-    },
     description:
       locale === "en"
         ? "A browser-based collection of free image and PDF workflow tools."
         : "ブラウザだけで使える画像変換・画像編集・PDF作業の無料ツール集です。",
   };
 
-  const popularTools = t.popularTools.slice(0, 4);
-  const mobileCategories = t.categories.map((category) => ({
-    ...category,
-    tools: category.tools.slice(0, 4),
-  }));
-  const mobileFaqItems = t.faqItems.slice(0, 2);
-  const profileSnippet =
-    locale === "en"
-      ? {
-          title: "Site Operator",
-          name: "Kosuda",
-          body: "Web engineer, born in 1998, with five years of professional experience in web application development. This site is built to provide practical free tools with simple, easy-to-follow UI.",
-          linkLabel: "About the site",
-        }
-      : {
-          title: "運営者情報",
-          name: "小須田",
-          body: "1998年生まれの Web エンジニアです。Webアプリケーション開発を中心に実務で5年ほど開発に携わっており、使いやすく実用的な無料ツールを目指してこのサイトを運営しています。",
-          linkLabel: "このサイトについて",
-        };
   const resourceCards =
     locale === "en"
       ? [
-          {
-            title: "About the site",
-            description:
-              "See what the site is for, how it is maintained, and how transparency pages are organized.",
-            href: aboutHref,
-            label: "About",
-          },
-          {
-            title: "Guides and help",
-            description:
-              "Read short guides on image formats and PDF workflows before choosing a tool.",
-            href: guidesHref,
-            label: "Guides",
-          },
-          {
-            title: "Support and requests",
-            description:
-              "Report bugs, request features, or ask about a workflow through the contact page.",
-            href: contactHref,
-            label: "Contact",
-          },
+          { title: "About the site", description: "How the site is built and maintained.", href: aboutHref, label: "About →" },
+          { title: "Guides", description: "Short guides on formats and workflows.", href: guidesHref, label: "Guides →" },
+          { title: "Contact", description: "Report bugs or request new tools.", href: contactHref, label: "Contact →" },
         ]
       : [
-          {
-            title: "サイトの方針",
-            description:
-              "このサイトの目的、運営の考え方、公開している案内ページを確認できます。",
-            href: aboutHref,
-            label: "このサイトについて",
-          },
-          {
-            title: "ガイドと解説",
-            description:
-              "画像形式の選び方や PDF 作業の流れを、短い解説ページで確認できます。",
-            href: guidesHref,
-            label: "ガイドを見る",
-          },
-          {
-            title: "不具合報告と要望",
-            description:
-              "不具合の報告や、追加してほしいツールの要望をお問い合わせページから送れます。",
-            href: contactHref,
-            label: "お問い合わせ",
-          },
+          { title: "サイトについて", description: "運営方針と透明性ページのご案内。", href: aboutHref, label: "詳細を見る →" },
+          { title: "ガイド", description: "形式の選び方や作業フローの解説。", href: guidesHref, label: "ガイドを見る →" },
+          { title: "お問い合わせ", description: "不具合報告や機能要望はこちら。", href: contactHref, label: "送る →" },
         ];
 
   return (
     <main className="min-h-screen bg-white">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteCollectionJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteCollectionJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
 
-      {/* PC */}
-      <div className="hidden md:block">
-        <section className="border-b border-gray-200 bg-white">
-          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-            <div className="max-w-3xl space-y-6">
-              <span className="inline-flex rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-600">
-                {t.badge}
-              </span>
-
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                {t.hero.title}
-              </h1>
-
-              <p className="text-lg leading-8 text-gray-600">
-                {t.hero.description}
-              </p>
-              <div className="mt-4 inline-flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-700">
-                <span aria-hidden="true">🔒</span>
-                <span>{trustMessage}</span>
-              </div>
-
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  href={`${basePath}/tools`}
-                  className="inline-flex rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-3 text-sm font-medium text-white hover:opacity-90"
-                >
-                  {t.hero.primaryButtonLabel}
-                </Link>
-
-                <Link
-                  href={contactHref}
-                  className="inline-flex rounded-xl border border-gray-300 bg-white px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50"
-                >
-                  {t.hero.secondaryButtonLabel}
-                </Link>
-              </div>
-
-              <div className="grid gap-4 pt-6 sm:grid-cols-3">
-                {t.stats.map((stat) => (
-                  <div
-                    key={`${stat.value}-${stat.label}`}
-                    className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-md"
-                  >
-                    <div className="text-2xl font-bold">{stat.value}</div>
-                    <div className="text-sm text-gray-600">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+      {/* ── Hero ── */}
+      <section className="border-b border-gray-100 bg-white">
+        <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            {t.hero.title}
+          </h1>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-500">
+            {t.hero.description}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <Link
+              href={`${basePath}/tools`}
+              className="inline-flex rounded-xl bg-gray-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-700 transition-colors"
+            >
+              {t.hero.primaryButtonLabel}
+            </Link>
+            <Link
+              href={contactHref}
+              className="inline-flex rounded-xl border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            >
+              {t.hero.secondaryButtonLabel}
+            </Link>
           </div>
-        </section>
-
-        <section className="border-b border-stone-200/70 bg-transparent">
-          <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-            <div className="mb-5 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-slate-950">
-                {t.popularToolsTitle}
-              </h2>
-
-              <Link
-                href={`${basePath}/tools`}
-                className="text-sm font-medium text-slate-700 underline decoration-stone-300 underline-offset-4 hover:text-slate-950"
+          <div className="mt-4 flex flex-wrap gap-2.5">
+            {t.stats.map((stat) => (
+              <span
+                key={stat.value}
+                className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs text-gray-500"
               >
-                {t.toolsPageLinkLabel}
-              </Link>
-            </div>
+                <span className="font-semibold text-gray-800">{stat.value}</span>
+                {stat.label}
+              </span>
+            ))}
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-green-200 bg-green-50 px-3 py-1 text-xs text-green-700">
+              🔒 {trustMessage}
+            </span>
+          </div>
+        </div>
+      </section>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {t.popularTools.map((tool) => (
+      {/* ── Popular tools ── */}
+      <section className="border-b border-gray-100">
+        <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-gray-900">{t.popularToolsTitle}</h2>
+            <Link href={`${basePath}/tools`} className="text-xs text-gray-400 hover:text-gray-700">
+              {t.toolsPageLinkLabel} →
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+            {t.popularTools.map((tool) => {
+              const href = locale === "en" ? tool.href.replace(/^\/tools/, "/en/tools") : tool.href;
+              return (
                 <Link
-                  key={tool.name}
-                  href={
-                    locale === "en"
-                      ? tool.href.replace(/^\/tools/, "/en/tools")
-                      : tool.href
-                  }
-                  className="group rounded-[1.6rem] border border-stone-200/90 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(250,248,243,0.96))] p-5 shadow-[0_20px_35px_-26px_rgba(22,32,51,0.6)] transition hover:-translate-y-1 hover:border-stone-300 hover:shadow-[0_28px_45px_-26px_rgba(22,32,51,0.58)]"
+                  key={tool.href}
+                  href={href}
+                  className="group rounded-xl border border-gray-200 bg-white p-3 transition hover:border-blue-300 hover:shadow-sm"
                 >
-                  <div
-                    className={`inline-flex rounded px-2 py-1 text-xs font-bold mb-2 ${getIconClasses(tool.name)}`}
-                  >
+                  <div className={`mb-1.5 inline-flex h-5 items-center rounded px-1.5 text-[10px] font-bold ${getBadgeClasses(tool.name)}`}>
                     {getToolBadgeLabel(tool.name, tool.href, locale)}
                   </div>
-                  <h3 className="text-lg font-semibold text-slate-950 transition group-hover:text-slate-800">
-                    {tool.name}
-                  </h3>
-
-                  <p className="mt-2 text-sm leading-6 text-slate-600">
-                    {tool.description}
-                  </p>
+                  <p className="text-xs font-medium text-gray-900 leading-4 group-hover:text-blue-700">{tool.name}</p>
                 </Link>
-              ))}
-            </div>
+              );
+            })}
           </div>
-        </section>
+        </div>
+      </section>
 
-
-        <section className="border-b border-stone-200/70 bg-transparent">
-          <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-            <div className="mb-5 space-y-2">
-              <h2 className="text-2xl font-bold text-slate-950">
-                {t.taskPathsSection.title}
-              </h2>
-              <p className="max-w-3xl text-sm leading-7 text-slate-600">
-                {t.taskPathsSection.description}
-              </p>
-            </div>
-
-            <div className="grid gap-4 lg:grid-cols-3">
-              {t.taskPathsSection.items.map((item) => (
-                <div
-                  key={item.title}
-                  className="rounded-[1.6rem] border border-stone-200 bg-white/92 p-5 shadow-[0_18px_34px_-28px_rgba(22,32,51,0.56)]"
-                >
-                  <h3 className="text-lg font-semibold text-slate-950">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {item.tools.map((tool) => (
-                      <Link
-                        key={`${item.title}-${tool.href}`}
-                        href={
-                          locale === "en"
-                            ? tool.href.replace(/^\/tools/, "/en/tools")
-                            : tool.href
-                        }
-                        className="inline-flex rounded-full border border-stone-200 bg-stone-50 px-3 py-2 text-sm font-medium text-slate-800 transition hover:border-stone-300 hover:bg-white"
-                      >
-                        {tool.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-        <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="space-y-12">
-            {t.categories.map((category) => (
-              <section key={category.title} className="space-y-5">
-                <div className="space-y-2">
-                  <h2 className="text-2xl font-bold text-slate-950">
-                    {category.title}
-                  </h2>
-
-                  <p className="text-slate-600">{category.description}</p>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                  {category.tools.map((tool) => (
+      {/* ── All categories ── */}
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="space-y-8 py-8">
+          {t.categories.map((category) => (
+            <section key={category.title}>
+              <div className="mb-3">
+                <h2 className="text-base font-semibold text-gray-900">{category.title}</h2>
+                <p className="mt-0.5 text-xs text-gray-400">{category.description}</p>
+              </div>
+              <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+                {category.tools.map((tool) => {
+                  const href = locale === "en" ? tool.href.replace(/^\/tools/, "/en/tools") : tool.href;
+                  return (
                     <Link
                       key={tool.href}
-                      href={
-                        locale === "en"
-                          ? tool.href.replace(/^\/tools/, "/en/tools")
-                          : tool.href
-                      }
-                      className="group rounded-[1.5rem] border border-stone-200/90 bg-white/90 p-5 shadow-[0_18px_34px_-28px_rgba(22,32,51,0.56)] transition hover:-translate-y-1 hover:border-stone-300 hover:shadow-[0_24px_42px_-28px_rgba(22,32,51,0.56)]"
+                      href={href}
+                      className="group rounded-xl border border-gray-200 bg-white p-3 transition hover:border-blue-300 hover:shadow-sm"
                     >
-                      <div
-                        className={`inline-flex rounded px-2 py-1 text-xs font-bold mb-2 ${getIconClasses(tool.name)}`}
-                      >
+                      <div className={`mb-2 inline-flex h-5 items-center rounded px-1.5 text-[10px] font-bold ${getBadgeClasses(tool.name)}`}>
                         {getToolBadgeLabel(tool.name, tool.href, locale)}
                       </div>
-                      <h3 className="text-lg font-semibold text-slate-950 transition group-hover:text-slate-800">
-                        {tool.name}
-                      </h3>
-
-                      <p className="mt-2 text-sm leading-6 text-slate-600">
-                        {tool.description}
-                      </p>
+                      <p className="text-sm font-medium text-gray-900 leading-5 group-hover:text-blue-700">{tool.name}</p>
+                      <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-gray-400">{tool.description}</p>
                     </Link>
-                  ))}
-                </div>
-              </section>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-t border-stone-200/70 bg-transparent">
-          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-            <div className="grid gap-6 lg:grid-cols-2">
-              <div className="rounded-[1.7rem] border border-stone-200 bg-white/92 p-6 shadow-[0_22px_44px_-32px_rgba(22,32,51,0.52)]">
-                <h2 className="text-xl font-bold text-slate-950">
-                  {t.aboutSection.title}
-                </h2>
-
-                <div className="mt-4 space-y-3 text-sm leading-7 text-slate-600">
-                  {t.aboutSection.paragraphs.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-
-              <div className="rounded-[1.7rem] border border-stone-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(232,240,255,0.52))] p-6 shadow-[0_22px_44px_-32px_rgba(22,32,51,0.52)]">
-                <h2 className="text-xl font-bold text-slate-950">
-                  {t.toolsSection.title}
-                </h2>
-
-                <div className="mt-4 space-y-4 text-sm leading-7 text-slate-600">
-                  <p>{t.toolsSection.description}</p>
-
-                  <Link
-                    href={`${basePath}/tools`}
-                    className="inline-flex rounded-xl bg-slate-950 px-5 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
-                  >
-                    {t.toolsSection.buttonLabel}
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-stone-200/70 bg-transparent">
-          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-            <div className="mb-6 space-y-2">
-              <h2 className="text-2xl font-bold text-slate-950">
-                {locale === "en" ? "More Than a Tool List" : "ツール一覧だけで終わらせないために"}
-              </h2>
-              <p className="text-sm leading-7 text-slate-600">
-                {locale === "en"
-                  ? "The site also includes policy pages, support routes, and short guides so visitors can understand how the service works."
-                  : "運営情報、ガイド、お問い合わせページも公開して、初めての人でも使い方やサイトの方針が分かるようにしています。"}
-              </p>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-3">
-              {resourceCards.map((card) => (
-                <Link
-                  key={card.href}
-                  href={card.href}
-                  className="rounded-[1.6rem] border border-stone-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.86),rgba(242,239,228,0.76))] p-6 shadow-[0_18px_34px_-28px_rgba(22,32,51,0.56)] transition hover:-translate-y-1 hover:border-stone-300 hover:shadow-[0_24px_42px_-28px_rgba(22,32,51,0.56)]"
-                >
-                  <h3 className="text-lg font-semibold text-slate-950">
-                    {card.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">
-                    {card.description}
-                  </p>
-                  <span className="mt-4 inline-flex text-sm font-medium text-slate-950 underline decoration-stone-400 underline-offset-4">
-                    {card.label}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-stone-200/70 bg-transparent">
-          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-            <div className="rounded-[1.7rem] border border-stone-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(242,239,228,0.72))] p-6 shadow-[0_20px_40px_-30px_rgba(22,32,51,0.55)]">
-              <h2 className="text-2xl font-bold text-slate-950">
-                {t.faqSectionTitle}
-              </h2>
-
-              <div className="mt-6 space-y-4">
-                {t.faqItems.map((item) => (
-                  <div
-                    key={item.question}
-                    className="rounded-2xl border border-stone-200 bg-white/92 p-5"
-                  >
-                    <h3 className="text-base font-semibold text-slate-950">
-                      {item.question}
-                    </h3>
-                    <p className="mt-2 text-sm leading-7 text-slate-600">
-                      {item.answer}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-stone-200/70 bg-transparent">
-          <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-            <div className="rounded-[1.7rem] border border-stone-200 bg-[linear-gradient(135deg,rgba(255,255,255,0.9),rgba(223,239,232,0.76))] p-6 text-center shadow-[0_20px_40px_-30px_rgba(22,32,51,0.55)]">
-              <h2 className="text-lg font-semibold text-slate-950">
-                {t.contactSection.title}
-              </h2>
-
-              <p className="mt-2 text-sm text-slate-600">
-                {t.contactSection.description}
-              </p>
-
-              <Link
-                href={contactHref}
-                className="mt-4 inline-flex rounded-xl bg-slate-950 px-5 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
-              >
-                {t.contactSection.buttonLabel}
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-stone-200/70 bg-transparent">
-          <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-            <div className="rounded-[1.7rem] border border-stone-200 bg-white/92 p-6 shadow-[0_22px_44px_-34px_rgba(22,32,51,0.54)]">
-              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-                <div className="space-y-2">
-                  <div className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                    {profileSnippet.title}
-                  </div>
-                  <h2 className="text-2xl font-bold text-slate-950">
-                    {profileSnippet.name}
-                  </h2>
-                  <p className="max-w-3xl text-sm leading-7 text-slate-600">
-                    {profileSnippet.body}
-                  </p>
-                </div>
-
-                <Link
-                  href={aboutHref}
-                  className="inline-flex rounded-xl border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-slate-800 transition hover:-translate-y-0.5 hover:bg-stone-50"
-                >
-                  {profileSnippet.linkLabel}
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
+            </section>
+          ))}
+        </div>
       </div>
 
-      {/* Mobile */}
-      <div className="block md:hidden">
-        <section className="border-b border-gray-200 bg-gradient-to-b from-gray-50 to-white">
-          <div className="px-4 py-8">
-            <div className="space-y-4">
-              <span className="inline-flex rounded-full border border-gray-200 bg-white px-2.5 py-1 text-xs text-gray-600">
-                {t.badge}
-              </span>
-
-              <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
-                {t.hero.title}
-              </h1>
-
-              <p className="text-sm leading-7 text-gray-600">
-                {t.hero.description}
-              </p>
-              <div className="mt-4 inline-flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-700">
-                <span aria-hidden="true">🔒</span>
-                <span>{trustMessage}</span>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                <Link
-                  href={`${basePath}/tools`}
-                  className="inline-flex items-center justify-center rounded-lg bg-black px-3 py-3 text-sm font-semibold text-white"
-                >
-                  {t.hero.primaryButtonLabel}
-                </Link>
-
-                <Link
-                  href={contactHref}
-                  className="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-3 py-3 text-sm font-semibold text-gray-800"
-                >
-                  {t.hero.secondaryButtonLabel}
-                </Link>
-              </div>
-
-              <div className="grid grid-cols-3 gap-2 pt-2">
-                {t.stats.map((stat) => (
-                  <div
-                    key={`mobile-${stat.value}-${stat.label}`}
-                    className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm"
-                  >
-                    <div className="text-lg font-bold text-gray-900">
-                      {stat.value}
-                    </div>
-                    <div className="mt-1 text-[11px] leading-4 text-gray-600">
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-b border-gray-200 bg-white">
-          <div className="px-4 py-8">
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-900">
-                {t.popularToolsTitle}
-              </h2>
-
+      {/* ── Resource links ── */}
+      <div className="border-t border-gray-100 bg-gray-50">
+        <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {resourceCards.map((card) => (
               <Link
-                href={`${basePath}/tools`}
-                className="text-sm font-medium text-gray-700"
+                key={card.href}
+                href={card.href}
+                className="rounded-xl border border-gray-200 bg-white p-4 transition hover:border-gray-300 hover:shadow-sm"
               >
-                {t.toolsPageLinkLabel}
+                <h3 className="text-sm font-semibold text-gray-900">{card.title}</h3>
+                <p className="mt-1 text-xs text-gray-500">{card.description}</p>
+                <span className="mt-2 inline-block text-xs font-medium text-blue-600">{card.label}</span>
               </Link>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              {popularTools.map((tool) => (
-                <Link
-                  key={`mobile-popular-${tool.name}`}
-                  href={
-                    locale === "en"
-                      ? tool.href.replace(/^\/tools/, "/en/tools")
-                      : tool.href
-                  }
-                  className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm"
-                >
-                  <h3 className="text-base font-semibold leading-5 text-gray-900">
-                    {tool.name}
-                  </h3>
-
-                  <p className="mt-2 line-clamp-2 text-xs leading-5 text-gray-600">
-                    {tool.description}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-
-        <section className="border-b border-gray-200 bg-white">
-          <div className="px-4 py-8">
-            <div className="mb-4 space-y-2">
-              <h2 className="text-xl font-bold text-gray-900">
-                {t.taskPathsSection.title}
-              </h2>
-              <p className="text-sm leading-6 text-gray-600">
-                {t.taskPathsSection.description}
-              </p>
-            </div>
-
-            <div className="grid gap-3">
-              {t.taskPathsSection.items.map((item) => (
-                <div
-                  key={`mobile-task-${item.title}`}
-                  className="rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow-sm"
-                >
-                  <h3 className="text-base font-semibold text-gray-900">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-gray-600">{item.description}</p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {item.tools.map((tool) => (
-                      <Link
-                        key={`mobile-task-link-${item.title}-${tool.href}`}
-                        href={
-                          locale === "en"
-                            ? tool.href.replace(/^\/tools/, "/en/tools")
-                            : tool.href
-                        }
-                        className="inline-flex rounded-full border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-800"
-                      >
-                        {tool.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-        <section className="bg-white">
-          <div className="space-y-8 px-4 py-8">
-            {mobileCategories.map((category) => (
-              <section key={`mobile-${category.title}`} className="space-y-4">
-                <div className="space-y-1">
-                  <h2 className="text-2xl font-bold ">
-                    {category.title}
-                  </h2>
-                  <p className="text-sm leading-6 text-gray-600">
-                    {category.description}
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  {category.tools.map((tool) => (
-                    <Link
-                      key={`mobile-${tool.href}`}
-                      href={
-                        locale === "en"
-                          ? tool.href.replace(/^\/tools/, "/en/tools")
-                          : tool.href
-                      }
-                      className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm"
-                    >
-                      <h3 className="text-base font-semibold leading-5 text-gray-900">
-                        {tool.name}
-                      </h3>
-
-                      <p className="mt-2 line-clamp-2 text-xs leading-5 text-gray-600">
-                        {tool.description}
-                      </p>
-                    </Link>
-                  ))}
-                </div>
-
-                <div>
-                  <Link
-                    href={`${basePath}/tools`}
-                    className="text-sm font-medium text-gray-700 underline underline-offset-4"
-                  >
-                    {t.toolsPageLinkLabel}
-                  </Link>
-                </div>
-              </section>
             ))}
           </div>
-        </section>
+        </div>
+      </div>
 
-        <section className="border-t border-gray-200 bg-gray-50">
-          <div className="px-4 py-8">
-            <div className="space-y-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-              <h2 className="text-lg font-bold text-gray-900">
-                {t.aboutSection.title}
-              </h2>
-
-              <div className="space-y-3 text-sm leading-7 text-gray-600">
-                {t.aboutSection.paragraphs.slice(0, 2).map((paragraph) => (
-                  <p key={`mobile-about-${paragraph}`}>{paragraph}</p>
-                ))}
-              </div>
-
-              <Link
-                href={`${basePath}/tools`}
-                className="inline-flex rounded-lg bg-black px-4 py-3 text-sm font-medium text-white"
-              >
-                {t.toolsSection.buttonLabel}
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-gray-200 bg-white">
-          <div className="px-4 py-8">
-            <div className="grid gap-3">
-              {resourceCards.map((card) => (
-                <Link
-                  key={`mobile-${card.href}`}
-                  href={card.href}
-                  className="rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow-sm"
-                >
-                  <h2 className="text-base font-semibold text-gray-900">
-                    {card.title}
-                  </h2>
-                  <p className="mt-2 text-sm leading-6 text-gray-600">
-                    {card.description}
-                  </p>
-                  <span className="mt-3 inline-flex text-sm font-medium text-black underline underline-offset-4">
-                    {card.label}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-gray-200 bg-white">
-          <div className="px-4 py-8">
-            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow-sm">
-              <h2 className="text-xl font-bold text-gray-900">
-                {t.faqSectionTitle}
-              </h2>
-
-              <div className="mt-4 space-y-3">
-                {mobileFaqItems.map((item) => (
-                  <div
-                    key={`mobile-faq-${item.question}`}
-                    className="rounded-xl border border-gray-200 bg-white p-4"
-                  >
-                    <h3 className="text-sm font-semibold text-gray-900">
-                      {item.question}
-                    </h3>
-                    <p className="mt-2 text-xs leading-6 text-gray-600">
-                      {item.answer}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-gray-200 bg-white">
-          <div className="px-4 py-8">
-            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4 text-center shadow-sm">
-              <h2 className="text-base font-semibold text-gray-900">
-                {t.contactSection.title}
-              </h2>
-
-              <p className="mt-2 text-sm leading-6 text-gray-600">
-                {t.contactSection.description}
+      {/* ── FAQ ── */}
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+        <h2 className="mb-4 text-base font-semibold text-gray-900">{t.faqSectionTitle}</h2>
+        <div className="space-y-2">
+          {t.faqItems.map((item) => (
+            <details
+              key={item.question}
+              className="group rounded-xl border border-gray-200 bg-white"
+            >
+              <summary className="flex cursor-pointer select-none items-center justify-between px-4 py-3 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded-xl">
+                {item.question}
+                <span className="ml-2 shrink-0 text-gray-400 group-open:rotate-180 transition-transform">▾</span>
+              </summary>
+              <p className="border-t border-gray-100 px-4 py-3 text-sm leading-6 text-gray-500">
+                {item.answer}
               </p>
-
-              <Link
-                href={contactHref}
-                className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-black px-4 py-3 text-sm font-medium text-white"
-              >
-                {t.contactSection.buttonLabel}
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-gray-200 bg-gray-50">
-          <div className="px-4 py-8">
-            <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-gray-500">
-                {profileSnippet.title}
-              </div>
-              <h2 className="mt-2 text-lg font-bold text-gray-900">
-                {profileSnippet.name}
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-gray-600">
-                {profileSnippet.body}
-              </p>
-              <Link
-                href={aboutHref}
-                className="mt-4 inline-flex rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-800"
-              >
-                {profileSnippet.linkLabel}
-              </Link>
-            </div>
-          </div>
-        </section>
+            </details>
+          ))}
+        </div>
       </div>
     </main>
   );
