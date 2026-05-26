@@ -1,8 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { useState, useMemo } from "react";
 import {
   createHomeFaqJsonLd,
   homePageContent,
 } from "@/src/data/home-page";
+import { getAllToolItems } from "@/src/data/tool-directory";
 import { siteUrl } from "@/src/lib/site";
 
 type Props = {
@@ -61,6 +65,30 @@ export default function HomePage({ locale }: Props) {
     locale === "en"
       ? "All processing stays in your browser — files are not stored."
       : "すべてブラウザ内処理・ファイルは保存されません";
+
+  const allTools = useMemo(() => getAllToolItems(locale), [locale]);
+  const [search, setSearch] = useState("");
+  const normalizedSearch = search.trim().toLowerCase();
+
+  const searchResults = useMemo(() => {
+    if (!normalizedSearch) return null;
+    return allTools.filter((tool) =>
+      `${tool.name} ${tool.description} ${tool.href}`.toLowerCase().includes(normalizedSearch)
+    );
+  }, [normalizedSearch, allTools]);
+
+  const labels =
+    locale === "en"
+      ? {
+          searchPlaceholder: "Search all 45 tools…",
+          resultsCount: (n: number) => `${n} tool${n !== 1 ? "s" : ""} found`,
+          noResults: "No tools matched your search.",
+        }
+      : {
+          searchPlaceholder: "45ツールを検索…",
+          resultsCount: (n: number) => `${n} 件見つかりました`,
+          noResults: "一致するツールが見つかりませんでした。",
+        };
 
   const allToolItems = t.categories.flatMap((c) => c.tools);
 
@@ -154,46 +182,80 @@ export default function HomePage({ locale }: Props) {
         </div>
       </section>
 
-      {/* ── Popular tools ── */}
-      <section className="border-b border-gray-100">
-        <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-gray-900">{t.popularToolsTitle}</h2>
-            <Link href={`${basePath}/tools`} className="text-xs text-gray-400 hover:text-gray-700">
-              {t.toolsPageLinkLabel} →
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-            {t.popularTools.map((tool) => {
-              const href = locale === "en" ? tool.href.replace(/^\/tools/, "/en/tools") : tool.href;
-              return (
-                <Link
-                  key={tool.href}
-                  href={href}
-                  className="group rounded-xl border border-gray-200 bg-white p-3 transition hover:border-blue-300 hover:shadow-sm"
-                >
-                  <div className={`mb-1.5 inline-flex h-5 items-center rounded px-1.5 text-[10px] font-bold ${getBadgeClasses(tool.name)}`}>
-                    {getToolBadgeLabel(tool.name, tool.href, locale)}
-                  </div>
-                  <p className="text-xs font-medium text-gray-900 leading-4 group-hover:text-blue-700">{tool.name}</p>
-                </Link>
-              );
-            })}
+      {/* ── Search bar ── */}
+      <div className="border-b border-gray-100 bg-white">
+        <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6 lg:px-8">
+          <div className="relative">
+            <span className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-gray-400">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+              </svg>
+            </span>
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder={labels.searchPlaceholder}
+              className="w-full rounded-xl border border-gray-300 bg-gray-50 py-2.5 pl-9 pr-9 text-sm outline-none transition focus:border-blue-400 focus:bg-white focus:ring-2 focus:ring-blue-100"
+            />
+            {search && (
+              <button
+                type="button"
+                onClick={() => setSearch("")}
+                className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-600"
+                aria-label="Clear search"
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* ── All categories ── */}
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div className="space-y-8 py-8">
-          {t.categories.map((category) => (
-            <section key={category.title}>
-              <div className="mb-3">
-                <h2 className="text-base font-semibold text-gray-900">{category.title}</h2>
-                <p className="mt-0.5 text-xs text-gray-400">{category.description}</p>
+      {/* ── Search results ── */}
+      {searchResults !== null && (
+        <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+          <p className="mb-3 text-xs text-gray-500">
+            {searchResults.length > 0
+              ? labels.resultsCount(searchResults.length)
+              : labels.noResults}
+          </p>
+          {searchResults.length > 0 && (
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4">
+              {searchResults.map((tool) => (
+                <Link
+                  key={tool.href}
+                  href={tool.href}
+                  className="group rounded-xl border border-gray-200 bg-white p-3 transition hover:border-blue-300 hover:shadow-sm"
+                >
+                  <div className={`mb-2 inline-flex h-5 items-center rounded px-1.5 text-[10px] font-bold ${getBadgeClasses(tool.name)}`}>
+                    {getToolBadgeLabel(tool.name, tool.href, locale)}
+                  </div>
+                  <p className="text-sm font-medium text-gray-900 leading-5 group-hover:text-blue-700">{tool.name}</p>
+                  <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-gray-400">{tool.description}</p>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── Normal layout (hidden when searching) ── */}
+      {searchResults === null && (
+        <>
+          {/* Popular tools */}
+          <section className="border-b border-gray-100">
+            <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+              <div className="mb-3 flex items-center justify-between">
+                <h2 className="text-sm font-semibold text-gray-900">{t.popularToolsTitle}</h2>
+                <Link href={`${basePath}/tools`} className="text-xs text-gray-400 hover:text-gray-700">
+                  {t.toolsPageLinkLabel} →
+                </Link>
               </div>
-              <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-                {category.tools.map((tool) => {
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+                {t.popularTools.map((tool) => {
                   const href = locale === "en" ? tool.href.replace(/^\/tools/, "/en/tools") : tool.href;
                   return (
                     <Link
@@ -201,21 +263,52 @@ export default function HomePage({ locale }: Props) {
                       href={href}
                       className="group rounded-xl border border-gray-200 bg-white p-3 transition hover:border-blue-300 hover:shadow-sm"
                     >
-                      <div className={`mb-2 inline-flex h-5 items-center rounded px-1.5 text-[10px] font-bold ${getBadgeClasses(tool.name)}`}>
+                      <div className={`mb-1.5 inline-flex h-5 items-center rounded px-1.5 text-[10px] font-bold ${getBadgeClasses(tool.name)}`}>
                         {getToolBadgeLabel(tool.name, tool.href, locale)}
                       </div>
-                      <p className="text-sm font-medium text-gray-900 leading-5 group-hover:text-blue-700">{tool.name}</p>
-                      <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-gray-400">{tool.description}</p>
+                      <p className="text-xs font-medium text-gray-900 leading-4 group-hover:text-blue-700">{tool.name}</p>
                     </Link>
                   );
                 })}
               </div>
-            </section>
-          ))}
-        </div>
-      </div>
+            </div>
+          </section>
 
-      {/* ── Resource links ── */}
+          {/* All categories */}
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="space-y-8 py-8">
+              {t.categories.map((category) => (
+                <section key={category.title}>
+                  <div className="mb-3">
+                    <h2 className="text-base font-semibold text-gray-900">{category.title}</h2>
+                    <p className="mt-0.5 text-xs text-gray-400">{category.description}</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+                    {category.tools.map((tool) => {
+                      const href = locale === "en" ? tool.href.replace(/^\/tools/, "/en/tools") : tool.href;
+                      return (
+                        <Link
+                          key={tool.href}
+                          href={href}
+                          className="group rounded-xl border border-gray-200 bg-white p-3 transition hover:border-blue-300 hover:shadow-sm"
+                        >
+                          <div className={`mb-2 inline-flex h-5 items-center rounded px-1.5 text-[10px] font-bold ${getBadgeClasses(tool.name)}`}>
+                            {getToolBadgeLabel(tool.name, tool.href, locale)}
+                          </div>
+                          <p className="text-sm font-medium text-gray-900 leading-5 group-hover:text-blue-700">{tool.name}</p>
+                          <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-gray-400">{tool.description}</p>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* ── Resource links (always visible) ── */}
       <div className="border-t border-gray-100 bg-gray-50">
         <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -243,9 +336,9 @@ export default function HomePage({ locale }: Props) {
               key={item.question}
               className="group rounded-xl border border-gray-200 bg-white"
             >
-              <summary className="flex cursor-pointer select-none items-center justify-between px-4 py-3 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded-xl">
+              <summary className="flex cursor-pointer select-none items-center justify-between px-4 py-3 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded-xl list-none">
                 {item.question}
-                <span className="ml-2 shrink-0 text-gray-400 group-open:rotate-180 transition-transform">▾</span>
+                <span className="ml-2 shrink-0 text-gray-400 group-open:rotate-180 transition-transform duration-200">▾</span>
               </summary>
               <p className="border-t border-gray-100 px-4 py-3 text-sm leading-6 text-gray-500">
                 {item.answer}

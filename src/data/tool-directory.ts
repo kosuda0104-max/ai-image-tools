@@ -88,3 +88,12 @@ export function getToolItems(
   return slugs.map((slug) => getToolItem(locale, slug));
 }
 
+export function getAllToolItems(locale: ToolDirectoryLocale): ToolDirectoryItem[] {
+  return toolEntries.map((entry) => ({
+    slug: entry.slug,
+    name: locale === "ja" ? entry.jaName : entry.enName,
+    description: locale === "ja" ? entry.jaDescription : entry.enDescription,
+    href: locale === "en" ? `/en/tools/${entry.slug}` : `/tools/${entry.slug}`,
+  }));
+}
+
