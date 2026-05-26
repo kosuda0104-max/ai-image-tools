@@ -131,6 +131,11 @@ const pdfToolSlugs = [
   "pdf-remove-pages",
 ] as const;
 
+const dataToolSlugs = [
+  "parquet-to-csv",
+  "csv-to-parquet",
+] as const;
+
 const ja = {
   heroTitle: "ブラウザで使える画像・PDFツール一覧",
   heroDescription:
@@ -169,6 +174,8 @@ const ja = {
   cat2d: "容量調整、サイズ変更、切り抜き、回転など、画像を使いやすく整えるためのツールです。公開前や提出前の仕上げにも使えます。",
   cat3: "PDF ツール",
   cat3d: "PDF の変換、結合、分割、圧縮、回転、ページ削除など、実務でよく使う PDF 作業をまとめています。",
+  cat4: "データツール",
+  cat4d: "Parquet と CSV の相互変換ツールです。AWS S3・Athena・BigQuery などのデータ基盤で使うファイルをブラウザ上で変換できます。",
   aboutTitle: "この一覧ページについて",
   about1: "このページでは、画像変換、画像調整、PDF ツールをカテゴリごとにまとめています。どの作業に近いかが分かるよう、役割の似たツールを近くに置いています。",
   about2: "検索から来た人でも関連ツールを見つけやすいようにしているので、変換の次に圧縮、圧縮の次にリサイズといった流れも追いやすくなっています。",
@@ -348,6 +355,11 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
         title: ja.cat3,
         description: ja.cat3d,
         tools: getToolItems("ja", pdfToolSlugs),
+      },
+      {
+        title: ja.cat4,
+        description: ja.cat4d,
+        tools: getToolItems("ja", dataToolSlugs),
       },
     ],
     aboutSection: {
@@ -553,6 +565,12 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
         description:
           "Tools for converting between images and PDFs and editing PDF files.",
         tools: getToolItems("en", pdfToolSlugs),
+      },
+      {
+        title: "Data Tools",
+        description:
+          "Convert between Parquet and CSV directly in your browser. Useful for AWS S3, Athena, BigQuery, and Spark workflows.",
+        tools: getToolItems("en", dataToolSlugs),
       },
     ],
     aboutSection: {
