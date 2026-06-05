@@ -1,70 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import ToolPageLayout from "@/components/ToolPageLayout";
-import FileDropzone from "@/components/FileDropzone";
-import PrimaryButton from "@/components/PrimaryButton";
-import StatusMessage from "@/components/StatusMessage";
+import StandardImageConversionTool from "@/src/components/StandardImageConversionTool";
+import type { StandardImageConversionContent } from "@/src/lib/conversion-content";
 
 type Locale = "ja" | "en";
 
-type FAQItem = {
-  question: string;
-  answer: string;
-};
-
-type RelatedToolItem = {
-  name: string;
-  href: string;
-};
-
-type PageContent = {
-  title: string;
-  description: string;
-  aboutTitle: string;
-  aboutText: string;
-  stepsTitle: string;
-  steps: string[];
-  faqTitle: string;
-  faqs: FAQItem[];
-  relatedTools: RelatedToolItem[];
-};
-
-type UIContent = {
-  emptyTitle: string;
-  unknownType: string;
-  convertingStatus: string;
-  canvasInitError: string;
-  convertError: string;
-  loadError: string;
-  unexpectedErrorPrefix: string;
-  successMessage: (baseName: string) => string;
-  invalidFileError: string;
-  selectedImageTitle: string;
-  fileNameLabel: string;
-  fileTypeLabel: string;
-  fileSizeLabel: string;
-  previewLabel: string;
-  convertButton: string;
-  convertingButton: string;
-};
-
-type ToolContent = {
-  page: PageContent;
-  ui: UIContent;
-};
-
-type Props = {
-  locale: Locale;
-};
-
-function formatFileSize(bytes: number) {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
-}
-
-const content: Record<Locale, ToolContent> = {
+const content: Record<Locale, StandardImageConversionContent> = {
   ja: {
     page: {
       title: "GIFをJPGに変換",
@@ -77,33 +18,33 @@ const content: Record<Locale, ToolContent> = {
         "GIF画像をアップロードします",
         "プレビューを確認します",
         "「GIFをJPGに変換」ボタンを押します",
-        "変換後のJPG画像をダウンロードします"
+        "変換後のJPG画像をダウンロードします",
       ],
       faqTitle: "よくある質問",
       faqs: [
         {
           question: "アニメーションGIFも変換できますか？",
-          answer: "このツールではGIFの先頭フレームをJPG画像として保存します。"
+          answer: "このツールではGIFの先頭フレームをJPG画像として保存します。",
         },
         {
           question: "透過はどうなりますか？",
-          answer: "JPGは透過に対応していないため、透明部分は白背景として変換されます。"
+          answer: "JPGは透過に対応していないため、透明部分は白背景として変換されます。",
         },
         {
           question: "インストールは必要ですか？",
-          answer: "不要です。ブラウザだけでGIFをJPGに変換できます。"
+          answer: "不要です。ブラウザだけでGIFをJPGに変換できます。",
         },
         {
           question: "アップロードなしで変換できますか？",
           answer:
-            "はい。このツールはブラウザ上で処理されるため、画像ファイルは外部サーバーにアップロードされません。"
-        }
+            "はい。このツールはブラウザ上で処理されるため、画像ファイルは外部サーバーにアップロードされません。",
+        },
       ],
       relatedTools: [
         { name: "GIFをPNGに変換", href: "/tools/gif-to-png" },
         { name: "PNGをJPGに変換", href: "/tools/png-to-jpg" },
-        { name: "WebPをJPGに変換", href: "/tools/webp-to-jpg" }
-      ]
+        { name: "WebPをJPGに変換", href: "/tools/webp-to-jpg" },
+      ],
     },
     ui: {
       emptyTitle: "GIF画像をドラッグ＆ドロップ、または選択",
@@ -121,8 +62,8 @@ const content: Record<Locale, ToolContent> = {
       fileSizeLabel: "サイズ",
       previewLabel: "プレビュー",
       convertButton: "GIFをJPGに変換",
-      convertingButton: "変換中..."
-    }
+      convertingButton: "変換中...",
+    },
   },
   en: {
     page: {
@@ -136,33 +77,33 @@ const content: Record<Locale, ToolContent> = {
         "Upload a GIF image",
         "Check the preview",
         "Click the Convert GIF to JPG button",
-        "Download the converted JPG image"
+        "Download the converted JPG image",
       ],
       faqTitle: "FAQ",
       faqs: [
         {
           question: "Can animated GIFs be converted?",
-          answer: "This tool converts the first frame of the GIF into a JPG image."
+          answer: "This tool converts the first frame of the GIF into a JPG image.",
         },
         {
           question: "What happens to transparency?",
-          answer: "JPG does not support transparency, so transparent areas are converted to a white background."
+          answer: "JPG does not support transparency, so transparent areas are converted to a white background.",
         },
         {
           question: "Do I need to install anything?",
-          answer: "No. You can convert GIF to JPG directly in your browser without installing any software."
+          answer: "No. You can convert GIF to JPG directly in your browser without installing any software.",
         },
         {
           question: "Can I convert without uploading?",
           answer:
-            "Yes. This tool works entirely in your browser, so your image files are not uploaded to any external server."
-        }
+            "Yes. This tool works entirely in your browser, so your image files are not uploaded to any external server.",
+        },
       ],
       relatedTools: [
         { name: "GIF to PNG", href: "/en/tools/gif-to-png" },
         { name: "PNG to JPG", href: "/en/tools/png-to-jpg" },
-        { name: "WebP to JPG", href: "/en/tools/webp-to-jpg" }
-      ]
+        { name: "WebP to JPG", href: "/en/tools/webp-to-jpg" },
+      ],
     },
     ui: {
       emptyTitle: "Drag and drop a GIF image here, or select a file",
@@ -180,165 +121,21 @@ const content: Record<Locale, ToolContent> = {
       fileSizeLabel: "Size",
       previewLabel: "Preview",
       convertButton: "Convert GIF to JPG",
-      convertingButton: "Converting..."
-    }
-  }
+      convertingButton: "Converting...",
+    },
+  },
 };
 
-export default function GifToJpgTool({ locale }: Props) {
-  const { page, ui } = content[locale];
-  const [image, setImage] = useState<File | null>(null);
-  const [status, setStatus] = useState("");
-  const [isProcessing, setIsProcessing] = useState(false);
-
-  const previewUrl = useMemo(() => {
-    if (!image) return "";
-    return URL.createObjectURL(image);
-  }, [image]);
-
-  useEffect(() => {
-    return () => {
-      if (previewUrl) URL.revokeObjectURL(previewUrl);
-    };
-  }, [previewUrl]);
-
-  const fileInfo = useMemo(() => {
-    if (!image) return null;
-    return {
-      name: image.name,
-      type: image.type || ui.unknownType,
-      size: formatFileSize(image.size)
-    };
-  }, [image, ui.unknownType]);
-
-  const handleConvert = () => {
-    if (!image || isProcessing) return;
-
-    try {
-      setIsProcessing(true);
-      setStatus(ui.convertingStatus);
-
-      const img = new Image();
-      const objectUrl = URL.createObjectURL(image);
-      img.src = objectUrl;
-
-      img.onload = () => {
-        const canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
-
-        const ctx = canvas.getContext("2d");
-        if (!ctx) {
-          setStatus(ui.canvasInitError);
-          setIsProcessing(false);
-          URL.revokeObjectURL(objectUrl);
-          return;
-        }
-
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0);
-
-        canvas.toBlob((blob) => {
-          if (!blob) {
-            setStatus(ui.convertError);
-            setIsProcessing(false);
-            URL.revokeObjectURL(objectUrl);
-            return;
-          }
-
-          const downloadUrl = URL.createObjectURL(blob);
-          const baseName = image.name.replace(/\.gif$/i, "");
-          const link = document.createElement("a");
-
-          link.href = downloadUrl;
-          link.download = `${baseName}.jpg`;
-          link.click();
-
-          setStatus(ui.successMessage(baseName));
-          setIsProcessing(false);
-
-          URL.revokeObjectURL(downloadUrl);
-          URL.revokeObjectURL(objectUrl);
-        }, "image/jpeg", 0.92);
-      };
-
-      img.onerror = () => {
-        setStatus(ui.loadError);
-        setIsProcessing(false);
-        URL.revokeObjectURL(objectUrl);
-      };
-    } catch (e: unknown) {
-      console.error(e);
-      setStatus(`${ui.unexpectedErrorPrefix}: ${e instanceof Error ? e.message : String(e)}`);
-      setIsProcessing(false);
-    }
-  };
-
+export default function GifToJpgTool({ locale }: { locale: Locale }) {
   return (
-    <>
-      <ToolPageLayout
-      title={page.title}
-      description={page.description}
-      aboutTitle={page.aboutTitle}
-      aboutText={page.aboutText}
-      stepsTitle={page.stepsTitle}
-      steps={page.steps}
-      faqTitle={page.faqTitle}
-      faqs={page.faqs}
-      relatedTools={page.relatedTools}
-    >
-      <div className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-        <FileDropzone
-          file={image}
-          accept="image/gif,.gif"
-          emptyTitle={ui.emptyTitle}
-          onFileSelect={(file: File | null) => {
-            setStatus("");
-            if (!file) {
-              setImage(null);
-              return;
-            }
-
-            const isGif = file.type === "image/gif" || /\.gif$/i.test(file.name);
-
-            if (!isGif) {
-              setImage(null);
-              setStatus(ui.invalidFileError);
-              return;
-            }
-
-            setImage(file);
-          }}
-        />
-
-        {fileInfo && (
-          <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 space-y-2">
-            <h3 className="text-sm font-semibold text-gray-900">{ui.selectedImageTitle}</h3>
-            <div className="space-y-1 text-sm text-gray-600">
-              <p><span className="font-medium text-gray-800">{ui.fileNameLabel}:</span> {fileInfo.name}</p>
-              <p><span className="font-medium text-gray-800">{ui.fileTypeLabel}:</span> {fileInfo.type}</p>
-              <p><span className="font-medium text-gray-800">{ui.fileSizeLabel}:</span> {fileInfo.size}</p>
-            </div>
-          </div>
-        )}
-
-        {previewUrl && (
-          <div className="space-y-2">
-            <div className="text-sm text-gray-600">{ui.previewLabel}</div>
-            <img src={previewUrl} alt="preview" className="max-h-80 rounded border object-contain" />
-          </div>
-        )}
-
-        <PrimaryButton onClick={handleConvert} disabled={!image || isProcessing}>
-          {isProcessing ? ui.convertingButton : ui.convertButton}
-        </PrimaryButton>
-
-        <StatusMessage status={status} />
-      </div>
-    </ToolPageLayout>
-    </>
+    <StandardImageConversionTool
+      content={content[locale]}
+      accept="image/gif,.gif"
+      outputExtension="jpg"
+      outputType="image/jpeg"
+      fillBackground="#ffffff"
+      quality={0.92}
+      isValidFile={(file) => file.type === "image/gif" || /\.gif$/i.test(file.name)}
+    />
   );
 }
-
-
