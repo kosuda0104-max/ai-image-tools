@@ -75,11 +75,40 @@ const icons: Record<ToolKind, ReactNode> = {
   convert: <Glyph d="M4 8h12l-3-3M20 16H8l3 3" />,
 };
 
-function detectKind(slug: string, name: string): { kind: ToolKind; colorKey: string } {
+const FORMAT_LABELS: Record<string, string> = {
+  webp: "WebP",
+  heic: "HEIC",
+  avif: "AVIF",
+  tiff: "TIFF",
+  jpg: "JPG",
+  jpeg: "JPG",
+  png: "PNG",
+  gif: "GIF",
+  svg: "SVG",
+  bmp: "BMP",
+  ico: "ICO",
+  pdf: "PDF",
+};
+
+type ToolVisual = {
+  kind: ToolKind;
+  colorKey: string;
+  /** target format label shown inside conversion tiles (e.g. "PNG") */
+  label?: string;
+};
+
+function detectKind(slug: string, name: string): ToolVisual {
   const s = slug.toLowerCase();
   const n = name.toLowerCase();
 
-  if (s.includes("pdf") || n.includes("pdf")) return { kind: "pdf", colorKey: "pdf" };
+  if (s.includes("pdf") || n.includes("pdf")) {
+    // pdf-to-jpg/png/webp are conversions toward an image format
+    const target = s.split("-to-").pop() ?? "";
+    if (s.startsWith("pdf-to-") && FORMAT_LABELS[target]) {
+      return { kind: "convert", colorKey: target, label: FORMAT_LABELS[target] };
+    }
+    return { kind: "pdf", colorKey: "pdf" };
+  }
   if (s.includes("compress") || n.includes("圧縮")) return { kind: "compress", colorKey: "compress" };
   if (s.includes("resize") || n.includes("リサイズ")) return { kind: "resize", colorKey: "resize" };
   if (s.includes("crop") || n.includes("切り抜き")) return { kind: "crop", colorKey: "crop" };
@@ -90,11 +119,19 @@ function detectKind(slug: string, name: string): { kind: ToolKind; colorKey: str
   if (s.includes("base64")) return { kind: "code", colorKey: "code" };
   if (s.includes("parquet") || s.includes("csv") || s.includes("json")) return { kind: "data", colorKey: "data" };
 
-  // conversions: color by the target format (after "to")
+  // conversions: show + color by the TARGET format (after "-to-")
   const target = s.split("-to-").pop() ?? s;
-  for (const fmt of ["webp", "heic", "avif", "tiff", "jpg", "jpeg", "png", "gif", "svg", "bmp", "ico"]) {
-    if (target.includes(fmt) || s.includes(fmt)) {
-      return { kind: "convert", colorKey: fmt === "jpeg" ? "jpg" : fmt };
+  for (const fmt of ["webp", "heic", "avif", "tiff", "jpeg", "jpg", "png", "gif", "svg", "bmp", "ico"]) {
+    if (target.includes(fmt)) {
+      const key = fmt === "jpeg" ? "jpg" : fmt;
+      return { kind: "convert", colorKey: key, label: FORMAT_LABELS[key] };
+    }
+  }
+  // fall back: any format keyword in the slug
+  for (const fmt of ["webp", "heic", "avif", "tiff", "jpeg", "jpg", "png", "gif", "svg", "bmp", "ico"]) {
+    if (s.includes(fmt)) {
+      const key = fmt === "jpeg" ? "jpg" : fmt;
+      return { kind: "convert", colorKey: key, label: FORMAT_LABELS[key] };
     }
   }
 
@@ -113,7 +150,8 @@ export function getToolIcon(name: string, href: string): ReactNode {
   return icons[kind];
 }
 
-/** A colored gradient tile with the tool's glyph icon. */
+/** A colored gradient tile. Conversions show the target format text; other
+ *  operations show a glyph icon — so JPG→PNG and JPG→WebP look different. */
 export function ToolIcon({
   name,
   href,
@@ -123,15 +161,22 @@ export function ToolIcon({
   href: string;
   size?: "sm" | "md";
 }) {
-  const gradient = getToolGradient(name, href);
-  const icon = getToolIcon(name, href);
+  const slug = href.split("/").pop() ?? "";
+  const visual = detectKind(slug, name);
+  const gradient = gradients[visual.colorKey] ?? gradients.convert;
   const sizing = size === "sm" ? "h-9 w-9 rounded-lg" : "h-11 w-11 rounded-xl";
 
   return (
     <span
       className={`inline-flex shrink-0 items-center justify-center bg-gradient-to-br text-white shadow-sm ${gradient} ${sizing}`}
     >
-      {icon}
+      {visual.kind === "convert" && visual.label ? (
+        <span className={size === "sm" ? "text-[10px] font-bold leading-none" : "text-xs font-bold leading-none"}>
+          {visual.label}
+        </span>
+      ) : (
+        icons[visual.kind]
+      )}
     </span>
   );
 }
