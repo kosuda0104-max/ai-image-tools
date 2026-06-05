@@ -5,7 +5,6 @@ import ToolPageLayout from "@/components/ToolPageLayout";
 import FileDropzone from "@/components/FileDropzone";
 import PrimaryButton from "@/components/PrimaryButton";
 import StatusMessage from "@/components/StatusMessage";
-import FAQJsonLd from "@/components/FAQJsonLd";
 
 type Locale = "ja" | "en";
 
@@ -542,7 +541,6 @@ export default function ResizeImageTool({ locale }: Props) {
 
   return (
     <>
-      <FAQJsonLd faqs={page.faqs} />
       <ToolPageLayout
       title={page.title}
       description={page.description}
