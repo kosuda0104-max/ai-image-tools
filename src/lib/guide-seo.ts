@@ -11,7 +11,7 @@ const GUIDE_AUTHOR = {
 
 const GUIDE_PUBLISHER = {
   "@type": "Organization",
-  name: "AI Image Tools",
+  name: "Filewisp",
   url: siteUrl,
 };
 
@@ -45,7 +45,7 @@ export function generateGuideMetadata(
   const canonicalUrl = locale === "ja" ? jaUrl : enUrl;
 
   return {
-    title: `${guide.title} | AI Image Tools`,
+    title: guide.title,
     description: guide.description,
     alternates: {
       canonical: canonicalUrl,
@@ -59,7 +59,7 @@ export function generateGuideMetadata(
       title: guide.title,
       description: guide.description,
       url: canonicalUrl,
-      siteName: "AI Image Tools",
+      siteName: "Filewisp",
       locale: locale === "ja" ? "ja_JP" : "en_US",
       type: "article",
       images: [

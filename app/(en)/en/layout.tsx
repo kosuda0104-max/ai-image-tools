@@ -8,7 +8,7 @@ const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 const siteDescription =
-  "Free online image and PDF tools. Convert JPG, PNG, WebP, HEIC, and PDF files, then compress, resize, crop, and prepare them safely in your browser.";
+  "Free online tools for image and PDF conversion. Convert JPG, PNG, WebP, HEIC, and PDF files. Compress, resize, crop, rotate, merge, and split — all in your browser with no file upload to a server. 45+ tools available.";
 
 export const metadata: Metadata = {
   description: siteDescription,
@@ -20,16 +20,16 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AI Image Tools",
+    title: "Filewisp",
     description: siteDescription,
     url: `${siteUrl}/en`,
-    siteName: "AI Image Tools",
+    siteName: "Filewisp",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "AI Image Tools",
+        alt: "Filewisp",
       },
     ],
     locale: "en_US",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Image Tools",
+    title: "Filewisp",
     description: siteDescription,
     images: ["/og.png"],
   },
@@ -58,23 +58,26 @@ export default function EnLayout({
           </Link>
 
           <nav className="flex flex-wrap gap-4 text-sm">
+            <Link className="hover:underline" href="/en/tools/heic-to-jpg">
+              HEIC to JPG
+            </Link>
             <Link className="hover:underline" href="/en/tools/jpg-to-png">
               JPG to PNG
             </Link>
-            <Link className="hover:underline" href="/en/tools/png-to-jpg">
-              PNG to JPG
-            </Link>
             <Link className="hover:underline" href="/en/tools/image-compress">
               Compress
+            </Link>
+            <Link className="hover:underline" href="/en/tools/compress-pdf">
+              Compress PDF
+            </Link>
+            <Link className="hover:underline" href="/en/tools/pdf-to-jpg">
+              PDF to JPG
             </Link>
             <Link className="hover:underline" href="/en/tools">
               Tools
             </Link>
             <Link className="hover:underline" href="/en/guides">
               Guides
-            </Link>
-            <Link className="hover:underline" href="/en/about">
-              About
             </Link>
             <Link className="font-semibold hover:underline" href="/">
               JA
@@ -100,7 +103,7 @@ export default function EnLayout({
 
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="text-sm text-gray-600">
-                Copyright {new Date().getFullYear()} AI Image Tools
+                Copyright {new Date().getFullYear()} Filewisp
               </div>
 
               <nav className="flex flex-wrap gap-4 text-sm text-gray-600">

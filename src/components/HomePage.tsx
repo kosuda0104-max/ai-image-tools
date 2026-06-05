@@ -77,15 +77,16 @@ export default function HomePage({ locale }: Props) {
     );
   }, [normalizedSearch, allTools]);
 
+  const totalToolCount = allTools.length;
   const labels =
     locale === "en"
       ? {
-          searchPlaceholder: "Search all 45 tools…",
+          searchPlaceholder: `Search all ${totalToolCount} tools…`,
           resultsCount: (n: number) => `${n} tool${n !== 1 ? "s" : ""} found`,
           noResults: "No tools matched your search.",
         }
       : {
-          searchPlaceholder: "45ツールを検索…",
+          searchPlaceholder: `${totalToolCount}ツールを検索…`,
           resultsCount: (n: number) => `${n} 件見つかりました`,
           noResults: "一致するツールが見つかりませんでした。",
         };
@@ -98,7 +99,7 @@ export default function HomePage({ locale }: Props) {
     name: t.hero.title,
     description: t.hero.description,
     url: homeUrl,
-    isPartOf: { "@type": "WebSite", name: "AI Image Tools", url: siteUrl },
+    isPartOf: { "@type": "WebSite", name: "Filewisp", url: siteUrl },
     mainEntity: {
       "@type": "ItemList",
       name: locale === "en" ? "Featured tool collection" : "掲載ツール一覧",
@@ -115,7 +116,7 @@ export default function HomePage({ locale }: Props) {
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "AI Image Tools",
+    name: "Filewisp",
     url: siteUrl,
     description:
       locale === "en"
@@ -326,6 +327,38 @@ export default function HomePage({ locale }: Props) {
           </div>
         </div>
       </div>
+
+      {/* ── Guides ── */}
+      {searchResults === null && (
+        <div className="border-t border-gray-100 bg-white">
+          <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <h2 className="text-base font-semibold text-gray-900">{t.guidesSection.title}</h2>
+                <p className="mt-0.5 text-xs text-gray-400">{t.guidesSection.description}</p>
+              </div>
+              <Link href={guidesHref} className="text-xs text-gray-400 hover:text-gray-700">
+                {t.guidesSection.viewAllLabel} →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+              {t.guidesSection.guides.map((guide) => {
+                const href = locale === "en" ? `/en/guides/${guide.slug}` : `/guides/${guide.slug}`;
+                return (
+                  <Link
+                    key={guide.slug}
+                    href={href}
+                    className="group rounded-xl border border-gray-200 bg-white p-3 transition hover:border-blue-300 hover:shadow-sm"
+                  >
+                    <p className="text-sm font-medium text-gray-900 leading-5 group-hover:text-blue-700">{guide.title}</p>
+                    <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-gray-400">{guide.cardDescription}</p>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── FAQ ── */}
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">

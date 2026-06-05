@@ -2,21 +2,21 @@ import StaticContentPage from "@/src/components/StaticContentPage";
 import { siteUrl } from "@/src/lib/site";
 
 export const metadata = {
-  title: "このサイトについて | AI Image Tools",
+  title: "このサイトについて | Filewisp",
   description:
-    "AI Image Tools の運営方針、サイトの目的、更新の考え方、安心して使うための案内をまとめたページです。",
+    "Filewisp の運営方針、サイトの目的、更新の考え方、安心して使うための案内をまとめたページです。",
 };
 
 const aboutJsonLd = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
-  name: "このサイトについて | AI Image Tools",
+  name: "このサイトについて | Filewisp",
   description:
-    "AI Image Tools の運営方針、サイトの目的、更新の考え方、安心して使うための案内をまとめたページです。",
+    "Filewisp の運営方針、サイトの目的、更新の考え方、安心して使うための案内をまとめたページです。",
   url: `${siteUrl}/about`,
   mainEntity: {
     "@type": "Organization",
-    name: "AI Image Tools",
+    name: "Filewisp",
     url: siteUrl,
     description:
       "画像変換、画像編集、PDF 作業をブラウザだけで進められるオンラインツール集です。",
@@ -39,12 +39,12 @@ export default function Page() {
       <StaticContentPage
         locale="ja"
         title="このサイトについて"
-        description="AI Image Tools は、画像変換、画像編集、PDF 作業をブラウザだけで手軽に進められる無料ツールサイトです。実務でも日常でも使いやすいこと、初めて触る人でも迷いにくいこと、安心して試せることを重視して運営しています。"
+        description="Filewisp は、画像変換、画像編集、PDF 作業をブラウザだけで手軽に進められる無料ツールサイトです。実務でも日常でも使いやすいこと、初めて触る人でも迷いにくいこと、安心して試せることを重視して運営しています。"
         sections={[
           {
             title: "サイトの目的",
             paragraphs: [
-              "AI Image Tools は、JPG、PNG、WebP、HEIC、PDF などの画像・文書作業を、できるだけシンプルに片づけたい人のためのサイトです。変換、圧縮、リサイズ、切り抜き、PDF 整理のようなよく使う作業を、追加ソフトなしで進められるようにしています。",
+              "Filewisp は、JPG、PNG、WebP、HEIC、PDF などの画像・文書作業を、できるだけシンプルに片づけたい人のためのサイトです。変換、圧縮、リサイズ、切り抜き、PDF 整理のようなよく使う作業を、追加ソフトなしで進められるようにしています。",
               "単にファイル形式を変えるだけでなく、どの形式を選ぶべきか、どの場面でそのツールが役立つか、次にどの作業を組み合わせるとよいかまで分かる構成を目指しています。",
             ],
           },

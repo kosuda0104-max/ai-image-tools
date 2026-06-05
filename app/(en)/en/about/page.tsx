@@ -2,21 +2,21 @@ import StaticContentPage from "@/src/components/StaticContentPage";
 import { siteUrl } from "@/src/lib/site";
 
 export const metadata = {
-  title: "About | AI Image Tools",
+  title: "About | Filewisp",
   description:
-    "Learn what AI Image Tools is for, who runs it, how the site is maintained, and how to get in touch.",
+    "Learn what Filewisp is for, who runs it, how the site is maintained, and how to get in touch.",
 };
 
 const aboutJsonLd = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
-  name: "About | AI Image Tools",
+  name: "About | Filewisp",
   description:
-    "Learn what AI Image Tools is for, who runs it, how the site is maintained, and how to get in touch.",
+    "Learn what Filewisp is for, who runs it, how the site is maintained, and how to get in touch.",
   url: `${siteUrl}/en/about`,
   mainEntity: {
     "@type": "Organization",
-    name: "AI Image Tools",
+    name: "Filewisp",
     url: siteUrl,
     description:
       "A browser-based site for image conversion, image editing, and practical PDF tasks.",
@@ -38,20 +38,20 @@ export default function Page() {
       />
       <StaticContentPage
         locale="en"
-        title="About AI Image Tools"
-        description="AI Image Tools is a free browser-based site for image conversion, image editing, and PDF tasks. The goal is to provide practical tools people can actually use, not just thin pages built for search or ads."
+        title="About Filewisp"
+        description="Filewisp is a free browser-based site for image conversion, image editing, and PDF tasks. The goal is to provide practical tools people can actually use, not just thin pages built for search or ads."
         sections={[
           {
             title: "What this site is for",
             paragraphs: [
-              "AI Image Tools is designed to help with common real-world tasks such as image conversion, image cleanup, PDF preparation, and lightweight file optimization.",
+              "Filewisp is designed to help with common real-world tasks such as image conversion, image cleanup, PDF preparation, and lightweight file optimization.",
               "The focus is on practical workflows around formats like JPG, PNG, WebP, HEIC, and PDF, without requiring software installation.",
             ],
           },
           {
             title: "Operator profile",
             paragraphs: [
-              "AI Image Tools is operated by Kosuda, a web engineer born in 1998 with five years of professional experience, mainly in web application development.",
+              "Filewisp is operated by Kosuda, a web engineer born in 1998 with five years of professional experience, mainly in web application development.",
               "The site focuses on free tools for image conversion and image processing, with an emphasis on simple UI and practical features that visitors can use without confusion.",
             ],
           },

@@ -6,9 +6,9 @@ import { siteUrl } from "@/src/lib/site";
 const googleVerification =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined;
 
-const siteTitle = "AI Image Tools";
+const siteTitle = "Filewisp";
 const siteDescription =
-  "画像変換、圧縮、PDF 変換をブラウザでまとめて使えるオンラインツール集です。画像形式の違い、容量調整、提出前のPDF整理まで、よくある作業を分かりやすくまとめています。";
+  "JPG・PNG・WebP・HEIC・PDF の変換、圧縮、リサイズ、結合、分割をブラウザだけで行える無料ツール集。登録不要・ファイルはサーバーに送信されません。45種類以上のツールを提供しています。";
 
 const websiteJsonLd = {
   "@context": "https://schema.org",
@@ -36,8 +36,14 @@ export const metadata: Metadata = {
     "画像変換",
     "画像圧縮",
     "PDF変換",
+    "PDF圧縮",
+    "JPG PNG 変換",
+    "HEIC JPG 変換",
+    "WebP 変換",
+    "画像リサイズ",
     "オンラインツール",
-    "AI Image Tools",
+    "無料",
+    "Filewisp",
   ],
   robots: {
     index: true,

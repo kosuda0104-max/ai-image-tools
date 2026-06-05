@@ -7,7 +7,7 @@ const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 const siteDescription =
-  "ブラウザで使える無料の画像変換・画像編集・PDFツール集です。JPG、PNG、WebP、HEIC、PDF などの変換や圧縮、リサイズ、切り抜きまで安全に行えます。";
+  "JPG・PNG・WebP・HEIC・PDF の変換、圧縮、リサイズ、結合、分割をブラウザだけで行える無料ツール集。登録不要・ファイルはサーバーに送信されません。45種類以上のツールを提供しています。";
 
 export const metadata: Metadata = {
   description: siteDescription,
@@ -19,16 +19,16 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AI Image Tools",
+    title: "Filewisp",
     description: siteDescription,
     url: siteUrl,
-    siteName: "AI Image Tools",
+    siteName: "Filewisp",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "AI Image Tools",
+        alt: "Filewisp",
       },
     ],
     locale: "ja_JP",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Image Tools",
+    title: "Filewisp",
     description: siteDescription,
     images: ["/og.png"],
   },
@@ -56,23 +56,29 @@ export default function JaLayout({
           </Link>
 
           <nav className="flex flex-wrap items-center gap-4 text-sm text-gray-700">
+            <Link className="hover:underline" href="/tools/heic-to-jpg">
+              HEIC→JPG
+            </Link>
             <Link className="hover:underline" href="/tools/jpg-to-png">
-              JPGをPNGに変換
+              JPG→PNG
             </Link>
             <Link className="hover:underline" href="/tools/png-to-jpg">
-              PNGをJPGに変換
+              PNG→JPG
             </Link>
             <Link className="hover:underline" href="/tools/image-compress">
               画像圧縮
+            </Link>
+            <Link className="hover:underline" href="/tools/pdf-to-jpg">
+              PDF→JPG
+            </Link>
+            <Link className="hover:underline" href="/tools/compress-pdf">
+              PDF圧縮
             </Link>
             <Link className="hover:underline" href="/tools">
               ツール一覧
             </Link>
             <Link className="hover:underline" href="/guides">
               ガイド
-            </Link>
-            <Link className="hover:underline" href="/about">
-              このサイトについて
             </Link>
             <Link className="font-semibold hover:underline" href="/en">
               EN
@@ -96,7 +102,7 @@ export default function JaLayout({
 
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="text-sm text-gray-600">
-                Copyright {new Date().getFullYear()} AI Image Tools
+                Copyright {new Date().getFullYear()} Filewisp
               </div>
 
               <nav className="flex flex-wrap gap-4 text-sm text-gray-600">
