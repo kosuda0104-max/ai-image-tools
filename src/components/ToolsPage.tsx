@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { toolsPageContent } from "@/src/data/tools/tools-page";
+import { ToolIcon } from "@/src/lib/tool-visuals";
 import { siteUrl } from "@/src/lib/site";
 
 type Props = {
@@ -22,94 +23,6 @@ type ToolCategory = {
 };
 
 type SortKey = "default" | "popular" | "name";
-
-function getIconLabel(tool: ToolItem) {
-  const slug = tool.href.split("/").pop() ?? "";
-  const name = tool.name.toLowerCase();
-
-  if (slug.includes("pdf") || name.includes("pdf")) return "PDF";
-  if (slug.includes("jpg") || name.includes("jpg")) return "JPG";
-  if (slug.includes("png") || name.includes("png")) return "PNG";
-  if (slug.includes("webp") || name.includes("webp")) return "WEBP";
-  if (slug.includes("heic") || name.includes("heic")) return "HEIC";
-  if (slug.includes("gif") || name.includes("gif")) return "GIF";
-  if (slug.includes("svg") || name.includes("svg")) return "SVG";
-  if (slug.includes("avif") || name.includes("avif")) return "AVIF";
-  if (slug.includes("bmp") || name.includes("bmp")) return "BMP";
-  if (slug.includes("tiff") || name.includes("tiff")) return "TIFF";
-  if (slug.includes("ico") || name.includes("ico")) return "ICO";
-  if (slug.includes("compress")) return "ZIP";
-  if (slug.includes("resize")) return "SIZE";
-  if (slug.includes("crop")) return "CROP";
-  if (slug.includes("rotate")) return "ROTATE";
-  if (slug.includes("flip")) return "FLIP";
-  if (slug.includes("watermark")) return "MARK";
-  if (slug.includes("grayscale")) return "GRAY";
-
-  return "TOOL";
-}
-
-function getIconClasses(tool: ToolItem) {
-  const slug = tool.href.split("/").pop() ?? "";
-  const name = tool.name.toLowerCase();
-
-  if (slug.includes("pdf") || name.includes("pdf")) {
-    return "bg-red-50 text-red-700 ring-1 ring-inset ring-red-200";
-  }
-  if (
-    slug.includes("jpg") ||
-    name.includes("jpg") ||
-    slug.includes("jpeg") ||
-    name.includes("jpeg")
-  ) {
-    return "bg-orange-50 text-orange-700 ring-1 ring-inset ring-orange-200";
-  }
-  if (slug.includes("png") || name.includes("png")) {
-    return "bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-200";
-  }
-  if (slug.includes("webp") || name.includes("webp")) {
-    return "bg-violet-50 text-violet-700 ring-1 ring-inset ring-violet-200";
-  }
-  if (slug.includes("gif") || name.includes("gif")) {
-    return "bg-pink-50 text-pink-700 ring-1 ring-inset ring-pink-200";
-  }
-  if (
-    slug.includes("heic") ||
-    name.includes("heic") ||
-    slug.includes("avif") ||
-    name.includes("avif")
-  ) {
-    return "bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-200";
-  }
-  if (slug.includes("svg") || name.includes("svg")) {
-    return "bg-sky-50 text-sky-700 ring-1 ring-inset ring-sky-200";
-  }
-  if (
-    slug.includes("bmp") ||
-    name.includes("bmp") ||
-    slug.includes("tiff") ||
-    name.includes("tiff") ||
-    slug.includes("ico") ||
-    name.includes("ico")
-  ) {
-    return "bg-cyan-50 text-cyan-700 ring-1 ring-inset ring-cyan-200";
-  }
-  if (slug.includes("compress")) {
-    return "bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-200";
-  }
-  if (
-    slug.includes("resize") ||
-    slug.includes("crop") ||
-    slug.includes("rotate") ||
-    slug.includes("flip") ||
-    slug.includes("watermark") ||
-    slug.includes("grayscale")
-  ) {
-    return "bg-slate-100 text-slate-700 ring-1 ring-inset ring-slate-200";
-  }
-
-  return "bg-gray-100 text-gray-700 ring-1 ring-inset ring-gray-200";
-}
 
 function getPopularityScore(tool: ToolItem) {
   const slug = tool.href.split("/").pop() ?? "";
@@ -236,7 +149,7 @@ export default function ToolsPage({ locale }: Props) {
   const hintsLabel = locale === "en" ? "Browse by goal / decision table" : "目的から選ぶ / 判断表を見る";
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-gray-50">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageJsonLd) }}
@@ -246,26 +159,35 @@ export default function ToolsPage({ locale }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
 
-      <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
-        {/* ── コンパクトヘッダー ── */}
-        <div className="mb-5">
-          <h1 className="text-2xl font-bold text-gray-900">{t.hero.title}</h1>
-          <p className="mt-1 text-sm text-gray-500">{t.hero.description}</p>
+      {/* ── ヘッダー ── */}
+      <section className="border-b border-gray-200 bg-gradient-to-b from-blue-50 via-indigo-50/50 to-gray-50">
+        <div className="mx-auto max-w-6xl px-4 py-12 text-center sm:px-6 sm:py-14 lg:px-8">
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{t.hero.title}</h1>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-gray-600 sm:text-base">{t.hero.description}</p>
         </div>
+      </section>
 
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
         {/* ── 検索 + 並び替え ── */}
-        <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder={labels.searchPlaceholder}
-            className="flex-1 rounded-xl border border-gray-300 bg-gray-50 px-4 py-2.5 text-sm outline-none transition focus:border-blue-500 focus:bg-white"
-          />
+        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="relative flex-1">
+            <span className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-400">
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+              </svg>
+            </span>
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder={labels.searchPlaceholder}
+              className="w-full rounded-2xl border border-gray-200 bg-white py-3 pl-12 pr-4 text-sm shadow-sm outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+            />
+          </div>
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
-            className="rounded-xl border border-gray-300 bg-gray-50 px-4 py-2.5 text-sm outline-none transition focus:border-blue-500 focus:bg-white sm:w-40"
+            className="rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm shadow-sm outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100 sm:w-44"
           >
             <option value="default">{labels.sortDefault}</option>
             <option value="popular">{labels.sortPopular}</option>
@@ -275,11 +197,11 @@ export default function ToolsPage({ locale }: Props) {
 
         {/* ── ツールグリッド ── */}
         {filteredCategories.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-gray-300 px-6 py-10 text-center text-sm text-gray-500">
+          <div className="rounded-2xl border border-dashed border-gray-300 bg-white px-6 py-12 text-center text-sm text-gray-500">
             {labels.noResults}
           </div>
         ) : (
-          <div className="space-y-8">
+          <div className="space-y-12">
             {filteredCategories.map((category) => {
               const isExpanded = expandedCategories.includes(category.title);
               const visibleTools = isExpanded
@@ -288,12 +210,12 @@ export default function ToolsPage({ locale }: Props) {
 
               return (
                 <section key={category.title}>
-                  <h2 className="mb-1 text-base font-semibold text-gray-900">
+                  <h2 className="text-xl font-bold text-gray-900">
                     {category.title}
                   </h2>
-                  <p className="mb-3 text-xs text-gray-500">{category.description}</p>
+                  <p className="mb-5 mt-1 text-sm text-gray-500">{category.description}</p>
 
-                  <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4">
+                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
                     {visibleTools.map((tool) => (
                       <Link
                         key={tool.href}
@@ -302,18 +224,11 @@ export default function ToolsPage({ locale }: Props) {
                             ? tool.href.replace(/^\/tools/, "/en/tools")
                             : tool.href
                         }
-                        className="group rounded-xl border border-gray-200 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md"
+                        className="group flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-transparent hover:shadow-lg hover:shadow-gray-200/70"
                       >
-                        <div className="mb-2 flex items-start justify-between gap-2">
-                          <div
-                            className={`inline-flex h-7 min-w-7 items-center justify-center rounded-lg px-2 text-[10px] font-bold ${getIconClasses(tool)}`}
-                          >
-                            {getIconLabel(tool)}
-                          </div>
-                          <span aria-hidden="true" className="text-xs text-gray-300 opacity-0 transition group-hover:opacity-100">→</span>
-                        </div>
-                        <p className="text-sm font-medium text-gray-900 leading-5">{tool.name}</p>
-                        <p className="mt-1 line-clamp-2 text-[11px] leading-4 text-gray-500">{tool.description}</p>
+                        <ToolIcon name={tool.name} href={tool.href} />
+                        <p className="mt-3 text-sm font-semibold text-gray-900 group-hover:text-blue-700">{tool.name}</p>
+                        <p className="mt-1 line-clamp-2 text-xs leading-5 text-gray-500">{tool.description}</p>
                       </Link>
                     ))}
                   </div>
@@ -322,7 +237,7 @@ export default function ToolsPage({ locale }: Props) {
                     <button
                       type="button"
                       onClick={() => toggleCategory(category.title)}
-                      className="mt-2 text-sm text-gray-500 underline"
+                      className="mt-4 rounded-full border border-gray-300 bg-white px-4 py-1.5 text-sm font-medium text-gray-600 transition hover:border-gray-400 hover:text-gray-900"
                     >
                       {isExpanded ? labels.less : labels.more}
                     </button>
