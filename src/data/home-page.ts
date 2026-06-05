@@ -1,4 +1,5 @@
 import { getToolItems } from "@/src/data/tool-directory";
+import { getGuides } from "@/src/data/guides";
 
 type ToolItem = {
   name: string;
@@ -25,6 +26,12 @@ type TaskPathItem = {
 
 type HomePageLocale = "ja" | "en";
 
+type GuideLink = {
+  slug: string;
+  title: string;
+  cardDescription: string;
+};
+
 type HomePageContent = {
   badge: string;
   hero: {
@@ -46,6 +53,12 @@ type HomePageContent = {
     items: TaskPathItem[];
   };
   categories: ToolCategory[];
+  guidesSection: {
+    title: string;
+    description: string;
+    viewAllLabel: string;
+    guides: GuideLink[];
+  };
   aboutSection: {
     title: string;
     paragraphs: string[];
@@ -65,15 +78,15 @@ type HomePageContent = {
 };
 
 const ja = {
-  heroTitle: "ブラウザで使える画像変換・PDF ツール",
+  heroTitle: "JPG・PNG・WebP・HEIC・PDF を変換する無料ブラウザツール集",
   heroDescription:
-    "JPG、PNG、WebP、HEIC、GIF、PDF まわりの変換や、画像圧縮、リサイズ、切り抜きまでをブラウザ上でそのまま進められる無料ツール集です。提出前の調整、共有前の軽量化、形式変換のやり直しなど、実務でも日常でも使いやすい作業をまとめています。",
+    "画像変換（JPG←→PNG←→WebP・HEIC→JPG）、画像圧縮、リサイズ、切り抜き、PDF の変換・結合・分割・圧縮まで45種類以上のツールをブラウザだけで使えます。登録不要・ファイルは外部サーバーに送信されません。",
   viewTools: "ツール一覧を見る",
   contact: "お問い合わせ",
   stats: [
-    { value: "45ツール掲載", label: "画像・PDF・データ変換をひと通りカバー" },
-    { value: "無料", label: "登録なしですぐ試せる" },
-    { value: "ブラウザ処理", label: "多くの作業を端末内で完結" },
+    { value: "45種類以上", label: "画像・PDF・データ変換ツールを提供中" },
+    { value: "完全無料", label: "登録なしですぐ試せる" },
+    { value: "ブラウザ完結", label: "ファイルはサーバーに送信されない" },
   ],
   popularTitle: "よく使われるツール",
   viewAll: "すべて見る",
@@ -82,7 +95,7 @@ const ja = {
     "何をしたいかが決まっているときは、ツール名から探すよりも目的から選ぶほうが早いです。提出前、共有前、形式のやり直しなど、よくある流れごとに使いやすいツールをまとめています。",
   aboutTitle: "このサイトについて",
   aboutBody1:
-    "AI Image Tools は、画像変換、画像調整、PDF 作業をブラウザだけで進めやすくするための無料ツールサイトです。単に変換ボタンを置くだけでなく、用途ごとに迷いにくい説明や選び方も整えることを重視しています。",
+    "Filewisp は、画像変換、画像調整、PDF 作業をブラウザだけで進めやすくするための無料ツールサイトです。単に変換ボタンを置くだけでなく、用途ごとに迷いにくい説明や選び方も整えることを重視しています。",
   aboutBody2:
     "初めて使う人でも流れが追いやすいこと、仕事の途中でもすぐ使えること、形式の違いで困りにくいことを意識して更新しています。",
   toolsTitle: "ツール一覧ページ",
@@ -90,7 +103,7 @@ const ja = {
     "画像変換、画像編集、PDF ツールをカテゴリごとにまとめています。やりたい作業が決まっているときも、似たツールを見比べたいときも探しやすい構成です。",
   toolsButton: "ツール一覧へ",
   faqTitle: "よくある質問",
-  faq1q: "AI Image Tools は無料で使えますか？",
+  faq1q: "Filewisp は無料で使えますか？",
   faq1a: "はい。公開しているツールは無料で使えます。まず試してから使い勝手を確認したい人向けのサイトです。",
   faq2q: "画像は安全に扱われますか？",
   faq2a: "多くのツールはブラウザ内で処理するため、画像を外部サーバーに送らずに済みます。提出前の画像や社内資料でも使いやすいよう、この点は特に重視しています。",
@@ -114,7 +127,7 @@ const ja = {
 
 export const homePageContent: Record<HomePageLocale, HomePageContent> = {
   ja: {
-    badge: "AI Image Tools",
+    badge: "Filewisp",
     hero: {
       title: ja.heroTitle,
       description: ja.heroDescription,
@@ -131,6 +144,12 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       "jpg-compress",
       "image-compress",
       "pdf-to-jpg",
+      "image-to-pdf",
+      "resize-image",
+      "compress-pdf",
+      "jpg-to-webp",
+      "webp-to-jpg",
+      "merge-pdf",
     ]),
     taskPathsSection: {
       title: ja.taskPathsTitle,
@@ -162,6 +181,22 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "png-to-jpg",
           "heic-to-jpg",
           "heic-to-png",
+          "webp-to-jpg",
+          "webp-to-png",
+          "jpg-to-webp",
+          "png-to-webp",
+          "avif-to-jpg",
+          "avif-to-png",
+          "gif-to-jpg",
+          "gif-to-png",
+          "svg-to-png",
+          "svg-to-jpg",
+          "bmp-to-jpg",
+          "bmp-to-png",
+          "tiff-to-jpg",
+          "tiff-to-png",
+          "ico-to-png",
+          "ico-to-jpg",
         ]),
       },
       {
@@ -172,6 +207,13 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "jpg-compress",
           "png-compress",
           "webp-compress",
+          "resize-image",
+          "crop-image",
+          "rotate-image",
+          "flip-image",
+          "grayscale-image",
+          "watermark-image",
+          "image-to-base64",
         ]),
       },
       {
@@ -181,7 +223,13 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "image-to-pdf",
           "jpg-to-pdf",
           "pdf-to-jpg",
+          "pdf-to-png",
+          "pdf-to-webp",
           "merge-pdf",
+          "split-pdf",
+          "compress-pdf",
+          "rotate-pdf",
+          "pdf-remove-pages",
         ]),
       },
       {
@@ -190,6 +238,16 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
         tools: getToolItems("ja", ["parquet-to-csv", "csv-to-parquet", "json-to-csv", "csv-to-json"]),
       },
     ],
+    guidesSection: {
+      title: "使い方ガイド",
+      description: "形式の選び方、圧縮のコツ、PDF 作業の流れなど、ツールを使う前後に役立つ解説をまとめています。",
+      viewAllLabel: "ガイドをすべて見る",
+      guides: getGuides("ja").slice(0, 6).map((g) => ({
+        slug: g.slug,
+        title: g.title,
+        cardDescription: g.cardDescription,
+      })),
+    },
     aboutSection: {
       title: ja.aboutTitle,
       paragraphs: [ja.aboutBody1, ja.aboutBody2],
@@ -213,18 +271,18 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
     },
   },
   en: {
-    badge: "AI Image Tools",
+    badge: "Filewisp",
     hero: {
-      title: "Free Image and PDF Conversion Tools",
+      title: "Free Online Image & PDF Converter – JPG, PNG, WebP, HEIC, PDF",
       description:
-        "A free browser-based collection for image conversion, compression, resizing, cropping, and practical PDF work. It is designed for real tasks such as uploads, submissions, publishing prep, and quick format fixes.",
+        "Convert JPG, PNG, WebP, HEIC, GIF, SVG, and PDF files instantly in your browser. Compress images, resize, crop, merge PDFs, and more — 45+ free tools with no file upload to an external server.",
       primaryButtonLabel: "View All Tools",
       secondaryButtonLabel: "Contact",
     },
     stats: [
-      { value: "45 Tools", label: "Covering image, PDF, and data conversion" },
-      { value: "Free", label: "No signup required" },
-      { value: "Browser-based", label: "Many workflows stay on your device" },
+      { value: "45+ Tools", label: "Image, PDF, and data conversion" },
+      { value: "100% Free", label: "No signup required" },
+      { value: "Browser-only", label: "Files never leave your device" },
     ],
     popularToolsTitle: "Popular Tools",
     toolsPageLinkLabel: "View all",
@@ -235,6 +293,12 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       "jpg-compress",
       "image-compress",
       "pdf-to-jpg",
+      "image-to-pdf",
+      "resize-image",
+      "compress-pdf",
+      "jpg-to-webp",
+      "webp-to-jpg",
+      "merge-pdf",
     ]),
     taskPathsSection: {
       title: "Choose by what you need to finish",
@@ -267,6 +331,22 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "png-to-jpg",
           "heic-to-jpg",
           "heic-to-png",
+          "webp-to-jpg",
+          "webp-to-png",
+          "jpg-to-webp",
+          "png-to-webp",
+          "avif-to-jpg",
+          "avif-to-png",
+          "gif-to-jpg",
+          "gif-to-png",
+          "svg-to-png",
+          "svg-to-jpg",
+          "bmp-to-jpg",
+          "bmp-to-png",
+          "tiff-to-jpg",
+          "tiff-to-png",
+          "ico-to-png",
+          "ico-to-jpg",
         ]),
       },
       {
@@ -277,6 +357,13 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "jpg-compress",
           "png-compress",
           "webp-compress",
+          "resize-image",
+          "crop-image",
+          "rotate-image",
+          "flip-image",
+          "grayscale-image",
+          "watermark-image",
+          "image-to-base64",
         ]),
       },
       {
@@ -286,7 +373,13 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "image-to-pdf",
           "jpg-to-pdf",
           "pdf-to-jpg",
+          "pdf-to-png",
+          "pdf-to-webp",
           "merge-pdf",
+          "split-pdf",
+          "compress-pdf",
+          "rotate-pdf",
+          "pdf-remove-pages",
         ]),
       },
       {
@@ -295,10 +388,20 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
         tools: getToolItems("en", ["parquet-to-csv", "csv-to-parquet", "json-to-csv", "csv-to-json"]),
       },
     ],
+    guidesSection: {
+      title: "Guides",
+      description: "Short guides on image formats, compression, and PDF workflows — useful before or after using the tools.",
+      viewAllLabel: "View all guides",
+      guides: getGuides("en").slice(0, 6).map((g) => ({
+        slug: g.slug,
+        title: g.title,
+        cardDescription: g.cardDescription,
+      })),
+    },
     aboutSection: {
       title: "About This Site",
       paragraphs: [
-        "AI Image Tools is a free browser-based site for image conversion, image cleanup, and PDF workflows.",
+        "Filewisp is a free browser-based site for image conversion, image cleanup, and PDF workflows.",
         "The goal is not just to publish tools, but to make common file tasks easier to understand and easier to finish without extra friction.",
       ],
     },
@@ -310,7 +413,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
     },
     faqSectionTitle: "Frequently Asked Questions",
     faqItems: [
-      { question: "Is AI Image Tools free to use?", answer: "Yes. The published tools are free to use, and the site is meant to be easy to try without setup." },
+      { question: "Is Filewisp free to use?", answer: "Yes. The published tools are free to use, and the site is meant to be easy to try without setup." },
       { question: "Are uploaded files safe?", answer: "Most tools process files in your browser, which helps keep images off external servers and makes the tools easier to use for sensitive everyday tasks." },
       { question: "What file formats are supported?", answer: "The site covers JPG, PNG, WebP, HEIC, GIF, AVIF, BMP, TIFF, ICO, SVG, and several PDF workflows including conversion, splitting, merging, and compression." },
       { question: "Will more tools be added later?", answer: "Probably, but the priority is improving the usefulness and clarity of the tools already here before expanding the list further." },

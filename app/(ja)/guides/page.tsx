@@ -2,9 +2,9 @@ import Link from "next/link";
 import { getGuides } from "@/src/data/guides";
 
 export const metadata = {
-  title: "ガイド | AI Image Tools",
+  title: "ガイド – 画像変換・PDF・データ処理の使い方",
   description:
-    "画像形式の選び方、圧縮の考え方、PDF ツールの使い分けなどを整理した解説ページです。用途から逆算してツールを選びやすくします。",
+    "JPG・PNG・WebP・HEIC の選び方、画像圧縮のコツ、PDF の結合・分割・変換の考え方など15本以上のガイドを公開しています。ツールを選ぶ前後の参考にどうぞ。",
 };
 
 const guides = getGuides("ja");
@@ -16,9 +16,10 @@ export default function Page() {
         <div className="mx-auto max-w-5xl px-4 py-16">
           <h1 className="text-4xl font-bold text-gray-900">ガイド</h1>
           <p className="mt-4 text-lg leading-8 text-gray-600">
-            変換の前に考え方を整理したいとき向けに、画像形式、圧縮、
+            変換の前に考え方を整理したいとき向けに、画像形式の選び方、圧縮のコツ、
             PDF作業の使い分けを実務寄りにまとめています。
           </p>
+          <p className="mt-2 text-sm text-gray-400">{guides.length}本のガイドを公開中</p>
         </div>
       </section>
 

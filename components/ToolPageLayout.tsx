@@ -325,7 +325,7 @@ export default function ToolPageLayout({
     dateModified: TOOL_CONTENT_LAST_UPDATED,
     isPartOf: {
       "@type": "WebSite",
-      name: "AI Image Tools",
+      name: "Filewisp",
       url: siteUrl,
     },
     offers: {

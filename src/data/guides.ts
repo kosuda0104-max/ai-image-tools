@@ -1220,7 +1220,7 @@ const enGuides: GuideEntry[] = [
         title: "A practical upload workflow",
         paragraphs: [
           "A reliable order is: check requirements, convert format, resize dimensions, compress file size, then review the final image. This keeps each decision separate and easier to fix.",
-          "AI Image Tools includes HEIC to JPG, WebP to JPG, image resize, image compress, crop image, and other tools that fit this upload preparation workflow in the browser.",
+          "Filewisp includes HEIC to JPG, WebP to JPG, image resize, image compress, crop image, and other tools that fit this upload preparation workflow in the browser.",
         ],
       },
     ],
@@ -1265,7 +1265,7 @@ const enGuides: GuideEntry[] = [
         title: "Final review before sending",
         paragraphs: [
           "Open the PDF once before sending it. Check missing pages, page order, readability, and whether any unwanted image slipped in. A quick review can prevent a lot of submission mistakes.",
-          "AI Image Tools includes HEIC to JPG, JPG compress, rotate image, crop image, image to PDF, and compress PDF tools that fit this workflow.",
+          "Filewisp includes HEIC to JPG, JPG compress, rotate image, crop image, image to PDF, and compress PDF tools that fit this workflow.",
         ],
       },
     ],
@@ -1348,7 +1348,7 @@ const enGuides: GuideEntry[] = [
         title: "A reliable publishing workflow",
         paragraphs: [
           "A simple workflow is: confirm use case, resize dimensions, choose or convert format, compress, then preview on the page. Resizing first reduces the need for aggressive compression.",
-          "AI Image Tools includes resize image, JPG compress, PNG compress, WebP compress, JPG to WebP, and PNG to WebP tools for preparing web images in the browser.",
+          "Filewisp includes resize image, JPG compress, PNG compress, WebP compress, JPG to WebP, and PNG to WebP tools for preparing web images in the browser.",
         ],
       },
     ],

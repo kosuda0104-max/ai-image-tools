@@ -4,7 +4,7 @@ import { getToolMeta } from "@/lib/tools";
 const tool = getToolMeta("png-to-jpg");
 
 export const metadata: Metadata = {
-  title: tool?.title ?? "AI Image Tools",
+  title: tool?.title ?? "Filewisp",
   description: tool?.description ?? "Free online image and PDF tools.",
 };
 

@@ -192,7 +192,7 @@ const ja = {
 
 export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
   ja: {
-    badge: "AI Image Tools",
+    badge: "Filewisp",
     hero: { title: ja.heroTitle, description: ja.heroDescription },
     stats: ja.stats,
     popularToolsTitle: ja.popularToolsTitle,
@@ -381,7 +381,7 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
     },
   },
   en: {
-    badge: "AI Image Tools",
+    badge: "Filewisp",
     hero: {
       title: "Free Image and PDF Conversion Tools",
       description:

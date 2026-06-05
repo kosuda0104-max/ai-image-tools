@@ -43,26 +43,25 @@ function QuietMark() {
 function MonogramMark() {
   return (
     <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-slate-900 text-[11px] font-semibold tracking-[0.18em] text-white">
-      IT
+      FW
+    </span>
+  );
+}
+
+function Wordmark({ compact }: { compact: boolean }) {
+  return (
+    <span
+      className={`font-semibold tracking-tight text-slate-950 ${
+        compact ? "text-base" : "text-xl"
+      }`}
+    >
+      File<span className="text-blue-600">wisp</span>
     </span>
   );
 }
 
 function WordmarkOnly({ compact }: { compact: boolean }) {
-  return (
-    <span className="flex flex-col leading-none">
-      <span className="text-[10px] font-medium uppercase tracking-[0.24em] text-slate-500">
-        AI
-      </span>
-      <span
-        className={`font-semibold tracking-tight text-slate-950 ${
-          compact ? "text-base" : "text-xl"
-        }`}
-      >
-        Image Tools
-      </span>
-    </span>
-  );
+  return <Wordmark compact={compact} />;
 }
 
 function MarkWithLabel({
@@ -73,20 +72,9 @@ function MarkWithLabel({
   mark: React.ReactNode;
 }) {
   return (
-    <span className="inline-flex items-center gap-3">
+    <span className="inline-flex items-center gap-2.5">
       {mark}
-      <span className="flex flex-col leading-none">
-        <span className="text-[10px] font-medium uppercase tracking-[0.24em] text-slate-500">
-          AI
-        </span>
-        <span
-          className={`font-semibold tracking-tight text-slate-950 ${
-            compact ? "text-base" : "text-xl"
-          }`}
-        >
-          Image Tools
-        </span>
-      </span>
+      <Wordmark compact={compact} />
     </span>
   );
 }

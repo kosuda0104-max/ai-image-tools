@@ -1,6 +1,6 @@
 const JAPANESE_TEXT_PATTERN = /[ぁ-ヿ㐀-龯]/;
 
-export const TOOL_CONTENT_LAST_UPDATED = "2026-04-13";
+export const TOOL_CONTENT_LAST_UPDATED = "2026-06-05";
 
 export function isJapaneseText(value: string): boolean {
   return JAPANESE_TEXT_PATTERN.test(value);

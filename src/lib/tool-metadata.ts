@@ -41,7 +41,7 @@ export function createToolMetadata({
   return {
     title,
     description,
-    applicationName: "AI Image Tools",
+    applicationName: "Filewisp",
     category: "Utilities",
     keywords,
     robots: {
@@ -60,7 +60,7 @@ export function createToolMetadata({
       title,
       description,
       url: `${siteUrl}${canonicalPath}`,
-      siteName: "AI Image Tools",
+      siteName: "Filewisp",
       locale: isEn ? "en_US" : "ja_JP",
       type: "website",
       images: [

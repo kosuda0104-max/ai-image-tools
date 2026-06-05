@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Privacy Policy | AI Image Tools",
+  title: "Privacy Policy | Filewisp",
   description:
-    "This page explains how AI Image Tools handles cookies, Google AdSense advertising, analytics, and contact form data.",
+    "This page explains how Filewisp handles cookies, Google AdSense advertising, analytics, and contact form data.",
 };
 
 export default function Page() {
@@ -14,7 +14,7 @@ export default function Page() {
           <div className="space-y-4">
             <h1 className="text-4xl font-bold text-gray-900">Privacy Policy</h1>
             <p className="text-lg leading-8 text-gray-600">
-              This page explains how AI Image Tools handles cookies, advertising through Google AdSense, analytics, and information submitted through the contact form.
+              This page explains how Filewisp handles cookies, advertising through Google AdSense, analytics, and information submitted through the contact form.
             </p>
           </div>
         </div>

@@ -6,7 +6,6 @@ import FileDropzone from "@/components/FileDropzone";
 import PreviewImage from "@/components/PreviewImage";
 import PrimaryButton from "@/components/PrimaryButton";
 import StatusMessage from "@/components/StatusMessage";
-import FAQJsonLd from "@/components/FAQJsonLd";
 
 type Locale = "ja" | "en";
 
@@ -251,7 +250,6 @@ export default function GrayscaleImageTool({ locale }: Props) {
 
   return (
     <>
-      <FAQJsonLd faqs={page.faqs} />
       <ToolPageLayout
       title={page.title}
       description={page.description}

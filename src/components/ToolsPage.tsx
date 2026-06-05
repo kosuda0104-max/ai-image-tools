@@ -212,7 +212,7 @@ export default function ToolsPage({ locale }: Props) {
     url: `${siteUrl}${locale === "en" ? "/en/tools" : "/tools"}`,
     isPartOf: {
       "@type": "WebSite",
-      name: "AI Image Tools",
+      name: "Filewisp",
       url: siteUrl,
     },
   };

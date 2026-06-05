@@ -2,9 +2,9 @@ import Link from "next/link";
 import { getGuides } from "@/src/data/guides";
 
 export const metadata = {
-  title: "Guides | AI Image Tools",
+  title: "Guides – Image Format, Compression & PDF Tips",
   description:
-    "Guides for image formats, compression, resizing, and PDF workflows to help visitors pick the right tool with less trial and error.",
+    "15+ practical guides on JPG vs PNG vs WebP, image compression, PDF merging, splitting, and conversion workflows. Find the right tool with less trial and error.",
 };
 
 const guides = getGuides("en");
@@ -19,6 +19,7 @@ export default function Page() {
             Practical articles for choosing image formats, planning PDF work,
             and avoiding common conversion mistakes before you start.
           </p>
+          <p className="mt-2 text-sm text-gray-400">{guides.length} guides published</p>
         </div>
       </section>
 

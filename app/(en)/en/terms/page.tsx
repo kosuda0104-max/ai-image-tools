@@ -1,8 +1,8 @@
 import StaticContentPage from "@/src/components/StaticContentPage";
 
 export const metadata = {
-  title: "Terms | AI Image Tools",
-  description: "Terms of use for AI Image Tools.",
+  title: "Terms | Filewisp",
+  description: "Terms of use for Filewisp.",
 };
 
 export default function Page() {
@@ -10,7 +10,7 @@ export default function Page() {
     <StaticContentPage
       locale="en"
       title="Terms of Use"
-      description="These terms describe the basic conditions for using AI Image Tools."
+      description="These terms describe the basic conditions for using Filewisp."
       sections={[
         {
           title: "Service scope",

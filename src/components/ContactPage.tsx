@@ -68,7 +68,7 @@ export default function ContactPage({ locale }: Props) {
     description: t.subtext,
     mainEntity: {
       "@type": "Organization",
-      name: "AI Image Tools",
+      name: "Filewisp",
       url: siteUrl,
       contactPoint: {
         "@type": "ContactPoint",

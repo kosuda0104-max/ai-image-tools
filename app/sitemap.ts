@@ -1,9 +1,11 @@
 import type { MetadataRoute } from "next";
 import { getGuides } from "@/src/data/guides";
+import { getAllToolItems } from "@/src/data/tool-directory";
 import { siteUrl } from "@/src/lib/site";
 import { TOOL_CONTENT_LAST_UPDATED } from "@/src/lib/seo-signals";
 
 const guideRoutes = getGuides("ja").map((guide) => `/guides/${guide.slug}`);
+const toolRoutes = getAllToolItems("ja").map((tool) => `/tools/${tool.slug}`);
 
 const routes = [
   "",
@@ -14,51 +16,7 @@ const routes = [
   "/contact",
   "/privacy-policy",
   "/terms",
-  "/tools/jpg-to-png",
-  "/tools/png-to-jpg",
-  "/tools/webp-to-png",
-  "/tools/webp-to-jpg",
-  "/tools/jpg-to-webp",
-  "/tools/png-to-webp",
-  "/tools/avif-to-png",
-  "/tools/avif-to-jpg",
-  "/tools/gif-to-png",
-  "/tools/gif-to-jpg",
-  "/tools/svg-to-png",
-  "/tools/svg-to-jpg",
-  "/tools/heic-to-jpg",
-  "/tools/heic-to-png",
-  "/tools/bmp-to-jpg",
-  "/tools/bmp-to-png",
-  "/tools/tiff-to-jpg",
-  "/tools/tiff-to-png",
-  "/tools/ico-to-png",
-  "/tools/ico-to-jpg",
-  "/tools/resize-image",
-  "/tools/crop-image",
-  "/tools/rotate-image",
-  "/tools/flip-image",
-  "/tools/image-compress",
-  "/tools/jpg-compress",
-  "/tools/png-compress",
-  "/tools/webp-compress",
-  "/tools/grayscale-image",
-  "/tools/watermark-image",
-  "/tools/image-to-pdf",
-  "/tools/jpg-to-pdf",
-  "/tools/pdf-to-jpg",
-  "/tools/pdf-to-png",
-  "/tools/pdf-to-webp",
-  "/tools/merge-pdf",
-  "/tools/split-pdf",
-  "/tools/compress-pdf",
-  "/tools/rotate-pdf",
-  "/tools/pdf-remove-pages",
-  "/tools/parquet-to-csv",
-  "/tools/csv-to-parquet",
-  "/tools/json-to-csv",
-  "/tools/csv-to-json",
-  "/tools/image-to-base64",
+  ...toolRoutes,
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
