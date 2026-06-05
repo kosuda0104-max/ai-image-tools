@@ -100,6 +100,16 @@ export default function BatchImageConverter({
   const [status, setStatus] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState({ done: 0, total: 0 });
+  // Track thumbnails the browser cannot render (e.g. HEIC source files).
+  const [brokenThumbs, setBrokenThumbs] = useState<Set<string>>(new Set());
+
+  const markThumbBroken = (id: string) =>
+    setBrokenThumbs((prev) => {
+      if (prev.has(id)) return prev;
+      const next = new Set(prev);
+      next.add(id);
+      return next;
+    });
 
   // Track object URLs for cleanup on unmount.
   const urlsRef = useRef<string[]>([]);
@@ -287,8 +297,22 @@ export default function BatchImageConverter({
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {items.map((item) => (
                     <div key={item.id} className="group relative overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={item.url} alt={item.file.name} className="h-24 w-full object-contain" />
+                      {brokenThumbs.has(item.id) ? (
+                        <div className="flex h-24 w-full flex-col items-center justify-center gap-1 text-gray-400">
+                          <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v4h4" />
+                          </svg>
+                          <span className="text-[10px] uppercase">{(item.file.name.split(".").pop() || "img").slice(0, 5)}</span>
+                        </div>
+                      ) : (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={item.url}
+                          alt={item.file.name}
+                          className="h-24 w-full object-contain"
+                          onError={() => markThumbBroken(item.id)}
+                        />
+                      )}
                       <button
                         type="button"
                         onClick={() => removeItem(item.id)}
