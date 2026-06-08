@@ -41,8 +41,10 @@ export async function convertImageWithCanvas({
   try {
     const image = await loadImage(objectUrl);
     const canvas = document.createElement("canvas");
-    canvas.width = image.naturalWidth || image.width;
-    canvas.height = image.naturalHeight || image.height;
+    // Fall back to a sensible default when the source has no intrinsic size
+    // (e.g. an SVG without explicit width/height attributes).
+    canvas.width = image.naturalWidth || image.width || 1000;
+    canvas.height = image.naturalHeight || image.height || 1000;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) {
