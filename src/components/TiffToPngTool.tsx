@@ -1,53 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import ToolPageLayout from "@/components/ToolPageLayout";
-import FileDropzone from "@/components/FileDropzone";
-import PreviewImage from "@/components/PreviewImage";
-import PrimaryButton from "@/components/PrimaryButton";
-import StatusMessage from "@/components/StatusMessage";
+import SimpleImageConversionTool, {
+  type SimpleImageConversionContent,
+} from "@/src/components/SimpleImageConversionTool";
+import { tiffToPngFile } from "@/src/lib/tiff-decode";
 
 type Locale = "ja" | "en";
 
-type FAQItem = {
-  question: string;
-  answer: string;
-};
-
-type RelatedToolItem = {
-  name: string;
-  href: string;
-};
-
-type Props = {
-  locale: Locale;
-};
-
-const content: Record<
-  Locale,
-  {
-    page: {
-      title: string;
-      description: string;
-      aboutTitle: string;
-      aboutText: string;
-      stepsTitle: string;
-      steps: string[];
-      faqTitle: string;
-      faqs: FAQItem[];
-      relatedTools: RelatedToolItem[];
-    };
-    ui: {
-      emptyTitle: string;
-      emptyDescription: string;
-      selectButtonLabel: string;
-      button: string;
-      loading: string;
-      done: string;
-      invalidFile: string;
-    };
-  }
-> = {
+const content: Record<Locale, SimpleImageConversionContent> = {
   ja: {
     page: {
       title: "TIFFをPNGに変換",
@@ -92,6 +52,7 @@ const content: Record<
       loading: "変換中...",
       done: "完了しました",
       invalidFile: "TIFFファイルを選択してください。",
+      error: "変換に失敗しました。TIFFファイルが破損していないかご確認ください。",
     },
   },
   en: {
@@ -137,132 +98,20 @@ const content: Record<
       loading: "Converting...",
       done: "Done",
       invalidFile: "Please select a TIFF file.",
+      error: "Conversion failed. Please check that the TIFF file is not corrupted.",
     },
   },
 };
 
-export default function TiffToPngTool({ locale }: Props) {
-  const { page, ui } = content[locale];
-
-  const [file, setFile] = useState<File | null>(null);
-  const [status, setStatus] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const preview = useMemo(() => {
-    if (!file) return "";
-    return URL.createObjectURL(file);
-  }, [file]);
-
-  useEffect(() => {
-    return () => {
-      if (preview) URL.revokeObjectURL(preview);
-    };
-  }, [preview]);
-
-  const convert = () => {
-    if (!file) return;
-
-    const isTiff =
-      file.type === "image/tiff" || /\.tiff?$/i.test(file.name);
-
-    if (!isTiff) {
-      setStatus(ui.invalidFile);
-      return;
-    }
-
-    setLoading(true);
-    setStatus(ui.loading);
-
-    const img = new Image();
-    const url = URL.createObjectURL(file);
-    img.src = url;
-
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      const ctx = canvas.getContext("2d");
-      if (!ctx) {
-        setLoading(false);
-        setStatus("Error");
-        return;
-      }
-
-      ctx.drawImage(img, 0, 0);
-
-      canvas.toBlob((blob) => {
-        if (!blob) {
-          setLoading(false);
-          setStatus("Error");
-          return;
-        }
-
-        const a = document.createElement("a");
-        const downloadUrl = URL.createObjectURL(blob);
-
-        a.href = downloadUrl;
-        a.download = file.name.replace(/\.tiff?$/i, "") + ".png";
-        a.click();
-
-        setLoading(false);
-        setStatus(ui.done);
-
-        URL.revokeObjectURL(downloadUrl);
-        URL.revokeObjectURL(url);
-      }, "image/png");
-    };
-
-    img.onerror = () => {
-      setLoading(false);
-      setStatus("Error");
-      URL.revokeObjectURL(url);
-    };
-  };
-
+export default function TiffToPngTool({ locale }: { locale: Locale }) {
   return (
-    <>
-      <ToolPageLayout
-      title={page.title}
-      description={page.description}
-      aboutTitle={page.aboutTitle}
-      aboutText={page.aboutText}
-      stepsTitle={page.stepsTitle}
-      steps={page.steps}
-      faqTitle={page.faqTitle}
-      faqs={page.faqs}
-      relatedTools={page.relatedTools}
-    >
-      <FileDropzone
-        file={file}
-        accept="image/tiff,.tif,.tiff"
-        emptyTitle={ui.emptyTitle}
-        emptyDescription={ui.emptyDescription}
-        selectButtonLabel={ui.selectButtonLabel}
-        onFileSelect={(selected) => {
-          setStatus("");
-          setFile(selected);
-        }}
-      />
-
-      {preview && (
-        <div className="space-y-2">
-          <PreviewImage
-            src={preview}
-            alt={page.title}
-            className="max-h-80 rounded border object-contain"
-          />
-        </div>
-      )}
-
-      <PrimaryButton onClick={convert} disabled={!file || loading}>
-        {loading ? ui.loading : ui.button}
-      </PrimaryButton>
-
-      <StatusMessage status={status} />
-    </ToolPageLayout>
-    </>
+    <SimpleImageConversionTool
+      content={content[locale]}
+      accept="image/tiff,.tif,.tiff"
+      outputExtension="png"
+      outputType="image/png"
+      isValidFile={(file) => file.type === "image/tiff" || /\.tiff?$/i.test(file.name)}
+      preprocess={tiffToPngFile}
+    />
   );
 }
-
-

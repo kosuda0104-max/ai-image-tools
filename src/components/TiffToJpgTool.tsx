@@ -1,19 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import ToolPageLayout from "@/components/ToolPageLayout";
-import FileDropzone from "@/components/FileDropzone";
-import PreviewImage from "@/components/PreviewImage";
-import PrimaryButton from "@/components/PrimaryButton";
-import StatusMessage from "@/components/StatusMessage";
+import SimpleImageConversionTool, {
+  type SimpleImageConversionContent,
+} from "@/src/components/SimpleImageConversionTool";
+import { tiffToPngFile } from "@/src/lib/tiff-decode";
 
 type Locale = "ja" | "en";
 
-type Props = {
-  locale: Locale;
-};
-
-const content = {
+const content: Record<Locale, SimpleImageConversionContent> = {
   ja: {
     page: {
       title: "TIFFをJPGに変換",
@@ -46,9 +40,13 @@ const content = {
     },
     ui: {
       emptyTitle: "TIFF画像をアップロード",
+      emptyDescription: "ここにファイルをドロップ、またはクリックして選択",
+      selectButtonLabel: "ファイルを選択",
       button: "TIFFをJPGに変換",
       loading: "変換中...",
       done: "完了しました",
+      invalidFile: "TIFFファイルを選択してください。",
+      error: "変換に失敗しました。TIFFファイルが破損していないかご確認ください。",
     },
   },
   en: {
@@ -83,102 +81,28 @@ const content = {
     },
     ui: {
       emptyTitle: "Upload TIFF image",
+      emptyDescription: "Drop a file here or click to browse",
+      selectButtonLabel: "Choose File",
       button: "Convert TIFF to JPG",
       loading: "Converting...",
       done: "Done",
+      invalidFile: "Please select a TIFF file.",
+      error: "Conversion failed. Please check that the TIFF file is not corrupted.",
     },
   },
 };
 
-export default function TiffToJpgTool({ locale }: Props) {
-  const { page, ui } = content[locale];
-
-  const [file, setFile] = useState<File | null>(null);
-  const [status, setStatus] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const preview = useMemo(() => {
-    if (!file) return "";
-    return URL.createObjectURL(file);
-  }, [file]);
-
-  useEffect(() => {
-    return () => {
-      if (preview) URL.revokeObjectURL(preview);
-    };
-  }, [preview]);
-
-  const convert = () => {
-    if (!file) return;
-
-    setLoading(true);
-    setStatus(ui.loading);
-
-    const img = new Image();
-    const url = URL.createObjectURL(file);
-    img.src = url;
-
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      const ctx = canvas.getContext("2d");
-      if (!ctx) return;
-
-      ctx.drawImage(img, 0, 0);
-
-      canvas.toBlob((blob) => {
-        if (!blob) return;
-
-        const a = document.createElement("a");
-        const downloadUrl = URL.createObjectURL(blob);
-
-        a.href = downloadUrl;
-        a.download = file.name.replace(/\.tiff?$/i, "") + ".jpg";
-        a.click();
-
-        setLoading(false);
-        setStatus(ui.done);
-
-        URL.revokeObjectURL(downloadUrl);
-        URL.revokeObjectURL(url);
-      }, "image/jpeg");
-    };
-  };
-
+export default function TiffToJpgTool({ locale }: { locale: Locale }) {
   return (
-    <>
-      <ToolPageLayout
-      title={page.title}
-      description={page.description}
-      aboutTitle={page.aboutTitle}
-      aboutText={page.aboutText}
-      stepsTitle={page.stepsTitle}
-      steps={page.steps}
-      faqTitle={page.faqTitle}
-      faqs={page.faqs}
-      relatedTools={page.relatedTools}
-    >
-      <FileDropzone
-        file={file}
-        accept="image/tiff,.tif,.tiff"
-        emptyTitle={ui.emptyTitle}
-        onFileSelect={setFile}
-      />
-
-      {preview && (
-        <PreviewImage src={preview} alt={page.title} className="max-h-80" />
-      )}
-
-      <PrimaryButton onClick={convert} disabled={!file || loading}>
-        {loading ? ui.loading : ui.button}
-      </PrimaryButton>
-
-      <StatusMessage status={status} />
-    </ToolPageLayout>
-    </>
+    <SimpleImageConversionTool
+      content={content[locale]}
+      accept="image/tiff,.tif,.tiff"
+      outputExtension="jpg"
+      outputType="image/jpeg"
+      fillBackground="#ffffff"
+      quality={0.92}
+      isValidFile={(file) => file.type === "image/tiff" || /\.tiff?$/i.test(file.name)}
+      preprocess={tiffToPngFile}
+    />
   );
 }
-
-

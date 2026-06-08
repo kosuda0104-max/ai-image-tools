@@ -225,10 +225,15 @@ export default function BatchImageConverter({
   };
 
   const handleReset = () => {
+    // Release object URLs created for source/result previews to avoid leaks
+    // when the user converts several batches in one session.
+    urlsRef.current.forEach((u) => URL.revokeObjectURL(u));
+    urlsRef.current = [];
     setItems([]);
     setResults([]);
     setStatus("");
     setProgress({ done: 0, total: 0 });
+    setBrokenThumbs(new Set());
   };
 
   const hasResults = results.length > 0;
