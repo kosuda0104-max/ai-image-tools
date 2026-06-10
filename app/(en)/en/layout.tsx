@@ -52,7 +52,7 @@ export default function EnLayout({
     <>
       <LangAttribute lang="en" />
       <SiteHeader locale="en" />
-      <div className="mx-auto max-w-6xl px-6 py-8">{children}</div>
+      <div className="min-h-screen">{children}</div>
       <SiteFooter locale="en" />
       <CookieBanner locale="en" />
     </>

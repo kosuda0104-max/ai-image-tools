@@ -113,26 +113,26 @@ export default function SiteFooter({ locale }: { locale: Locale }) {
       : { name: "日本語", href: "/" };
 
   return (
-    <footer className="border-t border-gray-200 bg-gray-50">
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <footer className="bg-slate-900">
+      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr]">
           <div className="max-w-xs space-y-4">
-            <SiteLogo compact />
-            <p className="text-sm leading-6 text-gray-500">{description}</p>
-            <p className="inline-flex items-center gap-1.5 rounded-full border border-green-200 bg-green-50 px-3 py-1 text-xs text-green-700">
+            <SiteLogo compact tone="dark" />
+            <p className="text-sm leading-6 text-slate-400">{description}</p>
+            <p className="inline-flex items-center gap-1.5 rounded-full border border-green-400/30 bg-green-400/10 px-3 py-1 text-xs text-green-300">
               🔒 {locale === "ja" ? "すべてブラウザ内処理" : "100% browser-side processing"}
             </p>
           </div>
 
           {columns.map((column) => (
             <div key={column.title}>
-              <p className="mb-3 text-sm font-semibold text-gray-900">{column.title}</p>
+              <p className="mb-3 text-sm font-semibold text-white">{column.title}</p>
               <ul className="space-y-2">
                 {column.links.map((link) => (
                   <li key={link.href + link.name}>
                     <Link
                       href={link.href}
-                      className="text-sm text-gray-500 transition hover:text-gray-900"
+                      className="text-sm text-slate-400 transition hover:text-white"
                     >
                       {link.name}
                     </Link>
@@ -143,13 +143,13 @@ export default function SiteFooter({ locale }: { locale: Locale }) {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-gray-200 pt-6 sm:flex-row sm:items-center">
-          <p className="text-sm text-gray-400">
+        <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-slate-800 pt-6 sm:flex-row sm:items-center">
+          <p className="text-sm text-slate-500">
             © {new Date().getFullYear()} Filewisp
           </p>
           <Link
             href={langLink.href}
-            className="text-sm text-gray-500 transition hover:text-gray-900"
+            className="text-sm text-slate-400 transition hover:text-white"
           >
             🌐 {langLink.name}
           </Link>

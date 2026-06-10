@@ -1,11 +1,19 @@
+type Tone = "light" | "dark";
+
 type Props = {
   compact?: boolean;
   variant?: "quiet" | "wordmark" | "monogram";
+  /** "dark" renders the logo for dark backgrounds (white text). */
+  tone?: Tone;
 };
 
-function QuietMark() {
+function QuietMark({ tone }: { tone: Tone }) {
   return (
-    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-700">
+    <span
+      className={`inline-flex h-8 w-8 items-center justify-center rounded-full ${
+        tone === "dark" ? "bg-white/10 text-white" : "bg-slate-100 text-slate-700"
+      }`}
+    >
       <svg
         aria-hidden="true"
         width="18"
@@ -40,41 +48,46 @@ function QuietMark() {
   );
 }
 
-function MonogramMark() {
+function MonogramMark({ tone }: { tone: Tone }) {
   return (
-    <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-slate-900 text-[11px] font-semibold tracking-[0.18em] text-white">
+    <span
+      className={`inline-flex h-8 w-8 items-center justify-center rounded-lg text-[11px] font-semibold tracking-[0.18em] ${
+        tone === "dark" ? "bg-white text-slate-900" : "bg-slate-900 text-white"
+      }`}
+    >
       FW
     </span>
   );
 }
 
-function Wordmark({ compact }: { compact: boolean }) {
+function Wordmark({ compact, tone }: { compact: boolean; tone: Tone }) {
   return (
     <span
-      className={`font-semibold tracking-tight text-slate-950 ${
-        compact ? "text-base" : "text-xl"
-      }`}
+      className={`font-semibold tracking-tight ${
+        tone === "dark" ? "text-white" : "text-slate-950"
+      } ${compact ? "text-base" : "text-xl"}`}
     >
-      File<span className="text-blue-600">wisp</span>
+      File
+      <span className={tone === "dark" ? "text-blue-400" : "text-blue-600"}>
+        wisp
+      </span>
     </span>
   );
 }
 
-function WordmarkOnly({ compact }: { compact: boolean }) {
-  return <Wordmark compact={compact} />;
-}
-
 function MarkWithLabel({
   compact,
+  tone,
   mark,
 }: {
   compact: boolean;
+  tone: Tone;
   mark: React.ReactNode;
 }) {
   return (
     <span className="inline-flex items-center gap-2.5">
       {mark}
-      <Wordmark compact={compact} />
+      <Wordmark compact={compact} tone={tone} />
     </span>
   );
 }
@@ -82,14 +95,15 @@ function MarkWithLabel({
 export default function SiteLogo({
   compact = false,
   variant = "quiet",
+  tone = "light",
 }: Props) {
   if (variant === "wordmark") {
-    return <WordmarkOnly compact={compact} />;
+    return <Wordmark compact={compact} tone={tone} />;
   }
 
   if (variant === "monogram") {
-    return <MarkWithLabel compact={compact} mark={<MonogramMark />} />;
+    return <MarkWithLabel compact={compact} tone={tone} mark={<MonogramMark tone={tone} />} />;
   }
 
-  return <MarkWithLabel compact={compact} mark={<QuietMark />} />;
+  return <MarkWithLabel compact={compact} tone={tone} mark={<QuietMark tone={tone} />} />;
 }

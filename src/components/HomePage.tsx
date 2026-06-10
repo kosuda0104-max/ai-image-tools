@@ -141,24 +141,28 @@ export default function HomePage({ locale }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
 
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 via-indigo-50/60 to-gray-50">
+      <section className="relative overflow-hidden bg-slate-900">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(40rem_20rem_at_50%_-10%,rgba(59,130,246,0.18),transparent)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(45rem_22rem_at_50%_-12%,rgba(59,130,246,0.35),transparent)]"
         />
-        <div className="relative mx-auto max-w-5xl px-4 py-14 text-center sm:px-6 sm:py-20 lg:px-8">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-green-200 bg-green-50 px-3 py-1 text-xs font-medium text-green-700">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(30rem_16rem_at_85%_110%,rgba(99,102,241,0.25),transparent)]"
+        />
+        <div className="relative mx-auto max-w-5xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-green-400/30 bg-green-400/10 px-3 py-1 text-xs font-medium text-green-300">
             🔒 {trustMessage}
           </span>
-          <h1 className="mx-auto mt-5 max-w-3xl text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
+          <h1 className="mx-auto mt-5 max-w-3xl text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
             {t.hero.title}
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-gray-600 sm:text-base">
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
             {t.hero.description}
           </p>
 
           {/* Search */}
-          <div className="mx-auto mt-7 max-w-xl">
+          <div className="mx-auto mt-8 max-w-xl">
             <div className="relative">
               <span className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-400">
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -170,7 +174,7 @@ export default function HomePage({ locale }: Props) {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={labels.searchPlaceholder}
-                className="w-full rounded-2xl border border-gray-200 bg-white py-3.5 pl-12 pr-11 text-sm shadow-sm outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+                className="w-full rounded-2xl border border-transparent bg-white py-4 pl-12 pr-11 text-sm shadow-xl shadow-blue-950/40 outline-none transition focus:ring-4 focus:ring-blue-400/40"
               />
               {search && (
                 <button
@@ -188,13 +192,13 @@ export default function HomePage({ locale }: Props) {
           </div>
 
           {/* Stats */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5">
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5">
             {t.stats.map((stat) => (
               <span
                 key={stat.value}
-                className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white/80 px-3.5 py-1.5 text-xs text-gray-600 backdrop-blur"
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-xs text-slate-300 backdrop-blur"
               >
-                <span className="font-semibold text-gray-900">{stat.value}</span>
+                <span className="font-semibold text-white">{stat.value}</span>
                 {stat.label}
               </span>
             ))}

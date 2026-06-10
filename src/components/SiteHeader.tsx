@@ -108,10 +108,10 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-slate-800 bg-slate-900/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link href={homeHref} className="shrink-0" onClick={() => setMobileOpen(false)}>
-          <SiteLogo />
+          <SiteLogo tone="dark" />
         </Link>
 
         {/* Desktop nav */}
@@ -120,10 +120,10 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
             <div key={group.label} className="group relative">
               <button
                 type="button"
-                className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 hover:text-gray-900"
+                className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/10 hover:text-white"
               >
                 {group.label}
-                <svg className="h-3.5 w-3.5 text-gray-400 transition group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="h-3.5 w-3.5 text-slate-400 transition group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
@@ -152,7 +152,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
           ))}
           <Link
             href={nav.guides.href}
-            className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 hover:text-gray-900"
+            className="rounded-lg px-3 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/10 hover:text-white"
           >
             {nav.guides.name}
           </Link>
@@ -162,13 +162,13 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
         <div className="flex items-center gap-2">
           <Link
             href={nav.allTools.href}
-            className="hidden rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 sm:inline-flex"
+            className="hidden rounded-xl bg-blue-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-400 sm:inline-flex"
           >
             {nav.allTools.name}
           </Link>
           <Link
             href={nav.switchLang.href}
-            className="rounded-lg border border-gray-200 px-2.5 py-1.5 text-xs font-semibold text-gray-600 transition hover:border-gray-300 hover:text-gray-900"
+            className="rounded-lg border border-slate-700 px-2.5 py-1.5 text-xs font-semibold text-slate-300 transition hover:border-slate-500 hover:text-white"
           >
             {nav.switchLang.name}
           </Link>
@@ -179,7 +179,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="Menu"
             aria-expanded={mobileOpen}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-600 lg:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-700 text-slate-200 lg:hidden"
           >
             {mobileOpen ? (
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -196,18 +196,18 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
 
       {/* Mobile panel */}
       {mobileOpen && (
-        <div className="border-t border-gray-100 bg-white px-4 pb-6 pt-3 lg:hidden">
+        <div className="border-t border-slate-800 bg-slate-900 px-4 pb-6 pt-3 lg:hidden">
           <Link
             href={nav.allTools.href}
             onClick={() => setMobileOpen(false)}
-            className="mb-4 block rounded-xl bg-blue-600 px-4 py-3 text-center text-sm font-semibold text-white"
+            className="mb-4 block rounded-xl bg-blue-500 px-4 py-3 text-center text-sm font-semibold text-white"
           >
             {nav.allTools.name}
           </Link>
           <div className="space-y-5">
             {nav.groups.map((group) => (
               <div key={group.label}>
-                <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-gray-400">
+                <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-500">
                   {group.label}
                 </p>
                 <div className="grid grid-cols-2 gap-x-3">
@@ -216,7 +216,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
                       key={link.href + link.name}
                       href={link.href}
                       onClick={() => setMobileOpen(false)}
-                      className="rounded-lg py-1.5 text-sm text-gray-700"
+                      className="rounded-lg py-1.5 text-sm text-slate-200"
                     >
                       {link.name}
                     </Link>
@@ -227,7 +227,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
             <Link
               href={nav.guides.href}
               onClick={() => setMobileOpen(false)}
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-slate-200"
             >
               {nav.guides.name}
             </Link>

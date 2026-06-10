@@ -50,7 +50,7 @@ export default function JaLayout({
   return (
     <>
       <SiteHeader locale="ja" />
-      <div className="mx-auto max-w-6xl px-6 py-8">{children}</div>
+      <div className="min-h-screen">{children}</div>
       <SiteFooter locale="ja" />
       <CookieBanner locale="ja" />
     </>
