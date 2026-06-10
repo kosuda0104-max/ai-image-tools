@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import SiteLogo from "@/src/components/SiteLogo";
+import SiteHeader from "@/src/components/SiteHeader";
+import SiteFooter from "@/src/components/SiteFooter";
 import CookieBanner from "@/src/components/CookieBanner";
 import LangAttribute from "@/src/components/LangAttribute";
 
@@ -51,106 +51,9 @@ export default function EnLayout({
   return (
     <>
       <LangAttribute lang="en" />
-      <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-4">
-          <Link href="/en" className="shrink-0">
-            <SiteLogo />
-          </Link>
-
-          <nav className="flex flex-wrap gap-4 text-sm">
-            <Link className="hover:underline" href="/en/tools/heic-to-jpg">
-              HEIC to JPG
-            </Link>
-            <Link className="hover:underline" href="/en/tools/jpg-to-png">
-              JPG to PNG
-            </Link>
-            <Link className="hover:underline" href="/en/tools/image-compress">
-              Compress
-            </Link>
-            <Link className="hover:underline" href="/en/tools/compress-pdf">
-              Compress PDF
-            </Link>
-            <Link className="hover:underline" href="/en/tools/pdf-to-jpg">
-              PDF to JPG
-            </Link>
-            <Link className="hover:underline" href="/en/tools">
-              Tools
-            </Link>
-            <Link className="hover:underline" href="/en/guides">
-              Guides
-            </Link>
-            <Link className="font-semibold hover:underline" href="/">
-              JA
-            </Link>
-          </nav>
-        </div>
-      </header>
-
+      <SiteHeader locale="en" />
       <div className="mx-auto max-w-6xl px-6 py-8">{children}</div>
-
-      <footer className="border-t border-gray-200 bg-gray-50">
-        <div className="mx-auto max-w-6xl px-6 py-8">
-          <div className="space-y-5">
-            <div className="max-w-3xl space-y-2">
-              <SiteLogo compact />
-              <p className="text-sm leading-7 text-gray-600">
-                A browser-based tools site for image conversion, image editing,
-                and PDF workflows. The site publishes tool pages, guide content,
-                and policy pages to make the service more useful and
-                transparent over time.
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div className="text-sm text-gray-600">
-                Copyright {new Date().getFullYear()} Filewisp
-              </div>
-
-              <nav className="flex flex-wrap gap-4 text-sm text-gray-600">
-                <Link
-                  href="/en/about"
-                  className="hover:text-black hover:underline"
-                >
-                  About
-                </Link>
-                <Link
-                  href="/en/guides"
-                  className="hover:text-black hover:underline"
-                >
-                  Guides
-                </Link>
-                <Link
-                  href="/en/contact"
-                  className="hover:text-black hover:underline"
-                >
-                  Contact
-                </Link>
-                <Link
-                  href="/en/privacy-policy"
-                  className="hover:text-black hover:underline"
-                >
-                  Privacy Policy
-                </Link>
-                <Link
-                  href="/en/terms"
-                  className="hover:text-black hover:underline"
-                >
-                  Terms
-                </Link>
-                <Link
-                  href="/en/tools"
-                  className="hover:text-black hover:underline"
-                >
-                  Tools
-                </Link>
-                <Link href="/" className="hover:text-black hover:underline">
-                  Japanese
-                </Link>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter locale="en" />
       <CookieBanner locale="en" />
     </>
   );

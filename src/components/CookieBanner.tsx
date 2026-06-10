@@ -24,44 +24,36 @@ export default function CookieBanner({ locale }: Props) {
 
   if (!visible) return null;
 
-  if (locale === "ja") {
-    return (
-      <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white px-4 py-4 shadow-lg">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4">
-          <p className="text-sm text-gray-700">
-            このサイトでは、アクセス解析や Google AdSense による広告配信のために Cookie を使用しています。
-            詳しくは{" "}
-            <Link href="/privacy-policy" className="underline hover:text-black">
-              プライバシーポリシー
-            </Link>
-            をご確認ください。
-          </p>
-          <button
-            onClick={accept}
-            className="shrink-0 rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-800"
-          >
-            了解
-          </button>
-        </div>
-      </div>
-    );
-  }
+  const isJa = locale === "ja";
+  const privacyHref = isJa ? "/privacy-policy" : "/en/privacy-policy";
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white px-4 py-4 shadow-lg">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4">
-        <p className="text-sm text-gray-700">
-          This site uses cookies for analytics and advertising via Google AdSense. See our{" "}
-          <Link href="/en/privacy-policy" className="underline hover:text-black">
-            Privacy Policy
-          </Link>{" "}
-          for details.
+    <div className="fixed bottom-4 left-4 right-4 z-50 sm:left-auto sm:max-w-sm">
+      <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-xl shadow-gray-300/40">
+        <p className="text-xs leading-5 text-gray-600">
+          {isJa ? (
+            <>
+              アクセス解析・広告配信のために Cookie を使用しています。詳しくは
+              <Link href={privacyHref} className="text-blue-600 underline underline-offset-2 hover:text-blue-800">
+                プライバシーポリシー
+              </Link>
+              へ。
+            </>
+          ) : (
+            <>
+              We use cookies for analytics and ads. See our{" "}
+              <Link href={privacyHref} className="text-blue-600 underline underline-offset-2 hover:text-blue-800">
+                Privacy Policy
+              </Link>
+              .
+            </>
+          )}
         </p>
         <button
           onClick={accept}
-          className="shrink-0 rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-800"
+          className="mt-3 w-full rounded-xl bg-gray-900 px-4 py-2 text-xs font-semibold text-white transition hover:bg-gray-700"
         >
-          OK
+          {isJa ? "了解" : "OK"}
         </button>
       </div>
     </div>
