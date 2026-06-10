@@ -422,53 +422,57 @@ export default function ToolPageLayout({
         />
       )}
 
-      <main className="mx-auto max-w-5xl px-4 py-10">
-        <div className="space-y-8">
-          <nav aria-label="Breadcrumb" className="text-sm text-neutral-500">
-            <ol className="flex flex-wrap items-center gap-2">
-              <li>
-                <Link href={homePath} className="hover:text-neutral-900">
-                  {isJapanesePage ? "ホーム" : "Home"}
-                </Link>
-              </li>
-              <li>/</li>
-              <li>
-                <Link href={toolsPath} className="hover:text-neutral-900">
-                  {isJapanesePage ? "ツール一覧" : "Tools"}
-                </Link>
-              </li>
-              <li>/</li>
-              <li className="text-neutral-900">{title}</li>
-            </ol>
-          </nav>
+      <main className="mx-auto max-w-5xl px-4 py-8">
+        <div className="space-y-10">
+          <div className="space-y-4">
+            <nav aria-label="Breadcrumb" className="text-sm text-gray-400">
+              <ol className="flex flex-wrap items-center gap-2">
+                <li>
+                  <Link href={homePath} className="transition hover:text-gray-900">
+                    {isJapanesePage ? "ホーム" : "Home"}
+                  </Link>
+                </li>
+                <li>/</li>
+                <li>
+                  <Link href={toolsPath} className="transition hover:text-gray-900">
+                    {isJapanesePage ? "ツール一覧" : "Tools"}
+                  </Link>
+                </li>
+                <li>/</li>
+                <li className="text-gray-900">{title}</li>
+              </ol>
+            </nav>
 
-          <header className="space-y-3">
-            <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
-            <p className="text-sm text-neutral-600">{description}</p>
-          </header>
+            <header className="space-y-2">
+              <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{title}</h1>
+              <p className="text-sm leading-6 text-gray-500">{description}</p>
+            </header>
+          </div>
 
           <section>{children}</section>
 
-          <section className="rounded-3xl border border-sky-100 bg-sky-50/70 p-6">
-            <h2 className="text-2xl font-semibold">
+          <section className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+            <h2 className="text-xl font-bold text-gray-900">
               {practicalChecklist.title}
             </h2>
-            <div className="mt-5 grid gap-5 md:grid-cols-2">
-              <div className="rounded-2xl border border-sky-100 bg-white p-5">
-                <h3 className="text-base font-semibold text-neutral-900">
+            <div className="mt-5 grid gap-4 md:grid-cols-2">
+              <div className="rounded-2xl border border-gray-200 bg-white p-5">
+                <h3 className="flex items-center gap-2 text-base font-semibold text-gray-900">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-700">1</span>
                   {practicalChecklist.beforeTitle}
                 </h3>
-                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-neutral-700">
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-gray-600">
                   {practicalChecklist.beforeItems.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
               </div>
-              <div className="rounded-2xl border border-sky-100 bg-white p-5">
-                <h3 className="text-base font-semibold text-neutral-900">
+              <div className="rounded-2xl border border-gray-200 bg-white p-5">
+                <h3 className="flex items-center gap-2 text-base font-semibold text-gray-900">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-green-100 text-xs font-bold text-green-700">2</span>
                   {practicalChecklist.afterTitle}
                 </h3>
-                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-neutral-700">
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-gray-600">
                   {practicalChecklist.afterItems.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
@@ -477,43 +481,20 @@ export default function ToolPageLayout({
             </div>
           </section>
 
-          <section className="rounded-3xl border bg-neutral-50 p-6">
-            <div className="space-y-2">
-              <h2 className="text-xl font-semibold">
-                {isJapanesePage
-                  ? "使い方に迷ったときはガイドも確認"
-                  : "Need help choosing the right workflow?"}
-              </h2>
-              <p className="text-sm leading-7 text-neutral-700">
-                {isJapanesePage
-                  ? "画像形式の違い、圧縮のコツ、PDFのまとめ方などをガイドページで整理しています。用途が近い作業をまとめて確認したいときに便利です。"
-                  : "The guide section covers format differences, compression tips, and common PDF workflows so you can choose the right tool with more context."}
-              </p>
-            </div>
-            <div className="mt-4">
-              <Link
-                href={guidesPath}
-                className="inline-flex rounded-full border border-neutral-900 px-4 py-2 text-sm font-medium text-neutral-900 transition hover:bg-neutral-900 hover:text-white"
-              >
-                {isJapanesePage ? "ガイド一覧を見る" : "Browse guides"}
-              </Link>
-            </div>
-          </section>
-
           {workflowSuggestions.length > 0 && (
             <section className="space-y-4">
-              <h2 className="text-2xl font-semibold">{workflowSuggestionsTitle}</h2>
+              <h2 className="text-xl font-bold text-gray-900">{workflowSuggestionsTitle}</h2>
               <div className="grid gap-4 md:grid-cols-3">
                 {workflowSuggestions.map((tool) => (
                   <Link
                     key={tool.href}
                     href={tool.href}
-                    className="rounded-2xl border bg-white p-5 transition hover:-translate-y-0.5 hover:bg-neutral-50"
+                    className="group rounded-2xl border border-gray-200 bg-white p-5 transition duration-200 hover:-translate-y-0.5 hover:border-transparent hover:shadow-lg hover:shadow-gray-200/70"
                   >
-                    <h3 className="text-base font-semibold text-neutral-900">
+                    <h3 className="text-base font-semibold text-gray-900 group-hover:text-blue-700">
                       {tool.name}
                     </h3>
-                    <p className="mt-2 text-sm leading-7 text-neutral-700">
+                    <p className="mt-2 text-sm leading-6 text-gray-500">
                       {tool.reason}
                     </p>
                   </Link>
@@ -523,14 +504,14 @@ export default function ToolPageLayout({
           )}
 
           <section className="space-y-3">
-            <h2 className="text-2xl font-semibold">{aboutTitle}</h2>
-            <p className="text-sm leading-7 text-neutral-700">{aboutText}</p>
+            <h2 className="text-xl font-bold text-gray-900">{aboutTitle}</h2>
+            <p className="text-sm leading-7 text-gray-600">{aboutText}</p>
           </section>
 
           {resolvedContentSections.map((section) => (
             <section key={section.title} className="space-y-3">
-              <h2 className="text-2xl font-semibold">{section.title}</h2>
-              <div className="space-y-3 text-sm leading-7 text-neutral-700">
+              <h2 className="text-xl font-bold text-gray-900">{section.title}</h2>
+              <div className="space-y-3 text-sm leading-7 text-gray-600">
                 {section.paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
@@ -540,8 +521,8 @@ export default function ToolPageLayout({
 
           {resolvedListSections.map((section) => (
             <section key={section.title} className="space-y-3">
-              <h2 className="text-2xl font-semibold">{section.title}</h2>
-              <ul className="list-disc space-y-2 pl-5 text-sm leading-7 text-neutral-700">
+              <h2 className="text-xl font-bold text-gray-900">{section.title}</h2>
+              <ul className="list-disc space-y-2 pl-5 text-sm leading-7 text-gray-600">
                 {section.items.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
@@ -550,20 +531,20 @@ export default function ToolPageLayout({
           ))}
 
           {resolvedComparisonTitle && resolvedComparisonItems.length > 0 && (
-            <section className="space-y-3">
-              <h2 className="text-2xl font-semibold">
+            <section className="space-y-4">
+              <h2 className="text-xl font-bold text-gray-900">
                 {resolvedComparisonTitle}
               </h2>
-              <div className="overflow-hidden rounded-2xl border">
+              <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
                 {resolvedComparisonItems.map((item) => (
                   <div
                     key={item.label}
-                    className="grid gap-2 border-b px-4 py-3 last:border-b-0 md:grid-cols-[180px,1fr]"
+                    className="grid gap-2 border-b border-gray-100 px-5 py-3.5 last:border-b-0 md:grid-cols-[180px,1fr]"
                   >
-                    <div className="text-sm font-semibold text-neutral-900">
+                    <div className="text-sm font-semibold text-gray-900">
                       {item.label}
                     </div>
-                    <div className="text-sm leading-7 text-neutral-700">
+                    <div className="text-sm leading-7 text-gray-600">
                       {item.value}
                     </div>
                   </div>
@@ -572,22 +553,27 @@ export default function ToolPageLayout({
             </section>
           )}
 
-          <section className="space-y-3">
-            <h2 className="text-2xl font-semibold">{stepsTitle}</h2>
-            <ol className="list-decimal space-y-2 pl-5 text-sm leading-7 text-neutral-700">
+          <section className="space-y-4">
+            <h2 className="text-xl font-bold text-gray-900">{stepsTitle}</h2>
+            <ol className="space-y-2.5">
               {steps.map((step, index) => (
-                <li key={index}>{step}</li>
+                <li key={index} className="flex items-start gap-3 text-sm leading-7 text-gray-600">
+                  <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-700">
+                    {index + 1}
+                  </span>
+                  {step}
+                </li>
               ))}
             </ol>
           </section>
 
-          <section className="space-y-3">
-            <h2 className="text-2xl font-semibold">{faqTitle}</h2>
-            <div className="space-y-4">
+          <section className="space-y-4">
+            <h2 className="text-xl font-bold text-gray-900">{faqTitle}</h2>
+            <div className="space-y-3">
               {faqs.map((faq, index) => (
-                <div key={index} className="rounded-2xl border p-4">
-                  <h3 className="font-medium">{faq.question}</h3>
-                  <p className="mt-2 text-sm leading-7 text-neutral-700">
+                <div key={index} className="rounded-2xl border border-gray-200 bg-white p-5">
+                  <h3 className="text-sm font-semibold text-gray-900">{faq.question}</h3>
+                  <p className="mt-2 text-sm leading-7 text-gray-600">
                     {faq.answer}
                   </p>
                 </div>
@@ -596,16 +582,16 @@ export default function ToolPageLayout({
           </section>
 
           {relatedTools.length > 0 && (
-            <section className="space-y-3">
-              <h2 className="text-2xl font-semibold">
+            <section className="space-y-4">
+              <h2 className="text-xl font-bold text-gray-900">
                 {resolvedRelatedToolsTitle}
               </h2>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2.5">
                 {relatedTools.map((tool) => (
                   <Link
                     key={tool.href}
                     href={tool.href}
-                    className="rounded-full border px-4 py-2 text-sm transition hover:bg-neutral-50"
+                    className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700 transition hover:border-blue-300 hover:text-blue-700"
                   >
                     {tool.name}
                   </Link>
@@ -613,6 +599,29 @@ export default function ToolPageLayout({
               </div>
             </section>
           )}
+
+          <section className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+            <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+              <div className="space-y-1">
+                <h2 className="text-base font-bold text-gray-900">
+                  {isJapanesePage
+                    ? "使い方に迷ったときはガイドも確認"
+                    : "Need help choosing the right workflow?"}
+                </h2>
+                <p className="text-sm leading-6 text-gray-500">
+                  {isJapanesePage
+                    ? "画像形式の違い、圧縮のコツ、PDFのまとめ方などをガイドページで整理しています。"
+                    : "The guide section covers format differences, compression tips, and common PDF workflows."}
+                </p>
+              </div>
+              <Link
+                href={guidesPath}
+                className="shrink-0 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-gray-700"
+              >
+                {isJapanesePage ? "ガイド一覧を見る" : "Browse guides"}
+              </Link>
+            </div>
+          </section>
         </div>
       </main>
     </>
