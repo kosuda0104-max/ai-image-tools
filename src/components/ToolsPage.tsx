@@ -160,10 +160,14 @@ export default function ToolsPage({ locale }: Props) {
       />
 
       {/* ── ヘッダー ── */}
-      <section className="border-b border-gray-200 bg-gradient-to-b from-blue-50 via-indigo-50/50 to-gray-50">
-        <div className="mx-auto max-w-6xl px-4 py-12 text-center sm:px-6 sm:py-14 lg:px-8">
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">{t.hero.title}</h1>
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-gray-600 sm:text-base">{t.hero.description}</p>
+      <section className="relative overflow-hidden bg-slate-900">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(40rem_18rem_at_50%_-15%,rgba(59,130,246,0.3),transparent)]"
+        />
+        <div className="relative mx-auto max-w-6xl px-4 py-12 text-center sm:px-6 sm:py-16 lg:px-8">
+          <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">{t.hero.title}</h1>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">{t.hero.description}</p>
         </div>
       </section>
 
