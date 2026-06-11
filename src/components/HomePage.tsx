@@ -23,11 +23,9 @@ type CardTool = {
 function ToolCard({
   tool,
   locale,
-  compact = false,
 }: {
   tool: CardTool;
   locale: "ja" | "en";
-  compact?: boolean;
 }) {
   const href =
     locale === "en" ? tool.href.replace(/^\/tools/, "/en/tools") : tool.href;
@@ -37,11 +35,11 @@ function ToolCard({
       href={href}
       className="group flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-transparent hover:shadow-lg hover:shadow-gray-200/70"
     >
-      <ToolIcon name={tool.name} href={tool.href} size={compact ? "sm" : "md"} />
+      <ToolIcon name={tool.name} href={tool.href} />
       <p className="mt-3 text-sm font-semibold text-gray-900 group-hover:text-blue-700">
         {tool.name}
       </p>
-      {!compact && tool.description ? (
+      {tool.description ? (
         <p className="mt-1 line-clamp-2 text-xs leading-5 text-gray-500">
           {tool.description}
         </p>
@@ -54,9 +52,6 @@ export default function HomePage({ locale }: Props) {
   const t = homePageContent[locale];
   const faqJsonLd = createHomeFaqJsonLd(locale);
   const basePath = locale === "en" ? "/en" : "";
-  const contactHref = locale === "en" ? "/en/contact" : "/contact";
-  const aboutHref = locale === "en" ? "/en/about" : "/about";
-  const guidesHref = locale === "en" ? "/en/guides" : "/guides";
   const homeUrl = `${siteUrl}${basePath || ""}` || siteUrl;
   const trustMessage =
     locale === "en"
@@ -65,6 +60,7 @@ export default function HomePage({ locale }: Props) {
 
   const allTools = useMemo(() => getAllToolItems(locale), [locale]);
   const [search, setSearch] = useState("");
+  const [activeTab, setActiveTab] = useState(0); // 0 = popular, 1+ = categories
   const normalizedSearch = search.trim().toLowerCase();
 
   const searchResults = useMemo(() => {
@@ -81,12 +77,22 @@ export default function HomePage({ locale }: Props) {
           searchPlaceholder: `Search all ${totalToolCount} tools…`,
           resultsCount: (n: number) => `${n} tool${n !== 1 ? "s" : ""} found`,
           noResults: "No tools matched your search.",
+          popularTab: "Popular",
+          viewAll: "View all tools",
         }
       : {
           searchPlaceholder: `${totalToolCount}ツールを検索…`,
           resultsCount: (n: number) => `${n} 件見つかりました`,
           noResults: "一致するツールが見つかりませんでした。",
+          popularTab: "人気",
+          viewAll: "すべてのツールを見る",
         };
+
+  const tabs = [
+    { label: labels.popularTab, tools: t.popularTools },
+    ...t.categories.map((c) => ({ label: c.title, tools: c.tools })),
+  ];
+  const activeTools = tabs[activeTab]?.tools ?? tabs[0].tools;
 
   const allToolItems = t.categories.flatMap((c) => c.tools);
 
@@ -121,19 +127,6 @@ export default function HomePage({ locale }: Props) {
         : "ブラウザだけで使える画像変換・画像編集・PDF作業の無料ツール集です。",
   };
 
-  const resourceCards =
-    locale === "en"
-      ? [
-          { title: "About the site", description: "How the site is built and maintained.", href: aboutHref, label: "About →" },
-          { title: "Guides", description: "Short guides on formats and workflows.", href: guidesHref, label: "Guides →" },
-          { title: "Contact", description: "Report bugs or request new tools.", href: contactHref, label: "Contact →" },
-        ]
-      : [
-          { title: "サイトについて", description: "運営方針と透明性ページのご案内。", href: aboutHref, label: "詳細を見る →" },
-          { title: "ガイド", description: "形式の選び方や作業フローの解説。", href: guidesHref, label: "ガイドを見る →" },
-          { title: "お問い合わせ", description: "不具合報告や機能要望はこちら。", href: contactHref, label: "送る →" },
-        ];
-
   return (
     <main className="min-h-screen bg-gray-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
@@ -150,7 +143,7 @@ export default function HomePage({ locale }: Props) {
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(30rem_16rem_at_85%_110%,rgba(99,102,241,0.25),transparent)]"
         />
-        <div className="relative mx-auto max-w-5xl px-4 py-16 text-center sm:px-6 sm:py-24 lg:px-8">
+        <div className="relative mx-auto max-w-5xl px-4 py-14 text-center sm:px-6 sm:py-20 lg:px-8">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-green-400/30 bg-green-400/10 px-3 py-1 text-xs font-medium text-green-300">
             🔒 {trustMessage}
           </span>
@@ -190,19 +183,6 @@ export default function HomePage({ locale }: Props) {
               )}
             </div>
           </div>
-
-          {/* Stats */}
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5">
-            {t.stats.map((stat) => (
-              <span
-                key={stat.value}
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-xs text-slate-300 backdrop-blur"
-              >
-                <span className="font-semibold text-white">{stat.value}</span>
-                {stat.label}
-              </span>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -225,96 +205,45 @@ export default function HomePage({ locale }: Props) {
           </div>
         )}
 
-        {/* ── Normal layout (hidden when searching) ── */}
+        {/* ── Tool grid with tabs (hidden when searching) ── */}
         {searchResults === null && (
-          <>
-            {/* Popular tools */}
-            <section className="py-10">
-              <div className="mb-5 flex items-end justify-between">
-                <div>
-                  <h2 className="text-lg font-bold text-gray-900">{t.popularToolsTitle}</h2>
-                </div>
-                <Link href={`${basePath}/tools`} className="text-sm font-medium text-blue-600 hover:text-blue-800">
-                  {t.toolsPageLinkLabel} →
-                </Link>
-              </div>
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-                {t.popularTools.map((tool) => (
-                  <ToolCard key={tool.href} tool={tool} locale={locale} compact />
-                ))}
-              </div>
-            </section>
-
-            {/* All categories */}
-            <div className="space-y-12 pb-12">
-              {t.categories.map((category) => (
-                <section key={category.title}>
-                  <div className="mb-5">
-                    <h2 className="text-xl font-bold text-gray-900">{category.title}</h2>
-                    <p className="mt-1 text-sm text-gray-500">{category.description}</p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-                    {category.tools.map((tool) => (
-                      <ToolCard key={tool.href} tool={tool} locale={locale} />
-                    ))}
-                  </div>
-                </section>
+          <section className="py-10">
+            {/* Tabs */}
+            <div className="mb-6 flex flex-wrap justify-center gap-2">
+              {tabs.map((tab, index) => (
+                <button
+                  key={tab.label}
+                  type="button"
+                  onClick={() => setActiveTab(index)}
+                  className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                    activeTab === index
+                      ? "bg-slate-900 text-white shadow-sm"
+                      : "border border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:text-gray-900"
+                  }`}
+                >
+                  {tab.label}
+                </button>
               ))}
             </div>
-          </>
+
+            {/* Grid */}
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {activeTools.map((tool) => (
+                <ToolCard key={tool.href} tool={tool} locale={locale} />
+              ))}
+            </div>
+
+            <div className="mt-8 text-center">
+              <Link
+                href={`${basePath}/tools`}
+                className="inline-flex rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+              >
+                {labels.viewAll} →
+              </Link>
+            </div>
+          </section>
         )}
       </div>
-
-      {/* ── Resource links (always visible) ── */}
-      <div className="border-t border-gray-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {resourceCards.map((card) => (
-              <Link
-                key={card.href}
-                href={card.href}
-                className="rounded-2xl border border-gray-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-transparent hover:shadow-lg hover:shadow-gray-200/70"
-              >
-                <h3 className="text-base font-semibold text-gray-900">{card.title}</h3>
-                <p className="mt-1.5 text-sm text-gray-500">{card.description}</p>
-                <span className="mt-3 inline-block text-sm font-medium text-blue-600">{card.label}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Guides ── */}
-      {searchResults === null && (
-        <div className="border-t border-gray-200 bg-gray-50">
-          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-            <div className="mb-6 flex items-end justify-between">
-              <div>
-                <h2 className="text-xl font-bold text-gray-900">{t.guidesSection.title}</h2>
-                <p className="mt-1 text-sm text-gray-500">{t.guidesSection.description}</p>
-              </div>
-              <Link href={guidesHref} className="shrink-0 text-sm font-medium text-blue-600 hover:text-blue-800">
-                {t.guidesSection.viewAllLabel} →
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {t.guidesSection.guides.map((guide) => {
-                const href = locale === "en" ? `/en/guides/${guide.slug}` : `/guides/${guide.slug}`;
-                return (
-                  <Link
-                    key={guide.slug}
-                    href={href}
-                    className="group rounded-2xl border border-gray-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-transparent hover:shadow-lg hover:shadow-gray-200/70"
-                  >
-                    <p className="text-sm font-semibold text-gray-900 group-hover:text-blue-700">{guide.title}</p>
-                    <p className="mt-1.5 line-clamp-2 text-xs leading-5 text-gray-500">{guide.cardDescription}</p>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* ── FAQ ── */}
       <div className="border-t border-gray-200 bg-white">
