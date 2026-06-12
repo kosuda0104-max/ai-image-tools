@@ -22,6 +22,11 @@ const guideToolMap: Record<string, string[]> = {
   "pdf-upload-size-limit": ["compress-pdf", "pdf-remove-pages", "split-pdf", "merge-pdf"],
   "what-is-webp": ["webp-to-jpg", "webp-to-png", "jpg-to-webp", "png-to-webp"],
   "convert-images-on-smartphone": ["heic-to-jpg", "image-compress", "resize-image", "jpg-to-png"],
+  "jpg-vs-jpeg-difference": ["png-to-jpg", "heic-to-jpg", "webp-to-jpg", "jpg-compress"],
+  "screenshot-to-pdf": ["image-to-pdf", "compress-pdf", "pdf-to-png", "pdf-to-jpg"],
+  "resume-photo-size": ["heic-to-jpg", "crop-image", "resize-image", "jpg-compress"],
+  "what-is-tiff": ["tiff-to-jpg", "tiff-to-png", "image-to-pdf", "image-compress"],
+  "marketplace-product-photos": ["crop-image", "image-compress", "heic-to-jpg", "resize-image"],
 };
 
 export function getGuideRelatedTools(
