@@ -54,7 +54,7 @@ export default function FileDropzone({
         onChange={(e) => onFileSelect(e.target.files?.[0] || null)}
       />
 
-      <div className="flex flex-col items-center gap-3 px-6 py-10">
+      <div className="flex flex-col items-center gap-3 px-4 py-8 text-center sm:px-6 sm:py-10">
         {file ? (
           /* Selected state */
           <>
@@ -83,7 +83,7 @@ export default function FileDropzone({
               )}
               <p className="mt-1 text-xs text-gray-400">{dropOrClickLabel}</p>
             </div>
-            <span className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white group-hover:bg-blue-600 transition-colors">
+            <span className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white transition-colors group-hover:bg-blue-600">
               {selectButtonLabel ?? defaultSelectButtonLabel}
             </span>
           </>

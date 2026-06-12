@@ -33,7 +33,7 @@ function ToolCard({
   return (
     <Link
       href={href}
-      className="group flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-transparent hover:shadow-lg hover:shadow-gray-200/70"
+      className="group flex h-full flex-col rounded-xl border border-gray-200 bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-transparent hover:shadow-lg hover:shadow-gray-200/70 sm:rounded-2xl"
     >
       <ToolIcon name={tool.name} href={tool.href} />
       <p className="mt-3 text-sm font-semibold text-gray-900 group-hover:text-blue-700">
@@ -143,11 +143,11 @@ export default function HomePage({ locale }: Props) {
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(30rem_16rem_at_85%_110%,rgba(99,102,241,0.25),transparent)]"
         />
-        <div className="relative mx-auto max-w-5xl px-4 py-14 text-center sm:px-6 sm:py-20 lg:px-8">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-green-400/30 bg-green-400/10 px-3 py-1 text-xs font-medium text-green-300">
+        <div className="relative mx-auto max-w-5xl px-4 py-12 text-center sm:px-6 sm:py-20 lg:px-8">
+          <span className="inline-flex max-w-full flex-wrap items-center justify-center gap-1.5 rounded-full border border-green-400/30 bg-green-400/10 px-3 py-1 text-center text-[11px] font-medium leading-5 text-green-300 sm:text-xs">
             🔒 {trustMessage}
           </span>
-          <h1 className="mx-auto mt-5 max-w-3xl text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+          <h1 className="mx-auto mt-5 max-w-3xl text-2xl font-extrabold tracking-tight text-white min-[380px]:text-3xl sm:text-4xl lg:text-5xl">
             {t.hero.title}
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
@@ -167,7 +167,7 @@ export default function HomePage({ locale }: Props) {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={labels.searchPlaceholder}
-                className="w-full rounded-2xl border border-transparent bg-white py-4 pl-12 pr-11 text-sm shadow-xl shadow-blue-950/40 outline-none transition focus:ring-4 focus:ring-blue-400/40"
+                className="w-full rounded-xl border border-transparent bg-white py-3.5 pl-12 pr-11 text-sm shadow-xl shadow-blue-950/40 outline-none transition focus:ring-4 focus:ring-blue-400/40 sm:rounded-2xl sm:py-4"
               />
               {search && (
                 <button
@@ -196,7 +196,7 @@ export default function HomePage({ locale }: Props) {
                 : labels.noResults}
             </p>
             {searchResults.length > 0 && (
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              <div className="grid grid-cols-1 gap-3 min-[380px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
                 {searchResults.map((tool) => (
                   <ToolCard key={tool.href} tool={tool} locale={locale} />
                 ))}
@@ -215,7 +215,7 @@ export default function HomePage({ locale }: Props) {
                   key={tab.label}
                   type="button"
                   onClick={() => setActiveTab(index)}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                  className={`rounded-full px-3.5 py-2 text-sm font-medium transition sm:px-4 ${
                     activeTab === index
                       ? "bg-slate-900 text-white shadow-sm"
                       : "border border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:text-gray-900"
@@ -227,7 +227,7 @@ export default function HomePage({ locale }: Props) {
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-3 min-[380px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
               {activeTools.map((tool) => (
                 <ToolCard key={tool.href} tool={tool} locale={locale} />
               ))}

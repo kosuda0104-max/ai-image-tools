@@ -11,10 +11,11 @@ export default function CookieBanner({ locale }: Props) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const accepted = localStorage.getItem("cookie-consent");
-    if (!accepted) {
-      setVisible(true);
-    }
+    const timer = window.setTimeout(() => {
+      setVisible(!localStorage.getItem("cookie-consent"));
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, []);
 
   const accept = () => {
@@ -28,9 +29,9 @@ export default function CookieBanner({ locale }: Props) {
   const privacyHref = isJa ? "/privacy-policy" : "/en/privacy-policy";
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-50 sm:left-auto sm:max-w-sm">
-      <div className="rounded-2xl border border-slate-700 bg-slate-900 p-4 shadow-xl shadow-black/40">
-        <p className="text-xs leading-5 text-slate-300">
+    <div className="fixed bottom-3 left-3 right-3 z-50 sm:bottom-4 sm:left-auto sm:max-w-sm">
+      <div className="max-h-[38vh] overflow-y-auto rounded-xl border border-slate-700 bg-slate-900 p-3 shadow-xl shadow-black/40 sm:rounded-2xl sm:p-4">
+        <p className="text-[11px] leading-5 text-slate-300 sm:text-xs">
           {isJa ? (
             <>
               アクセス解析・広告配信のために Cookie を使用しています。詳しくは
@@ -51,7 +52,7 @@ export default function CookieBanner({ locale }: Props) {
         </p>
         <button
           onClick={accept}
-          className="mt-3 w-full rounded-xl bg-blue-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-blue-400"
+          className="mt-2.5 w-full rounded-lg bg-blue-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-blue-400 sm:mt-3 sm:rounded-xl"
         >
           {isJa ? "了解" : "OK"}
         </button>

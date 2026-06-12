@@ -165,13 +165,13 @@ export default function ToolsPage({ locale }: Props) {
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(40rem_18rem_at_50%_-15%,rgba(59,130,246,0.3),transparent)]"
         />
-        <div className="relative mx-auto max-w-6xl px-4 py-12 text-center sm:px-6 sm:py-16 lg:px-8">
-          <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">{t.hero.title}</h1>
+        <div className="relative mx-auto max-w-6xl px-4 py-10 text-center sm:px-6 sm:py-16 lg:px-8">
+          <h1 className="text-2xl font-extrabold tracking-tight text-white min-[380px]:text-3xl sm:text-4xl">{t.hero.title}</h1>
           <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">{t.hero.description}</p>
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-8 lg:px-8">
         {/* ── 検索 + 並び替え ── */}
         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="relative flex-1">
@@ -191,7 +191,7 @@ export default function ToolsPage({ locale }: Props) {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
-            className="rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm shadow-sm outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100 sm:w-44"
+            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm shadow-sm outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100 sm:w-44 sm:rounded-2xl"
           >
             <option value="default">{labels.sortDefault}</option>
             <option value="popular">{labels.sortPopular}</option>
@@ -219,7 +219,7 @@ export default function ToolsPage({ locale }: Props) {
                   </h2>
                   <p className="mb-5 mt-1 text-sm text-gray-500">{category.description}</p>
 
-                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                  <div className="grid grid-cols-1 gap-3 min-[380px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
                     {visibleTools.map((tool) => (
                       <Link
                         key={tool.href}
@@ -228,7 +228,7 @@ export default function ToolsPage({ locale }: Props) {
                             ? tool.href.replace(/^\/tools/, "/en/tools")
                             : tool.href
                         }
-                        className="group flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-transparent hover:shadow-lg hover:shadow-gray-200/70"
+                        className="group flex h-full flex-col rounded-xl border border-gray-200 bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-transparent hover:shadow-lg hover:shadow-gray-200/70 sm:rounded-2xl"
                       >
                         <ToolIcon name={tool.name} href={tool.href} />
                         <p className="mt-3 text-sm font-semibold text-gray-900 group-hover:text-blue-700">{tool.name}</p>
@@ -254,10 +254,10 @@ export default function ToolsPage({ locale }: Props) {
 
         {/* ── 折りたたみヒントセクション ── */}
         <details className="mt-10 rounded-xl border border-gray-200 bg-gray-50">
-          <summary className="cursor-pointer select-none px-5 py-3 text-sm font-medium text-gray-700 hover:text-gray-900">
+          <summary className="cursor-pointer select-none px-4 py-3 text-sm font-medium text-gray-700 hover:text-gray-900 sm:px-5">
             {hintsLabel}
           </summary>
-          <div className="space-y-6 px-5 pb-6 pt-2">
+          <div className="space-y-6 px-4 pb-5 pt-2 sm:px-5 sm:pb-6">
 
             {/* 目的から選ぶ */}
             <div>

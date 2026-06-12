@@ -210,7 +210,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
                 <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-500">
                   {group.label}
                 </p>
-                <div className="grid grid-cols-2 gap-x-3">
+                <div className="grid grid-cols-1 gap-x-3 min-[380px]:grid-cols-2">
                   {group.links.map((link) => (
                     <Link
                       key={link.href + link.name}

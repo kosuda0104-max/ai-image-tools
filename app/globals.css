@@ -18,3 +18,9 @@ body {
   font-family: var(--font-geist-sans), "Hiragino Sans", "Yu Gothic UI",
     sans-serif;
 }
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}

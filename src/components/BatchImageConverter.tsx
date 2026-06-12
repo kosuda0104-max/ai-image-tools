@@ -255,13 +255,13 @@ export default function BatchImageConverter({
       relatedTools={page.relatedTools}
       relatedToolsTitle={page.relatedToolsTitle}
     >
-      <div className="space-y-5 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+      <div className="space-y-5 rounded-xl border border-gray-200 bg-white p-4 shadow-sm sm:rounded-2xl sm:p-6">
         {!hasResults ? (
           <>
             {/* Multi-file dropzone */}
             <label
               htmlFor="batch-file-input"
-              className="group block cursor-pointer rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 transition-colors hover:border-blue-400 hover:bg-blue-50/40"
+              className="group block cursor-pointer rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 transition-colors hover:border-blue-400 hover:bg-blue-50/40 sm:rounded-2xl"
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => {
                 e.preventDefault();
@@ -279,7 +279,7 @@ export default function BatchImageConverter({
                   e.currentTarget.value = "";
                 }}
               />
-              <div className="flex flex-col items-center gap-3 px-6 py-10 text-center">
+              <div className="flex flex-col items-center gap-3 px-4 py-8 text-center sm:px-6 sm:py-10">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 text-gray-500 transition-colors group-hover:bg-blue-100 group-hover:text-blue-600">
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
@@ -299,7 +299,7 @@ export default function BatchImageConverter({
             {items.length > 0 && (
               <div className="space-y-3">
                 <p className="text-sm font-semibold text-gray-900">{L.selected(items.length)}</p>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                <div className="grid grid-cols-1 gap-3 min-[380px]:grid-cols-2 sm:grid-cols-3">
                   {items.map((item) => (
                     <div key={item.id} className="group relative overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
                       {brokenThumbs.has(item.id) ? (
@@ -310,7 +310,6 @@ export default function BatchImageConverter({
                           <span className="text-[10px] uppercase">{(item.file.name.split(".").pop() || "img").slice(0, 5)}</span>
                         </div>
                       ) : (
-                        // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={item.url}
                           alt={item.file.name}
@@ -351,7 +350,7 @@ export default function BatchImageConverter({
               </div>
             )}
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <PrimaryButton onClick={handleConvert} disabled={items.length === 0 || isProcessing}>
                 {isProcessing ? L.converting : L.convert(items.length)}
               </PrimaryButton>
@@ -359,7 +358,7 @@ export default function BatchImageConverter({
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+                  className="w-full rounded-xl border border-gray-300 px-5 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50 sm:w-auto"
                 >
                   {ui.resetButton ?? (ja ? "リセット" : "Reset")}
                 </button>
@@ -376,10 +375,9 @@ export default function BatchImageConverter({
               {L.resultsTitle}（{results.length}）
             </div>
 
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 min-[380px]:grid-cols-2 sm:grid-cols-3">
               {results.map((r) => (
                 <div key={r.id} className="flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={r.url} alt={r.name} className="h-28 w-full bg-gray-50 object-contain" />
                   <div className="flex flex-1 flex-col gap-2 p-3">
                     <p className="truncate text-xs font-medium text-gray-800" title={r.name}>{r.name}</p>
@@ -399,14 +397,14 @@ export default function BatchImageConverter({
               ))}
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               {results.length > 1 && (
                 <PrimaryButton onClick={handleDownloadAll}>{L.downloadAll}</PrimaryButton>
               )}
               <button
                 type="button"
                 onClick={handleReset}
-                className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+                className="w-full rounded-xl border border-gray-300 px-5 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50 sm:w-auto"
               >
                 {L.convertMore}
               </button>
