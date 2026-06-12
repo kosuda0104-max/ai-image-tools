@@ -127,6 +127,13 @@ Claude にこう頼めば、秘書として機能します：
 - [ ] https://ai-image-tools.com/guides/what-is-webp
 - [ ] https://ai-image-tools.com/guides/convert-images-on-smartphone
 
+### バッチ7.6：新規ガイド第2弾（2026/06/05追加）
+- [ ] https://ai-image-tools.com/guides/jpg-vs-jpeg-difference
+- [ ] https://ai-image-tools.com/guides/screenshot-to-pdf
+- [ ] https://ai-image-tools.com/guides/resume-photo-size
+- [ ] https://ai-image-tools.com/guides/what-is-tiff
+- [ ] https://ai-image-tools.com/guides/marketplace-product-photos
+
 ### バッチ8（任意）：英語の主要ページ
 ※基本はサイトマップ任せでOK。余裕があれば。
 - [ ] https://ai-image-tools.com/en/tools/jpg-to-png

@@ -977,6 +977,301 @@ const jaGuides: GuideEntry[] = [
       },
     ],
   },
+  {
+    slug: "jpg-vs-jpeg-difference",
+    title: "JPGとJPEGの違いとは？拡張子が2つある理由を解説",
+    description:
+      "「.jpg」と「.jpeg」、同じような画像なのに拡張子が違うのはなぜ？結論から言えば中身はまったく同じです。2つの拡張子が存在する歴史的な理由と、実務で気をつけるべき唯一のポイントを解説します。",
+    cardDescription:
+      "JPGとJPEGは同じもの？拡張子が2種類ある理由と、提出時に気をつける点を解説します。",
+    sections: [
+      {
+        title: "結論：JPGとJPEGは完全に同じもの",
+        paragraphs: [
+          "まず結論です。JPGとJPEGは、拡張子の文字数が違うだけで、画像形式としてはまったく同じものです。画質、圧縮方式、開けるソフト、すべてに違いはありません。「.jpg」を「.jpeg」にリネームしても、ファイルの中身は1ビットも変わりません。",
+          "正式名称は JPEG（Joint Photographic Experts Group）で、この規格を策定した団体の名前がそのまま形式名になっています。本来の拡張子は「.jpeg」の4文字です。",
+        ],
+      },
+      {
+        title: "なぜ「.jpg」という3文字版があるのか",
+        paragraphs: [
+          "理由は古いWindowsにあります。MS-DOSや初期のWindowsでは、拡張子が「3文字まで」という制限があったため、「.jpeg」を「.jpg」に縮めて使う必要がありました。この名残で、Windows系のソフトは今でも「.jpg」で保存するものが多くあります。",
+          "一方、Macや一部のソフトは3文字制限がなかったため「.jpeg」をそのまま使い続けました。つまり2つの拡張子は、単なる「OSの歴史の違い」の産物です。",
+        ],
+      },
+      {
+        title: "どちらを使えばいい？",
+        paragraphs: [
+          "現在では「.jpg」が圧倒的多数派です。迷ったら「.jpg」を使っておけば間違いありません。WindowsでもMacでもスマホでも、どちらの拡張子も問題なく開けます。",
+          "自分でファイル名を付ける場合や、書き出し時に選べる場合は、世間で多く使われている「.jpg」に統一しておくと、後々の管理が楽になります。",
+        ],
+      },
+      {
+        title: "唯一注意が必要な場面：提出システムの拡張子チェック",
+        paragraphs: [
+          "実務で唯一困るのが、アップロードフォームが拡張子を機械的にチェックしている場合です。「.jpg のみ受付」のシステムに「.jpeg」のファイルを出すと、中身は同じなのにエラーになることがあります（逆も同様）。",
+          "この場合、ファイル名の拡張子を手で書き換えるだけで通ることがほとんどです。Windowsなら F2 キーでリネームし、「.jpeg」を「.jpg」に変えるだけです。画像の中身は変わらないので、画質劣化の心配もありません。",
+        ],
+      },
+      {
+        title: "リネームで不安なら変換ツールを通す",
+        paragraphs: [
+          "拡張子の手動リネームに不安がある場合や、システムがファイルの中身まで検査している場合は、変換ツールを一度通すのが確実です。当サイトの「PNGをJPGに変換」などのJPG出力ツールは、正しい「.jpg」拡張子で書き出します。",
+          "また、JPEG以外の形式（HEICやWebPなど）が「.jpg」を要求された場合は、リネームではなく本当の変換が必要です。HEICをJPGに変換、WebPをJPGに変換ツールをご利用ください。",
+        ],
+      },
+      {
+        title: "ちなみに：JFIFという拡張子もある",
+        paragraphs: [
+          "たまに見かける「.jfif」も、実はJPEGの一種です。WindowsがWebからコピーした画像をJFIF形式で保存することがあり、提出先で弾かれて戸惑う人が多い拡張子です。",
+          "これも中身はJPEGなので、拡張子を「.jpg」にリネームするか、変換ツールを通せば解決します。「見慣れない拡張子＝壊れたファイル」ではないので、落ち着いて対処してください。",
+        ],
+      },
+      {
+        title: "まとめ：違いはない、迷ったら.jpg",
+        paragraphs: [
+          "JPGとJPEGの違いは「拡張子の文字数」だけで、画像としては同一です。普段使いではどちらでも問題なく、迷ったら多数派の「.jpg」を選べば安心です。",
+          "提出システムの拡張子チェックで弾かれたときだけ、リネームまたは変換ツールで拡張子を合わせる。これだけ覚えておけば、この2つの拡張子で困ることはもうありません。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "screenshot-to-pdf",
+    title: "スクリーンショットをPDFにまとめる方法（Windows・Mac・スマホ）",
+    description:
+      "操作手順の説明、エラー画面の報告、Webページの保存。スクリーンショットを撮ったあと、複数枚を1つのPDFにまとめて共有したい場面は多いもの。OSごとの撮り方の基本から、ブラウザだけでPDF化する手順まで解説します。",
+    cardDescription:
+      "複数のスクリーンショットを1つのPDFにまとめて、報告や共有に使いやすくする手順を解説します。",
+    sections: [
+      {
+        title: "スクショをPDFにまとめると何が便利か",
+        paragraphs: [
+          "スクリーンショットを複数枚そのまま送ると、受け取った側は1枚ずつ開いて順番を推測しながら見ることになります。操作手順やエラー報告のように「順番に意味がある」画像は、1つのPDFにまとめると格段に伝わりやすくなります。",
+          "また、PDFにすればページ順が固定され、1ファイルで管理・印刷・提出ができます。社内報告、マニュアル配布、サポートへの問い合わせなど、ビジネス用途では特に重宝します。",
+        ],
+      },
+      {
+        title: "まずはスクショの撮り方をおさらい",
+        paragraphs: [
+          "Windowsは「Win + Shift + S」で範囲を選んで撮影でき、画像は「ピクチャ > スクリーンショット」に保存されます。全画面なら「Win + PrintScreen」です。Macは「Cmd + Shift + 4」で範囲選択、「Cmd + Shift + 3」で全画面が基本です。",
+          "iPhoneは「サイドボタン＋音量上げ」、Androidは「電源＋音量下げ」が一般的です。撮影した画像は通常PNG形式で保存されます。PNGは文字がくっきり写るので、スクショには最適な形式です。",
+        ],
+      },
+      {
+        title: "ブラウザだけで複数スクショをPDF化する手順",
+        paragraphs: [
+          "当サイトの「画像をPDFに変換」ツールを使えば、ソフトのインストールなしでPDF化できます。手順は、①ツールページを開く、②スクショを複数枚ドラッグ＆ドロップ、③並び順を上下ボタンで調整、④ページサイズ（A4など）を選んで変換、⑤PDFをダウンロード。これだけです。",
+          "処理はブラウザ内で完結するため、社内システムのスクショや個人情報を含む画面でも、外部サーバーに送信される心配がありません。この点は業務利用で特に重要です。",
+        ],
+      },
+      {
+        title: "ページサイズと向きの選び方",
+        paragraphs: [
+          "印刷や正式な提出に使うならA4を選ぶと、どこでも扱いやすいPDFになります。画面で見るだけなら「Auto（画像サイズに合わせる）」のほうが、スクショが大きく表示されて読みやすくなります。",
+          "横長のスクショ（PC画面）をA4縦に入れると小さくなりがちです。横長画面が中心なら、余白設定を小さめにするか、Autoサイズを選ぶと見やすく仕上がります。",
+        ],
+      },
+      {
+        title: "PDFが重くなったら圧縮する",
+        paragraphs: [
+          "高解像度のスクショを何十枚もまとめると、PDFが数十MBになることがあります。メール添付や提出システムの上限を超える場合は、PDF圧縮ツールで軽量化しましょう。",
+          "スクショは文字が主役なので、圧縮しすぎると読みにくくなります。圧縮後は必ず一度開いて、文字がつぶれていないか確認してから共有してください。",
+        ],
+      },
+      {
+        title: "逆に、PDFからスクショ（画像）を取り出したいとき",
+        paragraphs: [
+          "受け取ったPDFの1ページだけを画像として資料に貼りたい、という逆方向のニーズもよくあります。その場合は「PDFをPNGに変換」または「PDFをJPGに変換」ツールで、ページを画像として書き出せます。",
+          "文字中心のページはPNG、写真中心のページはJPGを選ぶときれいに仕上がります。スライドやチャットに貼るならJPGで十分なことが多いです。",
+        ],
+      },
+      {
+        title: "まとめ：撮る→並べる→PDF化の3ステップ",
+        paragraphs: [
+          "スクリーンショットの共有は、撮影 → 並び順の調整 → PDF化、の3ステップで見違えるほど伝わりやすくなります。すべてブラウザだけで完結するので、思い立ったときにすぐできます。",
+          "画像をPDFに変換・PDF圧縮・PDFをPNGに変換は、いずれも当サイトで無料・登録不要で利用できます。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "resume-photo-size",
+    title: "履歴書・応募用写真のデータサイズと形式の整え方",
+    description:
+      "Web応募で写真をアップロードしようとしたら「ファイルサイズが大きすぎます」「JPG形式でアップロードしてください」。就職・転職・各種申請で求められる写真データの規定と、手持ちの写真を規定に合わせる手順を解説します。",
+    cardDescription:
+      "Web応募や申請で求められる写真データの形式・サイズ規定に、手持ちの写真を合わせる方法です。",
+    sections: [
+      {
+        title: "よくある規定を知っておく",
+        paragraphs: [
+          "Web応募システムや申請サイトでよくある規定は、「形式：JPG（JPEG）」「ファイルサイズ：2MB以内（システムによっては100KB〜500KB）」「縦横比：縦4×横3」「ピクセル数：縦560×横420 程度」といったものです。資格試験や各種申請も、おおむね似た規定です。",
+          "規定はシステムごとに微妙に違うため、まずは応募先の指定を正確に確認することが第一歩です。指定と1つでも合わないと、自動チェックで弾かれることがあります。",
+        ],
+      },
+      {
+        title: "iPhoneで撮った写真はまずJPGに",
+        paragraphs: [
+          "iPhoneで撮影した写真はHEIC形式のことが多く、そのままでは「JPG形式で」という規定に合いません。最初にHEICをJPGに変換しておきましょう。当サイトの変換ツールならブラウザだけで数秒で完了します。",
+          "証明写真機やスタジオでもらったデータがダウンロード形式の場合は、最初からJPGになっていることが多いですが、念のため拡張子を確認してください。",
+        ],
+      },
+      {
+        title: "ピクセルサイズを規定に合わせる（リサイズ）",
+        paragraphs: [
+          "「縦560×横420ピクセル」のような指定がある場合は、画像リサイズツールで幅と高さを指定して縮小します。縦横比が規定と同じ（4:3）であれば、そのまま数値を入力するだけです。",
+          "スマホ写真は4000ピクセル以上あるのが普通なので、ほとんどの場合は「縮小」になります。縮小は画質劣化がほぼ気にならないので安心してください。逆に小さい画像を引き伸ばすと粗くなるため、元写真はなるべく大きいものを使いましょう。",
+        ],
+      },
+      {
+        title: "縦横比が合わないときは切り抜き",
+        paragraphs: [
+          "元写真の縦横比が規定と違う場合、リサイズだけでは合わせられません（無理に合わせると顔が伸びます）。先に画像切り抜きツールで、規定の比率（4:3など）に切り抜いてからリサイズしましょう。",
+          "切り抜きの際は、顔が中央〜やや上に来るように、頭の上に少し余白を残すのが証明写真の基本です。肩まで入る範囲で切り抜くとバランスよく仕上がります。",
+        ],
+      },
+      {
+        title: "ファイルサイズの上限を超えたら圧縮",
+        paragraphs: [
+          "リサイズ後もファイルサイズが上限（例：100KB）を超える場合は、JPG圧縮ツールで品質を調整します。圧縮の強さを変えながら、プレビューとファイルサイズを確認できるので、「規定内に収まる最高画質」を狙えます。",
+          "顔写真は多少の圧縮では見た目がほとんど変わりません。ただし圧縮しすぎると肌が荒れて見えるので、プレビューで確認しながら段階的に調整してください。",
+        ],
+      },
+      {
+        title: "プライバシーが気になる写真こそブラウザ内処理",
+        paragraphs: [
+          "履歴書写真は顔がはっきり写った個人情報そのものです。どこの誰が運営しているか分からない変換サイトにアップロードするのは避けたいところです。",
+          "当サイトのツールはすべてブラウザ内で処理され、写真が外部サーバーへ送信されない設計です。応募写真のようなセンシティブな画像でも、端末の外に出さずに加工できます。",
+        ],
+      },
+      {
+        title: "まとめ：変換→切り抜き→リサイズ→圧縮",
+        paragraphs: [
+          "応募写真の整え方は、①HEICならJPGへ変換、②縦横比が違えば切り抜き、③規定ピクセルへリサイズ、④上限を超えたら圧縮、の順が確実です。この順番なら画質を最大限保てます。",
+          "すべての工程が当サイトのツールで無料・ブラウザ内処理で完結します。締切直前でも数分で規定に合わせられるので、慌てず順番に進めてください。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "what-is-tiff",
+    title: "TIFFとは？開けないときの対処法とJPG・PNGへの変換方法",
+    description:
+      "スキャナーやデジカメ、印刷会社から受け取ったファイルが「.tif」「.tiff」で開けない・共有できない。TIFFとはどんな形式で、なぜ今も使われているのか、JPGやPNGへ変換して扱いやすくする方法を解説します。",
+    cardDescription:
+      "スキャンデータや入稿データでよく見るTIFF形式の正体と、JPG・PNGへの変換方法を解説します。",
+    sections: [
+      {
+        title: "TIFFは「劣化させない」ための業務用形式",
+        paragraphs: [
+          "TIFF（Tagged Image File Format）は、画質を一切劣化させずに画像を保存できる形式です。印刷入稿、書類スキャン、医療画像、アーカイブ保存など、「品質が最優先」の現場で数十年使われ続けています。",
+          "拡張子は「.tif」と「.tiff」の2種類がありますが、JPGとJPEGの関係と同じで中身は同一です。スキャナーの初期設定がTIFFになっていて、知らないうちにTIFFファイルが溜まっていた、というのもよくあるパターンです。",
+        ],
+      },
+      {
+        title: "なぜ開けない・送れないことがあるのか",
+        paragraphs: [
+          "TIFFは高品質な分ファイルサイズが非常に大きく、またWebブラウザが標準では表示に対応していません。メールで送ると重すぎたり、チャットアプリでプレビューされなかったり、Webフォームで弾かれたりするのはこのためです。",
+          "WindowsのフォトアプリやMacのプレビューでは開けることが多いですが、「相手が開けるか」は別問題です。共有や提出が目的なら、JPGかPNGへの変換が現実的な解決策になります。",
+        ],
+      },
+      {
+        title: "TIFFをJPGに変換する：共有・提出向け",
+        paragraphs: [
+          "メール添付、チャット共有、Webアップロードが目的なら、JPGへの変換が最適です。ファイルサイズが大幅に小さくなり、どんな環境でも開けるようになります。",
+          "当サイトの「TIFFをJPGに変換」ツールは、ブラウザにファイルをドロップするだけで変換できます。複数ファイルの一括変換とZIPダウンロードにも対応しているので、スキャンデータをまとめて処理するのにも便利です。",
+        ],
+      },
+      {
+        title: "TIFFをPNGに変換する：品質・編集向け",
+        paragraphs: [
+          "文字がくっきりした書類スキャンや、この後も編集を重ねる画像なら、PNGへの変換が向いています。PNGも劣化のない形式なので、TIFFの品質をほぼそのまま引き継げます。",
+          "「TIFFをPNGに変換」ツールも同様にブラウザ内処理です。機密書類のスキャンデータでも、外部サーバーへ送らずに変換できます。",
+        ],
+      },
+      {
+        title: "元のTIFFは消さずに残すのが基本",
+        paragraphs: [
+          "TIFFからJPGへの変換は「劣化なし→劣化あり」への変換なので、JPGから元のTIFF品質には戻せません。アーカイブや再利用の可能性がある画像は、元のTIFFを保存用として残し、共有用にJPGを作る運用がおすすめです。",
+          "ストレージを圧迫する場合は、外付けHDDやクラウドストレージに元データを退避させてから、日常使いのフォルダにはJPG版を置くと管理しやすくなります。",
+        ],
+      },
+      {
+        title: "複数ページTIFFについて知っておく",
+        paragraphs: [
+          "TIFFには複数ページを1ファイルに格納できる「マルチページTIFF」という形式があり、FAXソフトや業務スキャナーがよく生成します。当サイトのツールは1ページ目を変換する仕様のため、全ページが必要な場合は注意してください。",
+          "複数ページの書類全体を共有したい場合は、ページごとに画像化したあと「画像をPDFに変換」ツールで1つのPDFにまとめ直すと、扱いやすい形になります。",
+        ],
+      },
+      {
+        title: "まとめ：保存はTIFF、共有はJPG/PNG",
+        paragraphs: [
+          "TIFFは品質保存のための形式であり、共有・提出には向きません。「マスターはTIFFで保管、配布用はJPGやPNGに変換」という使い分けが、品質と利便性の両方を満たす運用です。",
+          "TIFFをJPGに変換・TIFFをPNGに変換は、どちらも当サイトで無料・登録不要・ブラウザ内処理で利用できます。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "marketplace-product-photos",
+    title: "フリマアプリの出品写真を整える方法（サイズ・明るさ・形式）",
+    description:
+      "メルカリやラクマなどのフリマアプリでは、写真の質が売れ行きを大きく左右します。アップロード前に写真を整えるための基本テクニックと、正方形への切り抜き・容量調整・形式変換の手順を解説します。",
+    cardDescription:
+      "出品写真を正方形に切り抜き、容量と形式を整えて、フリマアプリで見栄えよく見せる手順です。",
+    sections: [
+      {
+        title: "出品写真が売れ行きを左右する理由",
+        paragraphs: [
+          "フリマアプリの一覧画面で買い手が最初に見るのは、価格でも説明文でもなく1枚目の写真です。写真が暗い・ブレている・商品が小さく写っているだけで、タップされる確率は大きく下がります。",
+          "高価なカメラは必要ありません。撮影の基本を押さえて、アップロード前にひと手間かけるだけで、写真の印象は十分に改善できます。",
+        ],
+      },
+      {
+        title: "撮影の基本：明るさと背景",
+        paragraphs: [
+          "最も効果が大きいのは「自然光で撮る」ことです。日中の窓際で、商品に光が回る位置で撮影しましょう。夜の室内照明だけだと、色がくすんで実物より安っぽく見えがちです。",
+          "背景は白い壁・白い布・無地の床がおすすめです。生活感のある背景は商品の印象を下げるので、何もない場所を確保するだけで一気にプロっぽくなります。",
+        ],
+      },
+      {
+        title: "正方形に切り抜いて一覧映えさせる",
+        paragraphs: [
+          "多くのフリマアプリの一覧画面は正方形（1:1）で表示されます。撮ったままの縦長・横長写真をアップすると、自動トリミングで商品が見切れることがあります。",
+          "当サイトの画像切り抜きツールで、商品が中央に来るように1:1で切り抜いてからアップすると、一覧画面での見え方を自分でコントロールできます。商品の周囲に少し余白を残すと、窮屈さのないきれいな構図になります。",
+        ],
+      },
+      {
+        title: "傷や汚れの写真も忘れずに",
+        paragraphs: [
+          "中古品の出品では、傷・汚れ・使用感を正直に見せる写真がトラブル防止に直結します。該当箇所に寄って撮影し、切り抜きツールで状態が分かりやすい構図に整えましょう。",
+          "「傷の写真をきちんと載せている出品者」は信頼されやすく、結果的に売れやすくなります。隠すより見せるほうが得策です。",
+        ],
+      },
+      {
+        title: "アップロード前の容量・形式チェック",
+        paragraphs: [
+          "アプリ経由のアップロードは自動圧縮されますが、PC（Web版）から出品する場合はファイルサイズ制限に引っかかることがあります。重い写真は画像圧縮ツールで軽くしてからアップしましょう。",
+          "iPhoneのHEIC写真がWeb版で受け付けられない場合は、HEICをJPGに変換してからアップロードすれば解決します。",
+        ],
+      },
+      {
+        title: "個人情報の写り込みに注意",
+        paragraphs: [
+          "出品写真で意外と多い事故が、鏡やガラスへの自分の写り込み、背景の郵便物や書類からの住所漏れです。アップロード前に、写真を拡大して背景までチェックする習慣をつけましょう。",
+          "書類の一部を見せたい出品（説明書の付属確認など）では、住所や名前の部分が写らない構図で撮るか、切り抜きツールで該当部分を外して見せると安全です。",
+        ],
+      },
+      {
+        title: "まとめ：撮影→切り抜き→容量調整の流れ",
+        paragraphs: [
+          "出品写真は、①自然光＋無地背景で撮影、②1:1に切り抜いて構図を整える、③必要に応じて容量・形式を調整、の3ステップで見違えます。1枚目に最も良いカットを置くのも忘れずに。",
+          "切り抜き・リサイズ・圧縮・HEIC変換は、すべて当サイトで無料・ブラウザ内処理で行えます。出品作業の流れに組み込んでみてください。",
+        ],
+      },
+    ],
+  },
 ];
 
 const enGuides: GuideEntry[] = [
@@ -1939,6 +2234,301 @@ const enGuides: GuideEntry[] = [
         paragraphs: [
           "Everyday image chores — converting, compressing, resizing, making PDFs — all work straight from a phone browser, with no app ads or permissions to worry about.",
           "Filewisp is optimized for mobile, with 45+ free tools. Add your most-used ones to the home screen and they behave like apps.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "jpg-vs-jpeg-difference",
+    title: "JPG vs JPEG: why there are two extensions for the same format",
+    description:
+      "Two extensions, .jpg and .jpeg, for what looks like the same image? They are in fact identical. Here is the historical reason both exist, and the one practical situation where the difference matters.",
+    cardDescription:
+      "JPG and JPEG are the same format — here's why both extensions exist and when it matters.",
+    sections: [
+      {
+        title: "The short answer: they are identical",
+        paragraphs: [
+          "JPG and JPEG differ only in the number of letters in the extension. The image format, compression, quality, and compatibility are exactly the same. Renaming a .jpg to .jpeg changes nothing inside the file.",
+          "The format's real name is JPEG — Joint Photographic Experts Group, after the committee that created it — and the original extension is the four-letter .jpeg.",
+        ],
+      },
+      {
+        title: "Where the three-letter .jpg came from",
+        paragraphs: [
+          "Blame old Windows. MS-DOS and early Windows limited extensions to three characters, so .jpeg had to be shortened to .jpg. Windows software has defaulted to .jpg ever since.",
+          "Macs never had that limit and kept using .jpeg. The two extensions are simply leftovers from different operating-system histories.",
+        ],
+      },
+      {
+        title: "Which one should you use?",
+        paragraphs: [
+          ".jpg is by far the more common choice today, and it is the safe default. Every modern OS and app opens both without complaint.",
+          "When you get to choose, standardizing on .jpg keeps your filenames consistent and avoids confusion later.",
+        ],
+      },
+      {
+        title: "The one case that matters: strict upload forms",
+        paragraphs: [
+          "Some upload systems check the extension literally. A form that says \".jpg only\" may reject a .jpeg file — even though the content is identical (and vice versa).",
+          "Renaming the file extension by hand is usually enough to pass: press F2 on Windows and change .jpeg to .jpg. No quality is lost because the image data never changes.",
+        ],
+      },
+      {
+        title: "Unsure about renaming? Convert instead",
+        paragraphs: [
+          "If hand-renaming feels risky, or the system inspects file contents, run the image through a converter once. Tools like our PNG to JPG converter write a proper .jpg file.",
+          "If the file is actually HEIC or WebP being asked for as JPG, renaming won't help — a real conversion is needed. Use HEIC to JPG or WebP to JPG for those.",
+        ],
+      },
+      {
+        title: "Bonus: the .jfif extension",
+        paragraphs: [
+          "Occasionally Windows saves web images as .jfif — which is also just JPEG under another name. It confuses upload forms and users alike.",
+          "Rename it to .jpg or pass it through a converter and the problem disappears. An unfamiliar extension does not mean a broken file.",
+        ],
+      },
+      {
+        title: "Bottom line",
+        paragraphs: [
+          "There is no difference between JPG and JPEG beyond the extension length. Use .jpg by default, and only think about it when a strict upload form complains.",
+          "When that happens, rename or convert — both take seconds.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "screenshot-to-pdf",
+    title: "How to combine screenshots into one PDF (Windows, Mac, mobile)",
+    description:
+      "Step-by-step instructions, bug reports, web page records — screenshots often need to be shared as one ordered document. Here is how to capture them on each OS and combine them into a single PDF in your browser.",
+    cardDescription:
+      "Turn multiple screenshots into a single, ordered PDF for reports and sharing — all in the browser.",
+    sections: [
+      {
+        title: "Why a PDF beats loose screenshots",
+        paragraphs: [
+          "Sending several screenshots as separate files forces the recipient to open each one and guess the order. When sequence matters — instructions, error reports — one PDF communicates far better.",
+          "A PDF also fixes the page order, prints cleanly, and travels as a single file. For internal reports and support tickets it is the practical choice.",
+        ],
+      },
+      {
+        title: "Capturing screenshots, briefly",
+        paragraphs: [
+          "Windows: Win + Shift + S selects a region (saved to Pictures > Screenshots); Win + PrintScreen captures the full screen. Mac: Cmd + Shift + 4 for a region, Cmd + Shift + 3 for the full screen.",
+          "iPhone uses Side button + Volume Up; Android typically Power + Volume Down. Captures are saved as PNG, which keeps text crisp — ideal for screenshots.",
+        ],
+      },
+      {
+        title: "Combining them into a PDF in the browser",
+        paragraphs: [
+          "With our image-to-PDF tool there is nothing to install: ① open the tool, ② drag in the screenshots, ③ adjust the order with the up/down buttons, ④ pick a page size (A4 or Auto) and convert, ⑤ download the PDF.",
+          "Everything is processed inside your browser, so screenshots of internal systems or personal data never leave your machine — which matters for work use.",
+        ],
+      },
+      {
+        title: "Choosing page size and orientation",
+        paragraphs: [
+          "Choose A4 for anything that may be printed or formally submitted. For on-screen reading, Auto (fit to image) shows each screenshot larger and easier to read.",
+          "Wide desktop screenshots shrink on portrait A4. If most captures are wide, use smaller margins or Auto sizing for a more readable result.",
+        ],
+      },
+      {
+        title: "If the PDF gets heavy, compress it",
+        paragraphs: [
+          "Dozens of high-resolution captures can push a PDF into tens of megabytes. Use the PDF compressor when you hit attachment or upload limits.",
+          "Screenshots are mostly text, which suffers from aggressive compression — always open the compressed file and confirm the text is readable before sharing.",
+        ],
+      },
+      {
+        title: "Going the other way: PDF pages as images",
+        paragraphs: [
+          "Need one page of a received PDF as an image for a slide or chat? PDF to PNG and PDF to JPG export pages as images.",
+          "Pick PNG for text-heavy pages and JPG for photo-heavy ones.",
+        ],
+      },
+      {
+        title: "Summary: capture → order → convert",
+        paragraphs: [
+          "Capture, arrange, convert — three steps turn scattered screenshots into a document people can actually follow, entirely in the browser.",
+          "Image to PDF, PDF compress, and PDF to PNG are all free on Filewisp with no signup.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "resume-photo-size",
+    title: "Getting an application photo to the required size and format",
+    description:
+      "\"File too large.\" \"JPG format only.\" Online job and exam applications are strict about photo files. Here are the common requirements and how to fit your photo to them without losing quality.",
+    cardDescription:
+      "How to meet the format, pixel-size, and file-size rules for online application photos.",
+    sections: [
+      {
+        title: "Know the typical requirements",
+        paragraphs: [
+          "Application systems commonly ask for: JPG format, a file under 2 MB (sometimes 100–500 KB), a 4:3 portrait aspect ratio, and pixel dimensions around 560×420. Exam and visa systems follow similar patterns.",
+          "Rules vary slightly per system, so read the exact specification first — automated checks reject any mismatch.",
+        ],
+      },
+      {
+        title: "iPhone photos: convert HEIC to JPG first",
+        paragraphs: [
+          "iPhone photos are usually HEIC, which fails a \"JPG only\" rule outright. Convert to JPG first — our browser tool does it in seconds.",
+          "Photos from photo booths or studios are usually already JPG, but check the extension to be sure.",
+        ],
+      },
+      {
+        title: "Resize to the required pixels",
+        paragraphs: [
+          "For a spec like 560×420, use the resize tool and enter the dimensions. If the aspect ratio already matches (4:3), that is all it takes.",
+          "Phone photos start at 4000+ pixels, so you will almost always be shrinking — which loses no visible quality. Avoid enlarging small images; start from the biggest original you have.",
+        ],
+      },
+      {
+        title: "Crop first if the aspect ratio differs",
+        paragraphs: [
+          "If your photo's proportions don't match the spec, resizing alone would stretch the face. Crop to the required ratio (e.g. 4:3) first, then resize.",
+          "Keep the face centered or slightly high, with a little space above the head and shoulders in frame — the standard ID-photo composition.",
+        ],
+      },
+      {
+        title: "Compress if the file is still too large",
+        paragraphs: [
+          "If the resized file still exceeds the limit, adjust quality with the JPG compressor while watching the preview and size readout — aim for the best quality that fits the cap.",
+          "Portraits tolerate moderate compression well, but overdoing it makes skin look rough. Step down gradually and check the preview.",
+        ],
+      },
+      {
+        title: "Privacy: this is exactly when in-browser matters",
+        paragraphs: [
+          "An application photo is your face — highly personal data. Uploading it to an anonymous conversion server is worth avoiding.",
+          "Every Filewisp tool processes files inside your browser; the photo never leaves your device.",
+        ],
+      },
+      {
+        title: "Summary: convert → crop → resize → compress",
+        paragraphs: [
+          "Convert HEIC to JPG, crop to the required ratio, resize to the required pixels, compress if the size cap demands it — in that order, quality survives best.",
+          "All four steps are free and in-browser on Filewisp, so even a deadline-day fix takes minutes.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "what-is-tiff",
+    title: "What is TIFF? How to open .tif files and convert them to JPG or PNG",
+    description:
+      "Received a .tif or .tiff file from a scanner, camera, or print shop that won't open or share easily? Here is what TIFF is for, why it persists, and how to convert it into something practical.",
+    cardDescription:
+      "What the TIFF format is for, and how to convert scans and print files to JPG or PNG.",
+    sections: [
+      {
+        title: "TIFF is the no-quality-loss workhorse",
+        paragraphs: [
+          "TIFF (Tagged Image File Format) stores images with zero quality loss. Print production, document scanning, medical imaging, and archives have relied on it for decades.",
+          ".tif and .tiff are the same thing — just like JPG and JPEG. Scanners often default to TIFF, which is how people end up with folders of them unknowingly.",
+        ],
+      },
+      {
+        title: "Why it won't open or send",
+        paragraphs: [
+          "Quality comes at a cost: TIFF files are huge, and web browsers don't display them natively. That is why they choke email, fail to preview in chat apps, and get rejected by upload forms.",
+          "Windows Photos and macOS Preview usually open them, but whether the recipient can is another question. For sharing or submission, converting to JPG or PNG is the practical answer.",
+        ],
+      },
+      {
+        title: "TIFF to JPG: for sharing and submission",
+        paragraphs: [
+          "For email, chat, or web uploads, JPG is the target: dramatically smaller and openable everywhere.",
+          "Our TIFF to JPG tool converts on drop, supports batch conversion with ZIP download, and runs entirely in the browser — handy for processing a stack of scans.",
+        ],
+      },
+      {
+        title: "TIFF to PNG: for quality and editing",
+        paragraphs: [
+          "For crisp document scans or images you will keep editing, PNG is the better target — it is lossless, so TIFF quality carries over almost intact.",
+          "TIFF to PNG also processes in-browser, so confidential scans never leave your device.",
+        ],
+      },
+      {
+        title: "Keep the original TIFF",
+        paragraphs: [
+          "TIFF → JPG goes from lossless to lossy; you cannot get the original quality back from the JPG. Keep the TIFF as the master and distribute the JPG.",
+          "If storage is tight, archive the originals to an external drive or cloud storage and keep JPG copies in your working folders.",
+        ],
+      },
+      {
+        title: "About multi-page TIFFs",
+        paragraphs: [
+          "TIFF can hold multiple pages in one file — fax software and office scanners produce these. Our tools convert the first page, so plan accordingly if you need every page.",
+          "To share a whole multi-page document, export the pages as images and rebuild them into a single PDF with the image-to-PDF tool.",
+        ],
+      },
+      {
+        title: "Bottom line: archive in TIFF, share in JPG/PNG",
+        paragraphs: [
+          "TIFF is for preservation, not distribution. Master in TIFF, convert copies for sharing — that split satisfies both quality and convenience.",
+          "TIFF to JPG and TIFF to PNG are free, signup-free, and in-browser on Filewisp.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "marketplace-product-photos",
+    title: "Better marketplace listing photos: size, light, and format",
+    description:
+      "On resale marketplaces, the photo decides whether buyers tap your listing. Simple shooting technique plus a square crop, sensible file size, and the right format go a long way — here is the workflow.",
+    cardDescription:
+      "Square-crop, brighten, and size your listing photos so they stand out in marketplace feeds.",
+    sections: [
+      {
+        title: "Photos drive taps",
+        paragraphs: [
+          "In a marketplace feed, buyers see your first photo before the price or description. Dark, blurry, or distant shots lose taps before anyone reads a word.",
+          "No expensive camera needed — shooting basics plus a minute of preparation before upload makes most of the difference.",
+        ],
+      },
+      {
+        title: "Shooting basics: light and background",
+        paragraphs: [
+          "Natural daylight near a window is the single biggest upgrade. Indoor evening lighting dulls colors and makes items look cheaper than they are.",
+          "Use a plain background — white wall, white cloth, bare floor. Removing household clutter from the frame instantly looks more professional.",
+        ],
+      },
+      {
+        title: "Crop square for the feed",
+        paragraphs: [
+          "Most marketplace feeds display listings as squares (1:1). Uploading uncropped portrait or landscape shots risks the app's auto-crop cutting your item off.",
+          "Crop to 1:1 yourself with the item centered — our crop tool does this in the browser — leaving a little breathing room around the product.",
+        ],
+      },
+      {
+        title: "Photograph flaws honestly",
+        paragraphs: [
+          "For used items, clear close-ups of scratches and wear prevent disputes. Crop those shots so the flaw is unmistakable.",
+          "Sellers who show flaws openly read as trustworthy — which sells items faster, not slower.",
+        ],
+      },
+      {
+        title: "Check size and format before upload",
+        paragraphs: [
+          "Apps compress automatically, but listing from a PC browser can hit file-size limits — compress heavy photos first.",
+          "If the web version rejects iPhone HEIC photos, convert them to JPG and upload again.",
+        ],
+      },
+      {
+        title: "Watch for personal info in the frame",
+        paragraphs: [
+          "Common accidents: your reflection in mirrors or glass, and mail or documents in the background revealing your address. Zoom in and inspect the background before uploading.",
+          "When showing paperwork (manuals, receipts), frame or crop out names and addresses.",
+        ],
+      },
+      {
+        title: "Summary: shoot → crop square → adjust",
+        paragraphs: [
+          "Natural light and a plain background, a 1:1 crop with the item centered, then size/format adjustments as needed — and put your best shot first.",
+          "Crop, resize, compress, and HEIC conversion are all free and in-browser on Filewisp.",
         ],
       },
     ],
