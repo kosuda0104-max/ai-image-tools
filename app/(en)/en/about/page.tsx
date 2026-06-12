@@ -69,6 +69,20 @@ export default function Page() {
               "Advertising may appear on the site, but pages are built to be useful before ads are considered.",
             ],
           },
+          {
+            title: "Advertising and monetization",
+            paragraphs: [
+              "The site may display ads to cover operating costs such as the domain and hosting. All tools remain free with no feature restrictions, regardless of advertising.",
+              "Ad placements are kept away from tool controls so they never interfere with your work. Cookie usage is described in detail in the privacy policy.",
+            ],
+          },
+          {
+            title: "Update history",
+            paragraphs: [
+              "June 2026: Rebranded to Filewisp with a full redesign. Converters gained multi-file batch processing, progress indicators, and ZIP download; a TIFF conversion bug was fixed; and new problem-solving guides (HEIC, WebP, email attachments, PDF size limits) were published.",
+              "March–May 2026: Launched 45+ tools covering JPG, PNG, WebP, HEIC, and PDF conversion, compression, resizing, and data conversion (Parquet, CSV, JSON), along with format-selection guides. Improvements continue based on real usage and feedback.",
+            ],
+          },
         ]}
       />
     </>

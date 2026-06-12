@@ -120,6 +120,13 @@ Claude にこう頼めば、秘書として機能します：
 - [ ] https://ai-image-tools.com/guides/optimize-blog-and-site-images
 - [ ] https://ai-image-tools.com/en/tools
 
+### バッチ7.5：新規ガイド（2026/06/05追加・AdSense対策記事）
+- [ ] https://ai-image-tools.com/guides/heic-cannot-open-windows
+- [ ] https://ai-image-tools.com/guides/send-large-photos-by-email
+- [ ] https://ai-image-tools.com/guides/pdf-upload-size-limit
+- [ ] https://ai-image-tools.com/guides/what-is-webp
+- [ ] https://ai-image-tools.com/guides/convert-images-on-smartphone
+
 ### バッチ8（任意）：英語の主要ページ
 ※基本はサイトマップ任せでOK。余裕があれば。
 - [ ] https://ai-image-tools.com/en/tools/jpg-to-png
