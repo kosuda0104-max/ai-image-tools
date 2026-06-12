@@ -682,6 +682,301 @@ const jaGuides: GuideEntry[] = [
       },
     ],
   },
+  {
+    slug: "heic-cannot-open-windows",
+    title: "HEICファイルがWindowsで開けない原因と対処法",
+    description:
+      "iPhoneから送られてきた写真がWindowsで開けない。その原因のほとんどはHEICという形式にあります。なぜ開けないのか、今すぐ開くための方法、今後困らないための設定まで順番に解説します。",
+    cardDescription:
+      "iPhone写真（HEIC）がWindowsで開けないときの原因と、今すぐできる対処法をまとめています。",
+    sections: [
+      {
+        title: "開けない原因は「HEIC」という形式",
+        paragraphs: [
+          "iPhoneで撮影した写真は、初期設定では HEIC（High Efficiency Image Container）という形式で保存されます。HEICは同じ画質のJPGよりファイルサイズを大幅に小さくできる優れた形式ですが、Appleが2017年に採用した比較的新しい形式のため、Windows標準では追加の作業なしに開けないことがあります。",
+          "とくに古いWindows 10や、職場の管理されたPCでは、HEICを開くためのコーデック（拡張機能）が入っていないことが多く、「このファイルは表示できません」「対応していない形式です」というエラーになります。ファイルが壊れているわけではないので安心してください。",
+        ],
+      },
+      {
+        title: "対処法1：JPGに変換してしまうのが一番早い",
+        paragraphs: [
+          "今すぐその写真を開きたい・使いたいだけなら、HEICをJPGに変換するのが最も確実です。JPGはWindowsでもMacでもスマホでも、ほぼすべての環境で開ける形式なので、変換してしまえば以降の互換性問題はなくなります。",
+          "当サイトの「HEICをJPGに変換」ツールを使えば、ブラウザにファイルをドロップするだけで変換できます。処理はブラウザ内で完結し、写真が外部サーバーに送信されることはないため、人物写真や仕事の書類写真でも安心して使えます。複数枚まとめての変換にも対応しています。",
+        ],
+      },
+      {
+        title: "対処法2：Windowsに拡張機能を入れる",
+        paragraphs: [
+          "毎回変換するのが面倒で、今後もHEICファイルを受け取る機会が多いなら、Microsoft Storeで「HEIF画像拡張機能」をインストールする方法もあります。これを入れると、Windowsの「フォト」アプリでHEICを直接開けるようになります。",
+          "ただし、環境によっては有料の「HEVCビデオ拡張機能」も必要になる場合があることと、会社のPCではストアからのインストールが制限されていることがある点には注意が必要です。確実さを優先するなら、やはりJPGへの変換が手堅い選択です。",
+        ],
+      },
+      {
+        title: "対処法3：iPhone側の設定で今後はJPGで撮る",
+        paragraphs: [
+          "そもそもHEICで保存されないようにしたい場合は、iPhoneの「設定 → カメラ → フォーマット」で「互換性優先」を選ぶと、以降の写真はJPGで保存されます。Windowsユーザーとのやり取りが多い人はこの設定が楽です。",
+          "ただし、JPGはHEICよりファイルサイズが大きくなるため、iPhoneのストレージ消費は増えます。「保存はHEICのまま、送るときだけJPGに変換」という使い分けのほうが、容量と互換性のバランスは取りやすいです。",
+        ],
+      },
+      {
+        title: "メールやAirDropで送ると自動変換されることも",
+        paragraphs: [
+          "実は、iPhoneからメールに添付して送ると、自動的にJPGへ変換されて届くことが多くあります。また「設定 → 写真」の下部にある「MacまたはPCに転送」を「自動」にしておくと、USB接続でPCへ取り込む際に互換性のある形式へ変換してくれます。",
+          "一方、クラウドストレージ（Google Drive など）やチャットアプリ経由では HEIC のまま渡ることが多いです。受け取った側で開けない場合は、前述の変換ツールでJPGにするのが早道です。",
+        ],
+      },
+      {
+        title: "変換するときに知っておきたい注意点",
+        paragraphs: [
+          "HEICからJPGへの変換では、見た目の画質はほとんど変わりませんが、ファイルサイズは元のHEICより大きくなるのが普通です。これはJPGの圧縮効率がHEICより低いためで、異常ではありません。サイズが気になる場合は、変換後にJPG圧縮ツールで軽量化できます。",
+          "また、編集や再利用の予定がある大切な写真は、元のHEICファイルも残しておくのがおすすめです。HEICのほうが高画質を小さい容量で保持しているため、マスターとしてはHEIC、配布用としてはJPG、という使い分けが理想です。",
+        ],
+      },
+      {
+        title: "まとめ：迷ったらJPG変換が最短ルート",
+        paragraphs: [
+          "HEICが開けない問題は「形式の互換性」が原因なので、JPGに変換すれば確実に解決します。急ぎならブラウザの変換ツール、頻繁に受け取るならWindowsの拡張機能、根本から変えたいならiPhoneの設定変更、と状況に応じて選んでください。",
+          "当サイトではHEICをJPGに変換、HEICをPNGに変換の両方を無料で提供しています。インストール不要・ブラウザ内処理なので、職場のPCでも使いやすい構成です。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "send-large-photos-by-email",
+    title: "写真が重くてメールで送れないときの対処法",
+    description:
+      "「添付ファイルのサイズが上限を超えています」。写真をメールで送ろうとしてこのエラーに出会ったら、画像を軽くするのが一番シンプルな解決策です。容量制限の目安と、画質をできるだけ保ったまま軽くする手順を解説します。",
+    cardDescription:
+      "メールの容量制限に引っかかった写真を、画質を保ちながら軽くして送る方法を解説します。",
+    sections: [
+      {
+        title: "メールで送れる容量の目安を知る",
+        paragraphs: [
+          "多くのメールサービスでは、添付ファイルの上限は合計20〜25MB程度です（Gmail・Outlookは25MB）。ただし、受信側のサーバーがもっと小さい上限を設定していることもあるため、実務では合計10MB以内に収めておくと安全と言われます。",
+          "最近のスマホ写真は1枚3〜8MB程度あるため、数枚添付しただけで簡単に上限へ到達します。「1枚なら送れたのに3枚だと送れない」のはこのためです。",
+        ],
+      },
+      {
+        title: "解決策1：画像を圧縮して軽くする",
+        paragraphs: [
+          "最も手軽なのは、写真の画質を少しだけ下げてファイルサイズを減らす「圧縮」です。写真の場合、画質を80%程度に圧縮しても見た目の違いはほとんど分からないことが多く、ファイルサイズは半分以下になることもあります。",
+          "当サイトの画像圧縮ツールでは、圧縮の強さをスライダーで調整しながら、圧縮前後のプレビューとファイルサイズを見比べられます。ブラウザ内で処理されるため、プライベートな写真でも外部に送信される心配がありません。",
+        ],
+      },
+      {
+        title: "解決策2：画像のサイズ（解像度）を小さくする",
+        paragraphs: [
+          "スマホ写真の解像度は4000ピクセル以上あることが多いですが、メールで見る・資料に貼る用途なら1200〜1600ピクセルもあれば十分です。解像度を半分にするとファイルサイズは大幅に減ります。",
+          "画像リサイズツールで幅を指定して縮小すれば、それだけで数MBの写真が数百KBになることも珍しくありません。「圧縮よりまずリサイズ」のほうが画質の劣化を感じにくいので、大きすぎる写真にはこちらが先です。",
+        ],
+      },
+      {
+        title: "解決策3：複数枚なら1つのPDFにまとめる",
+        paragraphs: [
+          "写真を何枚も添付すると、受け取る側も1枚ずつ開く手間がかかります。報告書類や現場写真のような用途なら、複数の画像を1つのPDFにまとめてから送ると、容量管理も閲覧もしやすくなります。",
+          "当サイトの「画像をPDFに変換」ツールは、複数画像の並び替え・ページサイズ指定に対応しています。まとめたPDFが重い場合は、PDF圧縮ツールで仕上げに軽量化もできます。",
+        ],
+      },
+      {
+        title: "HEIC写真はJPGにすると扱いやすい",
+        paragraphs: [
+          "iPhoneの写真（HEIC形式）は、相手の環境によっては開けないことがあります。メールで送る前にJPGへ変換しておくと、容量の調整もしやすく、受信側で開けないトラブルも防げます。",
+          "HEICをJPGに変換 → 必要ならリサイズ → 圧縮、という流れがスマホ写真をメールで送る際の鉄板ルートです。すべてブラウザだけで完結します。",
+        ],
+      },
+      {
+        title: "どうしても大きいファイルはリンク共有で",
+        paragraphs: [
+          "数十MB以上のファイルや大量の写真は、メール添付ではなくGoogle DriveやOneDriveなどのクラウドストレージにアップロードし、共有リンクを送るのが現実的です。GmailではGoogle Driveとの連携が組み込まれており、上限を超えると自動的に提案されます。",
+          "ただし、社外とのやり取りではリンク共有が禁止されている場合や、相手がアクセスできない場合もあります。その場合はやはり「軽くして添付」が確実なので、圧縮・リサイズの手順を覚えておくと安心です。",
+        ],
+      },
+      {
+        title: "まとめ：リサイズ→圧縮の順で試す",
+        paragraphs: [
+          "メールで写真が送れないときは、①まずリサイズで適正サイズに縮小、②それでも重ければ圧縮、③複数枚はPDFにまとめる、の順で試すと、画質をできるだけ保ったまま容量制限をクリアできます。",
+          "いずれの作業も当サイトのツールで無料・登録不要・ブラウザ内処理で行えます。送信前のひと手間で、再送のやり取りを減らしましょう。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "pdf-upload-size-limit",
+    title: "PDFが容量オーバーでアップロードできないときの対処法",
+    description:
+      "申請フォームや提出システムで「ファイルサイズが上限を超えています」と弾かれた。そんなときにPDFを安全に軽くする方法と、どうしても縮まないときの代替手段を解説します。",
+    cardDescription:
+      "提出先の容量制限を超えたPDFを、読める品質を保ったまま軽くする手順をまとめています。",
+    sections: [
+      {
+        title: "なぜPDFはこんなに重くなるのか",
+        paragraphs: [
+          "PDFが重くなる原因のほとんどは、中に含まれる「画像」です。スキャンした書類、貼り付けた写真、高解像度の図版などが、ページ数以上にファイルサイズを押し上げます。文字だけのPDFが数百KBで済むのに対し、スキャンPDFは1ページで数MBになることもあります。",
+          "提出システム側の上限は2MB・5MB・10MBなどシステムによってさまざまです。まずはエラーメッセージや注意書きで上限値を確認し、どれくらい減らす必要があるのかを把握しましょう。",
+        ],
+      },
+      {
+        title: "対処法1：PDF圧縮ツールで軽くする",
+        paragraphs: [
+          "最初に試すべきはPDF圧縮です。PDF内部の画像を再圧縮することで、見た目を大きく損なわずにファイルサイズを減らせます。画像が多いPDFほど効果が出やすく、半分以下になることもあります。",
+          "当サイトのPDF圧縮ツールはブラウザ内で処理が完結するため、契約書や申請書類のような機密性の高いファイルでも、外部サーバーへ送信せずに圧縮できます。圧縮後は必ず一度開いて、文字が読めるか確認してから提出してください。",
+        ],
+      },
+      {
+        title: "対処法2：不要なページを削除する",
+        paragraphs: [
+          "提出に必要なのが一部のページだけなら、不要なページを削除するのが手っ取り早い方法です。10ページのPDFから必要な3ページだけを残せば、それだけで容量は大幅に減ります。",
+          "PDFページ削除ツールやPDF分割ツールを使えば、ブラウザ上で必要な範囲だけを取り出せます。「圧縮で画質を下げる」より「ページを減らす」ほうが、残ったページの品質を保てるという利点もあります。",
+        ],
+      },
+      {
+        title: "対処法3：分割して複数回に分けて提出",
+        paragraphs: [
+          "提出システムが複数ファイルのアップロードに対応しているなら、PDFを分割して「前半」「後半」のように分けて出す方法もあります。1ファイルあたりの上限はクリアしやすくなります。",
+          "ただし、提出先によっては「1つのファイルにまとめること」と指定されている場合もあるため、分割提出が許されるかは事前に確認しましょう。",
+        ],
+      },
+      {
+        title: "スキャンし直せる場合は設定を見直す",
+        paragraphs: [
+          "自分でスキャンしたPDFが重い場合は、スキャナーの設定を見直すのも有効です。解像度を600dpiから300dpiに下げる、カラーではなくグレースケールでスキャンする、といった変更で、ファイルサイズは劇的に小さくなります。",
+          "文字書類の提出用途なら300dpi・グレースケールで十分読めます。もう一度スキャンできる状況なら、圧縮よりもきれいな結果になることが多いです。",
+        ],
+      },
+      {
+        title: "圧縮してはいけないケースに注意",
+        paragraphs: [
+          "細かい文字や印影の鮮明さが審査に関わる書類（本人確認書類など）は、圧縮しすぎると読み取り不能で差し戻される可能性があります。圧縮後は必ず拡大表示で文字や印影を確認してください。",
+          "また、電子署名付きのPDFは、圧縮や編集を行うと署名が無効になる場合があります。署名済みの書類はそのまま提出するか、発行元に軽量版を依頼するのが安全です。",
+        ],
+      },
+      {
+        title: "まとめ：圧縮→ページ整理→分割の順で",
+        paragraphs: [
+          "容量オーバーのPDFは、①PDF圧縮で全体を軽く、②それでも超えるなら不要ページを削除、③最後の手段として分割提出、の順で対処すると、品質と要件のバランスを取りやすくなります。",
+          "当サイトではPDF圧縮・ページ削除・分割・結合をすべて無料で提供しています。ブラウザ内処理なので、提出書類のような機密ファイルでも使いやすい設計です。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "what-is-webp",
+    title: "WebPとは？開けないときの対処法とJPG・PNGへの変換方法",
+    description:
+      "Webサイトから保存した画像が「.webp」で、いつものソフトで開けない。WebPとはどんな形式なのか、なぜ普及しているのか、開けないときにJPGやPNGへ変換する方法までまとめて解説します。",
+    cardDescription:
+      "保存した画像がWebPで開けない・編集できないときの理由と変換方法を解説します。",
+    sections: [
+      {
+        title: "WebPはGoogleが開発した軽量画像形式",
+        paragraphs: [
+          "WebP（ウェッピー）は、Googleが開発した画像形式で、同じ画質のJPGやPNGよりもファイルサイズを20〜30%程度小さくできるのが特徴です。表示速度がSEOやユーザー体験に直結するWebの世界で急速に普及し、現在では多くのWebサイトが画像をWebPで配信しています。",
+          "「サイトから画像を保存したら .webp だった」というのは、そのサイトが表示高速化のためにWebPを採用しているからです。決して特殊なファイルや壊れたファイルではありません。",
+        ],
+      },
+      {
+        title: "なぜ開けない・編集できないことがあるのか",
+        paragraphs: [
+          "主要ブラウザ（Chrome、Edge、Safari、Firefox）はすべてWebPの表示に対応しており、Windowsの「フォト」アプリも比較的新しいバージョンなら開けます。問題が起きやすいのは、古い画像編集ソフト、一部の業務システム、入稿・提出先のシステムなどです。",
+          "とくに「JPGまたはPNGでアップロードしてください」と形式が指定されているフォームでは、WebPのままでは受け付けてもらえません。この場合は変換が必要になります。",
+        ],
+      },
+      {
+        title: "WebPをJPGに変換する：写真・共有向け",
+        paragraphs: [
+          "写真系の画像で、メール添付・SNS・書類への貼り付けなど幅広い用途に使いたいなら、JPGへの変換が無難です。JPGは20年以上使われている形式で、開けない環境がほぼ存在しません。",
+          "当サイトの「WebPをJPGに変換」ツールなら、ブラウザにファイルをドロップするだけで変換できます。複数ファイルの一括変換にも対応しており、インストールも登録も不要です。",
+        ],
+      },
+      {
+        title: "WebPをPNGに変換する：透過・編集向け",
+        paragraphs: [
+          "ロゴやイラストのように背景が透過している画像や、この後に編集を重ねる予定の画像は、PNGへの変換が向いています。PNGは劣化のない保存形式で、透過情報もそのまま維持できます。",
+          "「WebPをPNGに変換」ツールも同様にブラウザ内で完結します。透過付きWebPを変換した場合、透過はPNGに引き継がれます。",
+        ],
+      },
+      {
+        title: "逆に、自分のサイト用にWebPへ変換したい場合",
+        paragraphs: [
+          "ブログやネットショップを運営している側なら、手持ちのJPG・PNGをWebPに変換することで、ページの表示速度を改善できます。画像が多いページほど効果は大きく、モバイル回線のユーザーには特に体感差が出ます。",
+          "当サイトには「JPGをWebPに変換」「PNGをWebPに変換」も用意しています。元画像は残したまま、公開用だけWebPを作る運用がおすすめです。",
+        ],
+      },
+      {
+        title: "WebPとJPG・PNGの使い分け早見表",
+        paragraphs: [
+          "迷ったときの目安はこうです。Web公開用で軽さ重視ならWebP。メール・書類・提出など互換性重視ならJPG。透過が必要・編集を重ねるならPNG。それぞれの形式に得意分野があり、優劣ではなく用途で選ぶのが正解です。",
+          "「とりあえず開ければいい」ならJPG変換が最短です。変換は数秒で終わるので、形式で迷う時間のほうがもったいないかもしれません。",
+        ],
+      },
+      {
+        title: "まとめ：WebPは怖くない、変換すれば済む",
+        paragraphs: [
+          "WebPは「新しくて軽い、Webでは標準的な形式」であり、開けない場合も変換ツールで数秒で解決します。受け取る側ならJPG/PNGへ、配信する側ならWebPへ、方向に応じて変換してください。",
+          "当サイトのWebP関連ツール（WebP→JPG、WebP→PNG、JPG→WebP、PNG→WebP、WebP圧縮）はすべて無料・ブラウザ内処理です。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "convert-images-on-smartphone",
+    title: "スマホだけで画像を変換・圧縮する方法（アプリ不要）",
+    description:
+      "PCがなくても、画像の形式変換・圧縮・リサイズはスマホのブラウザだけでできます。アプリをインストールせずに、iPhone・Androidで画像を変換する手順と、スマホならではの注意点を解説します。",
+    cardDescription:
+      "アプリのインストールなしで、スマホのブラウザだけで画像変換・圧縮を行う手順を解説します。",
+    sections: [
+      {
+        title: "アプリを入れなくても変換はできる",
+        paragraphs: [
+          "「画像 変換 アプリ」と検索すると多くのアプリが見つかりますが、広告が多かったり、写真へのアクセス権限が気になったりすることもあります。実は、ブラウザで動く変換ツールを使えば、アプリのインストールなしで同じことができます。",
+          "当サイトのツールはすべてスマホのブラウザ（Safari、Chrome）で動作します。処理はスマホの中で完結し、写真が外部サーバーへ送信されない設計なので、プライベートな写真でも使いやすいのが特徴です。",
+        ],
+      },
+      {
+        title: "スマホでの基本手順（iPhone・Android共通）",
+        paragraphs: [
+          "手順はシンプルです。①ブラウザで使いたいツールのページを開く、②「ファイルを選択」をタップして写真ライブラリから画像を選ぶ、③変換・圧縮ボタンをタップ、④完了画面からダウンロード。これだけです。",
+          "iPhoneの場合、ダウンロードしたファイルは「ファイル」アプリの「ダウンロード」フォルダに保存されます。Androidは機種により「Download」フォルダか通知からアクセスできます。写真アプリに直接入らない点だけ覚えておくと迷いません。",
+        ],
+      },
+      {
+        title: "iPhoneユーザーが一番使う場面：HEIC→JPG",
+        paragraphs: [
+          "iPhoneで撮った写真はHEIC形式のため、提出フォームやWindowsユーザーへの共有で「開けない」と言われがちです。外出先でこの問題に直面したとき、スマホのブラウザでHEICをJPGに変換できると非常に助かります。",
+          "履歴書用写真の提出、フリマアプリへの出品、申請書類の写真添付など、「JPGでないと受け付けない」場面は意外と多くあります。ブックマークしておくと、いざというときにすぐ使えます。",
+        ],
+      },
+      {
+        title: "通信量とバッテリーの心配について",
+        paragraphs: [
+          "「ブラウザのツール＝アップロードで通信量がかかる」と思われがちですが、当サイトのツールは画像をサーバーに送らず、スマホ内のブラウザエンジンで処理します。そのため、大きな写真を変換しても通信量はページの読み込み分だけで済みます。",
+          "処理自体はスマホのCPUで行うため、数十枚の一括変換のような重い作業では多少バッテリーを使います。大量処理はPCのほうが快適ですが、数枚〜十数枚程度ならスマホで十分実用的です。",
+        ],
+      },
+      {
+        title: "スマホで圧縮・リサイズするときのコツ",
+        paragraphs: [
+          "SNSやフリマアプリは自動で圧縮してくれることが多いですが、メール添付や応募フォームでは自分で軽くする必要があります。スマホ写真は3〜8MBあるのが普通なので、長辺1600ピクセル程度へのリサイズと80%程度の圧縮を組み合わせると、1MB前後まで軽くできます。",
+          "圧縮ツールではプレビューで仕上がりを確認できるので、「画質が荒れていないか」をスマホの画面で拡大チェックしてからダウンロードすると失敗がありません。",
+        ],
+      },
+      {
+        title: "うまくいかないときのチェックポイント",
+        paragraphs: [
+          "ファイル選択で写真が選べない場合は、ブラウザに写真へのアクセス許可が出ているか確認してください（初回に許可ダイアログが出ます）。また、プライベートブラウズモードではダウンロードの挙動が変わることがあります。",
+          "非常に大きい画像（1億画素のパノラマなど）や数百枚の一括処理は、スマホのメモリ制限で失敗することがあります。その場合は枚数を分けて処理するか、PCでの作業をおすすめします。",
+        ],
+      },
+      {
+        title: "まとめ：ブックマークしておけばPC不要",
+        paragraphs: [
+          "形式変換・圧縮・リサイズ・PDF化といった日常的な画像作業は、スマホのブラウザだけで完結します。アプリの広告や権限を気にする必要もなく、必要なときにページを開くだけです。",
+          "当サイトはスマホ表示に最適化されており、45種類以上のツールがすべて無料で使えます。よく使うツールをホーム画面に追加しておくと、アプリ感覚で呼び出せて便利です。",
+        ],
+      },
+    ],
+  },
 ];
 
 const enGuides: GuideEntry[] = [
@@ -1349,6 +1644,301 @@ const enGuides: GuideEntry[] = [
         paragraphs: [
           "A simple workflow is: confirm use case, resize dimensions, choose or convert format, compress, then preview on the page. Resizing first reduces the need for aggressive compression.",
           "Filewisp includes resize image, JPG compress, PNG compress, WebP compress, JPG to WebP, and PNG to WebP tools for preparing web images in the browser.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "heic-cannot-open-windows",
+    title: "Why HEIC files won't open on Windows (and how to fix it)",
+    description:
+      "A photo from an iPhone won't open on your Windows PC? The cause is almost always the HEIC format. Here is why it happens, how to open the file right now, and how to avoid the problem in the future.",
+    cardDescription:
+      "Why iPhone photos (HEIC) fail to open on Windows, and the fastest ways to fix it.",
+    sections: [
+      {
+        title: "The culprit is the HEIC format",
+        paragraphs: [
+          "iPhones save photos as HEIC (High Efficiency Image Container) by default. HEIC stores the same quality as JPG at a much smaller size, but it is a relatively new format, and Windows often cannot open it without an extra codec installed.",
+          "On older Windows 10 machines and managed office PCs in particular, you will see errors like \"This file can't be displayed\" or \"Unsupported format.\" The file is not corrupted — Windows just doesn't know how to read it yet.",
+        ],
+      },
+      {
+        title: "Fix 1: Convert it to JPG (fastest)",
+        paragraphs: [
+          "If you just need to open or use the photo now, converting HEIC to JPG is the most reliable fix. JPG opens on virtually every device and app, so once converted, the compatibility problem disappears entirely.",
+          "Our HEIC to JPG converter works by simply dropping the file into your browser. Processing happens locally — your photo is never uploaded to a server — so it is safe to use even for personal photos or work documents. Batch conversion of multiple files is supported too.",
+        ],
+      },
+      {
+        title: "Fix 2: Install the Windows extension",
+        paragraphs: [
+          "If you receive HEIC files regularly and converting every time is a hassle, you can install the \"HEIF Image Extensions\" from the Microsoft Store. This lets the Windows Photos app open HEIC files directly.",
+          "Note that some setups also require the paid \"HEVC Video Extensions,\" and corporate PCs often block Store installs. When you need certainty, converting to JPG remains the safer route.",
+        ],
+      },
+      {
+        title: "Fix 3: Make the iPhone shoot JPG from now on",
+        paragraphs: [
+          "To stop new photos from being saved as HEIC, go to Settings → Camera → Formats on the iPhone and choose \"Most Compatible.\" Future photos will be saved as JPG.",
+          "The trade-off is larger files and faster storage consumption on the phone. Keeping HEIC for storage and converting to JPG only when sharing is usually the better balance.",
+        ],
+      },
+      {
+        title: "Some transfer methods convert automatically",
+        paragraphs: [
+          "Emailing a photo from the iPhone often converts it to JPG automatically. Likewise, enabling Settings → Photos → \"Automatic\" under Transfer to Mac or PC converts files to a compatible format during USB transfer.",
+          "Cloud drives and chat apps, however, usually pass the original HEIC through untouched. If the recipient can't open it, a quick browser conversion to JPG solves it.",
+        ],
+      },
+      {
+        title: "Things to know before converting",
+        paragraphs: [
+          "Converting HEIC to JPG keeps the visible quality essentially the same, but the JPG file will usually be larger than the original HEIC — that is normal, since JPG compresses less efficiently. If size matters, run the result through a JPG compressor afterward.",
+          "For important photos you may edit later, keep the original HEIC as your master copy. HEIC preserves more quality per megabyte; use JPG as the distribution copy.",
+        ],
+      },
+      {
+        title: "Bottom line: when in doubt, convert to JPG",
+        paragraphs: [
+          "The HEIC problem is purely about compatibility, so converting to JPG always resolves it. Use a browser converter for urgent cases, the Windows extension if you receive HEIC often, or change the iPhone setting to fix it at the source.",
+          "Filewisp offers both HEIC to JPG and HEIC to PNG conversion for free, with no installation and fully in-browser processing.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "send-large-photos-by-email",
+    title: "How to email photos that are too large to send",
+    description:
+      "\"Attachment exceeds the size limit.\" If your photos are too heavy to email, shrinking them is the simplest fix. Here are the size limits to know and how to reduce photos without visibly losing quality.",
+    cardDescription:
+      "Practical steps to get oversized photos under email attachment limits while keeping them sharp.",
+    sections: [
+      {
+        title: "Know the attachment limits",
+        paragraphs: [
+          "Most mail services cap attachments around 20–25 MB total (Gmail and Outlook allow 25 MB). The recipient's server may enforce a smaller cap, so staying under roughly 10 MB total is the safe practice for business mail.",
+          "Modern phone photos run 3–8 MB each, so a handful of attachments hits the ceiling fast. That is why one photo sends fine but three get rejected.",
+        ],
+      },
+      {
+        title: "Option 1: Compress the images",
+        paragraphs: [
+          "The easiest fix is compression — slightly lowering photo quality to cut file size. For photographs, compressing to around 80% quality is usually invisible to the eye and can halve the file size or better.",
+          "Our image compressor lets you adjust strength with a slider while comparing before/after previews and sizes. Everything is processed in your browser, so private photos never leave your device.",
+        ],
+      },
+      {
+        title: "Option 2: Resize the dimensions",
+        paragraphs: [
+          "Phone photos are often 4000+ pixels wide, but 1200–1600 pixels is plenty for viewing in an email or pasting into a document. Halving the dimensions cuts the file size dramatically.",
+          "Resizing first often looks better than heavy compression — a multi-MB photo can drop to a few hundred KB just from a sensible resize.",
+        ],
+      },
+      {
+        title: "Option 3: Combine multiple photos into one PDF",
+        paragraphs: [
+          "Sending many separate attachments is also harder for the recipient. For reports or site photos, combining images into a single PDF keeps both size and viewing manageable.",
+          "Our image-to-PDF tool supports reordering and page-size options, and the PDF compressor can shrink the result further if needed.",
+        ],
+      },
+      {
+        title: "Convert HEIC photos to JPG first",
+        paragraphs: [
+          "iPhone photos in HEIC format may not open on the recipient's side at all. Converting to JPG before sending avoids that problem and makes size adjustment easier.",
+          "HEIC to JPG → resize if needed → compress is the reliable pipeline for emailing phone photos, all doable in the browser.",
+        ],
+      },
+      {
+        title: "For very large files, share a link instead",
+        paragraphs: [
+          "For tens of megabytes or large photo sets, upload to Google Drive or OneDrive and email the link. Gmail even suggests this automatically when you exceed the limit.",
+          "Some organizations block external links, though — in those cases, shrinking and attaching remains the dependable approach.",
+        ],
+      },
+      {
+        title: "Summary: resize first, then compress",
+        paragraphs: [
+          "When photos won't send: ① resize to a sensible width, ② compress if still heavy, ③ bundle multiple shots into a PDF. This order preserves the most quality while clearing the limit.",
+          "All of these steps are free on Filewisp, with no signup and fully in-browser processing.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "pdf-upload-size-limit",
+    title: "PDF too large to upload? How to get under the size limit",
+    description:
+      "Rejected by a submission portal because your PDF exceeds the size limit? Here is how to shrink a PDF safely while keeping it readable, plus fallbacks when compression alone is not enough.",
+    cardDescription:
+      "How to shrink an oversized PDF below upload limits while keeping the document readable.",
+    sections: [
+      {
+        title: "Why PDFs get so heavy",
+        paragraphs: [
+          "Almost always, the weight comes from images inside the PDF — scanned pages, embedded photos, high-resolution figures. A text-only PDF stays in the hundreds of KB, while a scanned page alone can be several MB.",
+          "Upload caps vary by system: 2 MB, 5 MB, 10 MB are all common. Check the form's error message or notes first so you know how much you need to cut.",
+        ],
+      },
+      {
+        title: "Fix 1: Run it through a PDF compressor",
+        paragraphs: [
+          "Compression re-encodes the images inside the PDF, often cutting the size in half or better for image-heavy files, with little visible difference.",
+          "Our PDF compressor runs entirely in your browser, so confidential documents like contracts or applications are never uploaded to a server. Always open the result once and confirm the text is readable before submitting.",
+        ],
+      },
+      {
+        title: "Fix 2: Remove unneeded pages",
+        paragraphs: [
+          "If only some pages are required, deleting the rest is the quickest size win. Keeping 3 pages out of 10 cuts the file dramatically without touching quality.",
+          "The PDF page-removal and split tools let you extract just the range you need, right in the browser. Fewer pages beats lower quality when both options are open.",
+        ],
+      },
+      {
+        title: "Fix 3: Split and submit in parts",
+        paragraphs: [
+          "If the portal accepts multiple files, splitting the PDF into part 1 and part 2 gets each file under the per-file cap.",
+          "Confirm first that split submissions are allowed — some portals explicitly require a single combined file.",
+        ],
+      },
+      {
+        title: "Rescanning? Fix the scanner settings",
+        paragraphs: [
+          "If you control the scan, lowering resolution from 600 dpi to 300 dpi and switching from color to grayscale shrinks files enormously.",
+          "For text documents, 300 dpi grayscale is perfectly readable, and a clean rescan often beats aggressive compression.",
+        ],
+      },
+      {
+        title: "When NOT to compress",
+        paragraphs: [
+          "Documents where fine print or stamps matter to a reviewer (ID documents and the like) can become unreadable if over-compressed and get bounced back. Zoom in and verify after compressing.",
+          "Digitally signed PDFs may lose their signature validity when modified. Submit signed files as-is, or request a lighter version from the issuer.",
+        ],
+      },
+      {
+        title: "Summary: compress → trim pages → split",
+        paragraphs: [
+          "Work through it in order: ① compress the whole file, ② remove pages you don't need, ③ split as a last resort. That sequence balances quality against the requirement best.",
+          "Filewisp provides PDF compression, page removal, splitting, and merging — all free and processed in your browser, which suits confidential submission documents.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "what-is-webp",
+    title: "What is WebP? How to open it and convert to JPG or PNG",
+    description:
+      "Saved an image from a website and got a .webp file your software can't open? Here is what WebP is, why the web uses it, and how to convert it to JPG or PNG in seconds.",
+    cardDescription:
+      "Why saved images end up as WebP, and how to convert them to JPG or PNG when needed.",
+    sections: [
+      {
+        title: "WebP is Google's lightweight image format",
+        paragraphs: [
+          "WebP is an image format developed by Google that delivers the same visual quality as JPG or PNG at roughly 20–30% smaller sizes. Because page speed matters for SEO and user experience, much of the web now serves images as WebP.",
+          "If an image you saved turned out to be .webp, the site simply serves WebP for speed. The file is neither exotic nor broken.",
+        ],
+      },
+      {
+        title: "Why it sometimes won't open",
+        paragraphs: [
+          "All major browsers display WebP fine, and recent Windows Photos versions open it too. Trouble appears with older image editors, some business systems, and upload forms.",
+          "Forms that say \"JPG or PNG only\" will reject WebP outright — that is when you need to convert.",
+        ],
+      },
+      {
+        title: "Convert WebP to JPG: for photos and sharing",
+        paragraphs: [
+          "For photographic images headed to email, social posts, or documents, JPG is the safe target. It has been universal for over two decades.",
+          "Our WebP to JPG tool converts on drop, supports batches, and needs no install or signup.",
+        ],
+      },
+      {
+        title: "Convert WebP to PNG: for transparency and editing",
+        paragraphs: [
+          "For logos or artwork with transparent backgrounds, or images you plan to keep editing, PNG is the better target — it is lossless and preserves transparency.",
+          "The WebP to PNG tool also runs fully in-browser, and transparency carries over to the PNG.",
+        ],
+      },
+      {
+        title: "Going the other way: converting TO WebP",
+        paragraphs: [
+          "If you run a blog or shop, converting your JPG/PNG images to WebP speeds up your pages — especially image-heavy ones on mobile connections.",
+          "Filewisp includes JPG to WebP and PNG to WebP as well. Keep the originals and generate WebP copies just for publishing.",
+        ],
+      },
+      {
+        title: "Quick format cheat sheet",
+        paragraphs: [
+          "Rule of thumb: WebP for web delivery and speed, JPG for compatibility (email, documents, submissions), PNG for transparency and further editing. Formats have specialties, not rankings.",
+          "If you just need the file to open anywhere, JPG conversion is the shortest path — it takes seconds.",
+        ],
+      },
+      {
+        title: "Bottom line: WebP is harmless — just convert",
+        paragraphs: [
+          "WebP is the modern, lightweight standard of the web, and any compatibility hiccup is solved by a quick conversion: to JPG/PNG when receiving, to WebP when publishing.",
+          "All of Filewisp's WebP tools (WebP→JPG, WebP→PNG, JPG→WebP, PNG→WebP, WebP compress) are free and in-browser.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "convert-images-on-smartphone",
+    title: "Convert and compress images on your phone (no app needed)",
+    description:
+      "You don't need a PC — or an app — to convert, compress, or resize images. Here is how to do it right from the browser on iPhone or Android, plus the phone-specific pitfalls to know.",
+    cardDescription:
+      "How to convert and compress images directly in your phone's browser, without installing apps.",
+    sections: [
+      {
+        title: "No app installation required",
+        paragraphs: [
+          "Searching for an \"image converter app\" surfaces dozens of options, many heavy on ads or photo-library permissions. Browser-based tools do the same job with nothing to install.",
+          "Filewisp's tools all run in mobile Safari and Chrome. Processing happens on the phone itself — images are never uploaded — which makes them comfortable to use for private photos.",
+        ],
+      },
+      {
+        title: "The basic flow (iPhone and Android)",
+        paragraphs: [
+          "① Open the tool page in your browser, ② tap Choose File and pick from your photo library, ③ tap convert or compress, ④ download from the result screen. That's all.",
+          "On iPhone, downloads land in the Files app under Downloads; on Android, in the Download folder or via the notification. They don't appear in the Photos app automatically — worth remembering.",
+        ],
+      },
+      {
+        title: "The #1 phone use case: HEIC to JPG",
+        paragraphs: [
+          "iPhone photos are HEIC, which submission forms and Windows users frequently reject. Being able to convert to JPG from the phone's browser saves the day when you're away from a PC.",
+          "Resume photos, marketplace listings, application attachments — \"JPG only\" comes up more often than you'd think. Bookmark the tool for those moments.",
+        ],
+      },
+      {
+        title: "About data usage and battery",
+        paragraphs: [
+          "Browser tools sound like they upload, but ours don't: conversion runs in the phone's browser engine, so data usage is just the page load — even for large photos.",
+          "Processing does use the phone's CPU, so very large batches drain some battery. A few to a dozen images is perfectly practical on a phone; for hundreds, a PC is more comfortable.",
+        ],
+      },
+      {
+        title: "Tips for compressing on a phone",
+        paragraphs: [
+          "Social and marketplace apps usually compress for you, but email and application forms don't. Phone photos run 3–8 MB; resizing to ~1600 px on the long edge plus ~80% quality compression typically lands around 1 MB.",
+          "Use the preview to zoom in and check for artifacts on the phone screen before downloading — that avoids re-dos.",
+        ],
+      },
+      {
+        title: "If something doesn't work",
+        paragraphs: [
+          "If the photo picker shows nothing, check that the browser has photo access permission (a dialog appears on first use). Private browsing can also change download behavior.",
+          "Extremely large images (100-megapixel panoramas) or hundreds of files at once can hit mobile memory limits. Split the batch or switch to a PC for those.",
+        ],
+      },
+      {
+        title: "Bottom line: bookmark it and skip the PC",
+        paragraphs: [
+          "Everyday image chores — converting, compressing, resizing, making PDFs — all work straight from a phone browser, with no app ads or permissions to worry about.",
+          "Filewisp is optimized for mobile, with 45+ free tools. Add your most-used ones to the home screen and they behave like apps.",
         ],
       },
     ],

@@ -17,6 +17,11 @@ const guideToolMap: Record<string, string[]> = {
   "iphone-photos-to-pdf": ["heic-to-jpg", "image-to-pdf", "compress-pdf", "jpg-compress"],
   "parquet-csv-workflows": ["parquet-to-csv", "csv-to-parquet"],
   "optimize-blog-and-site-images": ["image-compress", "jpg-to-webp", "png-to-webp", "resize-image"],
+  "heic-cannot-open-windows": ["heic-to-jpg", "heic-to-png", "jpg-compress", "image-compress"],
+  "send-large-photos-by-email": ["image-compress", "resize-image", "heic-to-jpg", "image-to-pdf"],
+  "pdf-upload-size-limit": ["compress-pdf", "pdf-remove-pages", "split-pdf", "merge-pdf"],
+  "what-is-webp": ["webp-to-jpg", "webp-to-png", "jpg-to-webp", "png-to-webp"],
+  "convert-images-on-smartphone": ["heic-to-jpg", "image-compress", "resize-image", "jpg-to-png"],
 };
 
 export function getGuideRelatedTools(
