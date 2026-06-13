@@ -27,6 +27,11 @@ const guideToolMap: Record<string, string[]> = {
   "resume-photo-size": ["heic-to-jpg", "crop-image", "resize-image", "jpg-compress"],
   "what-is-tiff": ["tiff-to-jpg", "tiff-to-png", "image-to-pdf", "image-compress"],
   "marketplace-product-photos": ["crop-image", "image-compress", "heic-to-jpg", "resize-image"],
+  "png-transparency-basics": ["png-to-webp", "png-to-jpg", "png-compress", "image-compress"],
+  "csv-encoding-fix": ["csv-to-json", "json-to-csv", "csv-to-parquet"],
+  "what-is-parquet": ["parquet-to-csv", "csv-to-parquet", "json-to-csv"],
+  "json-and-csv": ["json-to-csv", "csv-to-json", "csv-to-parquet"],
+  "what-is-avif": ["avif-to-jpg", "avif-to-png", "jpg-to-webp", "image-compress"],
 };
 
 export function getGuideRelatedTools(

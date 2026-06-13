@@ -134,6 +134,13 @@ Claude にこう頼めば、秘書として機能します：
 - [ ] https://ai-image-tools.com/guides/what-is-tiff
 - [ ] https://ai-image-tools.com/guides/marketplace-product-photos
 
+### バッチ7.7：新規ガイド第3弾（2026/06/13追加・データ系＋透過＋AVIF＋Parquet）
+- [ ] https://ai-image-tools.com/guides/png-transparency-basics
+- [ ] https://ai-image-tools.com/guides/csv-encoding-fix
+- [ ] https://ai-image-tools.com/guides/what-is-parquet
+- [ ] https://ai-image-tools.com/guides/json-and-csv
+- [ ] https://ai-image-tools.com/guides/what-is-avif
+
 ### バッチ8（任意）：英語の主要ページ
 ※基本はサイトマップ任せでOK。余裕があれば。
 - [ ] https://ai-image-tools.com/en/tools/jpg-to-png

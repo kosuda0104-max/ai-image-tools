@@ -16,7 +16,9 @@ const FORMAT_COLORS: Record<string, string> = {
   PDF: "#ef4444",
   TIFF: "#06b6d4",
   CSV: "#14b8a6",
-  PARQUET: "#14b8a6",
+  PARQUET: "#0d9488",
+  JSON: "#eab308",
+  AVIF: "#10b981",
   GIF: "#ec4899",
   SVG: "#0ea5e9",
   IMG: "#6366f1",
@@ -203,6 +205,8 @@ function heroFor(slug: string): Hero {
   if (s === "what-is-tiff") return { kind: "flow", from: "TIFF", to: "JPG" };
   if (s === "pdf-to-jpg-guide") return { kind: "flow", from: "PDF", to: "JPG" };
   if (s === "parquet-csv-workflows") return { kind: "flow", from: "Parquet", to: "CSV" };
+  if (s === "what-is-parquet") return { kind: "flow", from: "Parquet", to: "CSV" };
+  if (s === "what-is-avif") return { kind: "flow", from: "AVIF", to: "JPG" };
   if (s === "iphone-photos-to-pdf") return { kind: "flow", from: "HEIC", to: "PDF" };
   if (s === "screenshot-to-pdf") return { kind: "flow", from: "IMG", to: "PDF" };
 
@@ -213,6 +217,9 @@ function heroFor(slug: string): Hero {
   if (s === "jpg-vs-png") return { kind: "versus", a: "JPG", b: "PNG" };
   if (s === "png-vs-webp") return { kind: "versus", a: "PNG", b: "WebP" };
   if (s === "jpg-vs-jpeg-difference") return { kind: "versus", a: "JPG", b: "JPEG" };
+  if (s === "png-transparency-basics") return { kind: "versus", a: "PNG", b: "JPG" };
+  if (s === "json-and-csv") return { kind: "versus", a: "JSON", b: "CSV" };
+  if (s === "csv-encoding-fix") return { kind: "formats", labels: ["CSV", "JSON", "Parquet"] };
 
   // format overviews
   if (s === "image-format-basics" || s === "choose-best-image-format-for-web") {
