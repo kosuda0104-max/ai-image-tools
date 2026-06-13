@@ -99,8 +99,9 @@ export const parquetToCsvContent: Record<ToolLocale, ParquetToCsvContent> = {
       relatedToolsTitle: "関連ツール",
       relatedTools: [
         { name: "CSV を Parquet に変換", href: "/tools/csv-to-parquet" },
-        { name: "PDF を JPG に変換", href: "/tools/pdf-to-jpg" },
-        { name: "画像圧縮", href: "/tools/image-compress" },
+        { name: "CSV を JSON に変換", href: "/tools/csv-to-json" },
+        { name: "JSON を CSV に変換", href: "/tools/json-to-csv" },
+        { name: "ガイド: Parquet とは？", href: "/guides/what-is-parquet" },
       ],
     },
     ui: {
@@ -197,8 +198,9 @@ export const parquetToCsvContent: Record<ToolLocale, ParquetToCsvContent> = {
       relatedToolsTitle: "Related tools",
       relatedTools: [
         { name: "CSV to Parquet", href: "/en/tools/csv-to-parquet" },
-        { name: "PDF to JPG", href: "/en/tools/pdf-to-jpg" },
-        { name: "Image Compress", href: "/en/tools/image-compress" },
+        { name: "CSV to JSON", href: "/en/tools/csv-to-json" },
+        { name: "JSON to CSV", href: "/en/tools/json-to-csv" },
+        { name: "Guide: What is Parquet?", href: "/en/guides/what-is-parquet" },
       ],
     },
     ui: {
