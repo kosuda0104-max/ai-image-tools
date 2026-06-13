@@ -60,6 +60,20 @@ Claude にこう頼めば、秘書として機能します：
 
 ## ⬜ 残りの申請（1日1バッチずつ）
 
+### ★バッチ最優先：Parquet⇄CSV 訴求（2026/06/13・次回はこれから申請）
+> 「AWSでParquet⇄CSVをブラウザだけで変換したい」需要を取りに行く最重要クラスタ。
+> ツール本体（/tools/parquet-to-csv・/tools/csv-to-parquet）はバッチ2で申請済みなので、
+> ここでは新ガイドとEN版・データ系ガイドを優先する。
+- [ ] https://ai-image-tools.com/guides/what-is-parquet
+- [ ] https://ai-image-tools.com/guides/parquet-csv-workflows
+- [ ] https://ai-image-tools.com/en/guides/what-is-parquet
+- [ ] https://ai-image-tools.com/en/guides/parquet-csv-workflows
+- [ ] https://ai-image-tools.com/en/tools/parquet-to-csv
+- [ ] https://ai-image-tools.com/en/tools/csv-to-parquet
+- [ ] https://ai-image-tools.com/guides/csv-encoding-fix
+- [ ] https://ai-image-tools.com/guides/json-and-csv
+（残り2枠：余裕があれば https://ai-image-tools.com/guides/png-transparency-basics と https://ai-image-tools.com/guides/what-is-avif も）
+
 ### バッチ3：人気ツール第2弾 ※未申請なら最優先
 - [ ] https://ai-image-tools.com/tools/merge-pdf
 - [ ] https://ai-image-tools.com/tools/jpg-to-webp
@@ -133,6 +147,13 @@ Claude にこう頼めば、秘書として機能します：
 - [ ] https://ai-image-tools.com/guides/resume-photo-size
 - [ ] https://ai-image-tools.com/guides/what-is-tiff
 - [ ] https://ai-image-tools.com/guides/marketplace-product-photos
+
+### バッチ7.7：新規ガイド第3弾（2026/06/13追加・データ系＋透過＋AVIF＋Parquet）
+- [ ] https://ai-image-tools.com/guides/png-transparency-basics
+- [ ] https://ai-image-tools.com/guides/csv-encoding-fix
+- [ ] https://ai-image-tools.com/guides/what-is-parquet
+- [ ] https://ai-image-tools.com/guides/json-and-csv
+- [ ] https://ai-image-tools.com/guides/what-is-avif
 
 ### バッチ8（任意）：英語の主要ページ
 ※基本はサイトマップ任せでOK。余裕があれば。

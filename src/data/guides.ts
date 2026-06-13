@@ -1,6 +1,12 @@
+export type GuideFigure =
+  | { kind: "steps"; steps: string[]; caption?: string }
+  | { kind: "flow"; from: string; to: string; caption?: string };
+
 type GuideSection = {
   title: string;
   paragraphs: string[];
+  /** Optional inline diagram rendered under the section heading. */
+  figure?: GuideFigure;
 };
 
 export type GuideEntry = {
@@ -578,6 +584,11 @@ const jaGuides: GuideEntry[] = [
       },
       {
         title: "HEICをJPGにしてから整える",
+        figure: {
+          kind: "steps",
+          steps: ["写真を選ぶ", "HEIC→JPG\nに変換", "圧縮・回転\n切り抜き", "PDFに\nまとめる"],
+          caption: "画像の段階で整えてからPDF化すると、仕上がりが安定します",
+        },
         paragraphs: [
           "HEIC の写真は、まず HEIC to JPG ツールで JPG に変換します。その後、容量が大きい場合は JPG 圧縮、向きが違う場合は画像回転、余白が多い場合は切り抜きで整えます。",
           "PDF にする前に画像単位で整えておくと、完成後のページが見やすくなります。あとから PDF 側で直そうとすると、ページ全体の調整になりやすいので、画像の段階で確認するのが効率的です。",
@@ -1272,6 +1283,306 @@ const jaGuides: GuideEntry[] = [
       },
     ],
   },
+  {
+    slug: "png-transparency-basics",
+    title: "PNGの透過（背景透明）の基礎｜JPGにすると消える理由と扱い方",
+    description:
+      "ロゴやアイコンの背景が白く塗りつぶされる、透過したまま軽くしたい——PNGの透過（アルファチャンネル）の仕組みと、JPGに変換すると透明が失われる理由、WebPで透過のまま軽量化する方法をまとめます。",
+    cardDescription:
+      "PNGの透過がJPGで消える理由と、透明を保ったまま軽くする方法を整理します。",
+    sections: [
+      {
+        title: "透過とは「背景がない」状態のこと",
+        figure: {
+          kind: "flow",
+          from: "PNG",
+          to: "JPG",
+          caption: "透過PNGをJPGにすると、透明だった部分は白などで塗りつぶされます",
+        },
+        paragraphs: [
+          "PNGはピクセルごとに「色」だけでなく「透明度（アルファチャンネル）」を持てる形式です。この透明度のおかげで、背景がない切り抜き画像や、角丸・影が自然になじむロゴを作れます。Webサイトの上に重ねたり、別の写真と合成したりしても、不要な背景が出てきません。",
+          "チェック模様（市松模様）の背景でロゴが表示されるのを見たことがあるかもしれません。あれは画像編集ソフトが「ここは透明です」と示しているサインで、白い色が塗ってあるわけではありません。透過は色ではなく『背景がない状態』だと考えると理解しやすくなります。",
+        ],
+      },
+      {
+        title: "JPGにすると背景が白くなる理由",
+        paragraphs: [
+          "JPGは透明度を保存できない形式です。そのため透過PNGをJPGに変換すると、透明だった部分が白（ツールによっては黒）で塗りつぶされます。「ロゴをJPGにしたら背景に白い四角がついた」というトラブルのほとんどが、これが原因です。",
+          "一度JPGにして背景が塗られてしまうと、あとからその白を透明には戻せません。透過が必要な画像は、編集・保管の段階ではPNG（やWebP）のまま持っておき、透過がいらない最終用途に限ってJPGへ変換するのが安全です。",
+        ],
+      },
+      {
+        title: "透過を保てる形式：PNGとWebP",
+        figure: {
+          kind: "flow",
+          from: "PNG",
+          to: "WebP",
+          caption: "WebPは透過を保ったまま、PNGより容量を小さくできます",
+        },
+        paragraphs: [
+          "透明度を保てる主な形式はPNGとWebPです。PNGは互換性が高く、どんな環境でも開きやすいのが強みですが、写真のような複雑な画像では容量が大きくなりがちです。WebPは透過に対応しつつ、PNGよりかなり軽く保存できるため、Web公開向けに向いています。",
+          "「素材としてはPNGで保管し、サイト掲載用にはWebPへ変換して軽くする」という使い分けにすると、透明を保ったまま表示速度も稼げます。受け取り先が古い環境でWebPに対応していない場合だけ、PNGのまま渡すと確実です。",
+        ],
+      },
+      {
+        title: "透過PNGを軽くしたいとき",
+        paragraphs: [
+          "透過を保ったまま容量を減らしたい場合は、まずWebPへの変換を試すのがおすすめです。透明度を維持しながら、写真を含むPNGなら数分の一まで小さくできることもあります。アイコンやロゴのように色数が少ない画像なら、PNGのまま圧縮するだけでも十分軽くなります。",
+          "当サイトの「PNGをWebPに変換」ツールと「PNGを圧縮」ツールはどちらもブラウザ内で処理するので、透過情報を保ったまま、ファイルを外部に送らずに軽量化できます。",
+        ],
+      },
+      {
+        title: "透過がいらないなら思い切ってJPGに",
+        paragraphs: [
+          "背景がもともと写真で埋まっている画像や、透明部分を使わない画像であれば、JPGに変換して容量を抑えたほうが扱いやすくなります。透過が関係ない写真をPNGのまま持ち続けると、容量だけが無駄に大きくなりがちです。",
+          "「この画像は背景を透かす必要があるか？」を最初に決めると、形式選びで迷いにくくなります。透かすならPNG/WebP、透かさず軽くしたいならJPG、という基準で十分です。",
+        ],
+      },
+      {
+        title: "まとめ：透過はPNG/WebP、不要ならJPG",
+        paragraphs: [
+          "透過は「背景がない状態」であり、JPGでは保存できません。ロゴ・アイコン・切り抜きなど透明が必要な画像はPNGかWebPで扱い、軽くしたいときはWebP変換や圧縮を使うと、透明を保ったままサイズを下げられます。",
+          "PNG⇄JPGの変換、PNG→WebP変換、PNG圧縮は、すべて当サイトで無料・登録不要・ブラウザ内処理で利用できます。用途に合わせて切り替えてみてください。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "csv-encoding-fix",
+    title: "CSVの文字化けを直す方法｜Excel・UTF-8・Shift_JISの基礎",
+    description:
+      "Excelで開いたCSVが「譁・喧縺・」のように文字化けする——原因は文字コード（UTF-8とShift_JIS）の食い違いです。なぜ起きるのか、その場で直す手順、崩れにくいデータの渡し方までまとめます。",
+    cardDescription:
+      "ExcelでCSVが文字化けする原因（UTF-8とShift_JIS）と、その場で直す手順を解説します。",
+    sections: [
+      {
+        title: "文字化けの正体は「文字コードの食い違い」",
+        paragraphs: [
+          "CSVはただのテキストファイルですが、ファイルの中身がどの文字コードで書かれているかという情報を、はっきり持っていないことがあります。書き出した側と開いた側で想定する文字コードがずれると、同じバイト列を別の文字として解釈してしまい、文字化けが起こります。",
+          "日本語でよく関わるのがUTF-8とShift_JIS（cp932）の2つです。UTF-8で保存されたCSVをShift_JIS前提のソフトで開く（またはその逆）と、日本語部分だけが崩れます。英数字は化けないのに日本語だけ化ける、というのが典型的なサインです。",
+        ],
+      },
+      {
+        title: "Excelで開くと化ける定番パターン",
+        figure: {
+          kind: "steps",
+          steps: ["CSVを確認", "文字コードを\n判定する", "UTF-8(BOM付)\nで保存", "Excelで開く"],
+          caption: "Excel向けに渡すなら、文字コードをそろえてから開くのが確実です",
+        },
+        paragraphs: [
+          "Windowsの古いExcelは、CSVをダブルクリックで開くとShift_JISとして読もうとします。そのため、Webサービスやプログラムが出力したUTF-8のCSVをそのまま開くと、日本語が文字化けします。これはExcelの初期動作によるもので、ファイル自体が壊れているわけではありません。",
+          "回避策は大きく2つです。1つはExcel側で「データ」→「テキストまたはCSVから」を使い、読み込み時に文字コードをUTF-8に指定する方法。もう1つは、ファイル側をExcelが素直に読める形（UTF-8 BOM付き、またはShift_JIS）に保存し直す方法です。",
+        ],
+      },
+      {
+        title: "UTF-8とShift_JISの直し方",
+        paragraphs: [
+          "手元で直すだけなら、メモ帳やVS CodeなどのエディタでCSVを開き、文字コードを指定して保存し直すのが手軽です。Excelで素直に開きたいなら「UTF-8（BOM付き）」での保存が最も無難で、多くの環境で文字化けせずに開けます。",
+          "逆に、Shift_JIS前提の古い業務システムに取り込ませる場合は、Shift_JIS（cp932）で書き出す必要があります。渡す相手がどちらを想定しているかを先に確認しておくと、何度も保存し直す手間を減らせます。",
+        ],
+      },
+      {
+        title: "区切り・改行・引用符でも崩れる",
+        paragraphs: [
+          "文字化け以外にも、CSVは「列がずれる」トラブルが起きやすい形式です。セルの中にカンマや改行が含まれていると、適切に引用符（\"）で囲まれていない場合に列の数が合わなくなります。住所や自由記述欄を含むデータで特に起こりがちです。",
+          "区切り文字がカンマではなくタブやセミコロンになっていることもあります。開いたときに全部が1列に入ってしまう・列が大きくずれるといった症状が出たら、文字コードだけでなく区切り文字と引用符の扱いも疑ってみてください。",
+        ],
+      },
+      {
+        title: "JSONやParquetを経由して整える",
+        figure: {
+          kind: "flow",
+          from: "CSV",
+          to: "JSON",
+          caption: "一度JSONなどに通すと、文字コードや区切りの崩れを整理しやすくなります",
+        },
+        paragraphs: [
+          "崩れたCSVをそのまま手直しするより、いったん別の形式に通して整える方が早いことがあります。CSVをJSONに変換して構造を確認したり、データ基盤に載せるならParquetに変換して型と文字コードを固定したりすると、以降の取り回しが安定します。",
+          "当サイトの「CSVをJSONに変換」「CSVをParquetに変換」ツールはブラウザ内で処理するため、顧客データや社内データを含むCSVでも、外部サーバーへ送らずに変換できます。中身を確認したいだけのときにも便利です。",
+        ],
+      },
+      {
+        title: "まとめ：まず文字コードをそろえる",
+        paragraphs: [
+          "CSVの文字化けは、ほとんどがUTF-8とShift_JISの食い違いです。渡す相手の想定に合わせて文字コードをそろえ、Excel向けならUTF-8（BOM付き）で保存し直すのが基本の対処です。列ずれが出たら区切り文字と引用符も確認しましょう。",
+          "CSV⇄JSON・CSV⇄Parquetの変換は、当サイトで無料・登録不要・ブラウザ内処理で使えます。データの中身を壊さずに形式を整えたいときに役立ててください。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "what-is-parquet",
+    title: "Parquetとは？CSVとの違いとデータ分析での使いどころ",
+    description:
+      "データ基盤やBigQuery・Athenaでよく見る「.parquet」ファイル。Parquetとはどんな形式で、なぜCSVより速く・安くなるのか、どんなときにCSVと使い分けるべきかを、専門用語を抑えめに解説します。",
+    cardDescription:
+      "列指向フォーマットParquetの正体と、CSVとの違い・使い分けをやさしく整理します。",
+    sections: [
+      {
+        title: "Parquetは「列ごとに持つ」分析向け形式",
+        paragraphs: [
+          "Parquet（パーケット）は、大量データの分析向けに設計されたファイル形式です。CSVが1行ずつデータを並べる「行指向」なのに対し、Parquetは同じ列の値をまとめて格納する「列指向」になっています。この違いが、サイズと速度の差を生みます。",
+          "たとえば「売上の合計だけ知りたい」というクエリでは、売上の列だけ読めば十分です。列指向のParquetなら必要な列だけを読み飛ばして取得できるため、全行を最後まで読むCSVよりも、はるかに少ない読み取りで答えにたどり着けます。",
+        ],
+      },
+      {
+        title: "CSVとの違い：サイズ・速度・型",
+        paragraphs: [
+          "ParquetはCSVに比べてファイルサイズが大幅に小さくなります。同じ列の似た値がまとまっているため圧縮が効きやすく、同じデータでもCSVの5〜10分の1程度になることも珍しくありません。ストレージ代と転送量の両方を抑えられます。",
+          "もう一つの違いが「型を持っている」ことです。CSVは中身がすべて文字列で、数値か日付かはソフトが推測します。Parquetは列ごとに型（数値・文字列・日付など）を記録しているため、読み込み時の型崩れや、文字化け・区切りずれといったCSV特有のトラブルが起きにくくなります。",
+        ],
+      },
+      {
+        title: "どんなときにParquetを選ぶか",
+        paragraphs: [
+          "S3＋AthenaやBigQueryのように、読み取ったデータ量に応じて課金される環境では、Parquetにしておくとスキャン量が減り、クエリのたびにコストを抑えられます。Spark・Redshift Spectrum・EMRなどでの大規模なバッチ処理でも、入力がParquetだと実行時間が短くなりやすいです。",
+          "「同じデータに何度もクエリを投げる」「列数が多くて一部の列しか使わない」「データが大きくて転送・保管コストが気になる」——こうした条件がそろうほど、Parquetの利点が効いてきます。データ基盤に長く置くファイルは、最初からParquetにしておくと後がラクです。",
+        ],
+      },
+      {
+        title: "CSVのほうが向いている場面",
+        paragraphs: [
+          "一方で、Parquetはバイナリ形式なので、テキストエディタや普通のスプレッドシートではそのまま開けません。Excelで中身を確認したい、エンジニア以外のメンバーに渡したい、軽く目視チェックしたい、という場面ではCSVのほうが圧倒的に扱いやすいです。",
+          "S3上のParquetの中身をちょっと見たいだけのときも、クエリエンジンを立ち上げるより、CSVに変換して手元で開くほうが早いことがよくあります。データパイプラインのデバッグや、担当者への一時共有にもCSVが向いています。",
+        ],
+      },
+      {
+        title: "ブラウザでParquet⇄CSVを変換する",
+        figure: {
+          kind: "flow",
+          from: "Parquet",
+          to: "CSV",
+          caption: "中身の確認はParquet→CSV、基盤へ載せる前はCSV→Parquet",
+        },
+        paragraphs: [
+          "当サイトの「ParquetをCSVに変換」「CSVをParquetに変換」ツールは、どちらもブラウザ内で処理します。ファイルを外部サーバーに送らないので、本番データや機密データを含むファイルでもそのまま扱えます。",
+          "S3からダウンロードしたParquetの中身をさっと確認したいときはParquet→CSV、ローカルで作ったCSVを基盤に上げる前に整えたいときはCSV→Parquet、と覚えておくと、専用ツールを立ち上げずに作業を進められます。",
+        ],
+      },
+      {
+        title: "まとめ：分析はParquet、確認はCSV",
+        paragraphs: [
+          "Parquetは列指向で型を持つ分析向け形式で、サイズと速度、クエリコストの面でCSVより有利です。一方、人が目で確認したり配布したりするにはCSVが向いています。「基盤で回すデータはParquet、確認や共有用はCSVに変換」という使い分けが現実的です。",
+          "Parquet⇄CSVの相互変換は、当サイトで無料・登録不要・ブラウザ内処理で利用できます。形式の良いとこ取りをしながら作業を進めてみてください。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "json-and-csv",
+    title: "JSONとCSVの違いと相互変換｜どちらで持つべきか",
+    description:
+      "APIのレスポンスはJSON、Excelで開く表はCSV——同じデータでも形が違うと扱いやすさが変わります。JSONとCSVの違い、向いている場面、相互変換でつまずきやすいポイントをまとめます。",
+    cardDescription:
+      "表向きのCSVと入れ子に強いJSONの違いと、相互変換のコツを整理します。",
+    sections: [
+      {
+        title: "JSONとCSVは「データの形」が違う",
+        paragraphs: [
+          "CSVは行と列からなる「表」の形式です。1行が1件のデータで、列が項目に対応します。シンプルで、ExcelやBIツールにそのまま読み込めるのが強みです。一方JSONは、キーと値の組み合わせで、入れ子（階層）や配列も表現できる柔軟な形式です。",
+          "同じ「ユーザー一覧」でも、CSVはフラットな表として、JSONは1人ごとのまとまり（オブジェクト）の集まりとして持ちます。フラットな表に収まるデータならCSV、階層や繰り返しを含むならJSON、という見方をすると整理しやすくなります。",
+        ],
+      },
+      {
+        title: "CSVが向いている場面",
+        paragraphs: [
+          "顧客リスト、売上明細、在庫表のように、項目が決まっていて1件1行で収まるデータはCSVが快適です。Excelで開いて並べ替え・集計したり、スプレッドシートやBIツール、データベースへ取り込んだりする用途では、CSVのほうが手数が少なくて済みます。",
+          "関係者にデータを渡して目視で確認してもらいたい場面でも、表として開けるCSVは説明が要りません。「Excelで開ける形でほしい」と言われたら、まずCSVを考えると間違いが少ないです。",
+        ],
+      },
+      {
+        title: "JSONが向いている場面",
+        paragraphs: [
+          "1件の中に「複数の住所」「タグの配列」「入れ子の設定」などを持つデータは、表に押し込むと無理が出ます。こうした階層・繰り返しを含むデータはJSONが自然です。WebのAPIや設定ファイル、アプリ間のデータ受け渡しでJSONがよく使われるのはこのためです。",
+          "プログラムで扱う前提のデータも、型や構造を保ったまま渡せるJSONが向いています。フラットな表に収まらない、または収めると情報が落ちてしまう場合は、CSVより先にJSONを検討するとよいでしょう。",
+        ],
+      },
+      {
+        title: "相互変換でつまずきやすいポイント",
+        figure: {
+          kind: "steps",
+          steps: ["JSONを用意", "キーを列に\n展開する", "CSVへ変換", "Excelで確認"],
+          caption: "入れ子のJSONはキーを列に展開してからCSVにすると崩れにくい",
+        },
+        paragraphs: [
+          "JSON→CSVで一番つまずくのが、入れ子や配列の扱いです。階層を持つJSONを無理に表へ落とすと、列がうまく決まらなかったり、配列が1セルに詰め込まれたりします。先にどのキーを列にするかを決め、ネストを平らに展開してから変換すると崩れにくくなります。",
+          "逆にCSV→JSONでは、CSVには型がないため、数値や真偽値がすべて文字列として出力されがちです。変換後に必要な項目だけ型を整える前提で進めると、後工程でのトラブルを減らせます。",
+        ],
+      },
+      {
+        title: "ブラウザで相互変換する",
+        paragraphs: [
+          "当サイトの「JSONをCSVに変換」「CSVをJSONに変換」ツールは、どちらもブラウザ内で処理します。ファイルを外部サーバーに送らないので、業務データや個人情報を含むデータでもそのまま変換できます。",
+          "APIから取得したJSONを表で確認したいときはJSON→CSV、Excelで作った表をプログラムに渡したいときはCSV→JSON、と使い分けると作業がスムーズです。さらに分析基盤に載せるなら、CSV→Parquet変換も合わせて使えます。",
+        ],
+      },
+      {
+        title: "まとめ：表ならCSV、構造ならJSON",
+        paragraphs: [
+          "フラットな表に収まり、人が開いて確認するデータはCSV、階層や配列を含みプログラムで扱うデータはJSON、と覚えておくと選びやすくなります。どちらで受け取っても、必要に応じて相互変換すれば目的の形にできます。",
+          "JSON⇄CSVの変換は、当サイトで無料・登録不要・ブラウザ内処理で利用できます。データの用途に合わせて形を整えてみてください。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "what-is-avif",
+    title: "AVIFとは？開けないときの対処とJPG・PNGへの変換方法",
+    description:
+      "Webで保存した画像が「.avif」で開けない・送れない。AVIFとはどんな形式で、なぜ高画質なのに軽いのか、JPGやPNGへ変換して扱いやすくする方法を解説します。",
+    cardDescription:
+      "高圧縮の新しい画像形式AVIFの正体と、JPG・PNGへの変換方法を解説します。",
+    sections: [
+      {
+        title: "AVIFは高画質で軽い新しい画像形式",
+        paragraphs: [
+          "AVIF（AV1 Image File Format）は、比較的新しい画像形式です。動画コーデックAV1の技術を画像に応用したもので、同じ画質ならJPGやWebPよりさらに小さく保存できるのが特長です。表示速度を重視するWebサイトで、画像をAVIFで配信するケースが増えています。",
+          "透過（背景透明）やHDRにも対応しており、写真・イラスト・ロゴまで幅広く扱えるのも強みです。Webページ上で右クリック保存した画像が「.avif」だった、というのは、サイト側がAVIFで配信していたためです。",
+        ],
+      },
+      {
+        title: "なぜ開けない・送れないことがあるのか",
+        paragraphs: [
+          "AVIFは新しい形式のため、対応していないソフトやサービスがまだ残っています。古いWindowsの標準ビューアやレタッチソフト、一部のSNS・チャット・Webフォームでは、AVIFを開けなかったりアップロードを弾かれたりすることがあります。",
+          "最新のブラウザでは表示できても、「相手の環境で開けるか」「提出先が受け付けるか」は別問題です。共有や提出、別ソフトでの編集が目的なら、互換性の高いJPGやPNGへ変換してしまうのが現実的な解決策になります。",
+        ],
+      },
+      {
+        title: "AVIFをJPGに変換：共有・互換性向け",
+        figure: {
+          kind: "flow",
+          from: "AVIF",
+          to: "JPG",
+          caption: "共有・提出・どんな環境でも開きたいならJPGへ",
+        },
+        paragraphs: [
+          "メール添付、チャット共有、Webアップロード、書類提出が目的なら、JPGへの変換が最適です。JPGはほぼあらゆる環境で開けるので、「相手が開けない」というトラブルをまとめて避けられます。写真であれば容量も十分に小さく収まります。",
+          "当サイトの「AVIFをJPGに変換」ツールは、ブラウザにファイルをドロップするだけで変換できます。複数ファイルの一括変換にも対応しているので、たくさんのAVIFをまとめて扱いやすい形に直せます。",
+        ],
+      },
+      {
+        title: "AVIFをPNGに変換：透過・編集向け",
+        paragraphs: [
+          "背景が透明なAVIFや、この後も編集を重ねる画像、文字がくっきりした図版なら、PNGへの変換が向いています。PNGは透過を保てて劣化もないため、AVIFの透明部分や品質をそのまま引き継ぎやすい形式です。",
+          "「AVIFをPNGに変換」ツールも同様にブラウザ内処理です。透過付きのAVIFでも、透明を保ったまま、ファイルを外部に送らずに変換できます。",
+        ],
+      },
+      {
+        title: "自分でWeb用に書き出すなら",
+        paragraphs: [
+          "逆に、自分のサイトを軽くするために画像を高圧縮で配信したい場合は、AVIFやWebPが候補になります。AVIFはより小さくできる一方で対応環境がまだ広がりきっていないため、互換性とのバランスを取りたいならWebPから試すのが無難です。",
+          "「とにかく軽くしたい・対応環境は最新中心」ならAVIF、「軽さと互換性のバランス重視」ならWebP、という基準で選ぶとよいでしょう。JPG→WebP変換も当サイトで利用できます。",
+        ],
+      },
+      {
+        title: "まとめ：受け取りはJPG/PNG、配信はAVIF/WebP",
+        paragraphs: [
+          "AVIFは高画質で軽い新しい形式ですが、対応環境はまだ広がっている途中です。受け取ったAVIFを確実に扱いたいなら、共有・提出向けにJPG、透過・編集向けにPNGへ変換するのが安全です。自分で軽く配信したいときはAVIFやWebPを使い分けましょう。",
+          "AVIFをJPGに変換・AVIFをPNGに変換は、どちらも当サイトで無料・登録不要・ブラウザ内処理で利用できます。",
+        ],
+      },
+    ],
+  },
 ];
 
 const enGuides: GuideEntry[] = [
@@ -1839,6 +2150,11 @@ const enGuides: GuideEntry[] = [
       },
       {
         title: "Convert and clean up before creating the PDF",
+        figure: {
+          kind: "steps",
+          steps: ["Pick photos", "HEIC → JPG", "Compress,\nrotate, crop", "Combine\ninto PDF"],
+          caption: "Tidy the images first, then build the PDF — the result holds up better",
+        },
         paragraphs: [
           "Convert HEIC photos to JPG first. If the files are large, compress the JPG images. If orientation or framing is wrong, use rotate or crop before creating the PDF.",
           "Cleaning the images first usually creates a better final document than trying to fix everything after the PDF has already been created.",
@@ -2529,6 +2845,306 @@ const enGuides: GuideEntry[] = [
         paragraphs: [
           "Natural light and a plain background, a 1:1 crop with the item centered, then size/format adjustments as needed — and put your best shot first.",
           "Crop, resize, compress, and HEIC conversion are all free and in-browser on Filewisp.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "png-transparency-basics",
+    title: "PNG transparency basics: why JPG fills it in and how to keep it",
+    description:
+      "A logo's background turns white, or you want to keep it transparent but smaller — here is how PNG transparency (the alpha channel) works, why converting to JPG loses it, and how WebP keeps transparency while shrinking the file.",
+    cardDescription:
+      "Why PNG transparency disappears in JPG, and how to keep it while making files smaller.",
+    sections: [
+      {
+        title: "Transparency means there is no background",
+        figure: {
+          kind: "flow",
+          from: "PNG",
+          to: "JPG",
+          caption: "Convert a transparent PNG to JPG and the see-through areas get filled in with white",
+        },
+        paragraphs: [
+          "PNG stores not just a color per pixel but also an opacity (the alpha channel). That alpha is what lets you have cut-out images with no background, or a logo whose rounded corners and shadows blend naturally onto whatever is behind them.",
+          "The checkerboard pattern you see behind a logo in an image editor is the program's way of saying 'this area is transparent' — it is not a white fill. Transparency is the absence of a background, not a color, which makes the rest of this easier to follow.",
+        ],
+      },
+      {
+        title: "Why JPG turns the background white",
+        paragraphs: [
+          "JPG cannot store opacity. So when you convert a transparent PNG to JPG, the transparent areas get filled with white (or black, depending on the tool). 'I saved my logo as JPG and it got a white box around it' is almost always this.",
+          "Once that fill is baked in, you cannot turn it back into transparency. Keep images that need transparency as PNG (or WebP) for editing and storage, and only convert to JPG for final uses where transparency does not matter.",
+        ],
+      },
+      {
+        title: "Formats that keep transparency: PNG and WebP",
+        figure: {
+          kind: "flow",
+          from: "PNG",
+          to: "WebP",
+          caption: "WebP keeps transparency while making the file smaller than PNG",
+        },
+        paragraphs: [
+          "The main formats that preserve opacity are PNG and WebP. PNG is highly compatible and opens almost anywhere, but gets heavy for photo-like images. WebP supports transparency too and saves much smaller than PNG, which makes it great for the web.",
+          "Keep PNG as your master and export WebP for the site, and you keep transparency while gaining speed. Only fall back to PNG when the recipient's environment is old enough not to support WebP.",
+        ],
+      },
+      {
+        title: "Making a transparent PNG smaller",
+        paragraphs: [
+          "To shrink a file while keeping transparency, try WebP first — it preserves alpha and can cut a photo-heavy PNG to a fraction of its size. For icons and logos with few colors, simply compressing the PNG is often enough.",
+          "Our PNG to WebP and PNG compress tools both run in the browser, so you keep the transparency and shrink the file without sending it to any server.",
+        ],
+      },
+      {
+        title: "If you do not need transparency, go JPG",
+        paragraphs: [
+          "If the image already has a full photographic background, or you never use the transparent areas, converting to JPG keeps the file small and easy to handle. Holding a non-transparent photo as PNG just wastes space.",
+          "Decide up front: does this image need a see-through background? If yes, PNG or WebP; if no and you want it light, JPG. That one question settles most format choices.",
+        ],
+      },
+      {
+        title: "Bottom line: PNG/WebP for transparency, JPG if not",
+        paragraphs: [
+          "Transparency is the absence of a background and cannot be saved in JPG. Keep logos, icons, and cut-outs in PNG or WebP, and reach for WebP conversion or compression when you need them smaller.",
+          "PNG ⇄ JPG conversion, PNG → WebP, and PNG compression are all free, signup-free, and in-browser on Filewisp.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "csv-encoding-fix",
+    title: "How to fix CSV mojibake (garbled text): Excel, UTF-8, and Shift_JIS",
+    description:
+      "Open a CSV in Excel and the text comes out garbled — the cause is a mismatch between character encodings (UTF-8 vs Shift_JIS). Here is why it happens, how to fix it on the spot, and how to hand off data that does not break.",
+    cardDescription:
+      "Why CSVs come out garbled in Excel (UTF-8 vs Shift_JIS) and how to fix it on the spot.",
+    sections: [
+      {
+        title: "Garbled text is an encoding mismatch",
+        paragraphs: [
+          "A CSV is just a text file, but it does not always clearly carry which character encoding it was written in. When the side that wrote the file and the side that opens it assume different encodings, the same bytes get read as different characters — and you get garbled text.",
+          "For many languages the two usual suspects are UTF-8 and a legacy local encoding (for Japanese, Shift_JIS / cp932). Open a UTF-8 CSV in a tool that assumes the legacy encoding (or vice versa) and only the non-ASCII text breaks. ASCII looks fine while accented or non-Latin characters garble — that is the telltale sign.",
+        ],
+      },
+      {
+        title: "The classic 'breaks in Excel' case",
+        figure: {
+          kind: "steps",
+          steps: ["Check the CSV", "Detect the\nencoding", "Save as\nUTF-8 (BOM)", "Open in Excel"],
+          caption: "For Excel, line up the encoding before opening rather than fighting it after",
+        },
+        paragraphs: [
+          "Older Excel on Windows tries to read a double-clicked CSV using the legacy local encoding. So a UTF-8 CSV exported by a web service or program comes out garbled. That is Excel's default behavior, not a corrupted file.",
+          "There are two ways around it. One is to import via Data → 'From Text/CSV' and specify UTF-8 on the way in. The other is to re-save the file in a form Excel reads happily — UTF-8 with a BOM, or the legacy encoding.",
+        ],
+      },
+      {
+        title: "Fixing UTF-8 vs Shift_JIS",
+        paragraphs: [
+          "To fix it locally, open the CSV in an editor like Notepad or VS Code and re-save it with an explicit encoding. If you want Excel to open it cleanly by double-click, saving as UTF-8 with a BOM is the safest choice and works in most environments.",
+          "If instead you are feeding a legacy system that expects Shift_JIS, you need to export in that encoding. Confirm which one the recipient expects first, and you save yourself several rounds of re-saving.",
+        ],
+      },
+      {
+        title: "Delimiters, line breaks, and quotes break too",
+        paragraphs: [
+          "Beyond encoding, CSVs love to drift columns. When a cell contains a comma or a line break that is not properly wrapped in quotes (\"), the column count stops matching. Address fields and free-text notes are common offenders.",
+          "Sometimes the delimiter is a tab or semicolon rather than a comma. If everything lands in one column, or columns shift badly, suspect the delimiter and quoting — not just the encoding.",
+        ],
+      },
+      {
+        title: "Route through JSON or Parquet to clean up",
+        figure: {
+          kind: "flow",
+          from: "CSV",
+          to: "JSON",
+          caption: "Passing through JSON makes encoding and delimiter mess easier to straighten out",
+        },
+        paragraphs: [
+          "Rather than hand-patching a broken CSV, it is often faster to route it through another format. Convert CSV to JSON to inspect the structure, or convert to Parquet for a data platform so the types and encoding are pinned down.",
+          "Our CSV to JSON and CSV to Parquet tools run in the browser, so even CSVs with customer or internal data convert without leaving your device — handy when you just want to see what is inside.",
+        ],
+      },
+      {
+        title: "Bottom line: line up the encoding first",
+        paragraphs: [
+          "CSV garbling is almost always a UTF-8 vs Shift_JIS mismatch. Match the encoding the recipient expects, and for Excel re-save as UTF-8 with a BOM. If columns drift, check the delimiter and quoting too.",
+          "CSV ⇄ JSON and CSV ⇄ Parquet conversions are free, signup-free, and in-browser on Filewisp — useful when you need to fix the shape without corrupting the contents.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "what-is-parquet",
+    title: "What is Parquet? How it differs from CSV and when to use it",
+    description:
+      "You keep seeing .parquet files in data platforms, BigQuery, and Athena. Here is what Parquet is, why it is faster and cheaper than CSV, and when to use each — with the jargon kept to a minimum.",
+    cardDescription:
+      "What the columnar Parquet format is, and how it differs from CSV — explained simply.",
+    sections: [
+      {
+        title: "Parquet stores data by column, for analytics",
+        paragraphs: [
+          "Parquet is a file format designed for analyzing large datasets. Where CSV lays data out one row at a time (row-oriented), Parquet groups the values of each column together (columnar). That single difference is what drives the size and speed gains.",
+          "Say you only want the total of a sales column. With a columnar layout, you read just that column and skip the rest — so Parquet reaches the answer with far fewer reads than a CSV that has to scan every row to the end.",
+        ],
+      },
+      {
+        title: "How it differs from CSV: size, speed, types",
+        paragraphs: [
+          "Parquet files are dramatically smaller than CSV. Similar values sit together by column, so compression works well — the same data is often 5–10× smaller than CSV, cutting both storage and transfer costs.",
+          "The other difference is that Parquet carries types. In CSV everything is text and the reader guesses whether a value is a number or a date. Parquet records a type per column (number, string, date, and so on), so the type-coercion, garbling, and delimiter problems that plague CSV largely go away.",
+        ],
+      },
+      {
+        title: "When to choose Parquet",
+        paragraphs: [
+          "In environments billed by data scanned — S3 + Athena, or BigQuery — converting to Parquet reduces the scan and lowers the cost of every query. For large batch jobs in Spark, Redshift Spectrum, or EMR, Parquet input tends to run faster too.",
+          "The more these hold — you query the same data repeatedly, there are many columns but you only use some, the data is large enough that transfer and storage cost matters — the more Parquet pays off. Files that live in a data platform long-term are best stored as Parquet from the start.",
+        ],
+      },
+      {
+        title: "When CSV is the better fit",
+        paragraphs: [
+          "Parquet is a binary format, so you cannot open it directly in a text editor or an ordinary spreadsheet. When you want to eyeball the data in Excel, hand it to a non-engineer, or do a quick visual check, CSV is far easier.",
+          "Even just peeking at what is inside a Parquet file on S3 is often faster by converting to CSV and opening it locally than by spinning up a query engine. CSV also suits debugging a pipeline or sharing a quick extract with a colleague.",
+        ],
+      },
+      {
+        title: "Convert Parquet ⇄ CSV in the browser",
+        figure: {
+          kind: "flow",
+          from: "Parquet",
+          to: "CSV",
+          caption: "Parquet → CSV to inspect; CSV → Parquet before loading into a platform",
+        },
+        paragraphs: [
+          "Our Parquet to CSV and CSV to Parquet tools both process in the browser. Files are never sent to a server, so you can work with production or sensitive data directly.",
+          "Remember it as: Parquet → CSV when you want to quickly check what you pulled from S3, and CSV → Parquet when you want to tidy a locally built CSV before loading it into a platform — no dedicated tooling to launch.",
+        ],
+      },
+      {
+        title: "Bottom line: Parquet to analyze, CSV to inspect",
+        paragraphs: [
+          "Parquet is a columnar, typed format that beats CSV on size, speed, and query cost. CSV is the one humans open and share. 'Parquet for what the platform runs, CSV for checking and sharing' is the practical split.",
+          "Parquet ⇄ CSV conversion is free, signup-free, and in-browser on Filewisp — so you can take the best of both while you work.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "json-and-csv",
+    title: "JSON vs CSV: the difference, and which to store your data in",
+    description:
+      "API responses come as JSON; the spreadsheet you open in Excel is CSV. The same data is easier or harder to handle depending on its shape. Here are the differences, what each is good for, and where conversions trip up.",
+    cardDescription:
+      "Table-shaped CSV vs nesting-friendly JSON — the differences and how to convert between them.",
+    sections: [
+      {
+        title: "JSON and CSV have different shapes",
+        paragraphs: [
+          "CSV is a 'table' of rows and columns: one row per record, one column per field. It is simple and loads straight into Excel or BI tools. JSON is key-value pairs that can also express nesting (hierarchy) and arrays — a more flexible shape.",
+          "For the same 'list of users', CSV holds a flat table while JSON holds a collection of per-user objects. Use CSV for data that fits a flat table, JSON for data with hierarchy or repetition, and the choice gets clearer.",
+        ],
+      },
+      {
+        title: "When CSV fits",
+        paragraphs: [
+          "Customer lists, sales line items, inventory tables — data with fixed fields, one record per row — are comfortable as CSV. Opening in Excel to sort and total, or loading into a spreadsheet, BI tool, or database, all take fewer steps with CSV.",
+          "When you want someone to open and eyeball the data, a CSV that opens as a table needs no explanation. If you are asked for something 'I can open in Excel', think CSV first.",
+        ],
+      },
+      {
+        title: "When JSON fits",
+        paragraphs: [
+          "Data with multiple addresses, an array of tags, or nested settings inside a single record strains against a table. Hierarchical, repeating data is natural in JSON — which is why web APIs, config files, and app-to-app exchange use it so much.",
+          "Data meant to be handled by programs also travels better as JSON, types and structure intact. When the data does not fit a flat table — or loses information when forced into one — reach for JSON before CSV.",
+        ],
+      },
+      {
+        title: "Where conversions trip up",
+        figure: {
+          kind: "steps",
+          steps: ["Take the JSON", "Flatten keys\ninto columns", "Convert to CSV", "Check in Excel"],
+          caption: "Flatten nested keys into columns first, and JSON → CSV holds together",
+        },
+        paragraphs: [
+          "The biggest snag in JSON → CSV is nesting and arrays. Forcing a hierarchical JSON into a table leaves columns undefined or crams an array into one cell. Decide which keys become columns and flatten the nesting first, and the conversion holds together.",
+          "Going CSV → JSON, the catch is that CSV has no types, so numbers and booleans tend to come out as strings. Plan to fix the types on the fields that need it after converting, and you avoid trouble downstream.",
+        ],
+      },
+      {
+        title: "Convert both ways in the browser",
+        paragraphs: [
+          "Our JSON to CSV and CSV to JSON tools both run in the browser. Files are never sent to a server, so you can convert business data or personal information directly.",
+          "Use JSON → CSV to inspect an API response as a table, and CSV → JSON to hand an Excel-built table to a program. And if it is headed for an analytics platform, pair it with CSV → Parquet.",
+        ],
+      },
+      {
+        title: "Bottom line: CSV for tables, JSON for structure",
+        paragraphs: [
+          "Remember it as: CSV for data that fits a flat table and gets opened by people, JSON for data with hierarchy or arrays handled by programs. Whichever you receive, convert as needed to reach the shape you want.",
+          "JSON ⇄ CSV conversion is free, signup-free, and in-browser on Filewisp — shape your data to fit its purpose.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "what-is-avif",
+    title: "What is AVIF? Opening .avif files and converting to JPG or PNG",
+    description:
+      "An image you saved from the web is a .avif that will not open or send. Here is what AVIF is, why it is high quality yet small, and how to convert it to JPG or PNG so it is easy to work with.",
+    cardDescription:
+      "What the high-compression AVIF format is, and how to convert it to JPG or PNG.",
+    sections: [
+      {
+        title: "AVIF is a newer, high-quality, small format",
+        paragraphs: [
+          "AVIF (AV1 Image File Format) is a relatively new image format. It applies the AV1 video codec's technology to still images, so at the same quality it saves even smaller than JPG or WebP. Speed-focused sites increasingly serve images as AVIF.",
+          "It also supports transparency and HDR, covering photos, illustrations, and logos alike. If an image you right-click-saved from a web page came down as .avif, that is because the site was serving AVIF.",
+        ],
+      },
+      {
+        title: "Why it won't open or send",
+        paragraphs: [
+          "Because AVIF is new, some software and services still do not support it. Older Windows viewers, some photo editors, and certain social, chat, or web-form uploads may refuse to open it or reject the upload.",
+          "Even when your current browser displays it, whether the recipient can open it, or a submission site accepts it, is a separate question. For sharing, submission, or editing in another app, converting to widely supported JPG or PNG is the practical fix.",
+        ],
+      },
+      {
+        title: "AVIF to JPG: for sharing and compatibility",
+        figure: {
+          kind: "flow",
+          from: "AVIF",
+          to: "JPG",
+          caption: "For sharing, submission, and opening anywhere, target JPG",
+        },
+        paragraphs: [
+          "For email, chat, web uploads, or document submission, JPG is the best target. It opens almost everywhere, so it clears 'the recipient can't open it' in one move, and photos stay comfortably small.",
+          "Our AVIF to JPG tool converts on drop and supports batch conversion, so you can turn a pile of AVIFs into an easy-to-handle format at once.",
+        ],
+      },
+      {
+        title: "AVIF to PNG: for transparency and editing",
+        paragraphs: [
+          "For an AVIF with a transparent background, an image you will keep editing, or crisp graphics with text, PNG is the better target. PNG keeps transparency and is lossless, so it carries over AVIF's transparency and quality well.",
+          "AVIF to PNG also processes in-browser, so even a transparent AVIF converts without leaving your device, keeping the see-through areas intact.",
+        ],
+      },
+      {
+        title: "If you are exporting for the web yourself",
+        paragraphs: [
+          "If instead you want to serve highly compressed images to lighten your own site, AVIF and WebP are the candidates. AVIF goes smaller, but its support is still spreading, so if you want a balance with compatibility, start with WebP.",
+          "Choose AVIF for 'as small as possible, mostly modern environments' and WebP for 'balance of size and compatibility'. JPG → WebP conversion is available on Filewisp too.",
+        ],
+      },
+      {
+        title: "Bottom line: receive in JPG/PNG, serve in AVIF/WebP",
+        paragraphs: [
+          "AVIF is high quality and small, but support is still catching up. To handle a received AVIF reliably, convert to JPG for sharing or PNG for transparency and editing. When serving light images yourself, choose between AVIF and WebP.",
+          "AVIF to JPG and AVIF to PNG are free, signup-free, and in-browser on Filewisp.",
         ],
       },
     ],

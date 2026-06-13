@@ -1,9 +1,12 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import GuideFigure from "@/src/components/GuideFigure";
+import type { GuideFigure as GuideFigureData } from "@/src/data/guides";
 
 type Section = {
   title: string;
   paragraphs: string[];
+  figure?: GuideFigureData;
 };
 
 type Props = {
@@ -64,6 +67,7 @@ export default function StaticContentPage({
               <h2 className="text-2xl font-semibold text-gray-900">
                 {section.title}
               </h2>
+              {section.figure ? <GuideFigure figure={section.figure} /> : null}
               <div className="space-y-3 text-sm leading-7 text-gray-700">
                 {section.paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
