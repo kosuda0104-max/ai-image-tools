@@ -61,6 +61,29 @@ export const csvToParquetContent: Record<ToolLocale, CsvToParquetContent> = {
           ],
         },
       ],
+      comparisonTitle: "CSV と Parquet の違い",
+      comparisonItems: [
+        {
+          label: "CSV",
+          value:
+            "テキスト形式で中身を確認しやすく、Excel やスプレッドシートで扱いやすい一方、大きなデータでは読み込みや集計が重くなりがちです。",
+        },
+        {
+          label: "Parquet",
+          value:
+            "列指向で圧縮効率が高く、Athena・BigQuery・Spark などの分析基盤で高速に読みやすい形式です。",
+        },
+        {
+          label: "この変換が向く場面",
+          value:
+            "ローカルの CSV をデータレイクやDWHに置く前に、保存容量やクエリコストを抑えたいときに向いています。",
+        },
+        {
+          label: "注意点",
+          value:
+            "このツールでは全カラムを STRING として出力します。数値や日付として扱いたい場合は、取り込み先でスキーマを指定してください。",
+        },
+      ],
       stepsTitle: "使い方",
       steps: [
         "CSV ファイルをアップロードします",
@@ -158,6 +181,29 @@ export const csvToParquetContent: Record<ToolLocale, CsvToParquetContent> = {
             "Snappy compression is used, which is broadly supported across AWS, GCP, and Spark.",
             "Empty fields are treated as NULL.",
           ],
+        },
+      ],
+      comparisonTitle: "CSV vs Parquet",
+      comparisonItems: [
+        {
+          label: "CSV",
+          value:
+            "A plain-text format that is easy to inspect and open in spreadsheet tools, but often slow and bulky for larger analytical datasets.",
+        },
+        {
+          label: "Parquet",
+          value:
+            "A compressed columnar format designed for fast reads in tools such as Athena, BigQuery, Spark, and DuckDB.",
+        },
+        {
+          label: "Best fit",
+          value:
+            "Use this conversion before uploading local CSV data to a data lake or warehouse where storage size and scan cost matter.",
+        },
+        {
+          label: "Note",
+          value:
+            "This tool writes every column as STRING. Define or cast numeric and date types in your destination system when needed.",
         },
       ],
       stepsTitle: "How to use",

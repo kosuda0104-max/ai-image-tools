@@ -4,12 +4,12 @@ import { createToolMetadata } from "@/src/lib/tool-metadata";
 export const metadata = createToolMetadata({
   locale: "en",
   slug: "parquet-to-csv",
-  jaTitle: "ParquetをCSVに変換【無料・ブラウザ完結】オンラインツール",
+  jaTitle: "ParquetをCSVに変換 - ブラウザだけで使える無料ツール",
   jaDescription:
-    "Parquetファイルをブラウザ上でCSVに変換できる無料オンラインツールです。アップロード不要・安全。AWS・BigQuery・Sparkのデータ作業に。",
-  enTitle: "Parquet to CSV Converter Free Online",
+    "ParquetファイルをCSVに変換できる無料オンラインツールです。アップロード不要でブラウザだけで処理でき、AWS・BigQuery・Sparkのデータ確認に使えます。",
+  enTitle: "Parquet to CSV Converter - Convert Parquet Files in Your Browser",
   enDescription:
-    "Convert Parquet files to CSV online for free. No upload required, runs in your browser. Great for AWS, BigQuery, and Spark workflows.",
+    "Convert Parquet files to CSV directly in your browser for free. No upload required, ideal for AWS, BigQuery, Spark, and data inspection workflows.",
 });
 
 export default function Page() {

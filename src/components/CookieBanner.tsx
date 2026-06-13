@@ -11,10 +11,11 @@ export default function CookieBanner({ locale }: Props) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const accepted = localStorage.getItem("cookie-consent");
-    if (!accepted) {
-      setVisible(true);
-    }
+    const timer = window.setTimeout(() => {
+      setVisible(!localStorage.getItem("cookie-consent"));
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, []);
 
   const accept = () => {

@@ -61,6 +61,29 @@ export const parquetToCsvContent: Record<ToolLocale, ParquetToCsvContent> = {
           ],
         },
       ],
+      comparisonTitle: "Parquet と CSV の違い",
+      comparisonItems: [
+        {
+          label: "Parquet",
+          value:
+            "列指向で圧縮された分析向け形式です。大量データの保存やクエリには強い一方、中身をそのまま目視確認しにくいことがあります。",
+        },
+        {
+          label: "CSV",
+          value:
+            "テキスト形式で多くのアプリから開けるため、確認・共有・簡単な編集に向いています。",
+        },
+        {
+          label: "この変換が向く場面",
+          value:
+            "S3・BigQuery・Spark などから得た Parquet の内容を、Excel やスプレッドシートで確認したいときに便利です。",
+        },
+        {
+          label: "注意点",
+          value:
+            "CSV は圧縮や型情報を持たないため、変換後はファイルサイズが大きくなることがあります。",
+        },
+      ],
       stepsTitle: "使い方",
       steps: [
         "Parquet ファイルをアップロードします",
@@ -158,6 +181,29 @@ export const parquetToCsvContent: Record<ToolLocale, ParquetToCsvContent> = {
             "Dates and timestamps are converted to strings.",
             "Large files may take a moment to process depending on your device.",
           ],
+        },
+      ],
+      comparisonTitle: "Parquet vs CSV",
+      comparisonItems: [
+        {
+          label: "Parquet",
+          value:
+            "A compressed columnar format built for analytics. It is efficient for storage and queries, but not always easy to inspect directly.",
+        },
+        {
+          label: "CSV",
+          value:
+            "A plain-text format that opens in many apps, which makes it useful for inspection, sharing, and simple edits.",
+        },
+        {
+          label: "Best fit",
+          value:
+            "Use this conversion when you need to inspect Parquet data from S3, BigQuery, Spark, or similar workflows in a spreadsheet tool.",
+        },
+        {
+          label: "Note",
+          value:
+            "CSV does not preserve compression or rich type metadata, so the converted file may be larger than the original Parquet file.",
         },
       ],
       stepsTitle: "How to use",

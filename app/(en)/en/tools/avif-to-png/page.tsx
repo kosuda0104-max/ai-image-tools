@@ -1,16 +1,16 @@
 import AvifToPngTool from "@/src/components/AvifToPngTool";
+import { createToolMetadata } from "@/src/lib/tool-metadata";
 
-export const metadata = {
-  title: "AVIF to PNG Converter Free Online",
-  description:
-    "Convert AVIF to PNG online for free. No upload required, fast, secure, and easy to use in your browser.",
-  alternates: {
-    languages: {
-      en: "/en/tools/avif-to-png",
-      ja: "/tools/avif-to-png",
-    },
-  },
-};
+export const metadata = createToolMetadata({
+  locale: "en",
+  slug: "avif-to-png",
+  jaTitle: "AVIFをPNGに変換 - ブラウザだけで使える無料ツール",
+  jaDescription:
+    "AVIF画像をPNGに変換できる無料オンラインツールです。アップロード不要でブラウザだけで処理でき、編集しやすいPNG画像を作れます。",
+  enTitle: "AVIF to PNG Converter - Convert AVIF Images in Your Browser",
+  enDescription:
+    "Convert AVIF images to PNG directly in your browser for free. No upload required, useful when you need editable PNG output online.",
+});
 
 export default function Page() {
   return <AvifToPngTool locale="en" />;

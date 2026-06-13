@@ -4,12 +4,12 @@ import { createToolMetadata } from "@/src/lib/tool-metadata";
 export const metadata = createToolMetadata({
   locale: "ja",
   slug: "image-compress",
-  jaTitle: "画像圧縮ツール【JPG・PNG・WebP対応】",
+  jaTitle: "画像圧縮ブラウザツール - JPG・PNG・WebPを無料で軽量化",
   jaDescription:
-    "JPG・PNG・WebP画像のファイルサイズをブラウザ上で軽くできる無料オンラインツールです。Web掲載、メール添付、アップロード前の最終調整に向いています。",
-  enTitle: "Image Compressor Free Online",
+    "JPG・PNG・WebP画像をブラウザだけで圧縮できる無料オンラインツールです。アップロード不要で、Web掲載・メール添付・フォーム送信前に軽量化できます。",
+  enTitle: "Image Compressor - Compress JPG, PNG, and WebP in Your Browser",
   enDescription:
-    "Compress JPG, PNG, and WebP images online for free. No upload required, fast, secure, and easy to use in your browser.",
+    "Compress JPG, PNG, and WebP images directly in your browser for free. No upload required, useful before publishing, emailing, or uploading images.",
 });
 
 export default function Page() {

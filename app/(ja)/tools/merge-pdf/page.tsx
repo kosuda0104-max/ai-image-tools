@@ -4,12 +4,12 @@ import { createToolMetadata } from "@/src/lib/tool-metadata";
 export const metadata = createToolMetadata({
   locale: "ja",
   slug: "merge-pdf",
-  jaTitle: "PDF結合ツール【複数PDFを1つにまとめる】",
+  jaTitle: "PDF結合ブラウザツール - 複数PDFを無料で1つにまとめる",
   jaDescription:
-    "複数のPDFファイルを1つに結合できる無料オンラインツールです。請求書、資料、配布物をまとめたいときにブラウザだけで手早く使えます。",
-  enTitle: "Merge PDF Tool Free Online",
+    "複数のPDFファイルを1つに結合できる無料オンラインツールです。アップロード不要でブラウザだけで処理でき、資料や請求書をまとめられます。",
+  enTitle: "Merge PDF Online - Combine PDF Files in Your Browser",
   enDescription:
-    "Merge multiple PDF files into one PDF online for free. Reorder files before merging and process everything directly in your browser.",
+    "Merge multiple PDF files into one PDF directly in your browser for free. No upload required, reorder files and combine documents online.",
 });
 
 export default function Page() {

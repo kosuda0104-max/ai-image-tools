@@ -310,7 +310,6 @@ export default function BatchImageConverter({
                           <span className="text-[10px] uppercase">{(item.file.name.split(".").pop() || "img").slice(0, 5)}</span>
                         </div>
                       ) : (
-                        // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={item.url}
                           alt={item.file.name}
@@ -379,7 +378,6 @@ export default function BatchImageConverter({
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {results.map((r) => (
                 <div key={r.id} className="flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={r.url} alt={r.name} className="h-28 w-full bg-gray-50 object-contain" />
                   <div className="flex flex-1 flex-col gap-2 p-3">
                     <p className="truncate text-xs font-medium text-gray-800" title={r.name}>{r.name}</p>

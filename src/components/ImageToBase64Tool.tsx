@@ -109,7 +109,6 @@ export default function ImageToBase64Tool({ locale }: Props) {
             {/* Preview */}
             <div className="space-y-2">
               <p className="text-sm font-medium text-gray-900">{ui.previewTitle}</p>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={dataUrl}
                 alt="preview"
