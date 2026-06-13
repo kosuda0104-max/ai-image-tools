@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 type Section = {
   title: string;
@@ -10,6 +11,8 @@ type Props = {
   description: string;
   sections: Section[];
   locale: "ja" | "en";
+  /** Optional illustration shown under the page intro (used by guides). */
+  hero?: ReactNode;
 };
 
 export default function StaticContentPage({
@@ -17,6 +20,7 @@ export default function StaticContentPage({
   description,
   sections,
   locale,
+  hero,
 }: Props) {
   const links =
     locale === "en"
@@ -49,6 +53,7 @@ export default function StaticContentPage({
             <h1 className="text-4xl font-bold text-gray-900">{title}</h1>
             <p className="text-lg leading-8 text-gray-600">{description}</p>
           </div>
+          {hero ? <div className="mt-8">{hero}</div> : null}
         </div>
       </section>
 
