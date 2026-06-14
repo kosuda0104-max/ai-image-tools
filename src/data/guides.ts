@@ -1583,6 +1583,123 @@ const jaGuides: GuideEntry[] = [
       },
     ],
   },
+  {
+    slug: "grayscale-photo",
+    title: "写真を白黒（モノクロ）にする方法",
+    description:
+      "カラー写真を白黒（グレースケール）に変換する手順と、資料・印刷・統一感づくりで失敗しないコツをまとめたガイドです。ブラウザだけで手早く変換できます。",
+    cardDescription:
+      "カラー写真をモノクロにする手順と、用途別の注意点をまとめます。",
+    sections: [
+      {
+        title: "写真を白黒にしたくなる場面",
+        paragraphs: [
+          "白黒化は、資料の見た目を統一したいとき、印刷でインクを節約したいとき、被写体の形やコントラストを強調したいときによく使われます。色の情報を落とすことで、明暗のメリハリが伝わりやすくなる効果もあります。",
+          "ブログやSNSでも、複数の写真をモノクロにそろえると雰囲気が一気にまとまります。まず「何のために白黒にするのか」を決めておくと、仕上がりの濃さや明るさの調整がぶれにくくなります。",
+        ],
+      },
+      {
+        title: "変換する前に決めておくこと",
+        paragraphs: [
+          "元のカラー写真は必ず残しておき、コピーを白黒化するのが安全です。あとで「やっぱりカラーが良かった」となっても戻せます。",
+          "文字やロゴが入った画像は、白黒にすると色で区別していた部分が読みにくくなることがあります。変換後に文字が判別できるか、実際に使うサイズで確認してから使いましょう。",
+        ],
+        figure: { kind: "steps", steps: ["画像を選ぶ", "白黒に変換", "確認して保存"], caption: "白黒化はこの3ステップで完了します" },
+      },
+      {
+        title: "きれいに仕上げるコツ",
+        paragraphs: [
+          "白黒写真は明暗の差で印象が決まります。元の写真が暗すぎたり明るすぎたりすると変換後にのっぺりしやすいので、必要なら先に明るさを整えておくと安定します。",
+          "印刷に使う場合は、画面で見たときより濃く出ることがあります。重要な資料は、本番と同じ用紙やプリンタで一度試し刷りをして濃度を確認すると失敗しにくいです。",
+        ],
+      },
+      {
+        title: "このツールでの変換手順",
+        paragraphs: [
+          "このサイトの白黒化ツールは、画像をドラッグ＆ドロップして変換ボタンを押すだけで使えます。ファイルはブラウザ内で処理され、外部サーバーには送信されません。",
+          "白黒にしたあとに容量を軽くしたいときは画像圧縮、サイズを整えたいときはリサイズと組み合わせると、提出や共有まで一気に進められます。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "add-watermark-to-image",
+    title: "画像に透かし（ウォーターマーク）を入れる方法",
+    description:
+      "写真やイラストに透かし（ウォーターマーク）を入れて無断転載を抑える方法と、目立ちすぎず効果的に入れるコツをまとめたガイドです。ブラウザだけで設定できます。",
+    cardDescription:
+      "無断転載を抑える透かしの入れ方と、効果的に見せるコツをまとめます。",
+    sections: [
+      {
+        title: "透かしを入れる目的",
+        paragraphs: [
+          "透かしは、自分の写真やイラストが勝手に使われるのを抑えたいときや、配布資料の出どころを示したいときに役立ちます。完全に転載を防げるわけではありませんが、無断利用の心理的なハードルを上げる効果があります。",
+          "オリジナル素材を公開するクリエイター、商品写真を載せるショップ、社内資料を配布する担当者など、画像が手元を離れる場面で特に向いています。",
+        ],
+      },
+      {
+        title: "効果的な透かしの条件",
+        paragraphs: [
+          "透かしは「消されにくさ」と「見やすさ」のバランスが大事です。隅だけに入れると簡単に切り取られてしまうため、主役に少し重なる位置に、薄めの濃度で入れると効果的です。",
+          "濃すぎると写真本来の見栄えを損ない、薄すぎると意味がありません。文字やロゴのサイズは、縮小表示でも読める程度を目安にすると失敗しにくいです。",
+        ],
+        figure: { kind: "steps", steps: ["画像を選ぶ", "透かしを設定", "保存する"], caption: "透かしはこの3ステップで入れられます" },
+      },
+      {
+        title: "入れる前に確認したいこと",
+        paragraphs: [
+          "透かし入りの画像とは別に、透かしの無い元画像も必ず保管しておきましょう。印刷や別用途で、透かし無しが必要になることがあります。",
+          "他人の素材やフォントを透かしに使う場合は、商用利用の可否を確認してから使うと安心です。自分のロゴや名前なら、その心配はありません。",
+        ],
+      },
+      {
+        title: "このツールでの設定手順",
+        paragraphs: [
+          "このサイトの透かしツールは、画像を読み込み、文字や位置を設定して保存するだけで使えます。処理はブラウザ内で完結し、画像は外部に送信されません。",
+          "公開前に容量を軽くしたいときは画像圧縮、掲載サイズに合わせたいときはリサイズと組み合わせると、そのまま投稿や共有に進めます。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "crop-image-to-square",
+    title: "画像を正方形に切り抜く方法（アイコン・SNS用）",
+    description:
+      "プロフィールアイコンやSNS投稿用に、画像を正方形（1:1）へ切り抜く手順と、被写体を中央にきれいに収めるコツをまとめたガイドです。",
+    cardDescription:
+      "アイコンやSNS用に、画像を正方形へ切り抜く手順とコツをまとめます。",
+    sections: [
+      {
+        title: "正方形に切り抜きたい場面",
+        paragraphs: [
+          "プロフィールアイコン、Instagramの投稿、サムネイル、ショップのロゴ枠など、表示枠が正方形（1:1）に決まっている場面は多くあります。最初から正方形にしておくと、アップロード時に勝手に切られて顔や主役が欠ける失敗を防げます。",
+          "横長や縦長のままアップすると、サービス側で中央以外がトリミングされ、意図しない部分が表示されることがあります。自分で正方形に整えておくのが確実です。",
+        ],
+      },
+      {
+        title: "切り抜く前に決めること",
+        paragraphs: [
+          "まず比率を1:1に固定し、主役をどこに置くかを決めます。顔やロゴは中央〜やや上に置くと、丸く切り抜かれるアイコン枠でも収まりがよくなります。",
+          "切り抜くと当然ながら写る範囲は狭くなります。元画像の解像度が低いと切り抜き後に粗く見えることがあるので、できるだけ大きい画像から始めるのがおすすめです。",
+        ],
+        figure: { kind: "steps", steps: ["画像を選ぶ", "正方形に切り抜く", "保存する"], caption: "正方形トリミングはこの3ステップです" },
+      },
+      {
+        title: "きれいに見せるコツ",
+        paragraphs: [
+          "余白の取り方で印象が変わります。主役の周りに少し余白を残すと窮屈に見えず、逆に寄せると迫力が出ます。用途に合わせて調整しましょう。",
+          "アイコンは小さく表示されることが多いので、細かい要素は思い切って省き、主役を大きく入れたほうが視認性が上がります。",
+        ],
+      },
+      {
+        title: "このツールでの切り抜き手順",
+        paragraphs: [
+          "このサイトの切り抜きツールは、画像を読み込んで範囲を正方形に合わせ、保存するだけで使えます。処理はブラウザ内で完結し、画像は外部に送信されません。",
+          "切り抜いたあとに容量を軽くしたいときは画像圧縮、表示サイズを整えたいときはリサイズと組み合わせると、そのままアイコン登録や投稿に進めます。",
+        ],
+      },
+    ],
+  },
 ];
 
 const enGuides: GuideEntry[] = [
@@ -3145,6 +3262,123 @@ const enGuides: GuideEntry[] = [
         paragraphs: [
           "AVIF is high quality and small, but support is still catching up. To handle a received AVIF reliably, convert to JPG for sharing or PNG for transparency and editing. When serving light images yourself, choose between AVIF and WebP.",
           "AVIF to JPG and AVIF to PNG are free, signup-free, and in-browser on Filewisp.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "grayscale-photo",
+    title: "How to make a photo black and white",
+    description:
+      "How to convert a color photo to black and white (grayscale), with tips to avoid mistakes when the result is for documents, printing, or a consistent look. Works in your browser.",
+    cardDescription:
+      "Convert color photos to grayscale, with practical tips for each use case.",
+    sections: [
+      {
+        title: "When to convert a photo to black and white",
+        paragraphs: [
+          "Grayscale is useful when you want a consistent look across documents, save ink when printing, or emphasize shape and contrast over color. Removing color often makes light and shadow read more clearly.",
+          "On blogs and social media, converting several photos to black and white instantly unifies the mood. Decide why you are converting first, so the brightness and contrast choices stay consistent.",
+        ],
+      },
+      {
+        title: "Decide this before converting",
+        paragraphs: [
+          "Always keep the original color photo and convert a copy. That way you can go back if color turns out to be the better choice later.",
+          "Images with text or logos can become hard to read once color cues are removed. Check that the text is still legible at the size you will actually use.",
+        ],
+        figure: { kind: "steps", steps: ["Select image", "Convert to B&W", "Check and save"], caption: "Grayscale conversion takes just three steps" },
+      },
+      {
+        title: "Tips for a clean result",
+        paragraphs: [
+          "Black and white photos live or die by contrast. If the original is too dark or too bright, the result can look flat, so adjust brightness first if needed.",
+          "For printing, images often come out darker than they look on screen. For important documents, run a test print on the same paper and printer to confirm the density.",
+        ],
+      },
+      {
+        title: "How to convert with this tool",
+        paragraphs: [
+          "The grayscale tool on this site works by dropping in an image and pressing convert. Files are processed in your browser and never sent to a server.",
+          "If you want a smaller file afterward, combine it with image compression; to fit a target size, add resizing, so you can move straight to sharing or submitting.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "add-watermark-to-image",
+    title: "How to add a watermark to an image",
+    description:
+      "How to add a watermark to photos and illustrations to discourage unauthorized reuse, with tips to keep it effective without ruining the image. Set it up in your browser.",
+    cardDescription:
+      "Add a watermark to discourage reuse, with tips to keep it effective.",
+    sections: [
+      {
+        title: "Why add a watermark",
+        paragraphs: [
+          "A watermark helps discourage people from using your photos or illustrations without permission, and it shows the source of shared material. It will not fully prevent reuse, but it raises the barrier to casual copying.",
+          "It is especially useful for creators publishing original work, shops posting product photos, and anyone distributing material that will leave their hands.",
+        ],
+      },
+      {
+        title: "What makes a watermark effective",
+        paragraphs: [
+          "A good watermark balances being hard to remove with staying readable. Placing it only in a corner makes it easy to crop out, so a faint mark that slightly overlaps the subject works better.",
+          "Too strong and it ruins the photo; too faint and it is pointless. Size the text or logo so it stays readable even at a reduced display size.",
+        ],
+        figure: { kind: "steps", steps: ["Select image", "Set watermark", "Save"], caption: "Adding a watermark takes three steps" },
+      },
+      {
+        title: "Check this before you start",
+        paragraphs: [
+          "Always keep a clean original without the watermark. You may need an unmarked version for printing or other uses later.",
+          "If you use someone else's artwork or fonts in the watermark, confirm commercial use is allowed first. Your own logo or name avoids that concern entirely.",
+        ],
+      },
+      {
+        title: "How to set it up with this tool",
+        paragraphs: [
+          "The watermark tool on this site works by loading an image, setting the text and position, and saving. Everything runs in your browser, so the image is not uploaded.",
+          "To lighten the file before publishing, combine it with image compression; to match a posting size, add resizing, then go straight to sharing.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "crop-image-to-square",
+    title: "How to crop an image to a square (for icons and social)",
+    description:
+      "How to crop an image to a square (1:1) for profile icons and social posts, with tips to keep the subject centered and sharp.",
+    cardDescription:
+      "Crop images to a square for icons and social posts, with framing tips.",
+    sections: [
+      {
+        title: "When you need a square crop",
+        paragraphs: [
+          "Profile icons, Instagram posts, thumbnails, and shop logo frames are often fixed to a square (1:1). Cropping to square yourself prevents the upload from cutting off a face or the main subject.",
+          "If you upload a wide or tall image as-is, the service trims everything but the center, which can show an unintended part. Squaring it yourself is more reliable.",
+        ],
+      },
+      {
+        title: "Decide this before cropping",
+        paragraphs: [
+          "Lock the ratio to 1:1 and decide where the subject sits. Placing a face or logo in the center or slightly above keeps it framed well even inside a round icon mask.",
+          "Cropping naturally narrows what is visible. If the original resolution is low, the result can look rough, so start from the largest image you have.",
+        ],
+        figure: { kind: "steps", steps: ["Select image", "Crop to square", "Save"], caption: "A square crop takes three steps" },
+      },
+      {
+        title: "Tips to look good",
+        paragraphs: [
+          "Margins change the impression. Leaving a little space around the subject avoids a cramped look, while cropping in tight adds impact. Adjust to the use case.",
+          "Icons usually display small, so drop fine details and make the subject large for better visibility.",
+        ],
+      },
+      {
+        title: "How to crop with this tool",
+        paragraphs: [
+          "The crop tool on this site works by loading an image, fitting the area to a square, and saving. Everything runs in your browser, so the image is not uploaded.",
+          "If you want a smaller file afterward, combine it with image compression; to set a display size, add resizing, then move straight to uploading your icon or post.",
         ],
       },
     ],

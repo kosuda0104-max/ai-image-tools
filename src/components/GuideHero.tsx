@@ -245,7 +245,14 @@ function heroFor(slug: string): Hero {
   }
 
   // device / photo workflows
-  if (s === "convert-images-on-smartphone" || s === "marketplace-product-photos" || s === "resume-photo-size") {
+  if (
+    s === "convert-images-on-smartphone" ||
+    s === "marketplace-product-photos" ||
+    s === "resume-photo-size" ||
+    s === "grayscale-photo" ||
+    s === "add-watermark-to-image" ||
+    s === "crop-image-to-square"
+  ) {
     return { kind: "device" };
   }
 

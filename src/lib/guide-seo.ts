@@ -26,6 +26,7 @@ export function buildGuideArticleJsonLd(guide: GuideEntry, locale: "ja" | "en") 
     "@type": "Article",
     headline: guide.title,
     description: guide.description,
+    image: [`${siteUrl}/og.png`],
     inLanguage: locale,
     datePublished: TOOL_CONTENT_LAST_UPDATED,
     dateModified: TOOL_CONTENT_LAST_UPDATED,

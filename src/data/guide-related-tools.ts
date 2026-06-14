@@ -32,6 +32,9 @@ const guideToolMap: Record<string, string[]> = {
   "what-is-parquet": ["parquet-to-csv", "csv-to-parquet", "json-to-csv"],
   "json-and-csv": ["json-to-csv", "csv-to-json", "csv-to-parquet"],
   "what-is-avif": ["avif-to-jpg", "avif-to-png", "jpg-to-webp", "image-compress"],
+  "grayscale-photo": ["grayscale-image", "image-compress", "resize-image", "crop-image"],
+  "add-watermark-to-image": ["watermark-image", "resize-image", "image-compress", "crop-image"],
+  "crop-image-to-square": ["crop-image", "resize-image", "image-compress", "grayscale-image"],
 };
 
 export function getGuideRelatedTools(
