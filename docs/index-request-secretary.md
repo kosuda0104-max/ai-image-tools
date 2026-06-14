@@ -193,5 +193,5 @@ Claude にこう頼めば、秘書として機能します：
 
 ### 投稿した記事ログ
 - [x] Zenn（2026/06/13）: https://zenn.dev/kosuda/articles/0e8cf5da824a64 — 「AWSのParquetをブラウザだけでCSVにしたかったので、ツールを作って公開した」
-- [ ] Qiita: 同内容（[docs/promo/parquet-csv-aws-article-ja.md](../docs/promo/parquet-csv-aws-article-ja.md)）未投稿
+- [x] Qiita（2026/06/14）: https://qiita.com/coscoskosuda/items/eabb35e06445e8338207 — 同内容。※リンクはあるが本文に「Filewisp」ブランド名が未記載。記事末尾に「Filewisp（https://ai-image-tools.com）」を追記推奨
 - [ ] dev.to（英語）: [docs/promo/parquet-csv-aws-article-en.md](../docs/promo/parquet-csv-aws-article-en.md) 未投稿
