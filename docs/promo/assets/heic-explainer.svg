@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 350" role="img" aria-labelledby="t d">
+  <title id="t">iPhoneのHEIC写真が開けない理由と解決法</title>
+  <desc id="d">iPhoneのHEICはそのままWindowsやWebでは開けないが、JPGに変換すればどこでも開けるという図解</desc>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, "Hiragino Sans", "Noto Sans JP", sans-serif; }
+  </style>
+
+  <rect x="2" y="2" width="756" height="346" rx="18" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <text x="380" y="42" text-anchor="middle" font-size="21" font-weight="800" fill="#1e293b">iPhoneのHEIC写真が開けない？</text>
+
+  <!-- Lane 1: problem -->
+  <text x="34" y="100" font-size="14" font-weight="700" fill="#ef4444">そのまま送ると</text>
+
+  <!-- iPhone .heic -->
+  <g>
+    <rect x="60" y="112" width="160" height="66" rx="14" fill="#ffffff" stroke="#10b981" stroke-width="2"/>
+    <rect x="60" y="112" width="160" height="66" rx="14" fill="#10b981" opacity="0.08"/>
+    <text x="140" y="142" text-anchor="middle" font-size="16" font-weight="700" fill="#334155">📱 iPhone</text>
+    <text x="140" y="162" text-anchor="middle" font-size="15" font-weight="800" fill="#10b981">.heic</text>
+  </g>
+  <!-- arrow -->
+  <text x="250" y="138" text-anchor="middle" font-size="12" fill="#94a3b8">送る</text>
+  <g transform="translate(228,145)"><line x1="0" y1="0" x2="38" y2="0" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/><path d="M34 -6 L46 0 L34 6 Z" fill="#94a3b8"/></g>
+  <!-- Windows/PC -->
+  <g>
+    <rect x="285" y="112" width="175" height="66" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="372" y="151" text-anchor="middle" font-size="16" font-weight="700" fill="#334155">💻 Windows / Web</text>
+  </g>
+  <!-- arrow -->
+  <g transform="translate(468,145)"><line x1="0" y1="0" x2="38" y2="0" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/><path d="M34 -6 L46 0 L34 6 Z" fill="#94a3b8"/></g>
+  <!-- result: cannot open -->
+  <g>
+    <rect x="525" y="112" width="185" height="66" rx="14" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+    <text x="617" y="151" text-anchor="middle" font-size="17" font-weight="800" fill="#ef4444">❌ 開けない</text>
+  </g>
+
+  <!-- divider -->
+  <line x1="34" y1="208" x2="726" y2="208" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="4 6"/>
+
+  <!-- Lane 2: solution -->
+  <text x="34" y="244" font-size="14" font-weight="700" fill="#10b981">変換すれば</text>
+
+  <!-- .heic -->
+  <g>
+    <rect x="40" y="256" width="120" height="62" rx="14" fill="#ffffff" stroke="#10b981" stroke-width="2"/>
+    <rect x="40" y="256" width="120" height="62" rx="14" fill="#10b981" opacity="0.08"/>
+    <text x="100" y="293" text-anchor="middle" font-size="16" font-weight="800" fill="#10b981">.heic</text>
+  </g>
+  <g transform="translate(166,287)"><line x1="0" y1="0" x2="30" y2="0" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/><path d="M26 -6 L38 0 L26 6 Z" fill="#94a3b8"/></g>
+  <!-- Filewisp convert -->
+  <g>
+    <rect x="206" y="256" width="180" height="62" rx="14" fill="#6366f1"/>
+    <text x="296" y="282" text-anchor="middle" font-size="15" font-weight="800" fill="#ffffff">Filewisp</text>
+    <text x="296" y="302" text-anchor="middle" font-size="13" font-weight="600" fill="#e0e7ff">ブラウザで変換</text>
+  </g>
+  <g transform="translate(392,287)"><line x1="0" y1="0" x2="30" y2="0" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/><path d="M26 -6 L38 0 L26 6 Z" fill="#94a3b8"/></g>
+  <!-- .jpg -->
+  <g>
+    <rect x="432" y="256" width="120" height="62" rx="14" fill="#ffffff" stroke="#f97316" stroke-width="2"/>
+    <rect x="432" y="256" width="120" height="62" rx="14" fill="#f97316" opacity="0.08"/>
+    <text x="492" y="293" text-anchor="middle" font-size="16" font-weight="800" fill="#f97316">.jpg</text>
+  </g>
+  <g transform="translate(558,287)"><line x1="0" y1="0" x2="30" y2="0" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/><path d="M26 -6 L38 0 L26 6 Z" fill="#94a3b8"/></g>
+  <!-- result: opens everywhere -->
+  <g>
+    <rect x="598" y="256" width="122" height="62" rx="14" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+    <text x="659" y="293" text-anchor="middle" font-size="15" font-weight="800" fill="#10b981">✅ 開ける</text>
+  </g>
+</svg>
