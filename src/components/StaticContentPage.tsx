@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import GuideFigure from "@/src/components/GuideFigure";
+import AdUnit from "@/components/AdUnit";
+import { AD_SLOTS } from "@/src/lib/ads";
 import type { GuideFigure as GuideFigureData } from "@/src/data/guides";
 
 type Section = {
@@ -75,6 +77,8 @@ export default function StaticContentPage({
               </div>
             </section>
           ))}
+
+          <AdUnit slot={AD_SLOTS.guideInArticle} />
 
           <section className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
             <div className="flex flex-wrap gap-3">

@@ -1,4 +1,6 @@
 import FAQJsonLd from "@/components/FAQJsonLd";
+import AdUnit from "@/components/AdUnit";
+import { AD_SLOTS } from "@/src/lib/ads";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { buildSeoFallbackContent } from "@/src/lib/seo-tool-content";
@@ -580,6 +582,8 @@ export default function ToolPageLayout({
               ))}
             </div>
           </section>
+
+          <AdUnit slot={AD_SLOTS.toolInArticle} />
 
           {relatedTools.length > 0 && (
             <section className="space-y-4">
