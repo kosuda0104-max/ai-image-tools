@@ -1,5 +1,6 @@
 import StaticContentPage from "@/src/components/StaticContentPage";
 import GuideRelatedTools from "@/src/components/GuideRelatedTools";
+import GuideRelatedGuides from "@/src/components/GuideRelatedGuides";
 import GuideHero from "@/src/components/GuideHero";
 import { buildGuideArticleJsonLd } from "@/src/lib/guide-seo";
 import type { GuideEntry } from "@/src/data/guides";
@@ -25,6 +26,7 @@ export default function GuidePageTemplate({ guide, locale }: Props) {
         sections={guide.sections}
         hero={<GuideHero slug={guide.slug} />}
       />
+      <GuideRelatedGuides locale={locale} slug={guide.slug} />
       <GuideRelatedTools locale={locale} slug={guide.slug} />
     </>
   );

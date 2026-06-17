@@ -1,5 +1,29 @@
 import { getToolItems } from "@/src/data/tool-directory";
-import { getGuides } from "@/src/data/guides";
+import { getGuide } from "@/src/data/guides";
+
+/**
+ * Guides featured on the homepage. Deliberately spans every topic cluster
+ * (incl. the Parquet/CSV data guides) so each cluster gets an internal link
+ * from the highest-authority page on the site.
+ */
+const HOME_GUIDE_SLUGS = [
+  "image-format-basics",
+  "compress-images-without-losing-quality",
+  "pdf-workflows",
+  "what-is-parquet",
+  "parquet-csv-workflows",
+  "json-and-csv",
+];
+
+function getHomeGuides(locale: "ja" | "en") {
+  return HOME_GUIDE_SLUGS.map((slug) => getGuide(locale, slug))
+    .filter((guide): guide is NonNullable<typeof guide> => Boolean(guide))
+    .map((guide) => ({
+      slug: guide.slug,
+      title: guide.title,
+      cardDescription: guide.cardDescription,
+    }));
+}
 
 type ToolItem = {
   name: string;
@@ -242,11 +266,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       title: "使い方ガイド",
       description: "形式の選び方、圧縮のコツ、PDF 作業の流れなど、ツールを使う前後に役立つ解説をまとめています。",
       viewAllLabel: "ガイドをすべて見る",
-      guides: getGuides("ja").slice(0, 6).map((g) => ({
-        slug: g.slug,
-        title: g.title,
-        cardDescription: g.cardDescription,
-      })),
+      guides: getHomeGuides("ja"),
     },
     aboutSection: {
       title: ja.aboutTitle,
@@ -392,11 +412,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       title: "Guides",
       description: "Short guides on image formats, compression, and PDF workflows — useful before or after using the tools.",
       viewAllLabel: "View all guides",
-      guides: getGuides("en").slice(0, 6).map((g) => ({
-        slug: g.slug,
-        title: g.title,
-        cardDescription: g.cardDescription,
-      })),
+      guides: getHomeGuides("en"),
     },
     aboutSection: {
       title: "About This Site",

@@ -245,6 +245,42 @@ export default function HomePage({ locale }: Props) {
         )}
       </div>
 
+      {/* ── Guides ── */}
+      <div className="border-t border-gray-200 bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div className="max-w-2xl">
+              <h2 className="text-2xl font-bold text-gray-900">{t.guidesSection.title}</h2>
+              <p className="mt-2 text-sm leading-7 text-gray-600">
+                {t.guidesSection.description}
+              </p>
+            </div>
+            <Link
+              href={`${basePath}/guides`}
+              className="text-sm font-medium text-blue-700 underline decoration-blue-300 underline-offset-4 hover:text-blue-900"
+            >
+              {t.guidesSection.viewAllLabel} →
+            </Link>
+          </div>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {t.guidesSection.guides.map((guide) => (
+              <Link
+                key={guide.slug}
+                href={`${basePath}/guides/${guide.slug}`}
+                className="group flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-gray-300 hover:shadow-md"
+              >
+                <h3 className="text-base font-semibold text-gray-900 group-hover:text-blue-700">
+                  {guide.title}
+                </h3>
+                <p className="mt-2 line-clamp-3 text-sm leading-6 text-gray-500">
+                  {guide.cardDescription}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* ── FAQ ── */}
       <div className="border-t border-gray-200 bg-white">
         <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
