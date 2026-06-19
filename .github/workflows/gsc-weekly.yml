@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - name: Run GSC weekly report
         env:
           GSC_OAUTH_CLIENT_ID: ${{ secrets.GSC_OAUTH_CLIENT_ID }}
@@ -35,7 +35,7 @@ jobs:
           GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
           GSC_SITE_URL: ${{ vars.GSC_SITE_URL || 'https://ai-image-tools.com/' }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          GSC_REPORT_EMAIL: ${{ vars.GSC_REPORT_EMAIL }}
+          GSC_REPORT_EMAIL: ${{ secrets.GSC_REPORT_EMAIL }}
         run: node scripts/gsc-weekly-report.mjs
       - name: Commit report
         run: |
