@@ -34,6 +34,8 @@ jobs:
           GSC_OAUTH_REFRESH_TOKEN: ${{ secrets.GSC_OAUTH_REFRESH_TOKEN }}
           GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
           GSC_SITE_URL: ${{ vars.GSC_SITE_URL || 'https://ai-image-tools.com/' }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          GSC_REPORT_EMAIL: ${{ vars.GSC_REPORT_EMAIL }}
         run: node scripts/gsc-weekly-report.mjs
       - name: Commit report
         run: |

@@ -80,6 +80,36 @@ async function main() {
   fs.writeFileSync(outFile, md);
   console.log(md);
   console.log(`\n✓ 保存: ${path.relative(process.cwd(), outFile)}`);
+
+  await sendEmailIfConfigured(md, range);
+}
+
+// RESEND_API_KEY と GSC_REPORT_EMAIL が設定されていればレポートをメール送信する。
+// from は GSC_REPORT_FROM（未設定なら onboarding@resend.dev = ドメイン認証不要・自分宛なら届く）。
+async function sendEmailIfConfigured(md, range) {
+  const key = process.env.RESEND_API_KEY;
+  const to = process.env.GSC_REPORT_EMAIL;
+  if (!key || !to) return;
+  const from = process.env.GSC_REPORT_FROM || 'GSC Report <onboarding@resend.dev>';
+  const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const html = `<pre style="font-family:ui-monospace,monospace;white-space:pre-wrap;font-size:13px;line-height:1.6">${esc(md)}</pre>`;
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from,
+        to: to.split(',').map((s) => s.trim()).filter(Boolean),
+        subject: `GSC週次レポート ${range.endDate}（${SITE_URL}）`,
+        html,
+        text: md,
+      }),
+    });
+    if (!res.ok) console.error('✗ メール送信失敗:', res.status, await res.text().catch(() => ''));
+    else console.log(`✉ メール送信: ${to}`);
+  } catch (e) {
+    console.error('✗ メール送信エラー:', e.message);
+  }
 }
 
 function buildMarkdown({ SITE_URL, range, totals, avgPos, striking, pageStriking, noClick, topQueries, topPages }) {
