@@ -1,0 +1,44 @@
+name: GSC Weekly SEO Report
+
+# 毎週月曜 00:00 UTC（= 09:00 JST）に実行。手動実行(workflow_dispatch)も可。
+# PCを起動しなくても GitHub 上で自動実行され、レポートを docs/seo-reports/ にコミットする。
+#
+# 事前準備（1回だけ）:
+#   - リポジトリ Settings → Secrets and variables → Actions
+#       Secrets（OAuth方式・推奨）:
+#         GSC_OAUTH_CLIENT_ID / GSC_OAUTH_CLIENT_SECRET / GSC_OAUTH_REFRESH_TOKEN
+#       Secrets（SA方式の場合のみ）: GSC_SA_KEY = サービスアカウントJSON全文
+#       Variables: GSC_SITE_URL = https://ai-image-tools.com/  （任意・未設定なら既定値）
+#   - 詳細は docs/gsc-automation-setup.md
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run GSC weekly report
+        env:
+          GSC_OAUTH_CLIENT_ID: ${{ secrets.GSC_OAUTH_CLIENT_ID }}
+          GSC_OAUTH_CLIENT_SECRET: ${{ secrets.GSC_OAUTH_CLIENT_SECRET }}
+          GSC_OAUTH_REFRESH_TOKEN: ${{ secrets.GSC_OAUTH_REFRESH_TOKEN }}
+          GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
+          GSC_SITE_URL: ${{ vars.GSC_SITE_URL || 'https://ai-image-tools.com/' }}
+        run: node scripts/gsc-weekly-report.mjs
+      - name: Commit report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/seo-reports/
+          git diff --staged --quiet || git commit -m "chore: GSC週次レポート $(date -u +%Y-%m-%d)"
+          git push

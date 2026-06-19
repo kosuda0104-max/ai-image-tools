@@ -39,6 +39,11 @@ yarn-error.log*
 # local tooling
 .claude
 
+# GSC service-account key (秘密鍵 — 絶対にコミットしない)
+.gsc-sa.json
+*-sa.json
+gsc-sa*.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
