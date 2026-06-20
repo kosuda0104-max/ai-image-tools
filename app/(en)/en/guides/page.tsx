@@ -2,9 +2,9 @@ import Link from "next/link";
 import { getGuides } from "@/src/data/guides";
 
 export const metadata = {
-  title: "Guides – Image Format, Compression & PDF Tips",
+  title: "Guides – Image, PDF, Web Development & Data Workflows",
   description:
-    "15+ practical guides on JPG vs PNG vs WebP, image compression, PDF merging, splitting, and conversion workflows. Find the right tool with less trial and error.",
+    "Practical guides on image formats, compression, PDF workflows, CSV, JSON, Parquet, Base64, and browser-based web development tasks. Find the right workflow with less trial and error.",
 };
 
 const guides = getGuides("en");
@@ -17,7 +17,7 @@ export default function Page() {
           <h1 className="text-4xl font-bold text-gray-900">Guides</h1>
           <p className="mt-4 text-lg leading-8 text-gray-600">
             Practical articles for choosing image formats, planning PDF work,
-            and avoiding common conversion mistakes before you start.
+            and handling CSV, JSON, Parquet, and Base64 without common conversion mistakes.
           </p>
           <p className="mt-2 text-sm text-gray-400">{guides.length} guides published</p>
         </div>

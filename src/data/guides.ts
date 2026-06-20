@@ -14,6 +14,7 @@ export type GuideEntry = {
   title: string;
   description: string;
   cardDescription: string;
+  updatedAt?: string;
   sections: GuideSection[];
 };
 
@@ -1700,6 +1701,57 @@ const jaGuides: GuideEntry[] = [
       },
     ],
   },
+  {
+    slug: "base64-data-uri-for-web-development",
+    title: "画像をBase64に変換してHTML・CSSに埋め込む方法",
+    description:
+      "画像をBase64文字列やdata URIに変換し、HTML・CSS・APIで扱うときの使い分けを解説します。Web制作や開発で、ブラウザ内だけで安全に変換したいときの実務ガイドです。",
+    cardDescription:
+      "Base64とdata URIの仕組み、向く画像、容量の注意点、HTML・CSSでの使いどころを解説します。",
+    updatedAt: "2026-06-21",
+    sections: [
+      {
+        title: "Base64とdata URIは何に使うのか",
+        paragraphs: [
+          "Base64は画像のバイナリデータを文字列として表す方法です。画像そのものをURLで参照する代わりに、data:image/png;base64,... のようなdata URIとしてHTMLやCSS、JSONの中に含められます。小さなアイコンや一時的なプレビューを、1つのデータとして扱いたいときに便利です。",
+          "Web開発では、APIのペイロードに画像を含める、メールテンプレートに小さな画像を埋め込む、CSSで小さな装飾を扱うといった場面で見かけます。画像ファイルを別途配布できない環境でも、文字列で受け渡せるのが特徴です。",
+        ],
+      },
+      {
+        title: "URL参照とBase64埋め込みの使い分け",
+        paragraphs: [
+          "通常のWebページで大きな画像を表示するなら、画像ファイルをURLで配信するほうが向いています。ブラウザのキャッシュが使え、HTMLやCSSが重くなりにくく、画像だけを差し替える運用も簡単だからです。",
+          "一方で、小さなアイコン、単発のサムネイル、APIで一緒に渡す必要がある画像ならBase64が候補になります。Base64化すると文字数が増えるため、写真や大きいバナーを無差別に埋め込む用途には向きません。用途とサイズを先に決めることが大切です。",
+        ],
+      },
+      {
+        title: "Web制作で扱いやすい画像を用意する",
+        paragraphs: [
+          "Base64へ変換する前に、画像サイズと形式を整えると扱いやすくなります。写真ならJPGやWebP、ロゴや透過アイコンならPNGが基本です。必要以上に大きい画像は、先にリサイズや圧縮をしてから変換すると、HTML・CSS・JSONの肥大化を抑えられます。",
+          "表示速度を優先する公開ページでは、Base64化そのものよりも、WebPやAVIFをURLで配信するほうがよい場合があります。data URIは万能な置き換えではなく、画像の持ち運び方を選ぶための手段として使うと判断しやすくなります。",
+        ],
+      },
+      {
+        title: "ブラウザ内で変換する流れ",
+        figure: {
+          kind: "steps",
+          steps: ["画像を選ぶ", "必要なら圧縮・リサイズ", "Base64文字列を作る", "HTML・CSS・APIへ貼り付ける"],
+          caption: "小さな画像をdata URIとして扱うまでの基本的な流れ",
+        },
+        paragraphs: [
+          "画像を選んだら、必要に応じて圧縮やリサイズを先に済ませます。そのあとBase64に変換し、出力された文字列を用途に合わせてHTML、CSS、JSON、APIテスト用のデータへ貼り付けます。",
+          "Filewispの画像Base64変換はブラウザ内で処理するため、変換対象の画像を外部サーバーへアップロードせずに確認できます。開発中の画面キャプチャや社内素材を、ローカルで文字列化したいときにも使いやすい方法です。",
+        ],
+      },
+      {
+        title: "実装前に確認したいこと",
+        paragraphs: [
+          "Base64文字列をそのままコードへ入れると、差分レビューや更新が読みにくくなることがあります。プロダクションの大きな画像や頻繁に差し替える素材は、CDNや通常の画像URLで管理するほうが保守しやすいケースが多いです。",
+          "一方、外部参照を増やしたくない小さな素材や、データとして一緒に渡す必要がある画像なら、Base64は実用的です。ファイルサイズ、キャッシュ、変更頻度、受け渡し先を見比べて選ぶと、Web制作でもデータ連携でも無理のない設計になります。",
+        ],
+      },
+    ],
+  },
 ];
 
 const enGuides: GuideEntry[] = [
@@ -3379,6 +3431,57 @@ const enGuides: GuideEntry[] = [
         paragraphs: [
           "The crop tool on this site works by loading an image, fitting the area to a square, and saving. Everything runs in your browser, so the image is not uploaded.",
           "If you want a smaller file afterward, combine it with image compression; to set a display size, add resizing, then move straight to uploading your icon or post.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "base64-data-uri-for-web-development",
+    title: "How to convert images to Base64 for HTML, CSS, and APIs",
+    description:
+      "Learn when to convert an image to a Base64 string or data URI, how it fits into HTML, CSS, and API workflows, and when a normal image URL is the better choice.",
+    cardDescription:
+      "A practical guide to Base64, data URIs, image size trade-offs, and web-development use cases.",
+    updatedAt: "2026-06-21",
+    sections: [
+      {
+        title: "What Base64 and data URIs are for",
+        paragraphs: [
+          "Base64 represents binary image data as text. Instead of pointing to a file URL, you can include an image directly in HTML, CSS, or JSON with a value such as data:image/png;base64,... . It is useful when a small image needs to travel as part of one piece of data.",
+          "In web development, that can mean passing an image in an API payload, including a small asset in an email template, or keeping a tiny decoration alongside CSS. The main advantage is portability: the image can be passed as text when a separate file is inconvenient.",
+        ],
+      },
+      {
+        title: "When to use a URL and when to embed Base64",
+        paragraphs: [
+          "For large images on a normal web page, a file URL is usually the better choice. Browsers can cache it, HTML and CSS stay smaller, and replacing the image later is straightforward.",
+          "Base64 is a better fit for a small icon, a one-off preview, or an image that must be carried inside an API payload. It increases the amount of text, so embedding full-size photos or large banners indiscriminately is rarely a good trade-off.",
+        ],
+      },
+      {
+        title: "Prepare web-friendly images first",
+        paragraphs: [
+          "Resize or compress an image before encoding it. JPG or WebP often suit photographs, while PNG is a common choice for transparent icons and logos. Starting with a right-sized source keeps HTML, CSS, and JSON from becoming unnecessarily heavy.",
+          "For public pages where delivery speed matters, serving WebP or AVIF from a normal URL may be a better choice than embedding Base64. A data URI is not a universal replacement for image delivery; it is a way to choose how an image travels through a workflow.",
+        ],
+      },
+      {
+        title: "A browser-based conversion workflow",
+        figure: {
+          kind: "steps",
+          steps: ["Select an image", "Resize or compress if needed", "Create a Base64 string", "Use it in HTML, CSS, or an API"],
+          caption: "A simple path from a small image to a usable data URI",
+        },
+        paragraphs: [
+          "Select the source image, reduce its size if necessary, then convert it to Base64. From there you can place the output in the HTML, CSS, JSON, or API test data that needs it.",
+          "Filewisp converts images to Base64 in the browser, so you can inspect an image without uploading it to an external server. That is useful for development screenshots and internal assets that you want to turn into text locally.",
+        ],
+      },
+      {
+        title: "What to check before shipping",
+        paragraphs: [
+          "Putting Base64 strings directly into code can make reviews and future changes harder to read. For large production assets or images that change often, a CDN or normal image URL is usually easier to maintain.",
+          "For small assets where an external request is awkward, or for images that must travel with structured data, Base64 can be practical. Compare file size, caching, change frequency, and the destination system before choosing the approach.",
         ],
       },
     ],

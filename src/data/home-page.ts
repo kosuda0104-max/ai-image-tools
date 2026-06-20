@@ -13,6 +13,7 @@ const HOME_GUIDE_SLUGS = [
   "what-is-parquet",
   "parquet-csv-workflows",
   "json-and-csv",
+  "base64-data-uri-for-web-development",
 ];
 
 function getHomeGuides(locale: "ja" | "en") {
@@ -104,7 +105,7 @@ type HomePageContent = {
 const ja = {
   heroTitle: "JPG・PNG・WebP・HEIC・PDF を変換する無料ブラウザツール集",
   heroDescription:
-    "画像変換（JPG←→PNG←→WebP・HEIC→JPG）、画像圧縮、リサイズ、切り抜き、PDF の変換・結合・分割・圧縮まで45種類以上のツールをブラウザだけで使えます。登録不要・ファイルは外部サーバーに送信されません。",
+    "画像変換（JPG←→PNG←→WebP・HEIC→JPG）、画像圧縮、リサイズ、切り抜き、PDF の変換・結合・分割・圧縮、CSV・JSON・Parquet のデータ変換まで45種類以上のツールをブラウザだけで使えます。登録不要・ファイルは外部サーバーに送信されません。",
   viewTools: "ツール一覧を見る",
   contact: "お問い合わせ",
   stats: [
@@ -145,8 +146,8 @@ const ja = {
   cat2d: "容量調整、サイズ変更、切り抜きなど、画像を使いやすい状態に整えるためのツールです。公開前や提出前の仕上げにも使えます。",
   cat3: "PDF ツール",
   cat3d: "PDF の変換、結合、分割、圧縮など、実務でよくある PDF 作業をまとめています。資料整理や提出前の調整にも向いています。",
-  cat4: "データツール",
-  cat4d: "Parquet と CSV の相互変換ツールです。AWS Athena・BigQuery・Spark などのデータ基盤で扱うファイルをブラウザ上で変換できます。",
+  cat4: "開発・データ処理ツール",
+  cat4d: "CSV・JSON・Parquet・Base64 をブラウザ上で変換できます。APIレスポンス、DBエクスポート、AWS Athena・BigQuery・Spark のデータ確認、HTML・CSSへの画像埋め込みに使えます。",
 };
 
 export const homePageContent: Record<HomePageLocale, HomePageContent> = {
@@ -237,7 +238,6 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "flip-image",
           "grayscale-image",
           "watermark-image",
-          "image-to-base64",
         ]),
       },
       {
@@ -259,7 +259,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       {
         title: ja.cat4,
         description: ja.cat4d,
-        tools: getToolItems("ja", ["parquet-to-csv", "csv-to-parquet", "json-to-csv", "csv-to-json"]),
+        tools: getToolItems("ja", ["parquet-to-csv", "csv-to-parquet", "json-to-csv", "csv-to-json", "image-to-base64"]),
       },
     ],
     guidesSection: {
@@ -295,7 +295,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
     hero: {
       title: "Free Online Image & PDF Converter – JPG, PNG, WebP, HEIC, PDF",
       description:
-        "Convert JPG, PNG, WebP, HEIC, GIF, SVG, and PDF files instantly in your browser. Compress images, resize, crop, merge PDFs, and more — 45+ free tools with no file upload to an external server.",
+        "Convert JPG, PNG, WebP, HEIC, GIF, SVG, PDF, CSV, JSON, and Parquet files instantly in your browser. Compress images, resize, crop, merge PDFs, and more — 45+ free tools with no file upload to an external server.",
       primaryButtonLabel: "View All Tools",
       secondaryButtonLabel: "Contact",
     },
@@ -383,7 +383,6 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "flip-image",
           "grayscale-image",
           "watermark-image",
-          "image-to-base64",
         ]),
       },
       {
@@ -403,9 +402,9 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
         ]),
       },
       {
-        title: "Data Tools",
-        description: "Convert between Parquet and CSV in your browser. Useful for AWS Athena, BigQuery, and Spark workflows.",
-        tools: getToolItems("en", ["parquet-to-csv", "csv-to-parquet", "json-to-csv", "csv-to-json"]),
+        title: "Developer & Data Tools",
+        description: "Convert CSV, JSON, Parquet, and Base64 in your browser for API responses, database exports, data-platform inspection, and web development workflows.",
+        tools: getToolItems("en", ["parquet-to-csv", "csv-to-parquet", "json-to-csv", "csv-to-json", "image-to-base64"]),
       },
     ],
     guidesSection: {

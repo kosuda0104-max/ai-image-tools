@@ -116,7 +116,6 @@ const imageEditingSlugs = [
   "flip-image",
   "grayscale-image",
   "watermark-image",
-  "image-to-base64",
 ] as const;
 
 const pdfToolSlugs = [
@@ -137,6 +136,7 @@ const dataToolSlugs = [
   "csv-to-parquet",
   "json-to-csv",
   "csv-to-json",
+  "image-to-base64",
 ] as const;
 
 const ja = {
@@ -177,8 +177,8 @@ const ja = {
   cat2d: "容量調整、サイズ変更、切り抜き、回転など、画像を使いやすく整えるためのツールです。公開前や提出前の仕上げにも使えます。",
   cat3: "PDF ツール",
   cat3d: "PDF の変換、結合、分割、圧縮、回転、ページ削除など、実務でよく使う PDF 作業をまとめています。",
-  cat4: "データツール",
-  cat4d: "Parquet と CSV の相互変換ツールです。AWS S3・Athena・BigQuery などのデータ基盤で使うファイルをブラウザ上で変換できます。",
+  cat4: "開発・データ処理ツール",
+  cat4d: "CSV・JSON・Parquet・Base64 をブラウザ上で変換できます。APIレスポンス、DBエクスポート、AWS S3・Athena・BigQuery のデータ確認、HTML・CSSへの画像埋め込みに使えます。",
   aboutTitle: "この一覧ページについて",
   about1: "このページでは、画像変換、画像調整、PDF ツールをカテゴリごとにまとめています。どの作業に近いかが分かるよう、役割の似たツールを近くに置いています。",
   about2: "検索から来た人でも関連ツールを見つけやすいようにしているので、変換の次に圧縮、圧縮の次にリサイズといった流れも追いやすくなっています。",
@@ -281,6 +281,16 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
             getToolItem("ja", "watermark-image"),
           ],
         },
+        {
+          title: "API・データを確認したい",
+          description:
+            "JSONレスポンス、CSV、Parquet、画像のBase64文字列を、ローカル環境から持ち出さずに扱いたいときに使います。",
+          tools: [
+            getToolItem("ja", "json-to-csv"),
+            getToolItem("ja", "parquet-to-csv"),
+            getToolItem("ja", "image-to-base64"),
+          ],
+        },
       ],
     },
     decisionMatrix: {
@@ -335,6 +345,16 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
           tools: [
             getToolItem("ja", "merge-pdf"),
             getToolItem("ja", "pdf-remove-pages"),
+          ],
+        },
+        {
+          situation: "APIレスポンスやDB出力を表で確認したい",
+          recommended: "JSON または Parquet から CSV",
+          reason:
+            "CSVにするとExcelやスプレッドシートで確認しやすく、元ファイルを外部サーバーに送らずに処理できます。",
+          tools: [
+            getToolItem("ja", "json-to-csv"),
+            getToolItem("ja", "parquet-to-csv"),
           ],
         },
       ],
@@ -477,6 +497,16 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
             getToolItem("en", "watermark-image"),
           ],
         },
+        {
+          title: "Inspect API or data files",
+          description:
+            "Convert JSON responses, CSV, Parquet, or image data without sending the source file to an external server.",
+          tools: [
+            getToolItem("en", "json-to-csv"),
+            getToolItem("en", "parquet-to-csv"),
+            getToolItem("en", "image-to-base64"),
+          ],
+        },
       ],
     },
     decisionMatrix: {
@@ -534,6 +564,16 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
             getToolItem("en", "pdf-remove-pages"),
           ],
         },
+        {
+          situation: "You need to inspect an API response or data export as a table",
+          recommended: "JSON or Parquet to CSV",
+          reason:
+            "CSV is easy to inspect in a spreadsheet while the conversion stays in your browser.",
+          tools: [
+            getToolItem("en", "json-to-csv"),
+            getToolItem("en", "parquet-to-csv"),
+          ],
+        },
       ],
     },
     guideSections: [
@@ -570,9 +610,9 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
         tools: getToolItems("en", pdfToolSlugs),
       },
       {
-        title: "Data Tools",
+        title: "Developer & Data Tools",
         description:
-          "Convert between Parquet and CSV directly in your browser. Useful for AWS S3, Athena, BigQuery, and Spark workflows.",
+          "Convert CSV, JSON, Parquet, and Base64 directly in your browser. Useful for API responses, database exports, AWS S3, Athena, BigQuery, Spark, and web development workflows.",
         tools: getToolItems("en", dataToolSlugs),
       },
     ],

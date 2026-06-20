@@ -31,6 +31,7 @@ const guideToolMap: Record<string, string[]> = {
   "csv-encoding-fix": ["csv-to-json", "json-to-csv", "csv-to-parquet"],
   "what-is-parquet": ["parquet-to-csv", "csv-to-parquet", "json-to-csv"],
   "json-and-csv": ["json-to-csv", "csv-to-json", "csv-to-parquet"],
+  "base64-data-uri-for-web-development": ["image-to-base64", "image-compress", "jpg-to-webp", "png-to-webp"],
   "what-is-avif": ["avif-to-jpg", "avif-to-png", "jpg-to-webp", "image-compress"],
   "grayscale-photo": ["grayscale-image", "image-compress", "resize-image", "crop-image"],
   "add-watermark-to-image": ["watermark-image", "resize-image", "image-compress", "crop-image"],

@@ -4,14 +4,13 @@ import { getAllToolItems } from "@/src/data/tool-directory";
 import { siteUrl } from "@/src/lib/site";
 import { TOOL_CONTENT_LAST_UPDATED } from "@/src/lib/seo-signals";
 
-const guideRoutes = getGuides("ja").map((guide) => `/guides/${guide.slug}`);
+const guides = getGuides("ja");
 const toolRoutes = getAllToolItems("ja").map((tool) => `/tools/${tool.slug}`);
 
-const routes = [
+const staticRoutes = [
   "",
   "/tools",
   "/guides",
-  ...guideRoutes,
   "/about",
   "/contact",
   "/privacy-policy",
@@ -20,11 +19,11 @@ const routes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date(TOOL_CONTENT_LAST_UPDATED);
+  const defaultLastModified = new Date(TOOL_CONTENT_LAST_UPDATED);
 
-  const jaRoutes = routes.map((path) => ({
+  const jaStaticRoutes = staticRoutes.map((path) => ({
     url: `${siteUrl}${path}`,
-    lastModified,
+    lastModified: defaultLastModified,
     changeFrequency: "weekly" as const,
     priority:
       path === ""
@@ -36,9 +35,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
             : 0.8,
   }));
 
-  const enRoutes = routes.map((path) => ({
+  const enStaticRoutes = staticRoutes.map((path) => ({
     url: `${siteUrl}/en${path === "" ? "" : path}`,
-    lastModified,
+    lastModified: defaultLastModified,
     changeFrequency: "weekly" as const,
     priority:
       path === ""
@@ -50,5 +49,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
             : 0.7,
   }));
 
-  return [...jaRoutes, ...enRoutes];
+  const jaGuideRoutes = guides.map((guide) => ({
+    url: `${siteUrl}/guides/${guide.slug}`,
+    lastModified: new Date(guide.updatedAt ?? TOOL_CONTENT_LAST_UPDATED),
+    changeFrequency: "weekly" as const,
+    priority: 0.85,
+  }));
+
+  const enGuideRoutes = guides.map((guide) => ({
+    url: `${siteUrl}/en/guides/${guide.slug}`,
+    lastModified: new Date(guide.updatedAt ?? TOOL_CONTENT_LAST_UPDATED),
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
+  return [...jaStaticRoutes, ...jaGuideRoutes, ...enStaticRoutes, ...enGuideRoutes];
 }

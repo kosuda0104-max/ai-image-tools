@@ -2,9 +2,9 @@ import Link from "next/link";
 import { getGuides } from "@/src/data/guides";
 
 export const metadata = {
-  title: "ガイド – 画像変換・PDF・データ処理の使い方",
+  title: "ガイド – 画像変換・PDF・Web制作・データ処理の使い方",
   description:
-    "JPG・PNG・WebP・HEIC の選び方、画像圧縮のコツ、PDF の結合・分割・変換の考え方など15本以上のガイドを公開しています。ツールを選ぶ前後の参考にどうぞ。",
+    "JPG・PNG・WebP・HEIC の選び方、画像圧縮、PDF、CSV・JSON・Parquet、Base64 の使い方を解説。Web制作やデータ処理の前後に役立つ実務的なガイドです。",
 };
 
 const guides = getGuides("ja");
@@ -16,8 +16,8 @@ export default function Page() {
         <div className="mx-auto max-w-5xl px-4 py-16">
           <h1 className="text-4xl font-bold text-gray-900">ガイド</h1>
           <p className="mt-4 text-lg leading-8 text-gray-600">
-            変換の前に考え方を整理したいとき向けに、画像形式の選び方、圧縮のコツ、
-            PDF作業の使い分けを実務寄りにまとめています。
+            変換の前に考え方を整理したいとき向けに、画像形式、圧縮、PDF作業、
+            CSV・JSON・Parquet・Base64を実務寄りにまとめています。
           </p>
           <p className="mt-2 text-sm text-gray-400">{guides.length}本のガイドを公開中</p>
         </div>

@@ -8,7 +8,7 @@ const googleVerification =
 
 const siteTitle = "Filewisp";
 const siteDescription =
-  "JPG・PNG・WebP・HEIC・PDF の変換、圧縮、リサイズ、結合、分割をブラウザだけで行える無料ツール集。登録不要・ファイルはサーバーに送信されません。45種類以上のツールを提供しています。";
+  "JPG・PNG・WebP・HEIC・PDF、CSV・JSON・Parquet の変換、圧縮、リサイズ、結合、分割をブラウザだけで行える無料ツール集。登録不要・ファイルはサーバーに送信されません。45種類以上のツールを提供しています。";
 
 const websiteJsonLd = {
   "@context": "https://schema.org",

@@ -16,6 +16,7 @@ const GUIDE_PUBLISHER = {
 };
 
 export function buildGuideArticleJsonLd(guide: GuideEntry, locale: "ja" | "en") {
+  const updatedAt = guide.updatedAt ?? TOOL_CONTENT_LAST_UPDATED;
   const url =
     locale === "ja"
       ? `${siteUrl}/guides/${guide.slug}`
@@ -28,8 +29,8 @@ export function buildGuideArticleJsonLd(guide: GuideEntry, locale: "ja" | "en") 
     description: guide.description,
     image: [`${siteUrl}/og.png`],
     inLanguage: locale,
-    datePublished: TOOL_CONTENT_LAST_UPDATED,
-    dateModified: TOOL_CONTENT_LAST_UPDATED,
+    datePublished: updatedAt,
+    dateModified: updatedAt,
     author: GUIDE_AUTHOR,
     publisher: GUIDE_PUBLISHER,
     mainEntityOfPage: url,
@@ -41,6 +42,7 @@ export function generateGuideMetadata(
   guide: GuideEntry,
   locale: "ja" | "en",
 ): Metadata {
+  const updatedAt = guide.updatedAt ?? TOOL_CONTENT_LAST_UPDATED;
   const jaUrl = `${siteUrl}/guides/${guide.slug}`;
   const enUrl = `${siteUrl}/en/guides/${guide.slug}`;
   const canonicalUrl = locale === "ja" ? jaUrl : enUrl;
@@ -79,8 +81,8 @@ export function generateGuideMetadata(
       images: [`${siteUrl}/og.png`],
     },
     other: {
-      "article:published_time": TOOL_CONTENT_LAST_UPDATED,
-      "article:modified_time": TOOL_CONTENT_LAST_UPDATED,
+      "article:published_time": updatedAt,
+      "article:modified_time": updatedAt,
       "article:author": "Kosuda",
     },
   };

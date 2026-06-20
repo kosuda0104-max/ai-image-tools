@@ -20,6 +20,11 @@ const guideRelatedGuidesMap: Record<string, string[]> = {
   "parquet-csv-workflows": ["what-is-parquet", "json-and-csv", "csv-encoding-fix"],
   "json-and-csv": ["csv-encoding-fix", "what-is-parquet", "parquet-csv-workflows"],
   "csv-encoding-fix": ["json-and-csv", "what-is-parquet", "parquet-csv-workflows"],
+  "base64-data-uri-for-web-development": [
+    "choose-best-image-format-for-web",
+    "optimize-blog-and-site-images",
+    "png-transparency-basics",
+  ],
 
   // ── Image format cluster ──
   "image-format-basics": ["jpg-vs-png", "png-vs-webp", "choose-best-image-format-for-web"],
@@ -34,6 +39,7 @@ const guideRelatedGuidesMap: Record<string, string[]> = {
     "image-format-basics",
     "png-vs-webp",
     "optimize-blog-and-site-images",
+    "base64-data-uri-for-web-development",
   ],
 
   // ── Compression / web delivery cluster ──
