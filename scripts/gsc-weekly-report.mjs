@@ -38,18 +38,21 @@ async function main() {
   const start = new Date(end.getTime() - 27 * 86400000); // 28日窓
   const range = { startDate: ymd(start), endDate: ymd(end) };
 
-  const [byQuery, byPage] = await Promise.all([
+  // 前週比用に「その前の28日」窓（直近窓の直前）も取得する
+  const prevEnd = new Date(start.getTime() - 86400000);
+  const prevStart = new Date(prevEnd.getTime() - 27 * 86400000);
+  const prevRange = { startDate: ymd(prevStart), endDate: ymd(prevEnd) };
+
+  const [byQuery, byPage, prevByQuery] = await Promise.all([
     query(token, { ...range, dimensions: ['query'], rowLimit: 250 }),
     query(token, { ...range, dimensions: ['page'], rowLimit: 100 }),
+    query(token, { ...prevRange, dimensions: ['query'], rowLimit: 250 }),
   ]);
 
-  const totals = byQuery.reduce(
-    (a, r) => ({ clicks: a.clicks + r.clicks, impressions: a.impressions + r.impressions }),
-    { clicks: 0, impressions: 0 },
-  );
-  const avgPos = byQuery.length
-    ? byQuery.reduce((s, r) => s + r.position * r.impressions, 0) / (totals.impressions || 1)
-    : 0;
+  const cur = summarize(byQuery);
+  const prev = summarize(prevByQuery);
+  const totals = { clicks: cur.clicks, impressions: cur.impressions };
+  const avgPos = cur.avgPos;
 
   // 🎯 あと一押し: 順位8〜20位 × 表示あり（1ページ目に近い＝伸ばしやすい）
   const striking = byQuery
@@ -72,7 +75,7 @@ async function main() {
     .sort((a, b) => b.impressions - a.impressions)
     .slice(0, 20);
 
-  const md = buildMarkdown({ SITE_URL, range, totals, avgPos, striking, pageStriking, noClick, topQueries, topPages });
+  const md = buildMarkdown({ SITE_URL, range, prevRange, prev, totals, avgPos, striking, pageStriking, noClick, topQueries, topPages });
 
   const outDir = path.join(process.cwd(), 'docs', 'seo-reports');
   fs.mkdirSync(outDir, { recursive: true });
@@ -112,15 +115,16 @@ async function sendEmailIfConfigured(md, range) {
   }
 }
 
-function buildMarkdown({ SITE_URL, range, totals, avgPos, striking, pageStriking, noClick, topQueries, topPages }) {
+function buildMarkdown({ SITE_URL, range, prevRange, prev, totals, avgPos, striking, pageStriking, noClick, topQueries, topPages }) {
   const ctr = totals.impressions ? (totals.clicks / totals.impressions) * 100 : 0;
   const L = [];
   L.push(`# GSC週次レポート（${range.startDate} 〜 ${range.endDate}）`);
   L.push(`プロパティ: ${SITE_URL}\n`);
   L.push('## サマリ');
-  L.push(`- クリック: **${totals.clicks}** / 表示: **${totals.impressions}** / CTR: **${ctr.toFixed(1)}%** / 平均順位: **${avgPos.toFixed(1)}**\n`);
+  L.push(`- クリック: **${totals.clicks}** / 表示: **${totals.impressions}** / CTR: **${ctr.toFixed(1)}%** / 平均順位: **${avgPos.toFixed(1)}**`);
+  L.push(buildDeltaSection({ totals, avgPos, prev, prevRange }));
 
-  L.push('## 🎯 あと一押し（クエリ単位・順位8〜20位・表示あり）');
+  L.push('\n## 🎯 あと一押し（クエリ単位・順位8〜20位・表示あり）');
   L.push('> ここに被リンク・内部リンク・タイトル微調整を集中させると、最短でクリックが増える。');
   L.push(table(['クエリ', '順位', '表示', 'クリック'], striking.map((r) => [r.keys[0], r.position.toFixed(1), r.impressions, r.clicks])));
 
@@ -139,6 +143,47 @@ function buildMarkdown({ SITE_URL, range, totals, avgPos, striking, pageStriking
 
   L.push('\n---');
   L.push('次アクション: 🎯の語を `docs/winnable-queries.md` の Tier S と突き合わせ、被リンク/インデックスリクエストを集中。');
+  return L.join('\n');
+}
+
+// クエリ行配列 → 合計クリック/表示と表示加重の平均順位
+function summarize(rows) {
+  const t = rows.reduce(
+    (a, r) => ({ clicks: a.clicks + r.clicks, impressions: a.impressions + r.impressions }),
+    { clicks: 0, impressions: 0 },
+  );
+  const avgPos = rows.length
+    ? rows.reduce((s, r) => s + r.position * r.impressions, 0) / (t.impressions || 1)
+    : 0;
+  return { clicks: t.clicks, impressions: t.impressions, avgPos };
+}
+
+function deltaInt(n) {
+  return n > 0 ? `+${n}` : n < 0 ? `${n}` : '±0';
+}
+
+// 順位は小さいほど良いので、マイナス=改善
+function deltaPos(d) {
+  if (Math.abs(d) < 0.05) return '±0.0';
+  return `${d > 0 ? '+' : ''}${d.toFixed(1)} ${d < 0 ? '改善' : '悪化'}`;
+}
+
+function buildDeltaSection({ totals, avgPos, prev, prevRange }) {
+  const L = ['\n## 前週比（直近28日 vs その前の28日）'];
+  if (!prev || prev.impressions === 0) {
+    L.push(`> 前期間（${prevRange.startDate}〜${prevRange.endDate}）は表示ゼロ＝比較対象なし。数値が動き出すとここに増減が出る。`);
+    return L.join('\n');
+  }
+  const dC = totals.clicks - prev.clicks;
+  const dI = totals.impressions - prev.impressions;
+  const dP = avgPos - prev.avgPos;
+  L.push(
+    `- クリック: **${totals.clicks}**（${deltaInt(dC)}） / 表示: **${totals.impressions}**（${deltaInt(dI)}） / 平均順位: **${avgPos.toFixed(1)}**（${deltaPos(dP)}）`,
+  );
+  L.push(
+    `- 前期間（${prevRange.startDate}〜${prevRange.endDate}）: クリック ${prev.clicks} / 表示 ${prev.impressions} / 平均順位 ${prev.avgPos.toFixed(1)}`,
+  );
+  if (dC === 0 && dI === 0 && Math.abs(dP) < 0.05) L.push('> 増減なし（前期間と同水準）。');
   return L.join('\n');
 }
 
