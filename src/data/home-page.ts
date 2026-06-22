@@ -2,18 +2,24 @@ import { getToolItems } from "@/src/data/tool-directory";
 import { getGuide } from "@/src/data/guides";
 
 /**
- * Guides featured on the homepage. Deliberately spans every topic cluster
- * (incl. the Parquet/CSV data guides) so each cluster gets an internal link
- * from the highest-authority page on the site.
+ * Guides featured on the homepage. Leads with the Tier-S "winnable" longtail
+ * guides (see docs/winnable-queries.md) to concentrate the homepage's authority
+ * on pages we can realistically rank, then keeps one link per remaining topic
+ * cluster (incl. the Parquet/CSV data guides) so no cluster loses its homepage
+ * internal link.
  */
 const HOME_GUIDE_SLUGS = [
+  // Tier S — winnable longtail (problem-intent queries, weak competition)
+  "heic-cannot-open-windows",
+  "csv-encoding-fix",
+  "jpg-vs-jpeg-difference",
+  "what-is-webp",
+  "crop-image-to-square",
+  // Broad cluster coverage (one homepage link per cluster)
   "image-format-basics",
   "compress-images-without-losing-quality",
   "pdf-workflows",
-  "what-is-parquet",
   "parquet-csv-workflows",
-  "json-and-csv",
-  "base64-data-uri-for-web-development",
 ];
 
 function getHomeGuides(locale: "ja" | "en") {
