@@ -39,6 +39,8 @@ const guideToolMap: Record<string, string[]> = {
   "remove-photo-location-data": ["remove-exif", "image-compress", "resize-image", "watermark-image"],
   "how-to-create-favicon": ["favicon-generator", "png-to-jpg", "ico-to-png", "resize-image"],
   "how-to-create-ogp-image": ["ogp-image-maker", "social-image-resize", "resize-image", "image-compress"],
+  "social-media-image-sizes": ["social-image-resize", "resize-image", "crop-image", "image-compress"],
+  "extract-color-palette-from-image": ["color-palette-extractor", "ogp-image-maker", "grayscale-image", "image-to-base64"],
 };
 
 export function getGuideRelatedTools(

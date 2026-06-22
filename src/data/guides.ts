@@ -1944,6 +1944,134 @@ const jaGuides: GuideEntry[] = [
       },
     ],
   },
+  {
+    slug: "social-media-image-sizes",
+    title: "SNS画像サイズ早見表と最適なリサイズ方法",
+    description:
+      "X（Twitter）・Instagram・YouTube・LINE・note・Qiitaなど、主要SNSの推奨画像サイズと、崩さずにリサイズするコツをまとめた早見ガイドです。",
+    cardDescription:
+      "主要SNSの推奨画像サイズと、切り抜き・余白の使い分け、まとめてリサイズする手順を解説します。",
+    updatedAt: "2026-06-22",
+    sections: [
+      {
+        title: "なぜSNSごとにサイズを合わせるのか",
+        paragraphs: [
+          "SNSはプラットフォームごとに推奨される画像サイズや比率が決まっています。サイズが合っていない画像を投稿すると、自動でトリミングされて見せたい部分が切れたり、余白が入って小さく表示されたり、引き伸ばしで粗くなったりします。",
+          "投稿先に合わせたサイズを用意しておくと、意図したとおりの構図で表示でき、サムネイルとしての見栄えも安定します。複数のSNSに同じ画像を出すなら、それぞれのサイズに合わせて書き出すのが安全です。",
+        ],
+        figure: {
+          kind: "flow",
+          from: "サイズが合わない画像",
+          to: "投稿先に最適化した画像",
+          caption: "推奨サイズに合わせると、切り抜きや余白で崩れるのを防げます",
+        },
+      },
+      {
+        title: "主要SNSの推奨サイズ早見表",
+        paragraphs: [
+          "代表的なサイズの目安は次のとおりです。X（Twitter）の投稿画像は1600×900（16:9）、Instagramの投稿は1080×1080の正方形、Instagramストーリーは1080×1920の縦長、YouTubeのサムネイルは1280×720です。",
+          "さらに、LINEのアイコンは640×640の正方形、noteの見出し画像は1280×670、Qiitaの記事用（OGP）は1200×630、Facebookの投稿は1200×630あたりが目安です。各サービスは仕様が変わることもあるため、重要な投稿では公式の最新情報も確認すると安心です。",
+        ],
+      },
+      {
+        title: "切り抜き（cover）と余白（contain）の使い分け",
+        paragraphs: [
+          "リサイズには大きく2つの方法があります。「切り抜き（cover）」は指定サイズいっぱいに画像を配置し、はみ出した部分を切り取ります。写真を迫力よく見せたいときや、被写体が中央にあるときに向いています。",
+          "「余白（contain）」は画像全体が収まるように縮小し、空いた部分に背景色を入れます。図やロゴ、全体を見せたい画像で、端が切れると困る場合に向いています。どちらの方法でも縦横比は保たれるため、引き伸ばしによる歪みは起きません。",
+        ],
+      },
+      {
+        title: "ブラウザでまとめてリサイズする手順",
+        paragraphs: [
+          "投稿先ごとに手作業でサイズを変えるのは手間がかかります。Filewispの「SNS画像リサイズツール」は、X・Instagram・YouTubeなどのプリセットを選ぶだけで最適なサイズに変換できます。切り抜き／余白の切り替えや背景色の指定にも対応し、すべてブラウザ内で処理します。",
+          "1枚の画像から全プリセットをまとめて生成し、ZIPで一括ダウンロードすることもできます。複数のSNSに同時展開したいときに、書き出しの手間を大きく減らせます。",
+        ],
+        figure: {
+          kind: "steps",
+          steps: ["画像を選ぶ", "投稿先を選ぶ", "リサイズして保存"],
+          caption: "プリセットを選べば、最適サイズへの変換は数クリックで完了します",
+        },
+      },
+      {
+        title: "失敗しないためのコツ",
+        paragraphs: [
+          "文字やロゴを入れる場合は、端ギリギリを避けて少し余白を取ると、トリミングや別環境での表示でも見切れにくくなります。特にサムネイルは小さく表示されることが多いので、要素を詰め込みすぎないほうが伝わりやすいです。",
+          "元画像はなるべく大きめのものを使うと、各サイズへ縮小したときにきれいに仕上がります。小さい画像を引き伸ばすと粗くなるため、撮影・書き出しの段階で十分な解像度を確保しておくのがおすすめです。",
+        ],
+      },
+      {
+        title: "投稿前のチェック",
+        paragraphs: [
+          "投稿前に、投稿先の比率に合っているか、見せたい部分が切れていないか、文字が読めるかを確認しておくと失敗を減らせます。プレビューで実際の見え方を確かめてから投稿するのが確実です。",
+          "サイズを整えたあとは、必要に応じて圧縮して容量を抑えると、表示も軽くなります。プラットフォームに合わせた一手間で、同じ画像でも見栄えと反応が変わってきます。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "extract-color-palette-from-image",
+    title: "画像から色を抽出する方法（カラーパレットの作り方）",
+    description:
+      "写真やイラスト、ロゴから主要な色を抽出してカラーパレットを作る方法を解説します。HEX・RGB・CSS変数での活用や、きれいな配色にするコツまでまとめます。",
+    cardDescription:
+      "画像から主要な色を抽出し、HEX・RGB・CSS変数として配色に活かす手順とコツをまとめます。",
+    updatedAt: "2026-06-22",
+    sections: [
+      {
+        title: "画像から色を抽出するとは",
+        paragraphs: [
+          "画像から色を抽出するとは、写真やイラスト、ロゴなどに含まれる主要な色（メインカラーやサブカラー）を取り出して、配色の参考になるカラーパレットを作ることです。気に入った画像の雰囲気を、デザインやサイトの配色に取り入れたいときに役立ちます。",
+          "目で色を拾ってカラーピッカーで一つずつ調べるのは手間がかかります。自動で主要な色を抽出すれば、画像の印象を作っている色をまとめて把握でき、配色の出発点をすばやく用意できます。",
+        ],
+        figure: {
+          kind: "flow",
+          from: "参考にしたい画像",
+          to: "メイン・サブカラーのパレット",
+          caption: "画像から、配色のベースになる主要な色をまとめて取り出せます",
+        },
+      },
+      {
+        title: "どんな場面で役立つか",
+        paragraphs: [
+          "抽出したパレットは、Webサイトやブログのテーマカラー決め、スライドや資料の配色、SNS用バナーやサムネイルのトーン合わせなど、さまざまな場面で使えます。写真の雰囲気に合わせて文字やボタンの色を決めると、全体に統一感が出ます。",
+          "ブランドのロゴやキービジュアルから色を抽出すれば、関連する素材の配色をそろえやすくなります。デザイナーだけでなく、ブロガーや個人開発者が手早く配色を決めたいときにも便利です。",
+        ],
+      },
+      {
+        title: "ブラウザで色を抽出する手順",
+        paragraphs: [
+          "専用ソフトがなくても、ブラウザだけで色は抽出できます。Filewispの「カラーパレット抽出ツール」は、画像を選んで色数を指定し、ボタンを押すだけで主要な色を取り出します。画像は外部サーバーへアップロードせず、すべてブラウザ内で処理します。",
+          "抽出された各色は、色のブロックとあわせてHEXコードとRGB値が表示され、クリックでコピーできます。さらに、まとめてCSS変数として出力できるので、そのままスタイルシートに貼り付けられます。",
+        ],
+        figure: {
+          kind: "steps",
+          steps: ["画像を選ぶ", "色数を選ぶ", "色を抽出"],
+          caption: "色の抽出はこの3ステップで完了します",
+        },
+      },
+      {
+        title: "HEX・RGB・CSS変数の使い分け",
+        paragraphs: [
+          "HEXコード（例: #2563eb）は、CSSやデザインツールで最もよく使われる色の表記です。RGB値は透明度（rgba）を扱いたいときや、計算で色を調整したいときに便利です。用途に合わせて使い分けると、作業がスムーズになります。",
+          "CSS変数（カスタムプロパティ）として出力された :root { --color-1: …; } をスタイルシートに貼り付けておけば、var(--color-1) のように参照して使い回せます。配色を一箇所で管理できるため、後からの調整も楽になります。",
+        ],
+      },
+      {
+        title: "きれいなパレットにするコツ",
+        paragraphs: [
+          "抽出する色数は、まずは5〜6色程度から始めると扱いやすいです。色数を増やすと細かなニュアンスまで拾えますが、似た色が並びやすくなります。逆に少なくすると、画像を代表する印象的な色に絞られます。",
+          "元画像は、配色の主役がはっきり写っているものを選ぶと、意図に近いパレットになりやすいです。背景が大きく占める画像では背景色が強く出るため、被写体の色を拾いたいときはトリミングしてから抽出するのも一つの方法です。",
+        ],
+      },
+      {
+        title: "配色に活かすヒント",
+        paragraphs: [
+          "抽出した色の中から、面積を大きく使うベースカラー、補助的に使うサブカラー、強調に使うアクセントカラーを決めると、まとまりのある配色になります。多くの色を均等に使うより、役割を決めて使うほうが整って見えます。",
+          "文字色と背景色には十分なコントラストを確保すると、読みやすさが保てます。抽出したパレットをそのまま全部使うのではなく、用途に合わせて選び取るのが、きれいにまとめるコツです。",
+        ],
+      },
+    ],
+  },
 ];
 
 const enGuides: GuideEntry[] = [
@@ -3866,6 +3994,134 @@ const enGuides: GuideEntry[] = [
         paragraphs: [
           "You can check your OGP with each platform's debugger or card validation tool. Previewing before you actually share helps you catch cropping issues or an old cached image.",
           "If an updated OGP does not show, the platform may be caching the previous image. Ask the validator to re-fetch, or check with a parameter added to the URL to see the new image more easily.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "social-media-image-sizes",
+    title: "Social Media Image Sizes and How to Resize Right",
+    description:
+      "A quick reference for the recommended image sizes on X (Twitter), Instagram, YouTube, LINE, note, and Qiita, plus how to resize without breaking your image.",
+    cardDescription:
+      "Recommended image sizes for the major social platforms, when to crop vs pad, and how to resize them all at once.",
+    updatedAt: "2026-06-22",
+    sections: [
+      {
+        title: "Why match the size per platform",
+        paragraphs: [
+          "Each social platform has its own recommended image size and ratio. Posting an image at the wrong size can crop away the part you wanted to show, add padding that shrinks it, or stretch it until it looks rough.",
+          "Preparing an image at the size your destination expects keeps your intended composition and makes the thumbnail look consistent. If you post the same image to several platforms, exporting it at each size is the safe approach.",
+        ],
+        figure: {
+          kind: "flow",
+          from: "An image at the wrong size",
+          to: "An image optimized for the destination",
+          caption: "Matching the recommended size prevents cropping and padding from breaking it",
+        },
+      },
+      {
+        title: "Recommended sizes for major platforms",
+        paragraphs: [
+          "Here are common size guidelines. An X (Twitter) post image is around 1600×900 (16:9), an Instagram post is a 1080×1080 square, an Instagram Story is a tall 1080×1920, and a YouTube thumbnail is 1280×720.",
+          "In addition, a LINE icon is a 640×640 square, a note header is 1280×670, a Qiita article (OGP) image is 1200×630, and a Facebook post is around 1200×630. Specs can change, so for important posts it is worth checking each service's latest official guidance.",
+        ],
+      },
+      {
+        title: "Cover (crop) vs contain (padding)",
+        paragraphs: [
+          "There are two main ways to resize. Cover fills the target size with the image and crops whatever overflows. It works well when you want a photo to look bold or when the subject is centered.",
+          "Contain scales the whole image to fit and fills the empty space with a background color. It suits diagrams, logos, or images where cropping the edges would be a problem. Both modes keep the aspect ratio, so there is no stretching or distortion.",
+        ],
+      },
+      {
+        title: "Resizing them all at once in your browser",
+        paragraphs: [
+          "Changing the size by hand for each destination is tedious. Filewisp's Social Media Image Resizer lets you pick a preset for X, Instagram, YouTube, and more, and converts to the right size. It supports cover/contain and a background color, all processed in your browser.",
+          "You can also generate every preset from one image and download them together as a ZIP. That removes a lot of the export work when you want to publish across several platforms at once.",
+        ],
+        figure: {
+          kind: "steps",
+          steps: ["Select an image", "Choose the destination", "Resize and save"],
+          caption: "With presets, resizing to the right size takes just a few clicks",
+        },
+      },
+      {
+        title: "Tips to avoid mistakes",
+        paragraphs: [
+          "If you add text or a logo, keep it away from the very edge with a little margin so it does not get cut off when cropped or shown in another environment. Thumbnails are often small, so it reads better when you do not cram in too much.",
+          "Use a large enough source image so it stays clean when scaled down to each size. Upscaling a small image looks rough, so secure enough resolution at the capture or export stage.",
+        ],
+      },
+      {
+        title: "Check before posting",
+        paragraphs: [
+          "Before posting, confirm the image matches the destination ratio, that the important part is not cut off, and that any text is readable. Previewing the actual appearance before you post is the reliable way to avoid surprises.",
+          "After fixing the size, compressing it if needed keeps the file lighter and the display faster. A small adjustment for each platform can change how the same image looks and performs.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "extract-color-palette-from-image",
+    title: "How to Extract a Color Palette from an Image",
+    description:
+      "Learn how to pull the main colors from a photo, illustration, or logo to build a color palette, and how to use the HEX, RGB, and CSS variables you get.",
+    cardDescription:
+      "How to extract the dominant colors from an image and use them as HEX, RGB, and CSS variables in your palette.",
+    updatedAt: "2026-06-22",
+    sections: [
+      {
+        title: "What extracting colors means",
+        paragraphs: [
+          "Extracting colors from an image means pulling out the main colors it contains — the dominant and secondary colors — to build a palette you can use as a reference. It helps when you want to bring the mood of an image you like into a design or a site's color scheme.",
+          "Picking colors by eye and checking them one by one with a color picker is slow. Extracting the main colors automatically lets you grasp the colors that define an image's impression at once, giving you a fast starting point for a palette.",
+        ],
+        figure: {
+          kind: "flow",
+          from: "A reference image",
+          to: "A palette of main and secondary colors",
+          caption: "Pull the key colors that form the basis of a palette out of an image",
+        },
+      },
+      {
+        title: "Where it is useful",
+        paragraphs: [
+          "A palette you extract can be used to choose theme colors for a website or blog, to set the colors of slides and documents, or to match the tone of social banners and thumbnails. Choosing text and button colors to suit a photo gives the whole thing a unified feel.",
+          "Extracting colors from a brand logo or key visual makes it easier to keep related assets consistent. It is handy not just for designers but for bloggers and indie developers who want to settle on a color scheme quickly.",
+        ],
+      },
+      {
+        title: "Extracting colors in your browser",
+        paragraphs: [
+          "You can extract colors without any dedicated software. Filewisp's Color Palette Extractor pulls out the main colors when you select an image, choose how many colors you want, and press the button. Your image is processed entirely in your browser and never uploaded.",
+          "Each extracted color is shown as a color block with its HEX code and RGB value, and you can click to copy. You can also output the whole set as CSS variables to paste straight into a stylesheet.",
+        ],
+        figure: {
+          kind: "steps",
+          steps: ["Select an image", "Choose the color count", "Extract the colors"],
+          caption: "Extracting colors takes just three steps",
+        },
+      },
+      {
+        title: "HEX, RGB, and CSS variables",
+        paragraphs: [
+          "A HEX code (e.g. #2563eb) is the most common color notation in CSS and design tools. RGB values are handy when you want transparency (rgba) or to adjust a color by calculation. Using each where it fits makes the work smoother.",
+          "If you paste the exported :root { --color-1: …; } CSS variables into your stylesheet, you can reference them like var(--color-1) and reuse them. Managing your palette in one place makes later adjustments easier.",
+        ],
+      },
+      {
+        title: "Tips for a clean palette",
+        paragraphs: [
+          "Starting with around five or six colors is easy to work with. More colors capture finer nuances but tend to include similar shades. Fewer colors narrow it down to the most striking colors that represent the image.",
+          "Choose a source image where the main colors are clearly visible to get a palette close to your intent. When a background dominates the image, its color comes through strongly, so cropping first is one way to capture the subject's colors instead.",
+        ],
+      },
+      {
+        title: "Putting the palette to work",
+        paragraphs: [
+          "From the extracted colors, decide a base color used over large areas, secondary colors used in support, and an accent color for emphasis. Assigning roles looks more cohesive than using many colors equally.",
+          "Keep enough contrast between text and background to stay readable. Rather than using the whole extracted palette as-is, picking from it to fit each use is the trick to keeping things clean.",
         ],
       },
     ],

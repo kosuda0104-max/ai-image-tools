@@ -112,8 +112,18 @@ const guideRelatedGuidesMap: Record<string, string[]> = {
   ],
   "how-to-create-ogp-image": [
     "how-to-create-favicon",
-    "optimize-blog-and-site-images",
+    "social-media-image-sizes",
+    "extract-color-palette-from-image",
+  ],
+  "social-media-image-sizes": [
+    "how-to-create-ogp-image",
+    "extract-color-palette-from-image",
     "resize-images-for-web",
+  ],
+  "extract-color-palette-from-image": [
+    "how-to-create-ogp-image",
+    "social-media-image-sizes",
+    "optimize-blog-and-site-images",
   ],
 };
 
