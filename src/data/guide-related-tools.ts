@@ -37,6 +37,8 @@ const guideToolMap: Record<string, string[]> = {
   "add-watermark-to-image": ["watermark-image", "resize-image", "image-compress", "crop-image"],
   "crop-image-to-square": ["crop-image", "resize-image", "image-compress", "grayscale-image"],
   "remove-photo-location-data": ["remove-exif", "image-compress", "resize-image", "watermark-image"],
+  "how-to-create-favicon": ["favicon-generator", "png-to-jpg", "ico-to-png", "resize-image"],
+  "how-to-create-ogp-image": ["ogp-image-maker", "social-image-resize", "resize-image", "image-compress"],
 };
 
 export function getGuideRelatedTools(

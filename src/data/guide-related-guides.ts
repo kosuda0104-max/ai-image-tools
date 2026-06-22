@@ -23,7 +23,7 @@ const guideRelatedGuidesMap: Record<string, string[]> = {
   "base64-data-uri-for-web-development": [
     "choose-best-image-format-for-web",
     "optimize-blog-and-site-images",
-    "png-transparency-basics",
+    "how-to-create-ogp-image",
   ],
 
   // ── Image format cluster ──
@@ -55,8 +55,8 @@ const guideRelatedGuidesMap: Record<string, string[]> = {
   ],
   "optimize-blog-and-site-images": [
     "resize-images-for-web",
-    "compress-images-without-losing-quality",
     "choose-best-image-format-for-web",
+    "how-to-create-favicon",
   ],
   "prepare-images-for-upload": [
     "resize-images-for-web",
@@ -102,6 +102,18 @@ const guideRelatedGuidesMap: Record<string, string[]> = {
     "marketplace-product-photos",
     "prepare-images-for-upload",
     "send-large-photos-by-email",
+  ],
+
+  // ── Developer / web publishing cluster ──
+  "how-to-create-favicon": [
+    "how-to-create-ogp-image",
+    "base64-data-uri-for-web-development",
+    "optimize-blog-and-site-images",
+  ],
+  "how-to-create-ogp-image": [
+    "how-to-create-favicon",
+    "optimize-blog-and-site-images",
+    "resize-images-for-web",
   ],
 };
 

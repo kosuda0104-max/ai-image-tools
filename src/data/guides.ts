@@ -1816,6 +1816,134 @@ const jaGuides: GuideEntry[] = [
       },
     ],
   },
+  {
+    slug: "how-to-create-favicon",
+    title: "faviconの作り方（PNGからfavicon.icoを作成）",
+    description:
+      "ブラウザのタブやブックマークに表示されるfaviconを、PNG画像から作る方法を解説します。favicon.icoと各サイズPNGの用意、HTMLへの設置までをまとめます。",
+    cardDescription:
+      "PNGからfavicon.icoと各サイズのアイコンを作り、HTMLに設置するまでの手順をまとめます。",
+    updatedAt: "2026-06-22",
+    sections: [
+      {
+        title: "faviconとは何か",
+        paragraphs: [
+          "favicon（ファビコン）は、ブラウザのタブ、ブックマーク、履歴、スマホのホーム画面などに表示される小さなサイトアイコンです。サイトの第一印象や見分けやすさに直結するため、個人開発のサービスやブログでも早めに用意しておきたい要素です。",
+          "faviconが設定されていないと、タブに汎用アイコンが表示され、ほかのサイトに埋もれてしまいます。逆にきちんと設定すると、複数タブを開いたときの視認性が上がり、ブックマークからの再訪も促しやすくなります。",
+        ],
+        figure: {
+          kind: "flow",
+          from: "用意したPNG画像",
+          to: "favicon.ico ＋ 各サイズPNG",
+          caption: "1枚のPNGから、必要なアイコン一式をまとめて作れます",
+        },
+      },
+      {
+        title: "どのサイズを用意すべきか",
+        paragraphs: [
+          "現在の主流は、複数解像度を内包した favicon.ico（16×16・32×32・48×48）を基本に、別途PNGを用意する構成です。16×16はタブ表示、32×32はブックマークや高解像度ディスプレイ、48×48はWindowsのサイト表示などで使われます。",
+          "加えて、スマホでホーム画面に追加されたときのために apple-touch-icon（180×180）のPNGを用意しておくと安心です。これらをまとめて持っておけば、主要な環境をひと通りカバーできます。",
+        ],
+      },
+      {
+        title: "PNGからfavicon.icoを作る手順",
+        paragraphs: [
+          "専用ソフトがなくても、ブラウザだけでfaviconは作れます。Filewispの「favicon.ico作成ツール」は、用意したPNG（またはJPG）から、16・32・48を内包したfavicon.icoと、各サイズのPNG、apple-touch-iconをまとめて生成します。画像は外部サーバーへアップロードせず、すべてブラウザ内で処理します。",
+          "手順はシンプルです。正方形に近いPNGを選び、プレビューで見え方を確認したら「faviconを生成」を押します。生成されたファイル一式はZIPでまとめてダウンロードできます。",
+        ],
+        figure: {
+          kind: "steps",
+          steps: ["PNG画像を選ぶ", "faviconを生成", "ZIPで保存"],
+          caption: "faviconの作成はこの3ステップで完了します",
+        },
+      },
+      {
+        title: "HTMLへの設置方法",
+        paragraphs: [
+          "生成したファイルは、サイトのルートなどに置き、HTMLの <head> 内で読み込みます。具体的には、favicon.ico を rel=\"icon\" で、各PNGを sizes 付きの rel=\"icon\" で、スマホ用の180×180を rel=\"apple-touch-icon\" で指定します。",
+          "Filewispの作成ツールは、この <link> タグ一式をそのままコピーできる形で出力します。貼り付けてパスを自分の配置に合わせるだけで設置できるので、HTMLに不慣れでも迷いにくくなっています。",
+        ],
+      },
+      {
+        title: "元画像と透過のコツ",
+        paragraphs: [
+          "元画像は正方形で、できれば512×512以上の大きめのPNGが理想です。小さい画像を引き伸ばすと輪郭が粗くなるため、なるべく高解像度の素材から作るときれいに仕上がります。ロゴなら、余白を少し含めると小さい表示でも潰れにくくなります。",
+          "透過背景のPNGはそのまま透過を保持できます。背景色のあるサイトでも自然になじむので、ロゴをそのままfaviconにしたいときに便利です。",
+        ],
+      },
+      {
+        title: "faviconが反映されないときは",
+        paragraphs: [
+          "設置したのに表示が変わらない場合、多くはブラウザのキャッシュが原因です。スーパーリロード（強制再読み込み）を試すか、しばらく時間を置いてから確認すると反映されることがあります。",
+          "それでも変わらないときは、ファイルの配置パスと <link> の href が一致しているか、ファイル名のタイプミスがないかを見直してください。パスのずれは反映されない原因の定番です。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "how-to-create-ogp-image",
+    title: "OGP画像の作り方（1200×630の作成方法）",
+    description:
+      "SNSでURLをシェアしたときに表示されるOGP画像（1200×630）の作り方を解説します。推奨サイズ、metaタグの設定、見やすくするコツ、確認方法までまとめます。",
+    cardDescription:
+      "OGP画像の推奨サイズ、ブラウザでの作成手順、metaタグの設定と確認方法をまとめます。",
+    updatedAt: "2026-06-22",
+    sections: [
+      {
+        title: "OGP画像とは",
+        paragraphs: [
+          "OGP画像は、記事やサービスのURLをX（Twitter）、Facebook、LINE、Slackなどでシェアしたときに、カードとして表示されるサムネイル画像です。OGP（Open Graph Protocol）に沿って og:image として指定します。",
+          "テキストだけのリンクよりも、画像付きカードのほうがクリックされやすく、内容も伝わりやすくなります。ブログ、Qiita、Zenn、個人開発サービスの紹介ページなどでは、OGP画像を用意しておくと流入や反応が変わってきます。",
+        ],
+        figure: {
+          kind: "flow",
+          from: "記事やサービスのURL",
+          to: "SNSでカード（OGP画像）表示",
+          caption: "og:image を指定すると、シェア時に画像付きカードが表示されます",
+        },
+      },
+      {
+        title: "推奨サイズと比率",
+        paragraphs: [
+          "OGP画像の標準サイズは 1200×630 ピクセル（おおよそ1.91:1）です。多くのSNSがこの比率を基準に表示するため、まずはこのサイズで作るのが無難です。X（Twitter）の大きなカードもこの比率に対応しています。",
+          "小さすぎる画像は、サービス側で表示されなかったり粗く表示されたりします。1200×630を基本にしておけば、主要なSNSでおおむね意図どおりに表示できます。",
+        ],
+      },
+      {
+        title: "ブラウザでOGP画像を作る手順",
+        paragraphs: [
+          "デザインツールがなくても、ブラウザだけでOGP画像は作れます。Filewispの「OGP画像メーカー」は、タイトル・サブタイトル・背景色・ロゴを入力するだけで1200×630の画像を生成します。テーマ配色のプリセットや文字色の調整、ロゴ配置にも対応し、入力内容はすべてブラウザ内で描画されます。",
+          "手順は、タイトルとサブタイトルを入れ、テーマや配色を選び、必要ならロゴを追加するだけです。プレビューで仕上がりを確認したら、PNGとしてダウンロードします。",
+        ],
+        figure: {
+          kind: "steps",
+          steps: ["タイトルを入力", "配色・ロゴを設定", "PNGで保存"],
+          caption: "OGP画像はこの3ステップで作成できます",
+        },
+      },
+      {
+        title: "metaタグの設定方法",
+        paragraphs: [
+          "作ったOGP画像は、ページの <head> 内で og:image として指定します。あわせて og:title（タイトル）、og:description（説明）、og:url（ページURL）、og:type を設定すると、カードがより正しく表示されます。X向けには twitter:card を summary_large_image にしておくと大きなカードになります。",
+          "og:image には絶対URL（https://から始まるフルパス）を指定するのが基本です。相対パスだと一部のサービスで画像を取得できないことがあるため、公開URLでの指定をおすすめします。",
+        ],
+      },
+      {
+        title: "見やすいOGP画像のコツ",
+        paragraphs: [
+          "OGP画像はタイムライン上で小さく表示されることも多いため、タイトルは短めで、背景と文字のコントラストをはっきりさせると読みやすくなります。長すぎるタイトルは折り返しで窮屈になるので、要点だけに絞るのがコツです。",
+          "端ギリギリに文字を置くと、サービスによっては見切れることがあります。少し余白を取り、ロゴやサイト名はさりげなく添える程度にすると、情報が詰まりすぎず締まった印象になります。",
+        ],
+      },
+      {
+        title: "表示を確認する方法",
+        paragraphs: [
+          "設定したOGPは、各SNSのデバッガやカード検証ツールで確認できます。実際にシェアする前にプレビューを見ておくと、画像の見切れや古いキャッシュに気づけます。",
+          "OGPを更新したのに反映されない場合、SNS側が以前の画像をキャッシュしていることがあります。検証ツールで再取得を促すか、URLにパラメータを付けて確認すると、新しい画像を確認しやすくなります。",
+        ],
+      },
+    ],
+  },
 ];
 
 const enGuides: GuideEntry[] = [
@@ -3610,6 +3738,134 @@ const enGuides: GuideEntry[] = [
         paragraphs: [
           "As a quick pre-post habit, confirm a few things: whether the photo reveals where it was taken, whether an address, nameplate, or mail is visible in the background, and whether you removed the EXIF location data. Check both the contents of the image and the contents of the file.",
           "Once location data is removed, you can resize or compress the photo before posting so it loads faster too. Protect your privacy while still sharing exactly the part you want to show.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "how-to-create-favicon",
+    title: "How to Create a Favicon (PNG to favicon.ico)",
+    description:
+      "Learn how to create a favicon from a PNG image, including the favicon.ico, the PNG sizes you need, and how to add it to your HTML.",
+    cardDescription:
+      "How to turn a PNG into a favicon.ico plus the icon sizes you need, and add them to your HTML.",
+    updatedAt: "2026-06-22",
+    sections: [
+      {
+        title: "What a favicon is",
+        paragraphs: [
+          "A favicon is the small site icon shown in browser tabs, bookmarks, history, and on phone home screens. It shapes the first impression of your site and makes it easy to recognize, so it is worth setting up early even for an indie service or a blog.",
+          "Without a favicon, tabs show a generic icon and your site blends in with the rest. With one set up properly, your tab is easier to spot when several are open, and bookmarks become more inviting to revisit.",
+        ],
+        figure: {
+          kind: "flow",
+          from: "A PNG image you prepared",
+          to: "favicon.ico + PNG sizes",
+          caption: "From a single PNG you can produce the full set of icons at once",
+        },
+      },
+      {
+        title: "Which sizes you need",
+        paragraphs: [
+          "The common setup today is a multi-resolution favicon.ico (16×16, 32×32, 48×48) plus separate PNGs. The 16×16 is for tabs, 32×32 for bookmarks and higher-resolution displays, and 48×48 for places like Windows site tiles.",
+          "It also helps to provide an apple-touch-icon (180×180) PNG for when someone adds your site to a phone home screen. With that set in hand, you cover the major environments in one go.",
+        ],
+      },
+      {
+        title: "Creating favicon.ico from a PNG",
+        paragraphs: [
+          "You can make a favicon without any dedicated software. Filewisp's Favicon Generator turns a PNG (or JPG) into a favicon.ico embedding 16/32/48, plus PNGs at each size and an apple-touch-icon. Your image is processed entirely in your browser and never uploaded to a server.",
+          "The steps are simple. Choose a square-ish PNG, check the preview, then press Generate Favicon. You can download the whole set of files together as a ZIP.",
+        ],
+        figure: {
+          kind: "steps",
+          steps: ["Select a PNG image", "Generate the favicon", "Download the ZIP"],
+          caption: "Creating a favicon takes just three steps",
+        },
+      },
+      {
+        title: "Adding it to your HTML",
+        paragraphs: [
+          "Place the generated files at your site root (or wherever you prefer) and reference them inside the HTML <head>. Specifically, link favicon.ico with rel=\"icon\", the PNGs with rel=\"icon\" and a sizes attribute, and the 180×180 with rel=\"apple-touch-icon\".",
+          "Filewisp's generator outputs this set of <link> tags ready to copy. You just paste them in and adjust the paths to match where you placed the files, which keeps it approachable even if you are new to HTML.",
+        ],
+      },
+      {
+        title: "Source image and transparency tips",
+        paragraphs: [
+          "Ideally start from a square PNG of 512×512 or larger. Upscaling a small image makes the edges rough, so a higher-resolution source produces a cleaner result. For a logo, leaving a little padding helps it stay legible at small sizes.",
+          "A transparent PNG keeps its transparency, so it blends in naturally on sites with a background color. That makes it easy to turn a logo directly into a favicon.",
+        ],
+      },
+      {
+        title: "If the favicon does not update",
+        paragraphs: [
+          "If the icon does not change after you add it, the cause is usually browser caching. Try a hard reload, or wait a little while and check again, and it often appears.",
+          "If it still will not change, double-check that the file path matches the href in your <link> tags and that there are no typos in the file names. A mismatched path is the classic reason a favicon fails to show.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "how-to-create-ogp-image",
+    title: "How to Create an OGP Image (1200×630)",
+    description:
+      "Learn how to make an OGP image (1200×630) that shows when your URL is shared on social media, including the recommended size, meta tags, design tips, and how to verify it.",
+    cardDescription:
+      "The recommended OGP size, how to create the image in your browser, and how to set and verify the meta tags.",
+    updatedAt: "2026-06-22",
+    sections: [
+      {
+        title: "What an OGP image is",
+        paragraphs: [
+          "An OGP image is the thumbnail shown as a card when your article or service URL is shared on X (Twitter), Facebook, LINE, Slack, and others. It is specified as og:image following the Open Graph Protocol.",
+          "A card with an image gets more clicks and communicates the content better than a plain text link. For blogs, Qiita, Zenn, and indie project pages, having an OGP image can noticeably change traffic and engagement.",
+        ],
+        figure: {
+          kind: "flow",
+          from: "Your article or service URL",
+          to: "A card (OGP image) on social media",
+          caption: "Setting og:image makes a card with an image appear when shared",
+        },
+      },
+      {
+        title: "Recommended size and ratio",
+        paragraphs: [
+          "The standard OGP image size is 1200×630 pixels (roughly 1.91:1). Most platforms display around this ratio, so it is the safe size to start from. The large X (Twitter) card supports this ratio too.",
+          "Images that are too small may not be displayed by a service, or may look rough. Keeping to 1200×630 lets you display roughly as intended across the major platforms.",
+        ],
+      },
+      {
+        title: "Creating an OGP image in your browser",
+        paragraphs: [
+          "You can make an OGP image without a design tool. Filewisp's OGP Image Maker generates a 1200×630 image just from a title, subtitle, background color, and logo. It includes color theme presets, adjustable text colors, and logo placement, and everything is rendered in your browser.",
+          "Just enter a title and subtitle, pick a theme or colors, and add a logo if you want one. Check the preview, then download it as a PNG.",
+        ],
+        figure: {
+          kind: "steps",
+          steps: ["Enter a title", "Set colors and logo", "Save as PNG"],
+          caption: "You can create an OGP image in three steps",
+        },
+      },
+      {
+        title: "Setting the meta tags",
+        paragraphs: [
+          "Reference the image as og:image inside the page <head>. Setting og:title, og:description, og:url, and og:type alongside it helps the card display correctly. For X, set twitter:card to summary_large_image to get the large card.",
+          "Use an absolute URL (a full path starting with https://) for og:image. A relative path can prevent some services from fetching the image, so a public URL is recommended.",
+        ],
+      },
+      {
+        title: "Tips for a readable OGP image",
+        paragraphs: [
+          "OGP images are often shown small in a timeline, so a short title and strong contrast between text and background make it easier to read. An overly long title wraps and feels cramped, so trim it to the key point.",
+          "Text placed right at the edge can get cut off on some services. Leave a little margin, and keep a logo or site name as a subtle accent so the card looks clean rather than crowded.",
+        ],
+      },
+      {
+        title: "How to verify the result",
+        paragraphs: [
+          "You can check your OGP with each platform's debugger or card validation tool. Previewing before you actually share helps you catch cropping issues or an old cached image.",
+          "If an updated OGP does not show, the platform may be caching the previous image. Ask the validator to re-fetch, or check with a parameter added to the URL to see the new image more easily.",
         ],
       },
     ],
