@@ -116,6 +116,8 @@ const imageEditingSlugs = [
   "flip-image",
   "grayscale-image",
   "watermark-image",
+  "remove-exif",
+  "favicon-generator",
 ] as const;
 
 const pdfToolSlugs = [
@@ -144,7 +146,7 @@ const ja = {
   heroDescription:
     "画像変換、画像圧縮、リサイズ、PDF 変換や結合まで、よく使う作業をブラウザだけで進められる無料ツールをまとめています。形式の違いで迷ったときも、近い作業を並べて見比べやすい構成です。",
   stats: [
-    { value: "45ツール", label: "画像・PDF・データ変換をカバー" },
+    { value: "47ツール", label: "画像・PDF・データ変換をカバー" },
     { value: "無料", label: "登録不要ですぐ使える" },
     { value: "安全", label: "ブラウザ内で処理" },
   ],
@@ -408,7 +410,7 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
         "A free collection of tools for converting JPG, PNG, WebP, HEIC, GIF, AVIF, BMP, TIFF, ICO, SVG, and PDF files, plus image compression, resizing, cropping, grayscale conversion, and watermarking. Everything runs in your browser, so your files are not uploaded to an external server.",
     },
     stats: [
-      { value: "45 Tools", label: "Image, PDF, and data conversion tools" },
+      { value: "47 Tools", label: "Image, PDF, and data conversion tools" },
       { value: "Free", label: "No signup required" },
       { value: "Safe", label: "Processed in your browser" },
     ],

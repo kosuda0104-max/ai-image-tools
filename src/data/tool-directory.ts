@@ -22,6 +22,8 @@ const toolEntries: ToolEntry[] = [
   { slug: "bmp-to-png", jaName: "BMP を PNG に変換", jaDescription: "BMP を PNG に変換して、再利用しやすい形に整えます。", enName: "BMP to PNG", enDescription: "Convert BMP files into PNG for easier reuse." },
   { slug: "compress-pdf", jaName: "PDF を圧縮", jaDescription: "提出前や送信前に PDF の容量を抑えたいときに使えます。", enName: "Compress PDF", enDescription: "Reduce PDF size before upload, submission, or sharing." },
   { slug: "crop-image", jaName: "画像切り抜き", jaDescription: "不要な余白や写したくない範囲を取り除けます。", enName: "Crop Image", enDescription: "Trim away extra margins or unwanted parts of an image." },
+  { slug: "remove-exif", jaName: "EXIF・位置情報削除", jaDescription: "写真のEXIFやGPS位置情報を削除して、安全に共有できます。JPEGは画質を保ったまま除去します。", enName: "Remove EXIF & GPS", enDescription: "Strip EXIF and GPS location data from photos before sharing. JPEG is cleaned losslessly." },
+  { slug: "favicon-generator", jaName: "favicon.ico 作成", jaDescription: "PNG・JPGから favicon.ico と各種PNGアイコンを一括生成します。HTML埋め込みコード付き。", enName: "Favicon Generator", enDescription: "Generate favicon.ico and PNG icons from a PNG or JPG, with a ready-to-paste HTML snippet." },
   { slug: "flip-image", jaName: "画像反転", jaDescription: "左右反転や上下反転をすばやく行えます。", enName: "Flip Image", enDescription: "Flip images horizontally or vertically in one step." },
   { slug: "gif-to-jpg", jaName: "GIF を JPG に変換", jaDescription: "GIF 画像を静止画の JPG に変換したいときに使えます。", enName: "GIF to JPG", enDescription: "Convert GIF images into still JPG output." },
   { slug: "gif-to-png", jaName: "GIF を PNG に変換", jaDescription: "GIF 画像を PNG に変換して編集しやすくします。", enName: "GIF to PNG", enDescription: "Convert GIF images into PNG for easier editing." },
