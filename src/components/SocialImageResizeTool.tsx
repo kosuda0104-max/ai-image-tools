@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { zipSync } from "fflate";
 import ToolPageLayout from "@/components/ToolPageLayout";
 import FileDropzone from "@/components/FileDropzone";
 import PrimaryButton from "@/components/PrimaryButton";
@@ -56,10 +57,14 @@ type UIContent = {
   resizeButton: string;
   resizingButton: string;
   downloadButton: string;
+  downloadAllButton: string;
+  zippingButton: string;
   resetButton: string;
   invalidFileError: string;
   processingStatus: string;
+  zippingStatus: string;
   successMessage: string;
+  zipSuccessMessage: string;
   resizeError: string;
 };
 
@@ -167,10 +172,14 @@ const content: Record<Locale, ToolContent> = {
       resizeButton: "リサイズ",
       resizingButton: "リサイズ中...",
       downloadButton: "画像をダウンロード",
+      downloadAllButton: "全サイズをZIPで保存",
+      zippingButton: "ZIP作成中...",
       resetButton: "リセット",
       invalidFileError: "エラー: JPG / PNG / WebP ファイルを選択してください。",
       processingStatus: "画像をリサイズ中です...",
+      zippingStatus: "全プリセットを生成中です...",
       successMessage: "完了: 画像のリサイズが完了しました。",
+      zipSuccessMessage: "完了: 全サイズをZIPでダウンロードしました。",
       resizeError: "エラー: 画像のリサイズに失敗しました。",
     },
   },
@@ -246,10 +255,14 @@ const content: Record<Locale, ToolContent> = {
       resizeButton: "Resize",
       resizingButton: "Resizing...",
       downloadButton: "Download Image",
+      downloadAllButton: "Download all sizes as ZIP",
+      zippingButton: "Building ZIP...",
       resetButton: "Reset",
       invalidFileError: "Error: Please select a JPG, PNG, or WebP file.",
       processingStatus: "Resizing image...",
+      zippingStatus: "Generating all presets...",
       successMessage: "Done: Image resizing completed successfully.",
+      zipSuccessMessage: "Done: All sizes downloaded as a ZIP.",
       resizeError: "Error: Failed to resize the image.",
     },
   },
@@ -301,6 +314,56 @@ function canvasToBlob(
       quality
     );
   });
+}
+
+// Render the source image into a preset-sized canvas using the chosen fit mode,
+// returning the encoded blob. Shared by single resize and batch ZIP export.
+function renderPreset(
+  loaded: HTMLImageElement,
+  preset: Preset,
+  fitMode: FitMode,
+  bgColor: string,
+  outputFormat: OutputFormat
+): Promise<Blob> {
+  const canvas = document.createElement("canvas");
+  canvas.width = preset.width;
+  canvas.height = preset.height;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("Failed to initialize canvas");
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+
+  const srcW = loaded.naturalWidth || loaded.width;
+  const srcH = loaded.naturalHeight || loaded.height;
+
+  // Fill a background for contain mode, except when keeping PNG transparency.
+  if (
+    fitMode === "contain" &&
+    (outputFormat !== "image/png" || bgColor.toLowerCase() !== "#ffffff")
+  ) {
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0, 0, preset.width, preset.height);
+  }
+
+  const scale =
+    fitMode === "cover"
+      ? Math.max(preset.width / srcW, preset.height / srcH)
+      : Math.min(preset.width / srcW, preset.height / srcH);
+  const drawW = srcW * scale;
+  const drawH = srcH * scale;
+  ctx.drawImage(
+    loaded,
+    (preset.width - drawW) / 2,
+    (preset.height - drawH) / 2,
+    drawW,
+    drawH
+  );
+
+  return canvasToBlob(
+    canvas,
+    outputFormat,
+    outputFormat === "image/png" ? undefined : 0.92
+  );
 }
 
 export default function SocialImageResizeTool({ locale }: Props) {
@@ -385,50 +448,57 @@ export default function SocialImageResizeTool({ locale }: Props) {
       clearResult();
 
       const loaded = await loadImageFromFile(image);
-      const canvas = document.createElement("canvas");
-      canvas.width = preset.width;
-      canvas.height = preset.height;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) throw new Error("Failed to initialize canvas");
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = "high";
-
-      const srcW = loaded.naturalWidth || loaded.width;
-      const srcH = loaded.naturalHeight || loaded.height;
-
-      if (fitMode === "contain" && outputFormat !== "image/png") {
-        ctx.fillStyle = bgColor;
-        ctx.fillRect(0, 0, preset.width, preset.height);
-      } else if (fitMode === "contain") {
-        // For PNG, keep transparent padding unless the user wants a color; we
-        // still honor a non-white background choice.
-        if (bgColor.toLowerCase() !== "#ffffff") {
-          ctx.fillStyle = bgColor;
-          ctx.fillRect(0, 0, preset.width, preset.height);
-        }
-      }
-
-      const scale =
-        fitMode === "cover"
-          ? Math.max(preset.width / srcW, preset.height / srcH)
-          : Math.min(preset.width / srcW, preset.height / srcH);
-
-      const drawW = srcW * scale;
-      const drawH = srcH * scale;
-      const dx = (preset.width - drawW) / 2;
-      const dy = (preset.height - drawH) / 2;
-      ctx.drawImage(loaded, dx, dy, drawW, drawH);
-
-      const blob = await canvasToBlob(
-        canvas,
-        outputFormat,
-        outputFormat === "image/png" ? undefined : 0.92
+      const blob = await renderPreset(
+        loaded,
+        preset,
+        fitMode,
+        bgColor,
+        outputFormat
       );
 
       const url = URL.createObjectURL(blob);
       setResultBlob(blob);
       setResultUrl(url);
       setMessage(ui.successMessage);
+    } catch (error) {
+      console.error(error);
+      setMessage(ui.resizeError);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleDownloadAll = async () => {
+    if (!image || isProcessing) return;
+
+    try {
+      setIsProcessing(true);
+      setMessage(ui.zippingStatus);
+
+      const loaded = await loadImageFromFile(image);
+      const dotIndex = image.name.lastIndexOf(".");
+      const baseName =
+        dotIndex >= 0 ? image.name.slice(0, dotIndex) : image.name;
+      const extension = getExtension(outputFormat);
+
+      const zipInput: Record<string, Uint8Array> = {};
+      for (const p of PRESETS) {
+        const blob = await renderPreset(loaded, p, fitMode, bgColor, outputFormat);
+        zipInput[`${baseName}-${p.key}.${extension}`] = new Uint8Array(
+          await blob.arrayBuffer()
+        );
+      }
+
+      const zipped = zipSync(zipInput, { level: 0 });
+      const url = URL.createObjectURL(
+        new Blob([zipped.slice().buffer], { type: "application/zip" })
+      );
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "social-images.zip";
+      link.click();
+      URL.revokeObjectURL(url);
+      setMessage(ui.zipSuccessMessage);
     } catch (error) {
       console.error(error);
       setMessage(ui.resizeError);
@@ -684,6 +754,15 @@ export default function SocialImageResizeTool({ locale }: Props) {
               {ui.downloadButton}
             </PrimaryButton>
           )}
+
+          <button
+            type="button"
+            onClick={handleDownloadAll}
+            disabled={!image || isProcessing}
+            className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:opacity-50"
+          >
+            {isProcessing ? ui.zippingButton : ui.downloadAllButton}
+          </button>
 
           <button
             type="button"
