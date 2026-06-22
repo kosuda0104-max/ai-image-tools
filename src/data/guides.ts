@@ -1752,6 +1752,70 @@ const jaGuides: GuideEntry[] = [
       },
     ],
   },
+  {
+    slug: "remove-photo-location-data",
+    title: "写真の位置情報・EXIFを削除する方法",
+    description:
+      "スマホやカメラで撮った写真に残るEXIF・GPS位置情報を、画質を落とさず安全に削除する方法を解説します。SNSやフリマ投稿前のプライバシー対策に。",
+    cardDescription:
+      "写真に埋め込まれた位置情報やEXIFを、ブラウザだけで安全に削除する手順とチェックポイントをまとめます。",
+    updatedAt: "2026-06-22",
+    sections: [
+      {
+        title: "写真に残る位置情報とは",
+        paragraphs: [
+          "スマホやデジカメで撮影した写真には、画像そのもののほかにEXIF（Exif）と呼ばれるメタデータが埋め込まれています。撮影日時、カメラやスマホの機種、絞りやISOといった撮影設定に加えて、GPSによる撮影場所の緯度・経度まで含まれていることがあります。",
+          "この位置情報は写真を開いただけでは見えませんが、ファイルの中には残ったままです。撮ったときの設定によっては、自宅や職場、よく行く場所の座標がそのまま記録されているため、共有する前に中身を意識しておくと安心です。",
+        ],
+        figure: {
+          kind: "flow",
+          from: "撮影した写真（EXIF・GPS付き）",
+          to: "位置情報を削除した写真",
+          caption: "見た目は同じでも、ファイルの中身から位置情報を取り除けます",
+        },
+      },
+      {
+        title: "位置情報が残っていると何が起きるか",
+        paragraphs: [
+          "位置情報付きの写真をSNSやブログ、フリマアプリにそのまま投稿すると、撮影場所が第三者に特定される可能性があります。特に自宅で撮った商品写真やペットの写真などは、生活圏が推測されてしまうリスクがあります。",
+          "多くのSNSはアップロード時に自動でEXIFを削除しますが、すべてのサービスやアップロード経路が対応しているわけではありません。フリマの商品画像、メール添付、クラウド共有など、経路によっては位置情報が残ったまま相手に渡ることがあります。投稿前に自分で消しておくのが最も確実です。",
+        ],
+      },
+      {
+        title: "ブラウザだけで安全に削除する手順",
+        paragraphs: [
+          "位置情報の削除は、専用ソフトを入れなくてもブラウザ上で完結できます。Filewispの「EXIF・位置情報削除ツール」は、画像を外部サーバーへアップロードせず、すべて端末内（ブラウザ内）で処理します。位置情報を含む写真を、外に出さずにそのまま処理できるのが利点です。",
+          "使い方はシンプルです。画像を選ぶと、EXIF・GPS位置情報・XMPが含まれているかを検出して表示します。「メタデータを削除」を押すと、これらをまとめて取り除いた画像が生成されるので、そのまま保存します。",
+        ],
+        figure: {
+          kind: "steps",
+          steps: ["画像を選ぶ", "メタデータを削除", "保存する"],
+          caption: "位置情報の削除はこの3ステップで完了します",
+        },
+      },
+      {
+        title: "JPEGは画質を落とさずに消せる",
+        paragraphs: [
+          "位置情報を消すために画像を作り直す（再圧縮する）と、わずかに画質が落ちることがあります。Filewispの削除ツールはJPEGに対して、画像本体のデータには一切手を加えず、メタデータの領域だけを取り除く方式を採用しています。そのため、JPEGなら画質はまったく劣化しません。",
+          "PNGやWebPは構造が異なるため再エンコードして削除しますが、PNGは可逆形式なので見た目は変わりません。どの形式でも、位置情報を含むメタデータはしっかり取り除かれます。",
+        ],
+      },
+      {
+        title: "ちゃんと消えたか確認する方法",
+        paragraphs: [
+          "削除後の画像を、もう一度同じツールに読み込んでみてください。EXIFや位置情報が「なし」と表示されれば、メタデータが取り除かれている証拠です。ファイルサイズも、メタデータの分だけ元の画像よりわずかに小さくなります。",
+          "より厳密に確認したい場合は、OSの画像プロパティ（詳細情報）や、EXIFビューアで撮影場所の項目が空になっているかを見ると確実です。投稿先が複数あるときは、削除済みの画像を一つ用意して使い回すと手間を減らせます。",
+        ],
+      },
+      {
+        title: "SNS・フリマ投稿前のチェックリスト",
+        paragraphs: [
+          "投稿前のひと手間として、次の点を確認しておくと安心です。撮影場所が分かる写真かどうか、背景に住所や表札・郵便物が写っていないか、そしてEXIFの位置情報を削除したか。画像の中身（被写体や背景）と、ファイルの中身（メタデータ）の両方を見ておくのがポイントです。",
+          "位置情報を消した写真は、必要に応じてリサイズや圧縮をしてから投稿すると、表示も軽くなります。プライバシーを守りつつ、見せたい部分だけをきれいに共有しましょう。",
+        ],
+      },
+    ],
+  },
 ];
 
 const enGuides: GuideEntry[] = [
@@ -3482,6 +3546,70 @@ const enGuides: GuideEntry[] = [
         paragraphs: [
           "Putting Base64 strings directly into code can make reviews and future changes harder to read. For large production assets or images that change often, a CDN or normal image URL is usually easier to maintain.",
           "For small assets where an external request is awkward, or for images that must travel with structured data, Base64 can be practical. Compare file size, caching, change frequency, and the destination system before choosing the approach.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "remove-photo-location-data",
+    title: "How to Remove Location Data and EXIF from Photos",
+    description:
+      "Learn how to remove EXIF and GPS location data from photos taken on a phone or camera, without losing image quality. A simple privacy step before posting online.",
+    cardDescription:
+      "How to strip the location data and EXIF embedded in your photos, safely and entirely in your browser.",
+    updatedAt: "2026-06-22",
+    sections: [
+      {
+        title: "What location data lives in a photo",
+        paragraphs: [
+          "Photos taken with phones and cameras carry more than the image itself. They include EXIF metadata such as the capture date, the camera or phone model, exposure settings, and often the GPS latitude and longitude of where the photo was taken.",
+          "You cannot see this location data just by opening the picture, but it stays inside the file. Depending on your camera settings, the coordinates of your home, workplace, or favorite spots may be recorded, so it is worth knowing what the file contains before you share it.",
+        ],
+        figure: {
+          kind: "flow",
+          from: "Original photo (with EXIF / GPS)",
+          to: "Photo with location data removed",
+          caption: "The image looks identical, but the location data is gone from the file",
+        },
+      },
+      {
+        title: "Why leftover location data matters",
+        paragraphs: [
+          "If you post a photo that still contains location data to social media, a blog, or a marketplace app, the place it was taken can be identified by others. Product photos or pet photos taken at home are especially risky, since they can reveal where you live.",
+          "Many social platforms strip EXIF automatically on upload, but not every service or upload path does. Marketplace listings, email attachments, and cloud sharing can pass the location data straight to the recipient. Removing it yourself before posting is the most reliable approach.",
+        ],
+      },
+      {
+        title: "Removing it safely in your browser",
+        paragraphs: [
+          "You can remove location data without installing any software. Filewisp's Remove EXIF & GPS tool processes everything in your browser, without uploading the image to a server. That means even photos containing location data never leave your device.",
+          "The steps are simple. When you select an image, the tool detects whether EXIF, GPS location, and XMP are present and shows you. Press Remove Metadata to produce a cleaned image with all of it stripped, then save the result.",
+        ],
+        figure: {
+          kind: "steps",
+          steps: ["Select the image", "Remove metadata", "Save the result"],
+          caption: "Removing location data takes just three steps",
+        },
+      },
+      {
+        title: "JPEG is cleaned without losing quality",
+        paragraphs: [
+          "Rebuilding (re-compressing) an image to remove its metadata can slightly reduce quality. For JPEG, Filewisp's tool leaves the actual image data untouched and removes only the metadata segments, so a JPEG loses no quality at all.",
+          "PNG and WebP are structured differently and are re-encoded to clean them, but PNG is lossless so it looks identical. Whatever the format, the metadata that carries location data is fully removed.",
+        ],
+      },
+      {
+        title: "How to confirm it was removed",
+        paragraphs: [
+          "Load the cleaned image back into the same tool. If EXIF and GPS show as absent, the metadata has been stripped. The file size will also be slightly smaller than the original by the amount of removed metadata.",
+          "For a stricter check, open the OS file properties (details) or an EXIF viewer and confirm the location fields are empty. If you post to several places, prepare one cleaned copy and reuse it to save time.",
+        ],
+      },
+      {
+        title: "A checklist before posting",
+        paragraphs: [
+          "As a quick pre-post habit, confirm a few things: whether the photo reveals where it was taken, whether an address, nameplate, or mail is visible in the background, and whether you removed the EXIF location data. Check both the contents of the image and the contents of the file.",
+          "Once location data is removed, you can resize or compress the photo before posting so it loads faster too. Protect your privacy while still sharing exactly the part you want to show.",
         ],
       },
     ],

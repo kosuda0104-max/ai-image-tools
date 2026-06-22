@@ -36,6 +36,7 @@ const guideToolMap: Record<string, string[]> = {
   "grayscale-photo": ["grayscale-image", "image-compress", "resize-image", "crop-image"],
   "add-watermark-to-image": ["watermark-image", "resize-image", "image-compress", "crop-image"],
   "crop-image-to-square": ["crop-image", "resize-image", "image-compress", "grayscale-image"],
+  "remove-photo-location-data": ["remove-exif", "image-compress", "resize-image", "watermark-image"],
 };
 
 export function getGuideRelatedTools(

@@ -70,7 +70,7 @@ const guideRelatedGuidesMap: Record<string, string[]> = {
   "marketplace-product-photos": [
     "crop-image-to-square",
     "prepare-images-for-upload",
-    "compress-images-without-losing-quality",
+    "remove-photo-location-data",
   ],
   "resume-photo-size": ["crop-image-to-square", "prepare-images-for-upload"],
 
@@ -96,6 +96,13 @@ const guideRelatedGuidesMap: Record<string, string[]> = {
   "grayscale-photo": ["add-watermark-to-image", "crop-image-to-square"],
   "add-watermark-to-image": ["grayscale-photo", "crop-image-to-square"],
   "crop-image-to-square": ["resume-photo-size", "marketplace-product-photos", "grayscale-photo"],
+
+  // ── Privacy cluster ──
+  "remove-photo-location-data": [
+    "marketplace-product-photos",
+    "prepare-images-for-upload",
+    "send-large-photos-by-email",
+  ],
 };
 
 export function getRelatedGuides(
