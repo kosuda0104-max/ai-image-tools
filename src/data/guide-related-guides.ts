@@ -27,7 +27,15 @@ const guideRelatedGuidesMap: Record<string, string[]> = {
   ],
 
   // ── Image format cluster ──
-  "image-format-basics": ["jpg-vs-png", "png-vs-webp", "choose-best-image-format-for-web"],
+  "image-format-basics": [
+    "jpg-vs-png",
+    "png-vs-webp",
+    "choose-best-image-format-for-web",
+    // Tier-S inbound boosts: jpg-vs-jpeg-difference had only 1 inbound guide link,
+    // and what-is-avif (GSC #2) was promoted to Tier S — link both from this hub.
+    "jpg-vs-jpeg-difference",
+    "what-is-avif",
+  ],
   "jpg-vs-png": ["image-format-basics", "jpg-vs-jpeg-difference", "png-vs-webp"],
   "png-vs-webp": ["what-is-webp", "image-format-basics", "png-transparency-basics"],
   "what-is-webp": ["png-vs-webp", "what-is-avif", "choose-best-image-format-for-web"],

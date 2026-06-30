@@ -18,13 +18,13 @@
 | `jpg jpeg 違い` | [guides/jpg-vs-jpeg-difference] | 定番の素朴な疑問・競合が薄い・即答できる |
 | `webp 開けない` / `webp とは` | [guides/what-is-webp] + webp系tools | 「開けない」系は競合弱め・変換導線に直結 |
 | `画像 正方形 切り抜き` / `アイコン 正方形 トリミング` | [guides/crop-image-to-square] + tools/crop-image | SNS/アイコン需要・ツールが直接解決 |
+| `.avif とは` / `avif 開けない` | [guides/what-is-avif] + avif系tools | **GSC実証済み：2位（2026-06レポート・表示8/全体19）。** 計画はTier Aだったが現実が昇格させた最有力。被リンク/インデックス申請を集中 |
 
 ## Tier A（次に狙う）
 
 | 検索語 | 対象ページ |
 |---|---|
 | `tiff 開けない` / `tiff とは` | guides/what-is-tiff |
-| `avif 開けない` / `avif とは` | guides/what-is-avif |
 | `スクリーンショット pdf まとめる` | guides/screenshot-to-pdf + tools/image-to-pdf |
 | `履歴書 写真 サイズ 変更` | guides/resume-photo-size |
 | `iphone 写真 pdf` | guides/iphone-photos-to-pdf |

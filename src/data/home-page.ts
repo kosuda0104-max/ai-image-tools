@@ -15,6 +15,9 @@ const HOME_GUIDE_SLUGS = [
   "jpg-vs-jpeg-difference",
   "what-is-webp",
   "crop-image-to-square",
+  // GSC-validated winner: ranks #2 for ".avif とは" (2026-06 report) — promote
+  // from Tier A to Tier S and give it a homepage link to concentrate authority.
+  "what-is-avif",
   // Broad cluster coverage (one homepage link per cluster)
   "image-format-basics",
   "compress-images-without-losing-quality",

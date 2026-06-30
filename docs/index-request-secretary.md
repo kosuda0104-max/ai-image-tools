@@ -65,7 +65,7 @@ Claude にこう頼めば、秘書として機能します：
 > ツール本体（/tools/parquet-to-csv・/tools/csv-to-parquet）はバッチ2で申請済みなので、
 > ここでは新ガイドとEN版・データ系ガイドを優先する。
 - [ ] https://ai-image-tools.com/guides/what-is-parquet
-- [ ] https://ai-image-tools.com/guides/parquet-csv-workflows
+- [x] https://ai-image-tools.com/guides/parquet-csv-workflows ✅ 登録済み確認（2026/06/19 URL検査）
 - [ ] https://ai-image-tools.com/en/guides/what-is-parquet
 - [ ] https://ai-image-tools.com/en/guides/parquet-csv-workflows
 - [ ] https://ai-image-tools.com/en/tools/parquet-to-csv
@@ -171,10 +171,34 @@ Claude にこう頼めば、秘書として機能します：
 | 日付 | 申請したバッチ | 登録済み数（GSC） | メモ |
 |---|---|---|---|
 | 2026/06/05 | バッチ1・2 | 9 | 検出-未登録123→0、クロール済み-未登録2（EN×2、検証中） |
-|  |  |  |  |
+| 2026/06/19 | （申請なし・状況確認） | 23 | クロール済み-未登録9（Parquet/CSVクラスタ＋/en/tools等）。06/17に新検証開始（内部リンク修正後の初回）。GSC画面の最終更新は06/12でラグあり。parquet-csv-workflows はURL検査で登録済み確認 |
 |  |  |  |  |
 
 > 申請した日にこの表へ1行追記する。「登録済み数」はGSCの「ページのインデックス登録」画面の緑の数字。
+
+---
+
+## 🛠️ 対応ログ（やったこと記録）
+
+### 2026/06/19 — インデックス状況の確認＋方針整理
+**きっかけ:** GSC「ページのインデックス登録」が登録済み23／クロール済み-未登録9。06/17に新しい検証が開始されている状態をスクショで共有。
+
+**確認したこと:**
+- 「クロール済み-未登録」9件 = Parquet/CSVクラスタ中心（`/guides/json-and-csv`, `/guides/csv-encoding-fix`, `/guides/what-is-parquet`, `/guides/parquet-csv-workflows`, `/en/guides/what-is-parquet`, `/en/tools/csv-to-parquet`, `/en/tools/parquet-to-csv`）＋ `/en/tools/jpg-to-png` ＋ `/en/tools`（英語ハブ）。
+- 技術的SEOは問題なし（再検証済み）:
+  - サイトマップに全ガイド・全ツールが日英とも含まれる（`app/sitemap.ts`）
+  - canonical はロケールごと自己参照、hreflang `ja`/`en`/`x-default` 正しい（`src/lib/guide-seo.ts`）
+  - データクラスタの相互リンク完備（`src/data/guide-related-guides.ts`）
+- **`/guides/parquet-csv-workflows` はURL検査で「登録済み」確認**（GSCのレポート画面は最終更新06/12でラグがあり、まだ未登録リストに残って見える）→ 内部リンク修正＋検証が効き始めている良い兆候。
+
+**重要な気づき:**
+- 06/17の検証は、内部リンク修正（コミット `f7584f0`）が反映された**後の初回**。過去の失敗（06/05→06/13）は内容が変わっていない状態での再クリックだったが、今回は新シグナルあり → **押し直さず1〜2週間待つ**。
+- 「クロール済み-未登録」はバグではなく、若いサイト（約3か月）への権威性・需要の判断。オンサイトでやれることはやり切った。
+
+**今後の打ち手（優先順）:**
+1. 06/17の検証は触らない（再クリック禁止）。
+2. 手動インデックス申請を優先順で: `/en/tools`（英語ハブ。未登録だと配下も弱る）→ `/guides/what-is-parquet`（クラスタの柱）→ EN版ガイド。
+3. off-site（被リンク）が本丸: Qiita/Zenn の Parquet記事は投稿済み。次は dev.to（英語）未投稿分の公開＋Qiita記事末尾に「Filewisp」ブランド名追記。
 
 ---
 
@@ -190,6 +214,17 @@ Claude にこう頼めば、秘書として機能します：
 - X（旧Twitter）でツール紹介を投稿（被リンク・発見性UP）
 - note / Qiita / Zenn で「ブラウザだけで画像変換」紹介記事
 - はてなブックマークに登録
+
+### 🚀 次に公開する被リンク（優先順・下書き済→公開するだけ）
+> 2026-06レポートの示唆：オンサイトは打ち切った。針を動かすのは**被リンク＝表示面の拡大**。
+> 下記はすべて下書き完成済み。Tier S直結のものから順に公開する。
+1. **[HEIC記事（Qiita）](promo/heic-iphone-article-qiita.md)** ← 最優先。Tier S `heic-cannot-open-windows` 直結。Filewispブランド名・全リンク・画像アセット（`promo/assets/heic-*.png`）すべて揃い**投稿するだけ**。画像4枚をドラッグ&ドロップで挿入。
+2. **[HEIC記事（note/ブログ用 JA）](promo/heic-iphone-article-ja.md)** ← 同テーマ別媒体。Qiitaと別ドメインから張ると被リンク多様性が出る。
+3. **Qiita Parquet記事に「Filewisp」追記** ← 既投稿（https://qiita.com/coscoskosuda/items/eabb35e06445e8338207）の本文末尾に `Filewisp（https://ai-image-tools.com）` を追記。1分で効く。
+4. **[json/csv記事（Qiita）](promo/json-csv-article-qiita.md)** ← データクラスタ（csv-encoding-fix / json-and-csv）の権威補強。
+5. **[Parquet記事（dev.to・英語）](promo/parquet-csv-aws-article-en.md)** ← 英語クラスタ（crawled-not-indexed の本丸）に外部シグナル。
+
+> avifは申請・記事不要（**既に2位＝インデックス済み**）。format系クラスタ（what-is-webp / image-format-basics）への内部リンクは強化済み（2026-06-30）。
 
 ### 投稿した記事ログ
 - [x] Zenn（2026/06/13）: https://zenn.dev/kosuda/articles/0e8cf5da824a64 — 「AWSのParquetをブラウザだけでCSVにしたかったので、ツールを作って公開した」
