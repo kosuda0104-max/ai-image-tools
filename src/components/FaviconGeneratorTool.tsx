@@ -116,6 +116,7 @@ const content: Record<Locale, ToolContent> = {
       relatedTools: [
         { name: "PNG を JPG に変換", href: "/tools/png-to-jpg" },
         { name: "ICO を PNG に変換", href: "/tools/ico-to-png" },
+        { name: "ICO を JPG に変換", href: "/tools/ico-to-jpg" },
         { name: "画像リサイズ", href: "/tools/resize-image" },
         { name: "画像切り抜き", href: "/tools/crop-image" },
       ],
@@ -196,6 +197,7 @@ const content: Record<Locale, ToolContent> = {
       relatedTools: [
         { name: "PNG to JPG", href: "/en/tools/png-to-jpg" },
         { name: "ICO to PNG", href: "/en/tools/ico-to-png" },
+        { name: "ICO to JPG", href: "/en/tools/ico-to-jpg" },
         { name: "Resize Image", href: "/en/tools/resize-image" },
         { name: "Crop Image", href: "/en/tools/crop-image" },
       ],

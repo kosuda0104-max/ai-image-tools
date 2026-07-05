@@ -318,6 +318,9 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
     popularTools: getToolItems("en", [
       "jpg-to-png",
       "png-to-jpg",
+      // GSC-validated: /en/tools/ico-to-jpg ranks #8 (2026-06 report) — give it
+      // a homepage link to push it onto page one.
+      "ico-to-jpg",
       "heic-to-jpg",
       "jpg-compress",
       "image-compress",

@@ -60,6 +60,21 @@ Claude にこう頼めば、秘書として機能します：
 
 ## ⬜ 残りの申請（1日1バッチずつ）
 
+### ★★バッチ2026-07-05：あと一押しページ（順位8〜13位・メタデータ改善を反映させる）
+> GSC 2026-06-26レポートで1ページ目まであと一歩のページ＋今回title/description・内部リンクを
+> 改善したページ。**更新を再クロールさせてCTR改善を反映させるのが目的**なので、
+> 申請済みでも再申請してよい（内容が変わっているため）。
+- [ ] https://ai-image-tools.com/tools/jpg-to-png （13位・title/desc更新）
+- [ ] https://ai-image-tools.com/tools/png-to-jpg （8位・title/desc更新）
+- [ ] https://ai-image-tools.com/en/tools/ico-to-jpg （EN 8位・title/desc更新・**未申請**）
+- [ ] https://ai-image-tools.com/tools/ico-to-jpg （title/desc更新）
+- [ ] https://ai-image-tools.com/en/tools/jpg-to-png （EN 3位・desc更新）
+- [ ] https://ai-image-tools.com/en/tools/png-to-jpg （desc更新）
+- [ ] https://ai-image-tools.com/guides/how-to-create-favicon （関連ツールにico-to-jpg追加）
+- [ ] https://ai-image-tools.com/en/guides/how-to-create-favicon （同上）
+- [ ] https://ai-image-tools.com/en （EN人気ツールにico-to-jpg追加）
+- [ ] https://ai-image-tools.com/tools （一覧ページ・40位。露出面の底上げ）
+
 ### ★バッチ最優先：Parquet⇄CSV 訴求（2026/06/13・次回はこれから申請）
 > 「AWSでParquet⇄CSVをブラウザだけで変換したい」需要を取りに行く最重要クラスタ。
 > ツール本体（/tools/parquet-to-csv・/tools/csv-to-parquet）はバッチ2で申請済みなので、
@@ -179,6 +194,23 @@ Claude にこう頼めば、秘書として機能します：
 ---
 
 ## 🛠️ 対応ログ（やったこと記録）
+
+### 2026/07/05 — 「あと一押しページ」のCTR・内部リンク改善
+**きっかけ:** クリック0が続く原因整理。技術SEOは問題なし・表示は7→19と伸び始めているが、
+順位8〜13位のページがクリックに変わっていない＋被リンク施策（promo記事公開）が止まっていた。
+
+**やったこと（コミット済み）:**
+- title/description にクリック動機（登録不要・ブラウザ完結・スマホ対応・透過の扱い）を追加:
+  `/tools/jpg-to-png`・`/tools/png-to-jpg`・`/tools/ico-to-jpg`（日英とも）。
+  特に ico-to-jpg は description が1文だけだったのを全面改善。
+- 内部リンク強化: EN 8位の `/en/tools/ico-to-jpg` に向けて
+  ①ENホームの人気ツールに追加 ②favicon-generator の関連ツールに追加（日英）
+  ③`how-to-create-favicon` ガイドの関連ツールに追加。
+- promo記事の公開手順を `docs/promo/PUBLISH-CHECKLIST.md` に一本化
+  （未公開: HEIC記事・JSON/CSV記事・dev.to英語版。Qiita Parquet記事へのFilewisp追記も未）。
+- 上の「★★バッチ2026-07-05」を新設（更新ページの再クロール促進）。
+
+**次にやること:** デプロイ後に★★バッチを申請 → PUBLISH-CHECKLISTの0〜1番（Filewisp追記＋HEIC記事公開）。
 
 ### 2026/06/19 — インデックス状況の確認＋方針整理
 **きっかけ:** GSC「ページのインデックス登録」が登録済み23／クロール済み-未登録9。06/17に新しい検証が開始されている状態をスクショで共有。
