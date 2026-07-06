@@ -1286,11 +1286,12 @@ const jaGuides: GuideEntry[] = [
   },
   {
     slug: "png-transparency-basics",
-    title: "PNGの透過（背景透明）の基礎｜JPGにすると消える理由と扱い方",
+    title: "PNG・JPGの透過（背景透明）の基礎｜JPGで消える理由と透過にしたいときの方法",
     description:
-      "ロゴやアイコンの背景が白く塗りつぶされる、透過したまま軽くしたい——PNGの透過（アルファチャンネル）の仕組みと、JPGに変換すると透明が失われる理由、WebPで透過のまま軽量化する方法をまとめます。",
+      "ロゴの背景が白く塗りつぶされる、JPG画像を透過にしたい、透過のまま軽くしたい——PNGの透過（アルファチャンネル）の仕組み、JPG変換で透明が失われる理由、JPGの背景を透明にしたいときの手順、WebPで透過のまま軽量化する方法をまとめます。",
     cardDescription:
-      "PNGの透過がJPGで消える理由と、透明を保ったまま軽くする方法を整理します。",
+      "PNGの透過がJPGで消える理由と、JPGを透過にしたいときの手順を整理します。",
+    updatedAt: "2026-07-05",
     sections: [
       {
         title: "透過とは「背景がない」状態のこと",
@@ -1310,6 +1311,13 @@ const jaGuides: GuideEntry[] = [
         paragraphs: [
           "JPGは透明度を保存できない形式です。そのため透過PNGをJPGに変換すると、透明だった部分が白（ツールによっては黒）で塗りつぶされます。「ロゴをJPGにしたら背景に白い四角がついた」というトラブルのほとんどが、これが原因です。",
           "一度JPGにして背景が塗られてしまうと、あとからその白を透明には戻せません。透過が必要な画像は、編集・保管の段階ではPNG（やWebP）のまま持っておき、透過がいらない最終用途に限ってJPGへ変換するのが安全です。",
+        ],
+      },
+      {
+        title: "逆にJPGを透過にしたいときは（変換だけでは不可）",
+        paragraphs: [
+          "「JPGの背景を透明にしたい」という場合、JPGをPNGに変換しただけでは透過にはなりません。JPGには『どこが透明か』という情報がそもそも入っていないため、形式をPNGに変えても背景はそのまま写ったまま残ります。",
+          "背景を透明にするには、①画像編集ソフトや背景削除機能（Canva、remove.bgなど）で背景を消してから、②その結果を透過に対応したPNGまたはWebPで保存する、という2段階が必要です。切り抜き作業の下準備として、劣化しにくく編集しやすいPNGに先へ変えておきたいときは、当サイトの「JPGをPNGに変換」ツールがブラウザだけで使えます。",
         ],
       },
       {
@@ -3340,11 +3348,12 @@ const enGuides: GuideEntry[] = [
   },
   {
     slug: "png-transparency-basics",
-    title: "PNG transparency basics: why JPG fills it in and how to keep it",
+    title: "PNG & JPG transparency basics: why JPG fills it in and how to make an image transparent",
     description:
-      "A logo's background turns white, or you want to keep it transparent but smaller — here is how PNG transparency (the alpha channel) works, why converting to JPG loses it, and how WebP keeps transparency while shrinking the file.",
+      "A logo's background turns white, or you want to make a JPG transparent — here is how PNG transparency (the alpha channel) works, why converting to JPG loses it, what it actually takes to make a JPG background transparent, and how WebP keeps transparency while shrinking the file.",
     cardDescription:
-      "Why PNG transparency disappears in JPG, and how to keep it while making files smaller.",
+      "Why PNG transparency disappears in JPG, and what it takes to make a JPG transparent.",
+    updatedAt: "2026-07-05",
     sections: [
       {
         title: "Transparency means there is no background",
@@ -3364,6 +3373,13 @@ const enGuides: GuideEntry[] = [
         paragraphs: [
           "JPG cannot store opacity. So when you convert a transparent PNG to JPG, the transparent areas get filled with white (or black, depending on the tool). 'I saved my logo as JPG and it got a white box around it' is almost always this.",
           "Once that fill is baked in, you cannot turn it back into transparency. Keep images that need transparency as PNG (or WebP) for editing and storage, and only convert to JPG for final uses where transparency does not matter.",
+        ],
+      },
+      {
+        title: "Want to make a JPG transparent? Conversion alone won't do it",
+        paragraphs: [
+          "If your goal is the reverse — making a JPG's background transparent — converting the JPG to PNG is not enough on its own. A JPG simply contains no information about which pixels should be see-through, so changing the format leaves the background exactly as it was.",
+          "Making a background transparent takes two steps: first remove the background with an image editor or a background-removal tool (Canva, remove.bg, and similar), then save the result as PNG or WebP, which can store transparency. If you just want the image in an editing-friendly, lossless format first, our JPG to PNG converter runs entirely in your browser.",
         ],
       },
       {

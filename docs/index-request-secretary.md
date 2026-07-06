@@ -75,6 +75,12 @@ Claude にこう頼めば、秘書として機能します：
 - [ ] https://ai-image-tools.com/en （EN人気ツールにico-to-jpg追加）
 - [ ] https://ai-image-tools.com/tools （一覧ページ・40位。露出面の底上げ）
 
+### ★★バッチ2026-07-05b：透過クラスタ（翌日分・GSC 07-03で新出）
+> `jpg 透過`/`jpeg 透過`/`透過 png` が /guides/png-transparency-basics に着地し始めた（表示6・87位）。
+> 「JPGを透過にしたいときは」セクション追記＋title/description更新済み → 再クロールさせる。
+- [ ] https://ai-image-tools.com/guides/png-transparency-basics （セクション追記・title更新）
+- [ ] https://ai-image-tools.com/en/guides/png-transparency-basics （同上EN）
+
 ### ★バッチ最優先：Parquet⇄CSV 訴求（2026/06/13・次回はこれから申請）
 > 「AWSでParquet⇄CSVをブラウザだけで変換したい」需要を取りに行く最重要クラスタ。
 > ツール本体（/tools/parquet-to-csv・/tools/csv-to-parquet）はバッチ2で申請済みなので、
