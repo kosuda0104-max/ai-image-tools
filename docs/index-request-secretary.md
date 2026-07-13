@@ -30,6 +30,24 @@ Claude にこう頼めば、秘書として機能します：
 
 ---
 
+## 🚦 本日申請する10件（2026/07/12）
+
+> GSCのURL検査に1件ずつ貼り付ける。完了後、この10件を該当バッチ側でも `[x]` に更新する。
+> `/guides/parquet-csv-workflows` は2026/06/19に登録済み確認済みのため、今回の10件から除外。
+
+- [ ] https://ai-image-tools.com/guides/what-is-parquet
+- [ ] https://ai-image-tools.com/en/guides/what-is-parquet
+- [ ] https://ai-image-tools.com/en/guides/parquet-csv-workflows
+- [ ] https://ai-image-tools.com/en/tools/parquet-to-csv
+- [ ] https://ai-image-tools.com/en/tools/csv-to-parquet
+- [ ] https://ai-image-tools.com/guides/csv-encoding-fix
+- [ ] https://ai-image-tools.com/guides/json-and-csv
+- [ ] https://ai-image-tools.com/guides/heic-cannot-open-windows
+- [ ] https://ai-image-tools.com/guides/png-transparency-basics
+- [ ] https://ai-image-tools.com/guides/what-is-webp
+
+---
+
 ## ✅ 申請済み（完了バッチ）
 
 ### バッチ1：主力ページ（2026/06/05 申請済み）
@@ -60,7 +78,7 @@ Claude にこう頼めば、秘書として機能します：
 
 ## ⬜ 残りの申請（1日1バッチずつ）
 
-### ★バッチ最優先：Parquet⇄CSV 訴求（2026/06/13・次回はこれから申請）
+### ★バッチ最優先：Parquet⇄CSV 訴求（2026/06/13作成・2026/07/12申請キュー化）
 > 「AWSでParquet⇄CSVをブラウザだけで変換したい」需要を取りに行く最重要クラスタ。
 > ツール本体（/tools/parquet-to-csv・/tools/csv-to-parquet）はバッチ2で申請済みなので、
 > ここでは新ガイドとEN版・データ系ガイドを優先する。
@@ -72,7 +90,7 @@ Claude にこう頼めば、秘書として機能します：
 - [ ] https://ai-image-tools.com/en/tools/csv-to-parquet
 - [ ] https://ai-image-tools.com/guides/csv-encoding-fix
 - [ ] https://ai-image-tools.com/guides/json-and-csv
-（残り2枠：余裕があれば https://ai-image-tools.com/guides/png-transparency-basics と https://ai-image-tools.com/guides/what-is-avif も）
+（2026/07/12の追加枠： https://ai-image-tools.com/guides/png-transparency-basics 。what-is-avif は既に2位のため今回は見送り）
 
 ### バッチ3：人気ツール第2弾 ※未申請なら最優先
 - [ ] https://ai-image-tools.com/tools/merge-pdf
@@ -179,6 +197,19 @@ Claude にこう頼めば、秘書として機能します：
 ---
 
 ## 🛠️ 対応ログ（やったこと記録）
+
+### 2026/07/12 — インデックス申請10件のキュー確定
+**きっかけ:** 1日の上限10件まで、最優先バッチとTier S未申請をまとめて申請する方針。
+
+**今回の10件:**
+- Parquet/CSV最優先の未申請7件: `/guides/what-is-parquet`, `/en/guides/what-is-parquet`, `/en/guides/parquet-csv-workflows`, `/en/tools/parquet-to-csv`, `/en/tools/csv-to-parquet`, `/guides/csv-encoding-fix`, `/guides/json-and-csv`
+- 追加枠1件: `/guides/png-transparency-basics`
+- Tier S未申請2件: `/guides/heic-cannot-open-windows`, `/guides/what-is-webp`
+
+**メモ:**
+- `/guides/parquet-csv-workflows` は2026/06/19のURL検査で登録済み確認済みなので、今回の申請対象から除外。
+- `what-is-avif` は既に2位の実績があるため、今回の申請枠には入れない。
+- GSCで手動申請が完了したら、本日申請リストと該当バッチ側のチェックを `[x]` に更新する。
 
 ### 2026/06/19 — インデックス状況の確認＋方針整理
 **きっかけ:** GSC「ページのインデックス登録」が登録済み23／クロール済み-未登録9。06/17に新しい検証が開始されている状態をスクショで共有。
