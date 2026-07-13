@@ -984,7 +984,7 @@ const jaGuides: GuideEntry[] = [
         title: "まとめ：ブックマークしておけばPC不要",
         paragraphs: [
           "形式変換・圧縮・リサイズ・PDF化といった日常的な画像作業は、スマホのブラウザだけで完結します。アプリの広告や権限を気にする必要もなく、必要なときにページを開くだけです。",
-          "当サイトはスマホ表示に最適化されており、45種類以上のツールがすべて無料で使えます。よく使うツールをホーム画面に追加しておくと、アプリ感覚で呼び出せて便利です。",
+          "当サイトはスマホ表示に最適化されており、55種類のツールがすべて無料で使えます。よく使うツールをホーム画面に追加しておくと、アプリ感覚で呼び出せて便利です。",
         ],
       },
     ],
@@ -3038,7 +3038,7 @@ const enGuides: GuideEntry[] = [
         title: "Bottom line: bookmark it and skip the PC",
         paragraphs: [
           "Everyday image chores — converting, compressing, resizing, making PDFs — all work straight from a phone browser, with no app ads or permissions to worry about.",
-          "Filewisp is optimized for mobile, with 45+ free tools. Add your most-used ones to the home screen and they behave like apps.",
+          "Filewisp is optimized for mobile, with 55 free tools. Add your most-used ones to the home screen and they behave like apps.",
         ],
       },
     ],

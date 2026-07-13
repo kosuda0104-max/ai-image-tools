@@ -80,7 +80,7 @@ export default function Page() {
             title: "Update history",
             paragraphs: [
               "June 2026: Rebranded to Filewisp with a full redesign. Converters gained multi-file batch processing, progress indicators, and ZIP download; a TIFF conversion bug was fixed; and new problem-solving guides (HEIC, WebP, email attachments, PDF size limits) were published.",
-              "March–May 2026: Launched 45+ tools covering JPG, PNG, WebP, HEIC, and PDF conversion, compression, resizing, and data conversion (Parquet, CSV, JSON), along with format-selection guides. Improvements continue based on real usage and feedback.",
+              "March–May 2026: Launched 50 tools covering JPG, PNG, WebP, HEIC, PDF, and data conversion (Parquet, CSV, JSON), along with format-selection guides. In July 2026, added Fix CSV Encoding, Base64 to Image, JSON/Parquet to Excel, and SVG to WebP, expanding the directory to 55 tools.",
             ],
           },
         ]}

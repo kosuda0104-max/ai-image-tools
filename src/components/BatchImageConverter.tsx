@@ -240,6 +240,7 @@ export default function BatchImageConverter({
 
   return (
     <ToolPageLayout
+      slug={page.slug}
       title={page.title}
       description={page.description}
       aboutTitle={page.aboutTitle}

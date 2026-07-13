@@ -8,7 +8,7 @@ import {
   isJapaneseText,
   TOOL_CONTENT_LAST_UPDATED,
 } from "@/src/lib/seo-signals";
-import { getToolItems } from "@/src/data/tool-directory";
+import { getAllToolItems, getToolItems } from "@/src/data/tool-directory";
 import { siteUrl } from "@/src/lib/site";
 
 type FAQItem = {
@@ -51,6 +51,8 @@ type PracticalChecklist = {
 };
 
 type Props = {
+  slug?: string;
+  toolCategory?: "image" | "pdf" | "data";
   title: string;
   description: string;
   aboutTitle: string;
@@ -68,7 +70,14 @@ type Props = {
   children: ReactNode;
 };
 
-function detectToolCategory(title: string) {
+function detectToolCategory(
+  title: string,
+  explicitCategory?: Props["toolCategory"],
+) {
+  if (explicitCategory) {
+    return explicitCategory;
+  }
+
   const normalized = title.toLowerCase();
 
   if (normalized.includes("pdf") || title.includes("PDF")) {
@@ -79,17 +88,19 @@ function detectToolCategory(title: string) {
     return "conversion";
   }
 
-  return "editing";
+  return "image";
 }
 
 function buildWorkflowSuggestions({
   locale,
   title,
+  category: explicitCategory,
 }: {
   locale: "ja" | "en";
   title: string;
+  category?: Props["toolCategory"];
 }): WorkflowSuggestion[] {
-  const category = detectToolCategory(title);
+  const category = detectToolCategory(title, explicitCategory);
 
   const suggestionsByCategory: Record<string, { slug: string; jaReason: string; enReason: string }[]> = {
     conversion: [
@@ -126,7 +137,24 @@ function buildWorkflowSuggestions({
         enReason: "A close companion task when the document still contains pages you do not want to send.",
       },
     ],
-    editing: [
+    data: [
+      {
+        slug: "csv-encoding-fix",
+        jaReason: "ExcelでCSVが文字化けするときに、文字コードを整えてから次の処理へ進めます。",
+        enReason: "Fix CSV character encoding before opening the data in Excel or continuing the workflow.",
+      },
+      {
+        slug: "json-to-csv",
+        jaReason: "JSONを汎用的なCSVに変えて、表計算ソフトや別システムへ渡せます。",
+        enReason: "Turn JSON into a portable CSV for spreadsheets and downstream systems.",
+      },
+      {
+        slug: "parquet-to-csv",
+        jaReason: "Parquetの中身をCSVにして、軽い確認や受け渡しに使えます。",
+        enReason: "Export Parquet data as CSV for quick inspection and easier sharing.",
+      },
+    ],
+    image: [
       {
         slug: "image-compress",
         jaReason: "見た目を整えたあと、公開前に容量も軽くしたいときに続けやすい流れです。",
@@ -145,7 +173,7 @@ function buildWorkflowSuggestions({
     ],
   };
 
-  const entries = suggestionsByCategory[category] ?? suggestionsByCategory.editing;
+  const entries = suggestionsByCategory[category] ?? suggestionsByCategory.image;
 
   return getToolItems(locale, entries.map((entry) => entry.slug)).map((tool, index) => ({
     ...tool,
@@ -156,12 +184,48 @@ function buildWorkflowSuggestions({
 function buildPracticalChecklist({
   locale,
   title,
+  category: explicitCategory,
 }: {
   locale: "ja" | "en";
   title: string;
+  category?: Props["toolCategory"];
 }): PracticalChecklist {
-  const category = detectToolCategory(title);
+  const category = detectToolCategory(title, explicitCategory);
   const isJa = locale === "ja";
+
+  if (category === "data") {
+    return isJa
+      ? {
+          title: "データ変換前後の確認ポイント",
+          beforeTitle: "変換前に確認",
+          beforeItems: [
+            "元ファイルを残し、文字コードやデータ形式を確認してから変換します。",
+            "先頭行が見出しか、列名やキーが期待どおりかを確認します。",
+            "個人情報や機密データを含む場合は、処理場所と共有先を確認します。",
+          ],
+          afterTitle: "変換後に確認",
+          afterItems: [
+            "プレビューで日本語、列名、行数が正しく読めているか確認します。",
+            "Excelや利用先のシステムで開き、日付や長い数値の表示も確認します。",
+            "変換後のファイルは別名で保存し、元データと比較できるようにします。",
+          ],
+        }
+      : {
+          title: "Checks before and after data conversion",
+          beforeTitle: "Before converting",
+          beforeItems: [
+            "Keep the source file and confirm its encoding and data format.",
+            "Check whether the first row contains headers and whether field names look correct.",
+            "For personal or sensitive data, confirm where processing happens and who will receive the output.",
+          ],
+          afterTitle: "After converting",
+          afterItems: [
+            "Use the preview to verify text, column names, and row counts.",
+            "Open the result in Excel or the destination system and check dates and long numbers.",
+            "Save the converted file under a new name so it can be compared with the source.",
+          ],
+        };
+  }
 
   if (category === "pdf") {
     return isJa
@@ -265,6 +329,8 @@ function buildPracticalChecklist({
 }
 
 export default function ToolPageLayout({
+  slug,
+  toolCategory,
   title,
   description,
   aboutTitle,
@@ -301,10 +367,12 @@ export default function ToolPageLayout({
   const workflowSuggestions = buildWorkflowSuggestions({
     locale: isJapanesePage ? "ja" : "en",
     title,
-  }).filter((tool) => tool.name !== title);
+    category: toolCategory,
+  });
   const practicalChecklist = buildPracticalChecklist({
     locale: isJapanesePage ? "ja" : "en",
     title,
+    category: toolCategory,
   });
   const workflowSuggestionsTitle = isJapanesePage
     ? "次に続けやすい作業"
@@ -314,6 +382,20 @@ export default function ToolPageLayout({
   const toolsPath = `${basePath}/tools`;
   const guidesPath = `${basePath}/guides`;
   const toolHubUrl = `${siteUrl}${toolsPath}`;
+  const locale = isJapanesePage ? "ja" : "en";
+  const normalizedTitle = title.toLocaleLowerCase(locale);
+  const inferredTool = getAllToolItems(locale)
+    .sort((left, right) => right.name.length - left.name.length)
+    .find((tool) =>
+      normalizedTitle.startsWith(tool.name.toLocaleLowerCase(locale)),
+    );
+  const toolPath = slug
+    ? `${toolsPath}/${slug}`
+    : inferredTool?.href ?? toolsPath;
+  const toolUrl = `${siteUrl}${toolPath}`;
+  const visibleWorkflowSuggestions = workflowSuggestions.filter(
+    (tool) => tool.href !== toolPath && tool.name !== title,
+  );
   const webApplicationJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -335,7 +417,8 @@ export default function ToolPageLayout({
       price: "0",
       priceCurrency: "USD",
     },
-    url: toolHubUrl,
+    url: toolUrl,
+    mainEntityOfPage: toolUrl,
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -357,6 +440,7 @@ export default function ToolPageLayout({
         "@type": "ListItem",
         position: 3,
         name: title,
+        item: toolUrl,
       },
     ],
   };
@@ -373,7 +457,7 @@ export default function ToolPageLayout({
             position: index + 1,
             name: `${stepsTitle} ${index + 1}`,
             text: step,
-            url: toolHubUrl,
+            url: toolUrl,
           })),
         }
       : null;
@@ -485,11 +569,11 @@ export default function ToolPageLayout({
             </div>
           </section>
 
-          {workflowSuggestions.length > 0 && (
+          {visibleWorkflowSuggestions.length > 0 && (
             <section className="space-y-4">
               <h2 className="text-xl font-bold text-gray-900">{workflowSuggestionsTitle}</h2>
               <div className="grid gap-4 md:grid-cols-3">
-                {workflowSuggestions.map((tool) => (
+                {visibleWorkflowSuggestions.map((tool) => (
                   <Link
                     key={tool.href}
                     href={tool.href}
@@ -516,8 +600,8 @@ export default function ToolPageLayout({
             <section key={section.title} className="space-y-3">
               <h2 className="text-xl font-bold text-gray-900">{section.title}</h2>
               <div className="space-y-3 text-sm leading-7 text-gray-600">
-                {section.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
+                {section.paragraphs.map((paragraph, index) => (
+                  <p key={`${section.title}-${index}`}>{paragraph}</p>
                 ))}
               </div>
             </section>
@@ -527,8 +611,8 @@ export default function ToolPageLayout({
             <section key={section.title} className="space-y-3">
               <h2 className="text-xl font-bold text-gray-900">{section.title}</h2>
               <ul className="list-disc space-y-2 pl-5 text-sm leading-7 text-gray-600">
-                {section.items.map((item) => (
-                  <li key={item}>{item}</li>
+              {section.items.map((item, index) => (
+                <li key={`${section.title}-${index}`}>{item}</li>
                 ))}
               </ul>
             </section>

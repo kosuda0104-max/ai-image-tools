@@ -1,8 +1,13 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import Base64ToImageTool from "@/src/components/Base64ToImageTool";
+import CsvEncodingFixTool from "@/src/components/CsvEncodingFixTool";
 import ImageCompressTool from "@/src/components/ImageCompressTool";
 import JpgToPngTool from "@/src/components/JpgToPngTool";
+import JsonToExcelTool from "@/src/components/JsonToExcelTool";
+import ParquetToExcelTool from "@/src/components/ParquetToExcelTool";
 import PngToJpgTool from "@/src/components/PngToJpgTool";
+import SvgToWebpTool from "@/src/components/SvgToWebpTool";
 
 describe("main image tools", () => {
   it("shows an error for non-jpg files on the JPG to PNG tool", async () => {
@@ -130,5 +135,117 @@ describe("image compressor", () => {
     expect(
       await screen.findByText("Error: Please select a JPG, PNG, or WebP file."),
     ).toBeInTheDocument();
+  });
+});
+
+describe("new niche conversion tools", () => {
+  const createObjectURL = vi.fn(() => "blob:tool-preview");
+  const revokeObjectURL = vi.fn();
+
+  beforeEach(() => {
+    Object.defineProperty(URL, "createObjectURL", {
+      configurable: true,
+      value: createObjectURL,
+      writable: true,
+    });
+    Object.defineProperty(URL, "revokeObjectURL", {
+      configurable: true,
+      value: revokeObjectURL,
+      writable: true,
+    });
+  });
+
+  afterEach(() => {
+    cleanup();
+    vi.restoreAllMocks();
+    createObjectURL.mockClear();
+    revokeObjectURL.mockClear();
+  });
+
+  it("decodes a Base64 data URL into an image preview", async () => {
+    render(<Base64ToImageTool locale="en" />);
+
+    fireEvent.change(screen.getByLabelText("Base64 or data URL"), {
+      target: {
+        value:
+          "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAFgwJ/l4rZ5QAAAABJRU5ErkJggg==",
+      },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Convert to Image" }));
+
+    expect(await screen.findByText("Done: Image decoded successfully.")).toBeInTheDocument();
+    expect(screen.getByText("image/png")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Download Image" })).toBeEnabled();
+  });
+
+  it("fixes a CSV into an Excel-friendly UTF-8 download", async () => {
+    const { container } = render(<CsvEncodingFixTool locale="en" />);
+    const input = container.querySelector('input[type="file"]');
+    const file = new File(["name,city\nTaro,Tokyo"], "people.csv", {
+      type: "text/csv",
+    });
+
+    fireEvent.change(input as HTMLInputElement, {
+      target: { files: [file] },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Fix Encoding" }));
+
+    expect(
+      await screen.findByText("Done: people.csv has been converted to an Excel-friendly CSV."),
+    ).toBeInTheDocument();
+    expect(screen.getByText("name")).toBeInTheDocument();
+    expect(screen.getByText("Taro")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Download Fixed CSV" })).toBeEnabled();
+  });
+
+  it("converts JSON rows into an Excel download", async () => {
+    const { container } = render(<JsonToExcelTool locale="en" />);
+    const input = container.querySelector('input[type="file"]');
+    const file = new File(
+      [JSON.stringify([{ id: 1, user: { name: "Ada" }, tags: ["alpha"] }])],
+      "data.json",
+      { type: "application/json" },
+    );
+
+    fireEvent.change(input as HTMLInputElement, {
+      target: { files: [file] },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Convert JSON to Excel" }));
+
+    expect(
+      await screen.findByText("data.json was converted to an Excel file with 1 rows."),
+    ).toBeInTheDocument();
+    expect(screen.getByText("user.name")).toBeInTheDocument();
+    expect(screen.getByText("Ada")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Download Excel" })).toBeEnabled();
+  });
+
+  it("rejects non-Parquet files before loading the Parquet reader", async () => {
+    const { container } = render(<ParquetToExcelTool locale="en" />);
+    const input = container.querySelector('input[type="file"]');
+    const file = new File(["not parquet"], "notes.txt", {
+      type: "text/plain",
+    });
+
+    fireEvent.change(input as HTMLInputElement, {
+      target: { files: [file] },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Convert Parquet to Excel" }));
+
+    expect(await screen.findByText("Please select a Parquet file.")).toBeInTheDocument();
+  });
+
+  it("rejects non-SVG files on the SVG to WebP tool", async () => {
+    const { container } = render(<SvgToWebpTool locale="en" />);
+    const input = container.querySelector('input[type="file"]');
+    const file = new File(["hello"], "hello.txt", {
+      type: "text/plain",
+    });
+
+    fireEvent.change(input as HTMLInputElement, {
+      target: { files: [file] },
+    });
+
+    expect(await screen.findByText("Please select an SVG file.")).toBeInTheDocument();
   });
 });

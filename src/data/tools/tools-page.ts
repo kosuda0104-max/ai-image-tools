@@ -102,6 +102,7 @@ const imageConversionSlugs = [
   "ico-to-png",
   "ico-to-jpg",
   "svg-to-png",
+  "svg-to-webp",
   "svg-to-jpg",
 ] as const;
 
@@ -138,10 +139,14 @@ const pdfToolSlugs = [
 
 const dataToolSlugs = [
   "parquet-to-csv",
+  "parquet-to-excel",
   "csv-to-parquet",
+  "csv-encoding-fix",
   "json-to-csv",
+  "json-to-excel",
   "csv-to-json",
   "image-to-base64",
+  "base64-to-image",
 ] as const;
 
 const ja = {
@@ -149,7 +154,7 @@ const ja = {
   heroDescription:
     "画像変換、画像圧縮、リサイズ、PDF 変換や結合まで、よく使う作業をブラウザだけで進められる無料ツールをまとめています。形式の違いで迷ったときも、近い作業を並べて見比べやすい構成です。",
   stats: [
-    { value: "50ツール", label: "画像・PDF・データ変換をカバー" },
+    { value: "55ツール", label: "画像・PDF・データ変換をカバー" },
     { value: "無料", label: "登録不要ですぐ使える" },
     { value: "安全", label: "ブラウザ内で処理" },
   ],
@@ -291,9 +296,9 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
           description:
             "JSONレスポンス、CSV、Parquet、画像のBase64文字列を、ローカル環境から持ち出さずに扱いたいときに使います。",
           tools: [
-            getToolItem("ja", "json-to-csv"),
-            getToolItem("ja", "parquet-to-csv"),
-            getToolItem("ja", "image-to-base64"),
+            getToolItem("ja", "csv-encoding-fix"),
+            getToolItem("ja", "json-to-excel"),
+            getToolItem("ja", "parquet-to-excel"),
           ],
         },
       ],
@@ -354,12 +359,12 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
         },
         {
           situation: "APIレスポンスやDB出力を表で確認したい",
-          recommended: "JSON または Parquet から CSV",
+          recommended: "JSON または Parquet から Excel / CSV",
           reason:
-            "CSVにするとExcelやスプレッドシートで確認しやすく、元ファイルを外部サーバーに送らずに処理できます。",
+            "ExcelやCSVにすると表で確認しやすく、元ファイルを外部サーバーに送らずに処理できます。",
           tools: [
-            getToolItem("ja", "json-to-csv"),
-            getToolItem("ja", "parquet-to-csv"),
+            getToolItem("ja", "json-to-excel"),
+            getToolItem("ja", "parquet-to-excel"),
           ],
         },
       ],
@@ -413,7 +418,7 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
         "A free collection of tools for converting JPG, PNG, WebP, HEIC, GIF, AVIF, BMP, TIFF, ICO, SVG, and PDF files, plus image compression, resizing, cropping, grayscale conversion, and watermarking. Everything runs in your browser, so your files are not uploaded to an external server.",
     },
     stats: [
-      { value: "50 Tools", label: "Image, PDF, and data conversion tools" },
+      { value: "55 Tools", label: "Image, PDF, and data conversion tools" },
       { value: "Free", label: "No signup required" },
       { value: "Safe", label: "Processed in your browser" },
     ],
@@ -507,9 +512,9 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
           description:
             "Convert JSON responses, CSV, Parquet, or image data without sending the source file to an external server.",
           tools: [
-            getToolItem("en", "json-to-csv"),
-            getToolItem("en", "parquet-to-csv"),
-            getToolItem("en", "image-to-base64"),
+            getToolItem("en", "csv-encoding-fix"),
+            getToolItem("en", "json-to-excel"),
+            getToolItem("en", "parquet-to-excel"),
           ],
         },
       ],
@@ -571,12 +576,12 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
         },
         {
           situation: "You need to inspect an API response or data export as a table",
-          recommended: "JSON or Parquet to CSV",
+          recommended: "JSON or Parquet to Excel / CSV",
           reason:
-            "CSV is easy to inspect in a spreadsheet while the conversion stays in your browser.",
+            "Excel and CSV outputs are easy to inspect in a spreadsheet while the conversion stays in your browser.",
           tools: [
-            getToolItem("en", "json-to-csv"),
-            getToolItem("en", "parquet-to-csv"),
+            getToolItem("en", "json-to-excel"),
+            getToolItem("en", "parquet-to-excel"),
           ],
         },
       ],

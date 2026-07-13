@@ -114,11 +114,11 @@ type HomePageContent = {
 const ja = {
   heroTitle: "JPG・PNG・WebP・HEIC・PDF を変換する無料ブラウザツール集",
   heroDescription:
-    "画像変換（JPG←→PNG←→WebP・HEIC→JPG）、画像圧縮、リサイズ、切り抜き、PDF の変換・結合・分割・圧縮、CSV・JSON・Parquet のデータ変換まで45種類以上のツールをブラウザだけで使えます。登録不要・ファイルは外部サーバーに送信されません。",
+    "画像変換（JPG←→PNG←→WebP・HEIC→JPG）、画像圧縮、リサイズ、切り抜き、PDF の変換・結合・分割・圧縮、CSV・JSON・Parquet のデータ変換まで55種類のツールをブラウザだけで使えます。登録不要・ファイルは外部サーバーに送信されません。",
   viewTools: "ツール一覧を見る",
   contact: "お問い合わせ",
   stats: [
-    { value: "45種類以上", label: "画像・PDF・データ変換ツールを提供中" },
+    { value: "55種類", label: "画像・PDF・データ変換ツールを提供中" },
     { value: "完全無料", label: "登録なしですぐ試せる" },
     { value: "ブラウザ完結", label: "ファイルはサーバーに送信されない" },
   ],
@@ -224,6 +224,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "gif-to-jpg",
           "gif-to-png",
           "svg-to-png",
+          "svg-to-webp",
           "svg-to-jpg",
           "bmp-to-jpg",
           "bmp-to-png",
@@ -268,7 +269,17 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       {
         title: ja.cat4,
         description: ja.cat4d,
-        tools: getToolItems("ja", ["parquet-to-csv", "csv-to-parquet", "json-to-csv", "csv-to-json", "image-to-base64"]),
+        tools: getToolItems("ja", [
+          "parquet-to-csv",
+          "parquet-to-excel",
+          "csv-to-parquet",
+          "csv-encoding-fix",
+          "json-to-csv",
+          "json-to-excel",
+          "csv-to-json",
+          "image-to-base64",
+          "base64-to-image",
+        ]),
       },
     ],
     guidesSection: {
@@ -304,12 +315,12 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
     hero: {
       title: "Free Online Image & PDF Converter – JPG, PNG, WebP, HEIC, PDF",
       description:
-        "Convert JPG, PNG, WebP, HEIC, GIF, SVG, PDF, CSV, JSON, and Parquet files instantly in your browser. Compress images, resize, crop, merge PDFs, and more — 45+ free tools with no file upload to an external server.",
+        "Convert JPG, PNG, WebP, HEIC, GIF, SVG, PDF, CSV, JSON, and Parquet files instantly in your browser. Compress images, resize, crop, merge PDFs, and more — 55 free tools with no file upload to an external server.",
       primaryButtonLabel: "View All Tools",
       secondaryButtonLabel: "Contact",
     },
     stats: [
-      { value: "45+ Tools", label: "Image, PDF, and data conversion" },
+      { value: "55 Tools", label: "Image, PDF, and data conversion" },
       { value: "100% Free", label: "No signup required" },
       { value: "Browser-only", label: "Files never leave your device" },
     ],
@@ -369,6 +380,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "gif-to-jpg",
           "gif-to-png",
           "svg-to-png",
+          "svg-to-webp",
           "svg-to-jpg",
           "bmp-to-jpg",
           "bmp-to-png",
@@ -413,7 +425,17 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       {
         title: "Developer & Data Tools",
         description: "Convert CSV, JSON, Parquet, and Base64 in your browser for API responses, database exports, data-platform inspection, and web development workflows.",
-        tools: getToolItems("en", ["parquet-to-csv", "csv-to-parquet", "json-to-csv", "csv-to-json", "image-to-base64"]),
+        tools: getToolItems("en", [
+          "parquet-to-csv",
+          "parquet-to-excel",
+          "csv-to-parquet",
+          "csv-encoding-fix",
+          "json-to-csv",
+          "json-to-excel",
+          "csv-to-json",
+          "image-to-base64",
+          "base64-to-image",
+        ]),
       },
     ],
     guidesSection: {

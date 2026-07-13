@@ -24,6 +24,7 @@ export type ToolComparisonItem = {
 };
 
 export type PageContent = {
+  slug?: string;
   title: string;
   description: string;
   aboutTitle: string;
