@@ -453,6 +453,8 @@ export default function ToolPageLayout({
 
           <section>{children}</section>
 
+          <AdUnit slot={AD_SLOTS.toolAfterTool} />
+
           <section className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
             <h2 className="text-xl font-bold text-gray-900">
               {practicalChecklist.title}
@@ -582,8 +584,6 @@ export default function ToolPageLayout({
               ))}
             </div>
           </section>
-
-          <AdUnit slot={AD_SLOTS.toolInArticle} />
 
           {relatedTools.length > 0 && (
             <section className="space-y-4">

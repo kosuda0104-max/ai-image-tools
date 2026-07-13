@@ -33,12 +33,12 @@ export default function AdUnit({
     }
   }, [slot]);
 
-  if (!slot) return null;
+  if (!ADSENSE_CLIENT || !slot) return null;
 
   return (
     <aside
       className={`my-8 ${className ?? ""}`}
-      aria-label="広告"
+      aria-label="Advertisement"
     >
       <ins
         className="adsbygoogle"

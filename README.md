@@ -29,6 +29,7 @@ Create a `.env.local` file with the values you need:
 
 ```bash
 NEXT_PUBLIC_SITE_URL=https://example.com
+NEXT_PUBLIC_AD_SLOT_GUIDE=1234567890
 RESEND_API_KEY=your_resend_api_key
 CONTACT_TO_EMAIL=hello@example.com
 CONTACT_FROM_EMAIL=noreply@example.com
@@ -36,6 +37,12 @@ CONTACT_FROM_EMAIL=noreply@example.com
 
 `CONTACT_FROM_EMAIL` is optional. If omitted, the contact API falls back to
 `onboarding@resend.dev`.
+
+AdSense uses `ca-pub-9678380581323736` by default and reuses
+`NEXT_PUBLIC_AD_SLOT_GUIDE` across guide, tool, home, and directory placements
+if no page-specific slot is set. Optional page-specific slots are
+`NEXT_PUBLIC_AD_SLOT_TOOL`, `NEXT_PUBLIC_AD_SLOT_HOME`, and
+`NEXT_PUBLIC_AD_SLOT_DIRECTORY`.
 
 ## Scripts
 

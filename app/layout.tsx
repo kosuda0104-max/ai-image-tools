@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
+import AdSenseLoader from "@/components/AdSenseLoader";
 import { siteUrl } from "@/src/lib/site";
 
 const googleVerification =
@@ -106,12 +106,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased bg-white text-gray-900">
-        <Script
-          id="adsbygoogle-loader"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9678380581323736"
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
-        />
+        <AdSenseLoader />
         {children}
       </body>
     </html>

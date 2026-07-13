@@ -6,6 +6,8 @@ import {
   createHomeFaqJsonLd,
   homePageContent,
 } from "@/src/data/home-page";
+import AdUnit from "@/components/AdUnit";
+import { AD_SLOTS } from "@/src/lib/ads";
 import { getAllToolItems } from "@/src/data/tool-directory";
 import { ToolIcon } from "@/src/lib/tool-visuals";
 import { siteUrl } from "@/src/lib/site";
@@ -243,6 +245,12 @@ export default function HomePage({ locale }: Props) {
             </div>
           </section>
         )}
+      </div>
+
+      <div className="border-t border-gray-200 bg-white">
+        <div className="mx-auto max-w-5xl px-4 py-2 sm:px-6 lg:px-8">
+          <AdUnit slot={AD_SLOTS.home} />
+        </div>
       </div>
 
       {/* ── Guides ── */}

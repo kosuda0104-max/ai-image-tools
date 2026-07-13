@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import AdUnit from "@/components/AdUnit";
+import { AD_SLOTS } from "@/src/lib/ads";
 import { toolsPageContent } from "@/src/data/tools/tools-page";
 import { ToolIcon } from "@/src/lib/tool-visuals";
 import { siteUrl } from "@/src/lib/site";
@@ -198,6 +200,8 @@ export default function ToolsPage({ locale }: Props) {
             <option value="name">{labels.sortName}</option>
           </select>
         </div>
+
+        <AdUnit slot={AD_SLOTS.directory} />
 
         {/* ── ツールグリッド ── */}
         {filteredCategories.length === 0 ? (

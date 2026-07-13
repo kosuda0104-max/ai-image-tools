@@ -3,6 +3,7 @@ import GuideRelatedTools from "@/src/components/GuideRelatedTools";
 import GuideRelatedGuides from "@/src/components/GuideRelatedGuides";
 import GuideHero from "@/src/components/GuideHero";
 import { buildGuideArticleJsonLd } from "@/src/lib/guide-seo";
+import { AD_SLOTS } from "@/src/lib/ads";
 import type { GuideEntry } from "@/src/data/guides";
 
 type Props = {
@@ -25,6 +26,7 @@ export default function GuidePageTemplate({ guide, locale }: Props) {
         description={guide.description}
         sections={guide.sections}
         hero={<GuideHero slug={guide.slug} />}
+        adSlot={AD_SLOTS.guideInArticle}
       />
       <GuideRelatedGuides locale={locale} slug={guide.slug} />
       <GuideRelatedTools locale={locale} slug={guide.slug} />
