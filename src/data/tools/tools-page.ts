@@ -95,6 +95,7 @@ const imageConversionSlugs = [
   "gif-to-jpg",
   "avif-to-jpg",
   "avif-to-png",
+  "avif-to-webp",
   "bmp-to-jpg",
   "bmp-to-png",
   "tiff-to-jpg",
@@ -122,6 +123,7 @@ const imageEditingSlugs = [
   "social-image-resize",
   "ogp-image-maker",
   "color-palette-extractor",
+  "image-background-transparent",
 ] as const;
 
 const pdfToolSlugs = [
@@ -135,15 +137,19 @@ const pdfToolSlugs = [
   "compress-pdf",
   "rotate-pdf",
   "pdf-remove-pages",
+  "tiff-to-pdf",
 ] as const;
 
 const dataToolSlugs = [
   "parquet-to-csv",
   "parquet-to-excel",
+  "parquet-viewer",
   "csv-to-parquet",
   "csv-encoding-fix",
+  "csv-delimiter-converter",
   "json-to-csv",
   "json-to-excel",
+  "jsonl-to-csv",
   "csv-to-json",
   "image-to-base64",
   "base64-to-image",
@@ -154,7 +160,7 @@ const ja = {
   heroDescription:
     "画像変換、画像圧縮、リサイズ、PDF 変換や結合まで、よく使う作業をブラウザだけで進められる無料ツールをまとめています。形式の違いで迷ったときも、近い作業を並べて見比べやすい構成です。",
   stats: [
-    { value: "55ツール", label: "画像・PDF・データ変換をカバー" },
+    { value: "61ツール", label: "画像・PDF・データ変換をカバー" },
     { value: "無料", label: "登録不要ですぐ使える" },
     { value: "安全", label: "ブラウザ内で処理" },
   ],
@@ -418,7 +424,7 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
         "A free collection of tools for converting JPG, PNG, WebP, HEIC, GIF, AVIF, BMP, TIFF, ICO, SVG, and PDF files, plus image compression, resizing, cropping, grayscale conversion, and watermarking. Everything runs in your browser, so your files are not uploaded to an external server.",
     },
     stats: [
-      { value: "55 Tools", label: "Image, PDF, and data conversion tools" },
+      { value: "61 Tools", label: "Image, PDF, and data conversion tools" },
       { value: "Free", label: "No signup required" },
       { value: "Safe", label: "Processed in your browser" },
     ],

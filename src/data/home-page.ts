@@ -114,11 +114,11 @@ type HomePageContent = {
 const ja = {
   heroTitle: "JPG・PNG・WebP・HEIC・PDF を変換する無料ブラウザツール集",
   heroDescription:
-    "画像変換（JPG←→PNG←→WebP・HEIC→JPG）、画像圧縮、リサイズ、切り抜き、PDF の変換・結合・分割・圧縮、CSV・JSON・Parquet のデータ変換まで55種類のツールをブラウザだけで使えます。登録不要・ファイルは外部サーバーに送信されません。",
+    "画像変換（JPG←→PNG←→WebP・HEIC→JPG）、背景透過、PDF の変換・結合・分割・圧縮、CSV・JSONL・Parquet のデータ処理まで61種類のツールをブラウザだけで使えます。登録不要・ファイルは外部サーバーに送信されません。",
   viewTools: "ツール一覧を見る",
   contact: "お問い合わせ",
   stats: [
-    { value: "55種類", label: "画像・PDF・データ変換ツールを提供中" },
+    { value: "61種類", label: "画像・PDF・データ変換ツールを提供中" },
     { value: "完全無料", label: "登録なしですぐ試せる" },
     { value: "ブラウザ完結", label: "ファイルはサーバーに送信されない" },
   ],
@@ -221,6 +221,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "png-to-webp",
           "avif-to-jpg",
           "avif-to-png",
+          "avif-to-webp",
           "gif-to-jpg",
           "gif-to-png",
           "svg-to-png",
@@ -248,6 +249,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "flip-image",
           "grayscale-image",
           "watermark-image",
+          "image-background-transparent",
         ]),
       },
       {
@@ -264,6 +266,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "compress-pdf",
           "rotate-pdf",
           "pdf-remove-pages",
+          "tiff-to-pdf",
         ]),
       },
       {
@@ -272,10 +275,13 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
         tools: getToolItems("ja", [
           "parquet-to-csv",
           "parquet-to-excel",
+          "parquet-viewer",
           "csv-to-parquet",
           "csv-encoding-fix",
+          "csv-delimiter-converter",
           "json-to-csv",
           "json-to-excel",
+          "jsonl-to-csv",
           "csv-to-json",
           "image-to-base64",
           "base64-to-image",
@@ -315,12 +321,12 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
     hero: {
       title: "Free Online Image & PDF Converter – JPG, PNG, WebP, HEIC, PDF",
       description:
-        "Convert JPG, PNG, WebP, HEIC, GIF, SVG, PDF, CSV, JSON, and Parquet files instantly in your browser. Compress images, resize, crop, merge PDFs, and more — 55 free tools with no file upload to an external server.",
+        "Convert and inspect JPG, PNG, WebP, HEIC, AVIF, TIFF, PDF, CSV, JSONL, and Parquet files instantly in your browser. Remove backgrounds, inspect schemas, and more — 61 free tools with no file upload to an external server.",
       primaryButtonLabel: "View All Tools",
       secondaryButtonLabel: "Contact",
     },
     stats: [
-      { value: "55 Tools", label: "Image, PDF, and data conversion" },
+      { value: "61 Tools", label: "Image, PDF, and data conversion" },
       { value: "100% Free", label: "No signup required" },
       { value: "Browser-only", label: "Files never leave your device" },
     ],
@@ -377,6 +383,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "png-to-webp",
           "avif-to-jpg",
           "avif-to-png",
+          "avif-to-webp",
           "gif-to-jpg",
           "gif-to-png",
           "svg-to-png",
@@ -404,6 +411,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "flip-image",
           "grayscale-image",
           "watermark-image",
+          "image-background-transparent",
         ]),
       },
       {
@@ -420,6 +428,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "compress-pdf",
           "rotate-pdf",
           "pdf-remove-pages",
+          "tiff-to-pdf",
         ]),
       },
       {
@@ -428,10 +437,13 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
         tools: getToolItems("en", [
           "parquet-to-csv",
           "parquet-to-excel",
+          "parquet-viewer",
           "csv-to-parquet",
           "csv-encoding-fix",
+          "csv-delimiter-converter",
           "json-to-csv",
           "json-to-excel",
+          "jsonl-to-csv",
           "csv-to-json",
           "image-to-base64",
           "base64-to-image",

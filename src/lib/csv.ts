@@ -11,6 +11,7 @@ export type CsvSourceEncoding =
   | "utf-16be";
 
 export type CsvOutputEncoding = "utf-8-bom" | "utf-8";
+export type CsvDelimiter = "," | ";" | "\t" | "|";
 
 export function stripBom(text: string) {
   return text.charCodeAt(0) === 0xfeff ? text.slice(1) : text;
@@ -47,58 +48,53 @@ export function encodeCsvText(text: string, encoding: CsvOutputEncoding) {
   return new TextEncoder().encode(output);
 }
 
-export function parseCsv(text: string): ParsedCsv {
+export function parseDelimitedText(
+  text: string,
+  delimiter: CsvDelimiter,
+): ParsedCsv {
   const rows: string[][] = [];
-  let i = 0;
+  let row: string[] = [];
+  let cell = "";
+  let quoted = false;
 
-  while (i < text.length) {
-    const row: string[] = [];
+  const finishRow = () => {
+    row.push(cell);
+    if (row.some((value) => value.length > 0)) rows.push(row);
+    row = [];
+    cell = "";
+  };
 
-    while (i < text.length && text[i] !== "\n" && text[i] !== "\r") {
-      if (text[i] === '"') {
-        let cell = "";
-        i++;
+  for (let index = 0; index < text.length; index++) {
+    const character = text[index];
 
-        while (i < text.length) {
-          if (text[i] === '"') {
-            if (text[i + 1] === '"') {
-              cell += '"';
-              i += 2;
-            } else {
-              i++;
-              break;
-            }
-          } else {
-            cell += text[i++];
-          }
+    if (quoted) {
+      if (character === '"') {
+        if (text[index + 1] === '"') {
+          cell += '"';
+          index++;
+        } else {
+          quoted = false;
         }
-
-        row.push(cell);
-        if (text[i] === ",") i++;
       } else {
-        let cell = "";
-
-        while (
-          i < text.length &&
-          text[i] !== "," &&
-          text[i] !== "\n" &&
-          text[i] !== "\r"
-        ) {
-          cell += text[i++];
-        }
-
-        row.push(cell);
-        if (text[i] === ",") i++;
+        cell += character;
       }
+      continue;
     }
 
-    if (text[i] === "\r") i++;
-    if (text[i] === "\n") i++;
-
-    if (row.length > 0 && row.some((cell) => cell.length > 0)) {
-      rows.push(row);
+    if (character === '"' && cell.length === 0) {
+      quoted = true;
+    } else if (character === delimiter) {
+      row.push(cell);
+      cell = "";
+    } else if (character === "\n" || character === "\r") {
+      finishRow();
+      if (character === "\r" && text[index + 1] === "\n") index++;
+    } else {
+      cell += character;
     }
   }
+
+  if (cell.length > 0 || row.length > 0) finishRow();
 
   if (rows.length === 0) return { columns: [], rows: [] };
 
@@ -108,11 +104,49 @@ export function parseCsv(text: string): ParsedCsv {
   };
 }
 
+export function parseCsv(text: string): ParsedCsv {
+  return parseDelimitedText(text, ",");
+}
+
+export function detectCsvDelimiter(text: string): CsvDelimiter {
+  const candidates: CsvDelimiter[] = [",", ";", "\t", "|"];
+  let best: { delimiter: CsvDelimiter; score: number } = {
+    delimiter: ",",
+    score: -1,
+  };
+
+  for (const delimiter of candidates) {
+    const parsed = parseDelimitedText(text, delimiter);
+    const widths = [
+      parsed.columns.length,
+      ...parsed.rows.slice(0, 20).map((row) => row.length),
+    ];
+    const expectedWidth = parsed.columns.length;
+    const consistentRows = widths.filter((width) => width === expectedWidth).length;
+    const inconsistentRows = widths.length - consistentRows;
+    const score =
+      expectedWidth > 1
+        ? consistentRows * 100 + expectedWidth - inconsistentRows * 25
+        : 0;
+
+    if (score > best.score) best = { delimiter, score };
+  }
+
+  return best.delimiter;
+}
+
 export function escapeCsvCell(value: unknown): string {
+  return escapeDelimitedCell(value, ",");
+}
+
+export function escapeDelimitedCell(
+  value: unknown,
+  delimiter: CsvDelimiter,
+): string {
   if (value === null || value === undefined) return "";
   const text = String(value);
 
-  if (/[",\r\n]/.test(text)) {
+  if (text.includes(delimiter) || /["\r\n]/.test(text)) {
     return `"${text.replace(/"/g, '""')}"`;
   }
 
@@ -120,7 +154,19 @@ export function escapeCsvCell(value: unknown): string {
 }
 
 export function rowsToCsv(columns: string[], rows: unknown[][]) {
-  const header = columns.map(escapeCsvCell).join(",");
-  const body = rows.map((row) => row.map(escapeCsvCell).join(","));
+  return rowsToDelimited(columns, rows, ",");
+}
+
+export function rowsToDelimited(
+  columns: string[],
+  rows: unknown[][],
+  delimiter: CsvDelimiter,
+) {
+  const header = columns
+    .map((value) => escapeDelimitedCell(value, delimiter))
+    .join(delimiter);
+  const body = rows.map((row) =>
+    row.map((value) => escapeDelimitedCell(value, delimiter)).join(delimiter),
+  );
   return [header, ...body].join("\r\n");
 }

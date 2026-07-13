@@ -8,7 +8,7 @@ const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 const siteDescription =
-  "Free online tools for image, PDF, and data conversion. Convert JPG, PNG, WebP, HEIC, PDF, CSV, JSON, and Parquet files. Compress, resize, crop, rotate, merge, and split — all in your browser with no file upload to a server. 55 tools available.";
+  "Free online tools for image, PDF, and data workflows. Convert AVIF, TIFF, PDF, CSV, JSONL, and Parquet files, remove image backgrounds, and inspect schemas in your browser. 61 tools available with no file upload to a server.";
 
 export const metadata: Metadata = {
   description: siteDescription,

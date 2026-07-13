@@ -80,7 +80,7 @@ export default function Page() {
             title: "主な更新履歴",
             paragraphs: [
               "2026年6月：サイト名を Filewisp に変更し、デザインを全面刷新しました。変換ツールに複数ファイルの一括変換・進捗表示・ZIP一括ダウンロードを追加し、TIFF 変換の不具合を修正しました。あわせて、HEIC・WebP・メール添付・PDF 容量などの悩み解決ガイドを追加しています。",
-              "2026年3〜5月：JPG・PNG・WebP・HEIC・PDF の各種変換、圧縮、リサイズ、データ変換（Parquet・CSV・JSON）など50種類のツールと、形式選びのガイドを公開しました。2026年7月にはCSV文字化け修正、Base64→画像、JSON/Parquet→Excel、SVG→WebPを追加し、55種類へ拡充しました。",
+              "2026年3〜5月：JPG・PNG・WebP・HEIC・PDF の各種変換、圧縮、リサイズ、データ変換（Parquet・CSV・JSON）など50種類のツールと、形式選びのガイドを公開しました。2026年7月にはCSV文字化け修正、JSON/Parquet→Excel、背景透過、Parquetビューアー、JSONL・TIFF・AVIF関連ツールなどを追加し、61種類へ拡充しました。",
             ],
           },
         ]}

@@ -1,13 +1,19 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import AvifToWebpTool from "@/src/components/AvifToWebpTool";
 import Base64ToImageTool from "@/src/components/Base64ToImageTool";
+import CsvDelimiterConverterTool from "@/src/components/CsvDelimiterConverterTool";
 import CsvEncodingFixTool from "@/src/components/CsvEncodingFixTool";
+import ImageBackgroundTransparentTool from "@/src/components/ImageBackgroundTransparentTool";
 import ImageCompressTool from "@/src/components/ImageCompressTool";
 import JpgToPngTool from "@/src/components/JpgToPngTool";
+import JsonlToCsvTool from "@/src/components/JsonlToCsvTool";
 import JsonToExcelTool from "@/src/components/JsonToExcelTool";
 import ParquetToExcelTool from "@/src/components/ParquetToExcelTool";
+import ParquetViewerTool from "@/src/components/ParquetViewerTool";
 import PngToJpgTool from "@/src/components/PngToJpgTool";
 import SvgToWebpTool from "@/src/components/SvgToWebpTool";
+import TiffToPdfTool from "@/src/components/TiffToPdfTool";
 
 describe("main image tools", () => {
   it("shows an error for non-jpg files on the JPG to PNG tool", async () => {
@@ -247,5 +253,111 @@ describe("new niche conversion tools", () => {
     });
 
     expect(await screen.findByText("Please select an SVG file.")).toBeInTheDocument();
+  });
+
+  it("detects and converts a semicolon-delimited CSV", async () => {
+    const { container } = render(<CsvDelimiterConverterTool locale="en" />);
+    const input = container.querySelector('input[type="file"]');
+    const file = new File(
+      ['name;note\nAda;"alpha;beta"'],
+      "semicolon.csv",
+      { type: "text/csv" },
+    );
+
+    fireEvent.change(input as HTMLInputElement, {
+      target: { files: [file] },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Convert Delimiter" }));
+
+    expect(
+      await screen.findByText(
+        "Done: Detected Semicolon (;) delimiter and converted the file.",
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByText("name")).toBeInTheDocument();
+    expect(screen.getByText("alpha;beta")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Download Converted File" }),
+    ).toBeEnabled();
+  });
+
+  it("converts nested JSONL rows into a CSV preview", async () => {
+    const { container } = render(<JsonlToCsvTool locale="en" />);
+    const input = container.querySelector('input[type="file"]');
+    const file = new File(
+      ['{"id":1,"user":{"name":"Ada"}}\n{"id":2,"user":{"name":"Lin"}}'],
+      "events.jsonl",
+      { type: "application/x-ndjson" },
+    );
+
+    fireEvent.change(input as HTMLInputElement, {
+      target: { files: [file] },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Convert JSONL to CSV" }));
+
+    expect(
+      await screen.findByText("Done: 2 rows were converted to CSV."),
+    ).toBeInTheDocument();
+    expect(screen.getByText("user.name")).toBeInTheDocument();
+    expect(screen.getByText("Ada")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Download CSV" })).toBeEnabled();
+  });
+
+  it("rejects unsupported files on the background transparency tool", async () => {
+    const { container } = render(
+      <ImageBackgroundTransparentTool locale="en" />,
+    );
+    const input = container.querySelector('input[type="file"]');
+
+    fireEvent.change(input as HTMLInputElement, {
+      target: { files: [new File(["pdf"], "document.pdf", { type: "application/pdf" })] },
+    });
+
+    expect(
+      await screen.findByText(
+        "Error: Please select a JPG, PNG, or WebP image.",
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it("rejects non-Parquet files on the schema viewer", async () => {
+    const { container } = render(<ParquetViewerTool locale="en" />);
+    const input = container.querySelector('input[type="file"]');
+
+    fireEvent.change(input as HTMLInputElement, {
+      target: { files: [new File(["text"], "data.txt", { type: "text/plain" })] },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Inspect Parquet" }));
+
+    expect(
+      await screen.findByText("Error: Please select a Parquet file."),
+    ).toBeInTheDocument();
+  });
+
+  it("rejects non-TIFF files on the multi-page PDF tool", async () => {
+    const { container } = render(<TiffToPdfTool locale="en" />);
+    const input = container.querySelector('input[type="file"]');
+
+    fireEvent.change(input as HTMLInputElement, {
+      target: { files: [new File(["png"], "image.png", { type: "image/png" })] },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Convert TIFF to PDF" }));
+
+    expect(
+      await screen.findByText("Error: Please select a TIFF or TIF file."),
+    ).toBeInTheDocument();
+  });
+
+  it("rejects non-AVIF files on the AVIF to WebP tool", async () => {
+    const { container } = render(<AvifToWebpTool locale="en" />);
+    const input = container.querySelector('input[type="file"]');
+
+    fireEvent.change(input as HTMLInputElement, {
+      target: { files: [new File(["png"], "image.png", { type: "image/png" })] },
+    });
+
+    expect(
+      await screen.findByText("Error: Please select an AVIF file."),
+    ).toBeInTheDocument();
   });
 });

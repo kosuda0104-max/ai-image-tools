@@ -7,7 +7,7 @@ const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 const siteDescription =
-  "JPG・PNG・WebP・HEIC・PDF、CSV・JSON・Parquet の変換、圧縮、リサイズ、結合、分割をブラウザだけで行える無料ツール集。登録不要・ファイルはサーバーに送信されません。55種類のツールを提供しています。";
+  "JPG・PNG・WebP・HEIC・AVIF・TIFF・PDF、CSV・JSONL・Parquet の変換、背景透過、スキーマ確認をブラウザだけで行える無料ツール集。登録不要・ファイルはサーバーに送信されません。61種類のツールを提供しています。";
 
 export const metadata: Metadata = {
   description: siteDescription,

@@ -38,4 +38,17 @@ describe("buildToolKeywords", () => {
     expect(keywords).toContain("画像 変換 ツール");
     expect(keywords).not.toContain("PDF ツール");
   });
+
+  it.each([
+    ["image-background-transparent", "Make Image Background Transparent", "make background transparent"],
+    ["avif-to-webp", "AVIF to WebP Converter", "AVIF to WebP"],
+    ["csv-delimiter-converter", "CSV Delimiter Converter", "CSV opens in one column"],
+    ["jsonl-to-csv", "JSONL to CSV Converter", "NDJSON to CSV"],
+    ["parquet-viewer", "Parquet Viewer", "Parquet schema viewer"],
+    ["tiff-to-pdf", "Multi-page TIFF to PDF", "multi-page TIFF to PDF"],
+  ])("adds targeted SEO terms for %s", (slug, title, expected) => {
+    const keywords = buildToolKeywords({ locale: "en", slug, title });
+
+    expect(keywords).toContain(expected);
+  });
 });

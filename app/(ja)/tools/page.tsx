@@ -1,9 +1,9 @@
 import ToolsPage from "@/src/components/ToolsPage";
 
 export const metadata = {
-  title: "ツール一覧 – JPG・PNG・WebP・HEIC・PDF 変換ツール 55種類",
+  title: "ツール一覧 – 画像・PDF・データ変換ツール 61種類",
   description:
-    "JPG・PNG・WebP・HEIC・PDF・CSV など55種類の変換・圧縮・編集ツールを提供。登録不要・ブラウザだけで完結・ファイルはサーバーに送信されません。",
+    "画像背景透過、AVIF・TIFF・PDF変換、CSV・JSONL・Parquet処理など61種類の無料ツールを提供。登録不要・ブラウザだけで完結します。",
   alternates: {
     languages: {
       ja: "/tools",
