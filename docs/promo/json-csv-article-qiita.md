@@ -5,6 +5,7 @@
 - なので **ブラウザだけ・アップロードなし**で変換できるツールを作って無料公開しています（業務データを外に出さずに済む）
   - JSON → CSV: https://ai-image-tools.com/tools/json-to-csv
   - CSV → JSON: https://ai-image-tools.com/tools/csv-to-json
+  - JSONL / NDJSON → CSV: https://ai-image-tools.com/tools/jsonl-to-csv
 - この記事では「変換でハマる所（ネスト・文字コード・区切り）」と、ブラウザ／コマンド／コードそれぞれのやり方をまとめます。
 
 ## どんなときに変換したくなるか
@@ -50,6 +51,12 @@ id,name,tags,addr.city
 「そもそも JSON と CSV、どっちで持つべき？」という整理はこちらに書きました：
 https://ai-image-tools.com/guides/json-and-csv
 
+Excelで日本語だけが文字化けする場合は、JSON変換の前に文字コードを直すほうが早いです：
+https://ai-image-tools.com/tools/csv-encoding-fix
+
+全部が1列に入る場合は文字コードではなく区切り文字を確認します：
+https://ai-image-tools.com/tools/csv-delimiter-converter
+
 ## やり方②：コマンド（jq / nkf）
 
 JSON→CSV を `jq` で：
@@ -94,6 +101,9 @@ CSV→JSON は `csv.DictReader` で読んで `json.dump(..., ensure_ascii=False)
 2. **文字コード**：Excel で開くなら **BOM 付き UTF-8（`utf-8-sig`）** が無難。化けたら Shift_JIS も疑う
 3. **区切り・引用符**：値にカンマや改行が入るとズレる。**ちゃんとクォートする**実装で出す
 
+Microsoftの公式案内でも、ExcelでUTF-8 CSVを直接開く用途ではBOM付きで保存するか、「データ」からテキスト／CSVとして読み込む方法が示されています：
+https://support.microsoft.com/en-us/office/opening-csv-utf-8-files-correctly-in-excel-8a935af5-3416-4edd-ba7e-3dfd2bc4a032
+
 ---
 
 ちょっと見たいだけなら**ブラウザ**、繰り返すなら**コード**、と使い分けると楽です。
@@ -101,5 +111,7 @@ CSV→JSON は `csv.DictReader` で読んで `json.dump(..., ensure_ascii=False)
 
 - JSON → CSV: https://ai-image-tools.com/tools/json-to-csv
 - CSV → JSON: https://ai-image-tools.com/tools/csv-to-json
+- JSONL / NDJSON → CSV: https://ai-image-tools.com/tools/jsonl-to-csv
+- CSV文字化け修正: https://ai-image-tools.com/tools/csv-encoding-fix
 
 同じところで詰まった人に届けばと思って書きました。

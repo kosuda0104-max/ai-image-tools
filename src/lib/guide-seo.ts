@@ -35,6 +35,9 @@ export function buildGuideArticleJsonLd(guide: GuideEntry, locale: "ja" | "en") 
     publisher: GUIDE_PUBLISHER,
     mainEntityOfPage: url,
     url,
+    ...(guide.sources && guide.sources.length > 0
+      ? { citation: guide.sources.map((source) => source.href) }
+      : {}),
   };
 }
 

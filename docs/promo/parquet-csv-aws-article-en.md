@@ -13,6 +13,7 @@ tags: aws, parquet, dataengineering, csv
 - Working in AWS S3 / Athena, I constantly wanted to **quickly inspect a Parquet file as CSV** — and couldn't find a frictionless tool.
 - Installing a local toolchain or spinning up a query engine just to *look* at a file felt heavy.
 - So I built a **browser-only Parquet ⇄ CSV converter** and put it out for free (no upload, processed in the browser):
+  - Parquet Viewer: https://ai-image-tools.com/en/tools/parquet-viewer
   - Parquet → CSV: https://ai-image-tools.com/en/tools/parquet-to-csv
   - CSV → Parquet: https://ai-image-tools.com/en/tools/csv-to-parquet
 
@@ -51,7 +52,7 @@ They play different roles:
 In environments billed by **data scanned** — S3 + Athena, BigQuery — leaving data as CSV means scanning more. With Parquet:
 
 - Columns can be skipped → less scanned → **lower query cost**
-- Compression → often **5–10× smaller** than CSV → cheaper storage and transfer
+- Compression and column-oriented encoding → often materially smaller than CSV, depending on the dataset
 - Typed columns → fewer type-coercion and encoding headaches
 
 Data that lives in a platform long-term is best stored as Parquet from the start.
@@ -68,10 +69,11 @@ To make "just let me see it" as short as possible, the converter runs **entirely
 
 - **Parquet → CSV**: https://ai-image-tools.com/en/tools/parquet-to-csv
 - **CSV → Parquet**: https://ai-image-tools.com/en/tools/csv-to-parquet
+- **Parquet Viewer**: https://ai-image-tools.com/en/tools/parquet-viewer
 
 Highlights:
 
-- **No upload, in-browser processing** — files never leave your machine, so it's safe for production or sensitive datasets.
+- **No upload, in-browser processing** — file contents stay in the browser instead of being sent to a conversion server.
 - Handles common codecs (**Snappy / Gzip / Zstd**).
 - Drop a file → see **row/column counts and a preview** → convert and download.
 - No install, free, works on mobile browsers.
@@ -88,7 +90,7 @@ Going the other way, use **CSV → Parquet** to tidy a locally built CSV before 
 
 - Nested columns and Map types don't always flatten cleanly into CSV
 - NULLs become empty fields; dates/timestamps become strings
-- Size limit depends on browser memory — a few hundred MB is usually fine, but truly huge files belong in Athena/Spark
+- Size limit depends on browser memory and schema complexity. Split large files or use Athena/Spark for heavy workloads
 
 It's built for **inspecting and small-to-medium conversions**, not heavy ETL.
 
@@ -98,6 +100,7 @@ I wrote up the parts that didn't fit here:
 
 - What is Parquet? How it differs from CSV: https://ai-image-tools.com/en/guides/what-is-parquet
 - Parquet vs CSV workflows (AWS / BigQuery): https://ai-image-tools.com/en/guides/parquet-csv-workflows
+- Apache Parquet documentation: https://parquet.apache.org/docs/
 
 ## Wrap-up
 

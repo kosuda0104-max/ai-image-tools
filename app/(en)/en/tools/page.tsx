@@ -5,9 +5,11 @@ export const metadata = {
   description:
     "Browse 61 free browser-based tools for image background removal, AVIF, TIFF, PDF, CSV, JSONL, and Parquet workflows without installing anything.",
   alternates: {
+    canonical: "/en/tools",
     languages: {
       en: "/en/tools",
       ja: "/tools",
+      "x-default": "/tools",
     },
   },
 };

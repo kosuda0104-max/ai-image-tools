@@ -88,7 +88,11 @@ const guideRelatedGuidesMap: Record<string, string[]> = {
     "convert-images-on-smartphone",
     "iphone-photos-to-pdf",
   ],
-  "heic-cannot-open-windows": ["heic-to-jpg-guide", "convert-images-on-smartphone"],
+  "heic-cannot-open-windows": [
+    "heic-to-jpg-guide",
+    "convert-images-on-smartphone",
+    "iphone-photos-to-pdf",
+  ],
   "convert-images-on-smartphone": ["heic-to-jpg-guide", "heic-cannot-open-windows"],
 
   // ── PDF cluster ──
@@ -98,7 +102,12 @@ const guideRelatedGuidesMap: Record<string, string[]> = {
   "pdf-to-jpg-guide": ["pdf-workflows", "screenshot-to-pdf", "iphone-photos-to-pdf"],
   "pdf-upload-size-limit": ["merge-or-split-pdf", "pdf-workflows"],
   "screenshot-to-pdf": ["pdf-to-jpg-guide", "iphone-photos-to-pdf"],
-  "iphone-photos-to-pdf": ["heic-to-jpg-guide", "screenshot-to-pdf", "pdf-workflows"],
+  "iphone-photos-to-pdf": [
+    "heic-cannot-open-windows",
+    "heic-to-jpg-guide",
+    "screenshot-to-pdf",
+    "pdf-workflows",
+  ],
 
   // ── Editing cluster ──
   "grayscale-photo": ["add-watermark-to-image", "crop-image-to-square"],

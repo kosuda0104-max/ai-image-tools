@@ -156,9 +156,9 @@ const dataToolSlugs = [
 ] as const;
 
 const ja = {
-  heroTitle: "ブラウザで使える画像・PDFツール一覧",
+  heroTitle: "画像・PDF・データツール一覧",
   heroDescription:
-    "画像変換、画像圧縮、リサイズ、PDF 変換や結合まで、よく使う作業をブラウザだけで進められる無料ツールをまとめています。形式の違いで迷ったときも、近い作業を並べて見比べやすい構成です。",
+    "画像変換・圧縮・編集、PDF整理、CSV・JSONL・Parquet処理をブラウザだけで進められます。ファイル形式か困りごとから、必要なツールへ絞り込めます。",
   stats: [
     { value: "61ツール", label: "画像・PDF・データ変換をカバー" },
     { value: "無料", label: "登録不要ですぐ使える" },
@@ -419,9 +419,9 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
   en: {
     badge: "Filewisp",
     hero: {
-      title: "Free Image and PDF Conversion Tools",
+      title: "Image, PDF, and Data Tools",
       description:
-        "A free collection of tools for converting JPG, PNG, WebP, HEIC, GIF, AVIF, BMP, TIFF, ICO, SVG, and PDF files, plus image compression, resizing, cropping, grayscale conversion, and watermarking. Everything runs in your browser, so your files are not uploaded to an external server.",
+        "Convert and edit images, organize PDFs, and process CSV, JSONL, or Parquet files directly in your browser. Start with a file or describe the problem to narrow all 61 tools to the relevant options.",
     },
     stats: [
       { value: "61 Tools", label: "Image, PDF, and data conversion tools" },

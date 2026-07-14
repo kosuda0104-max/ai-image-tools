@@ -1,0 +1,45 @@
+# External article publish queue (2026-07-14)
+
+The drafts below are technically reviewed and ready for their target editors. Publishing itself requires the owner's authenticated Qiita, Zenn, or dev.to session.
+
+## 1. HEIC / Windows (highest priority)
+
+- Target: Qiita first; Zenn as a later adapted cross-post
+- Title: `iPhoneのHEIC写真がPCで開けない問題を、ブラウザだけで解決する`
+- Paste-ready body: `docs/promo/heic-iphone-article-qiita.md`
+- Zenn source with front matter: `docs/promo/heic-iphone-article-ja.md`
+- Upload assets: the four PNG files under `docs/promo/assets/`
+- Tags: `iPhone`, `HEIC`, `Windows`, `画像変換`, `Web`
+- Primary link: `https://ai-image-tools.com/guides/heic-cannot-open-windows`
+
+## 2. JSON / CSV
+
+- Target: Qiita
+- Suggested title: `JSONとCSVを相互変換するときにハマる、ネスト・文字コード・区切り文字`
+- Paste-ready body: `docs/promo/json-csv-article-qiita.md`
+- Tags: `JSON`, `CSV`, `Excel`, `文字コード`, `データ変換`
+- Primary link: `https://ai-image-tools.com/guides/json-and-csv`
+- Priority supporting link: `https://ai-image-tools.com/tools/csv-encoding-fix`
+
+## 3. Parquet / AWS
+
+- Target: dev.to
+- Title: `I wanted to peek at AWS Parquet files as CSV in the browser, so I built a tool`
+- Publish-ready source: `docs/promo/parquet-csv-aws-article-en.md`
+- Tags: `aws`, `parquet`, `dataengineering`, `csv`
+- Primary link: `https://ai-image-tools.com/en/guides/parquet-csv-workflows`
+- Tool link to feature first: `https://ai-image-tools.com/en/tools/parquet-viewer`
+
+## Existing Qiita article update
+
+Add this short paragraph near the existing Parquet article's conclusion:
+
+> ブラウザだけでParquetのスキーマ・行数・圧縮方式・先頭20行を確認できるFilewispのParquet Viewerも公開しました。CSVやExcelへ変換する前の確認に使えます: https://ai-image-tools.com/tools/parquet-viewer
+
+Existing article: https://qiita.com/coscoskosuda/items/eabb35e06445e8338207
+
+## After each publication
+
+1. Open every Filewisp link from the published page and confirm a 200 response.
+2. Record the published URL and date in `docs/index-request-secretary.md`.
+3. Do not publish all three on the same day; leave enough time to answer comments and avoid duplicate-looking promotion.

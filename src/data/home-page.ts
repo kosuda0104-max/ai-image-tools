@@ -112,9 +112,9 @@ type HomePageContent = {
 };
 
 const ja = {
-  heroTitle: "JPG・PNG・WebP・HEIC・PDF を変換する無料ブラウザツール集",
+  heroTitle: "画像・PDF・データの無料ブラウザツール",
   heroDescription:
-    "画像変換（JPG←→PNG←→WebP・HEIC→JPG）、背景透過、PDF の変換・結合・分割・圧縮、CSV・JSONL・Parquet のデータ処理まで61種類のツールをブラウザだけで使えます。登録不要・ファイルは外部サーバーに送信されません。",
+    "画像変換や背景透過、PDF整理、CSV・JSONL・Parquet処理まで61種類。ファイルを選ぶか困りごとを入力すると、使えるツールだけに絞れます。登録不要・ファイルは外部サーバーに送信されません。",
   viewTools: "ツール一覧を見る",
   contact: "お問い合わせ",
   stats: [
@@ -319,9 +319,9 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
   en: {
     badge: "Filewisp",
     hero: {
-      title: "Free Online Image & PDF Converter – JPG, PNG, WebP, HEIC, PDF",
+      title: "Free Browser Tools for Images, PDFs, and Data",
       description:
-        "Convert and inspect JPG, PNG, WebP, HEIC, AVIF, TIFF, PDF, CSV, JSONL, and Parquet files instantly in your browser. Remove backgrounds, inspect schemas, and more — 61 free tools with no file upload to an external server.",
+        "Convert images, clean up PDFs, remove backgrounds, and process CSV, JSONL, or Parquet files with 61 browser-based tools. Choose a file or describe the problem to see only relevant options. Files are not uploaded to an external server.",
       primaryButtonLabel: "View All Tools",
       secondaryButtonLabel: "Contact",
     },

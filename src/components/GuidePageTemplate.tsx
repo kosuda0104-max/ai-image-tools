@@ -27,6 +27,7 @@ export default function GuidePageTemplate({ guide, locale }: Props) {
         sections={guide.sections}
         hero={<GuideHero slug={guide.slug} />}
         adSlot={AD_SLOTS.guideInArticle}
+        sources={guide.sources}
       />
       <GuideRelatedGuides locale={locale} slug={guide.slug} />
       <GuideRelatedTools locale={locale} slug={guide.slug} />

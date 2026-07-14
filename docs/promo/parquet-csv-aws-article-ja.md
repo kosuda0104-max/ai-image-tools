@@ -14,6 +14,7 @@ published: false # 公開時に true へ
 - AWS S3 / Athena で扱う **Parquet をサッとCSVで中身確認したい**のに、手軽なツールが見つからなかった
 - ローカルにツールを入れたり、いちいちクエリエンジンを立てたりするのが面倒だった
 - そこで **ブラウザだけで Parquet⇄CSV を変換できるツール**を作って無料公開した（アップロード不要・ブラウザ内処理）
+  - Parquet Viewer: https://ai-image-tools.com/tools/parquet-viewer
   - Parquet → CSV: https://ai-image-tools.com/tools/parquet-to-csv
   - CSV → Parquet: https://ai-image-tools.com/tools/csv-to-parquet
 
@@ -52,7 +53,7 @@ AWS でデータを触っていると、`s3://.../part-0000.parquet` みたい�
 S3 + Athena や BigQuery のように**スキャンしたデータ量で課金**される環境では、CSV のまま置くと読み取り量が増えがちです。Parquet にしておくと、
 
 - 列単位で読み飛ばせる → スキャン量が減る → **クエリコストが下がる**
-- 圧縮が効く → 同じデータで **CSV の 5〜10分の1** 程度になることも → ストレージ・転送も軽い
+- 列指向の符号化と圧縮が効く → データの内容によってはCSVより大幅に小さくなる → ストレージ・転送も軽い
 - カラムごとに型を持つ → 読み込み時の型崩れや文字化けが起きにくい
 
 長く基盤に置くデータは、最初から Parquet にしておくと後がラクです。
@@ -69,10 +70,11 @@ S3 + Athena や BigQuery のように**スキャンしたデータ量で課金**
 
 - **Parquet → CSV**: https://ai-image-tools.com/tools/parquet-to-csv
 - **CSV → Parquet**: https://ai-image-tools.com/tools/csv-to-parquet
+- **Parquet Viewer**: https://ai-image-tools.com/tools/parquet-viewer
 
 特徴：
 
-- **アップロード不要・ブラウザ内処理**：ファイルは外部サーバーに送られません。本番データや機密データを含むファイルでも、手元で完結します。
+- **アップロード不要・ブラウザ内処理**：ファイル内容を変換サーバーへ送らず、ブラウザ内で処理します。
 - **Snappy / Gzip / Zstd** など主要な圧縮コーデックに対応
 - ドロップすると**行数・列数とプレビュー**が出て、そのまま変換・ダウンロード
 - インストール不要、無料、スマホのブラウザでも動く
@@ -89,7 +91,7 @@ S3 + Athena や BigQuery のように**スキャンしたデータ量で課金**
 
 - ネスト構造や Map 型のカラムは、フラットな CSV にきれいに落ちないことがあります
 - NULL は空欄、日付・タイムスタンプは文字列として出力されます
-- サイズ上限はブラウザのメモリ依存。数百MB程度までは多くの環境で動きますが、巨大ファイルは Athena 等で処理するほうが向いています
+- サイズ上限はブラウザのメモリとスキーマの複雑さに依存します。大きなファイルは分割し、重い処理はAthenaやSparkを使うほうが向いています
 
 「巨大データのETL」ではなく、「**手元での確認・小〜中規模の変換**」にちょうどいいツールです。
 
@@ -99,6 +101,7 @@ S3 + Athena や BigQuery のように**スキャンしたデータ量で課金**
 
 - Parquetとは？CSVとの違いと使いどころ: https://ai-image-tools.com/guides/what-is-parquet
 - Parquet と CSV の使い分け（AWS・BigQuery 対応）: https://ai-image-tools.com/guides/parquet-csv-workflows
+- Apache Parquet公式ドキュメント: https://parquet.apache.org/docs/
 
 ## おわりに
 

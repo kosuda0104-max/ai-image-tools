@@ -2,7 +2,10 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import GuideFigure from "@/src/components/GuideFigure";
 import AdUnit from "@/components/AdUnit";
-import type { GuideFigure as GuideFigureData } from "@/src/data/guides";
+import type {
+  GuideFigure as GuideFigureData,
+  GuideSource,
+} from "@/src/data/guides";
 
 type Section = {
   title: string;
@@ -19,6 +22,7 @@ type Props = {
   hero?: ReactNode;
   /** Optional AdSense slot. Omit on legal/static utility pages. */
   adSlot?: string;
+  sources?: GuideSource[];
 };
 
 export default function StaticContentPage({
@@ -28,6 +32,7 @@ export default function StaticContentPage({
   locale,
   hero,
   adSlot,
+  sources,
 }: Props) {
   const links =
     locale === "en"
@@ -81,6 +86,28 @@ export default function StaticContentPage({
           ))}
 
           {adSlot ? <AdUnit slot={adSlot} /> : null}
+
+          {sources && sources.length > 0 ? (
+            <section className="space-y-3 border-t border-gray-200 pt-8">
+              <h2 className="text-xl font-semibold text-gray-900">
+                {locale === "ja" ? "公式資料" : "Official references"}
+              </h2>
+              <ul className="space-y-2 text-sm leading-7 text-gray-700">
+                {sources.map((source) => (
+                  <li key={source.href}>
+                    <a
+                      href={source.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-medium text-gray-800 underline decoration-gray-400 underline-offset-4 hover:text-black"
+                    >
+                      {source.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
 
           <section className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
             <div className="flex flex-wrap gap-3">

@@ -4,7 +4,8 @@ import { getAllToolItems } from "@/src/data/tool-directory";
 import { siteUrl } from "@/src/lib/site";
 import { TOOL_CONTENT_LAST_UPDATED } from "@/src/lib/seo-signals";
 
-const guides = getGuides("ja");
+const jaGuides = getGuides("ja");
+const enGuides = getGuides("en");
 const toolRoutes = getAllToolItems("ja").map((tool) => `/tools/${tool.slug}`);
 
 const staticRoutes = [
@@ -49,14 +50,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
             : 0.7,
   }));
 
-  const jaGuideRoutes = guides.map((guide) => ({
+  const jaGuideRoutes = jaGuides.map((guide) => ({
     url: `${siteUrl}/guides/${guide.slug}`,
     lastModified: new Date(guide.updatedAt ?? TOOL_CONTENT_LAST_UPDATED),
     changeFrequency: "weekly" as const,
     priority: 0.85,
   }));
 
-  const enGuideRoutes = guides.map((guide) => ({
+  const enGuideRoutes = enGuides.map((guide) => ({
     url: `${siteUrl}/en/guides/${guide.slug}`,
     lastModified: new Date(guide.updatedAt ?? TOOL_CONTENT_LAST_UPDATED),
     changeFrequency: "weekly" as const,

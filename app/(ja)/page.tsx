@@ -5,6 +5,14 @@ export const metadata: Metadata = {
   title: {
     absolute: "Filewisp – JPG・PNG・WebP・HEIC・PDF 変換 無料オンライン",
   },
+  alternates: {
+    canonical: "/",
+    languages: {
+      ja: "/",
+      en: "/en",
+      "x-default": "/",
+    },
+  },
 };
 
 export default function Page() {

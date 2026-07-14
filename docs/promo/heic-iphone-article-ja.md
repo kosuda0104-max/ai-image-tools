@@ -12,7 +12,7 @@ published: false # 公開時に true へ
 ## TL;DR
 
 - iPhone で撮った写真を Windows PC に送ると `.heic` で**開けない／表示されない**ことがある
-- 原因は iPhone が標準で使う **HEIC（High Efficiency Image Format）** という形式に、受け取り側が対応していないから
+- 原因は iPhone の「高効率」設定で保存される **HEIF／HEIC** に、受け取り側が対応していないから
 - いちばん手軽な解決策は **HEIC を JPG/PNG に変換する**こと。アプリを入れずブラウザだけで終わらせたかったので、**Filewisp**（https://ai-image-tools.com）というツール集を作って無料公開しています
   - HEIC → JPG: https://ai-image-tools.com/tools/heic-to-jpg
   - HEIC → PNG: https://ai-image-tools.com/tools/heic-to-png
@@ -38,10 +38,10 @@ published: false # 公開時に true へ
 
 ## なぜ HEIC になるのか
 
-iPhone は iOS 11 以降、写真の標準フォーマットとして **HEIC**（中身のコーデックは HEIF/HEVC）を採用しています。理由はシンプルで、
+iPhone は iOS 11 以降、カメラの「高効率」設定で写真を **HEIF** として保存し、一般に `.heic` という拡張子を使います。理由はシンプルで、
 
-- 同じ画質なら **JPEG のおよそ半分のファイルサイズ**で保存できる
-- 透過・連写・Live Photos など、JPEG では扱いにくい情報も持てる
+- JPEGより効率よく圧縮し、同等の見た目でストレージ使用量を抑えやすい
+- Live Photosなど、Appleの写真ワークフローで必要な情報を扱える
 
 端末のストレージを節約できる優秀な形式です。問題は、**受け取り側（Windows・一部のWebサービス・古いアプリ）がまだ HEIC に対応しきれていない**こと。撮る側にとっては効率的でも、渡す相手の環境次第で「開けない」が発生します。
 
@@ -89,7 +89,7 @@ iPhone は iOS 11 以降、写真の標準フォーマットとして **HEIC**�
 
 - Live Photos の「動き」部分は引き継がれず、静止画として変換されます
 - 一度に大量（数百枚〜）を入れると、ブラウザのメモリ次第で重くなることがあります。その場合は何回かに分けてください
-- 撮影日時などの Exif は基本的に保持しますが、共有先によっては落ちることがあります
+- 撮影日時・位置情報などのメタデータは変換時に保持されないことがあります。必要な写真は元のHEICも残してください
 
 ## もう少し詳しい解説
 
@@ -97,6 +97,13 @@ iPhone は iOS 11 以降、写真の標準フォーマットとして **HEIC**�
 
 - HEICがWindowsで開けないときの対処: https://ai-image-tools.com/guides/heic-cannot-open-windows
 - HEICをJPGに変換する方法（iPhone写真）: https://ai-image-tools.com/guides/heic-to-jpg-guide
+
+## 参考にした公式資料
+
+- Apple：Apple製のデバイスでHEIF／HEVCメディアを扱う
+  - https://support.apple.com/ja-jp/116944
+- Microsoft：WindowsのフォトでHEIF／HEVCを表示できない場合
+  - https://support.microsoft.com/en-us/windows/photos-app-video-editor-error-can-t-view-this-file-type-173ae0be-2b7d-d413-589e-84ccca0de02e
 
 ## おわりに
 

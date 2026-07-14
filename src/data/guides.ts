@@ -9,6 +9,11 @@ type GuideSection = {
   figure?: GuideFigure;
 };
 
+export type GuideSource = {
+  label: string;
+  href: string;
+};
+
 export type GuideEntry = {
   slug: string;
   title: string;
@@ -16,6 +21,7 @@ export type GuideEntry = {
   cardDescription: string;
   updatedAt?: string;
   sections: GuideSection[];
+  sources?: GuideSource[];
 };
 
 type GuideLocale = "ja" | "en";
@@ -701,12 +707,30 @@ const jaGuides: GuideEntry[] = [
       "iPhoneから送られてきた写真がWindowsで開けない。その原因のほとんどはHEICという形式にあります。なぜ開けないのか、今すぐ開くための方法、今後困らないための設定まで順番に解説します。",
     cardDescription:
       "iPhone写真（HEIC）がWindowsで開けないときの原因と、今すぐできる対処法をまとめています。",
+    updatedAt: "2026-07-14",
+    sources: [
+      {
+        label: "Appleサポート：Apple製デバイスでHEIF／HEVCメディアを扱う",
+        href: "https://support.apple.com/ja-jp/116944",
+      },
+      {
+        label: "Microsoftサポート：フォトでHEIF／HEVCを表示できない場合",
+        href: "https://support.microsoft.com/en-us/windows/photos-app-video-editor-error-can-t-view-this-file-type-173ae0be-2b7d-d413-589e-84ccca0de02e",
+      },
+    ],
     sections: [
       {
         title: "開けない原因は「HEIC」という形式",
         paragraphs: [
-          "iPhoneで撮影した写真は、初期設定では HEIC（High Efficiency Image Container）という形式で保存されます。HEICは同じ画質のJPGよりファイルサイズを大幅に小さくできる優れた形式ですが、Appleが2017年に採用した比較的新しい形式のため、Windows標準では追加の作業なしに開けないことがあります。",
-          "とくに古いWindows 10や、職場の管理されたPCでは、HEICを開くためのコーデック（拡張機能）が入っていないことが多く、「このファイルは表示できません」「対応していない形式です」というエラーになります。ファイルが壊れているわけではないので安心してください。",
+          "iPhoneのカメラ設定が「高効率」になっていると、写真はHEIF形式で保存され、一般にファイル名の末尾が「.heic」になります。HEIFはJPEGより効率よく圧縮できる一方、Windows側のアプリやコーデックが対応していないと、そのままでは表示できません。",
+          "Microsoftも、WindowsのフォトでHEIF画像を扱う際に拡張機能を求められる場合があると案内しています。とくに古いWindows 10や、アプリを追加できない職場PCでは、「このファイルは表示できません」「この種類のファイルは開けません」と出やすくなります。",
+        ],
+      },
+      {
+        title: "30秒で「非対応」か「破損」かを切り分ける",
+        paragraphs: [
+          "まずエクスプローラーで拡張子が「.heic」または「.heif」か、ファイルサイズが0バイトになっていないかを確認します。同じファイルをiPhoneや最新ブラウザでは表示でき、Windowsのフォトだけで開けないなら、原因はほぼ対応形式の違いです。",
+          "iPhoneでも開けない、0バイトになっている、転送が途中で止まった形跡がある場合は、ファイル破損や転送失敗を疑います。この場合は形式変換では直らないため、元の端末から送り直してください。なお、ファイル名を「.heic」から「.jpg」へ書き換えるだけでは中身は変換されません。",
         ],
       },
       {
@@ -733,8 +757,8 @@ const jaGuides: GuideEntry[] = [
       {
         title: "メールやAirDropで送ると自動変換されることも",
         paragraphs: [
-          "実は、iPhoneからメールに添付して送ると、自動的にJPGへ変換されて届くことが多くあります。また「設定 → 写真」の下部にある「MacまたはPCに転送」を「自動」にしておくと、USB接続でPCへ取り込む際に互換性のある形式へ変換してくれます。",
-          "一方、クラウドストレージ（Google Drive など）やチャットアプリ経由では HEIC のまま渡ることが多いです。受け取った側で開けない場合は、前述の変換ツールでJPGにするのが早道です。",
+          "Appleの案内では、メールやメッセージなど共有方法と受信側の対応状況によって、JPEGのような互換形式へ自動変換される場合があります。また「設定 → アプリ → 写真」にある転送設定でも、PCへ取り込むときの変換方法を選べます。OSの版によって設定項目の位置は異なります。",
+          "一方、クラウドストレージやファイル共有では元のHEICがそのまま渡ることもあります。送信経路だけに頼らず、提出先がJPEGまたはPNGを指定しているなら、送る前に明示的に変換するのが確実です。",
         ],
       },
       {
@@ -1355,12 +1379,26 @@ const jaGuides: GuideEntry[] = [
       "Excelで開いたCSVが「譁・喧縺・」のように文字化けする——原因は文字コード（UTF-8とShift_JIS）の食い違いです。なぜ起きるのか、その場で直す手順、崩れにくいデータの渡し方までまとめます。",
     cardDescription:
       "ExcelでCSVが文字化けする原因（UTF-8とShift_JIS）と、その場で直す手順を解説します。",
+    updatedAt: "2026-07-14",
+    sources: [
+      {
+        label: "Microsoftサポート：ExcelでUTF-8のCSVを正しく開く方法",
+        href: "https://support.microsoft.com/en-us/office/opening-csv-utf-8-files-correctly-in-excel-8a935af5-3416-4edd-ba7e-3dfd2bc4a032",
+      },
+    ],
     sections: [
       {
         title: "文字化けの正体は「文字コードの食い違い」",
         paragraphs: [
           "CSVはただのテキストファイルですが、ファイルの中身がどの文字コードで書かれているかという情報を、はっきり持っていないことがあります。書き出した側と開いた側で想定する文字コードがずれると、同じバイト列を別の文字として解釈してしまい、文字化けが起こります。",
           "日本語でよく関わるのがUTF-8とShift_JIS（cp932）の2つです。UTF-8で保存されたCSVをShift_JIS前提のソフトで開く（またはその逆）と、日本語部分だけが崩れます。英数字は化けないのに日本語だけ化ける、というのが典型的なサインです。",
+        ],
+      },
+      {
+        title: "症状で「文字コード」と「区切り」を切り分ける",
+        paragraphs: [
+          "日本語だけが「縺」「譁」のような文字に変わり、英数字や列の位置は合っているなら、文字コードの問題です。UTF-8とShift_JISのどちらで保存されたかを確認し、正しい文字コードで読み直します。",
+          "文字は読めるのに全項目が1列へ入るなら、原因は文字コードではなく区切り文字です。カンマ、セミコロン、タブのどれで区切られているかを確認します。列が途中からずれる場合は、値の中のカンマ・改行・二重引用符の扱いを疑うと、無駄な再変換を減らせます。",
         ],
       },
       {
@@ -1371,8 +1409,8 @@ const jaGuides: GuideEntry[] = [
           caption: "Excel向けに渡すなら、文字コードをそろえてから開くのが確実です",
         },
         paragraphs: [
-          "Windowsの古いExcelは、CSVをダブルクリックで開くとShift_JISとして読もうとします。そのため、Webサービスやプログラムが出力したUTF-8のCSVをそのまま開くと、日本語が文字化けします。これはExcelの初期動作によるもので、ファイル自体が壊れているわけではありません。",
-          "回避策は大きく2つです。1つはExcel側で「データ」→「テキストまたはCSVから」を使い、読み込み時に文字コードをUTF-8に指定する方法。もう1つは、ファイル側をExcelが素直に読める形（UTF-8 BOM付き、またはShift_JIS）に保存し直す方法です。",
+          "BOMのないUTF-8 CSVをダブルクリックで開くと、Excelの版やWindowsの地域設定によって日本語が文字化けすることがあります。ファイル自体が壊れているわけではなく、Excelが想定した文字コードと実際の保存形式が一致していない状態です。",
+          "Microsoftは、UTF-8のCSVをBOM付きで保存する方法か、Excelの「データ」からテキスト／CSVとして読み込む方法を案内しています。毎回の操作を減らしたいなら、ファイル側をUTF-8 BOM付きで保存し直すと扱いやすくなります。",
         ],
       },
       {
@@ -1387,6 +1425,13 @@ const jaGuides: GuideEntry[] = [
         paragraphs: [
           "文字化け以外にも、CSVは「列がずれる」トラブルが起きやすい形式です。セルの中にカンマや改行が含まれていると、適切に引用符（\"）で囲まれていない場合に列の数が合わなくなります。住所や自由記述欄を含むデータで特に起こりがちです。",
           "区切り文字がカンマではなくタブやセミコロンになっていることもあります。開いたときに全部が1列に入ってしまう・列が大きくずれるといった症状が出たら、文字コードだけでなく区切り文字と引用符の扱いも疑ってみてください。",
+        ],
+      },
+      {
+        title: "CSV文字化け修正ツールで直す手順",
+        paragraphs: [
+          "このサイトのCSV文字化け修正ツールでは、元ファイルを選び、文字コードを指定してからUTF-8 BOM付きCSVとして保存できます。UTF-8、Shift-JIS、UTF-16 LE／BEに対応し、変換前に先頭5行のプレビューで日本語と列数を確認できます。",
+          "「自動」はBOMがあればUTF-8またはUTF-16を判別し、BOMがない場合はUTF-8として読みます。プレビューが化けているときはShift-JISを明示的に選び直してください。全部が1列のままなら、文字化け修正ではなくCSV区切り文字変換ツールを使うのが正しい切り分けです。",
         ],
       },
       {
@@ -1406,7 +1451,7 @@ const jaGuides: GuideEntry[] = [
         title: "まとめ：まず文字コードをそろえる",
         paragraphs: [
           "CSVの文字化けは、ほとんどがUTF-8とShift_JISの食い違いです。渡す相手の想定に合わせて文字コードをそろえ、Excel向けならUTF-8（BOM付き）で保存し直すのが基本の対処です。列ずれが出たら区切り文字と引用符も確認しましょう。",
-          "CSV⇄JSON・CSV⇄Parquetの変換は、当サイトで無料・登録不要・ブラウザ内処理で使えます。データの中身を壊さずに形式を整えたいときに役立ててください。",
+          "CSV文字化け修正、CSV区切り文字変換、CSV⇄JSON・CSV⇄Parquetの変換は、当サイトで無料・登録不要・ブラウザ内処理で使えます。症状に合うツールを選び、データを外部へ送らずに整えられます。",
         ],
       },
     ],
@@ -1533,6 +1578,17 @@ const jaGuides: GuideEntry[] = [
       "Webで保存した画像が「.avif」で開けない・送れない。AVIFとはどんな形式で、なぜ高画質なのに軽いのか、JPGやPNGへ変換して扱いやすくする方法を解説します。",
     cardDescription:
       "高圧縮の新しい画像形式AVIFの正体と、JPG・PNGへの変換方法を解説します。",
+    updatedAt: "2026-07-14",
+    sources: [
+      {
+        label: "Alliance for Open Media：What is AVIF?",
+        href: "https://aomedia.org/specifications/avif/",
+      },
+      {
+        label: "MDN：画像ファイル形式ガイド（AVIF）",
+        href: "https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types#avif_image",
+      },
+    ],
     sections: [
       {
         title: "AVIFは高画質で軽い新しい画像形式",
@@ -1544,8 +1600,15 @@ const jaGuides: GuideEntry[] = [
       {
         title: "なぜ開けない・送れないことがあるのか",
         paragraphs: [
-          "AVIFは新しい形式のため、対応していないソフトやサービスがまだ残っています。古いWindowsの標準ビューアやレタッチソフト、一部のSNS・チャット・Webフォームでは、AVIFを開けなかったりアップロードを弾かれたりすることがあります。",
-          "最新のブラウザでは表示できても、「相手の環境で開けるか」「提出先が受け付けるか」は別問題です。共有や提出、別ソフトでの編集が目的なら、互換性の高いJPGやPNGへ変換してしまうのが現実的な解決策になります。",
+          "AVIFは主要な最新ブラウザでは表示できますが、古いOSの画像ビューア、更新されていない編集ソフト、JPEG／PNGだけを許可するアップロードフォームでは拒否されることがあります。ブラウザ対応と、手元のアプリや提出先の対応は分けて考える必要があります。",
+          "「ブラウザでは見えるのに保存後は開けない」という場合、画像が壊れているとは限りません。共有や提出、別ソフトでの編集が目的なら、互換性の高いJPGやPNGへ変換するのが現実的な解決策です。",
+        ],
+      },
+      {
+        title: "拡張子の変更だけでは変換できない",
+        paragraphs: [
+          "「image.avif」を「image.jpg」に名前変更しても、画像内部のAVIFデータはそのままです。アプリは中身をAVIFとして読み取るため、開けない問題は解決しません。変換ツールで画像を一度デコードし、JPG・PNG・WebPとして書き出す必要があります。",
+          "変換先は用途で決めます。写真の共有や提出はJPG、透明背景や再編集はPNG、Web用に軽さと互換性のバランスを取りたいならWebPが候補です。元のAVIFは再変換に備えて残しておくと安心です。",
         ],
       },
       {
@@ -1571,15 +1634,15 @@ const jaGuides: GuideEntry[] = [
       {
         title: "自分でWeb用に書き出すなら",
         paragraphs: [
-          "逆に、自分のサイトを軽くするために画像を高圧縮で配信したい場合は、AVIFやWebPが候補になります。AVIFはより小さくできる一方で対応環境がまだ広がりきっていないため、互換性とのバランスを取りたいならWebPから試すのが無難です。",
-          "「とにかく軽くしたい・対応環境は最新中心」ならAVIF、「軽さと互換性のバランス重視」ならWebP、という基準で選ぶとよいでしょう。JPG→WebP変換も当サイトで利用できます。",
+          "自分のサイトを軽くするために画像を高圧縮で配信したい場合は、AVIFやWebPが候補になります。AVIFは圧縮効率を重視する配信に向き、WebPは制作ツールや既存ワークフローとの互換性を取りやすい形式です。対象ブラウザと画像の見た目を確認して選びます。",
+          "受け取ったAVIFをWeb制作へ流用したい場合は、AVIF→WebP変換も使えます。写真共有ならJPG、透明を保つならPNG、Web素材として扱いやすくしたいならWebP、と出口を分けると迷いません。",
         ],
       },
       {
         title: "まとめ：受け取りはJPG/PNG、配信はAVIF/WebP",
         paragraphs: [
-          "AVIFは高画質で軽い新しい形式ですが、対応環境はまだ広がっている途中です。受け取ったAVIFを確実に扱いたいなら、共有・提出向けにJPG、透過・編集向けにPNGへ変換するのが安全です。自分で軽く配信したいときはAVIFやWebPを使い分けましょう。",
-          "AVIFをJPGに変換・AVIFをPNGに変換は、どちらも当サイトで無料・登録不要・ブラウザ内処理で利用できます。",
+          "AVIFは主要ブラウザで使える高圧縮画像形式ですが、古いアプリや提出フォームまで必ず対応しているとは限りません。受け取ったAVIFを確実に扱いたいなら、共有・提出向けにJPG、透過・編集向けにPNGへ変換します。Web制作へ回すならWebPも選べます。",
+          "AVIFをJPG・PNG・WebPへ変換するツールは、いずれも当サイトで無料・登録不要・ブラウザ内処理で利用できます。",
         ],
       },
     ],
@@ -2755,12 +2818,30 @@ const enGuides: GuideEntry[] = [
       "A photo from an iPhone won't open on your Windows PC? The cause is almost always the HEIC format. Here is why it happens, how to open the file right now, and how to avoid the problem in the future.",
     cardDescription:
       "Why iPhone photos (HEIC) fail to open on Windows, and the fastest ways to fix it.",
+    updatedAt: "2026-07-14",
+    sources: [
+      {
+        label: "Apple Support: Using HEIF or HEVC media on Apple devices",
+        href: "https://support.apple.com/en-us/116944",
+      },
+      {
+        label: "Microsoft Support: Photos cannot view this HEIF or HEVC file type",
+        href: "https://support.microsoft.com/en-us/windows/photos-app-video-editor-error-can-t-view-this-file-type-173ae0be-2b7d-d413-589e-84ccca0de02e",
+      },
+    ],
     sections: [
       {
         title: "The culprit is the HEIC format",
         paragraphs: [
-          "iPhones save photos as HEIC (High Efficiency Image Container) by default. HEIC stores the same quality as JPG at a much smaller size, but it is a relatively new format, and Windows often cannot open it without an extra codec installed.",
-          "On older Windows 10 machines and managed office PCs in particular, you will see errors like \"This file can't be displayed\" or \"Unsupported format.\" The file is not corrupted — Windows just doesn't know how to read it yet.",
+          "When the iPhone camera is set to High Efficiency, photos are stored in the HEIF format and commonly use the .heic filename extension. HEIF compresses more efficiently than JPEG, but a Windows app that lacks the required format support may not display it.",
+          "Microsoft documents cases where Photos asks for an extension before it can use HEIF files. Older Windows 10 machines and managed office PCs are especially likely to show messages such as \"This file can't be displayed\" or \"You need an extension to use this file.\"",
+        ],
+      },
+      {
+        title: "Tell unsupported from corrupted in 30 seconds",
+        paragraphs: [
+          "In File Explorer, first confirm that the name ends in .heic or .heif and that the file size is not zero bytes. If the same file opens on the iPhone or in a current browser but not in Windows Photos, format support is the likely cause.",
+          "If it also fails on the iPhone, is zero bytes, or came from an interrupted transfer, send the original again because conversion cannot repair missing data. Renaming photo.heic to photo.jpg does not convert the bytes inside the file and will not solve the problem.",
         ],
       },
       {
@@ -2787,8 +2868,8 @@ const enGuides: GuideEntry[] = [
       {
         title: "Some transfer methods convert automatically",
         paragraphs: [
-          "Emailing a photo from the iPhone often converts it to JPG automatically. Likewise, enabling Settings → Photos → \"Automatic\" under Transfer to Mac or PC converts files to a compatible format during USB transfer.",
-          "Cloud drives and chat apps, however, usually pass the original HEIC through untouched. If the recipient can't open it, a quick browser conversion to JPG solves it.",
+          "Apple notes that some sharing methods, including email or Messages, may automatically send a more compatible format such as JPEG depending on the recipient's support. The Photos transfer setting can also control whether media is converted while importing to a PC; its location varies by iOS version.",
+          "Cloud drives and file-sharing workflows may keep the original HEIC. If a submission form explicitly accepts JPEG or PNG, converting before sending is more reliable than depending on the transfer path to make the decision.",
         ],
       },
       {
@@ -3409,12 +3490,26 @@ const enGuides: GuideEntry[] = [
       "Open a CSV in Excel and the text comes out garbled — the cause is a mismatch between character encodings (UTF-8 vs Shift_JIS). Here is why it happens, how to fix it on the spot, and how to hand off data that does not break.",
     cardDescription:
       "Why CSVs come out garbled in Excel (UTF-8 vs Shift_JIS) and how to fix it on the spot.",
+    updatedAt: "2026-07-14",
+    sources: [
+      {
+        label: "Microsoft Support: Opening CSV UTF-8 files correctly in Excel",
+        href: "https://support.microsoft.com/en-us/office/opening-csv-utf-8-files-correctly-in-excel-8a935af5-3416-4edd-ba7e-3dfd2bc4a032",
+      },
+    ],
     sections: [
       {
         title: "Garbled text is an encoding mismatch",
         paragraphs: [
           "A CSV is just a text file, but it does not always clearly carry which character encoding it was written in. When the side that wrote the file and the side that opens it assume different encodings, the same bytes get read as different characters — and you get garbled text.",
           "For many languages the two usual suspects are UTF-8 and a legacy local encoding (for Japanese, Shift_JIS / cp932). Open a UTF-8 CSV in a tool that assumes the legacy encoding (or vice versa) and only the non-ASCII text breaks. ASCII looks fine while accented or non-Latin characters garble — that is the telltale sign.",
+        ],
+      },
+      {
+        title: "Separate encoding symptoms from delimiter symptoms",
+        paragraphs: [
+          "If non-ASCII text is garbled while numbers, ASCII text, and column positions still look right, the encoding is the problem. Reopen the file as UTF-8, Shift_JIS, or its actual source encoding instead of editing the broken characters by hand.",
+          "If the text is readable but every value lands in one column, the delimiter is the problem instead. Check whether the file uses commas, semicolons, or tabs. If columns start shifting partway down, inspect embedded commas, line breaks, and double quotes before changing the encoding.",
         ],
       },
       {
@@ -3425,8 +3520,8 @@ const enGuides: GuideEntry[] = [
           caption: "For Excel, line up the encoding before opening rather than fighting it after",
         },
         paragraphs: [
-          "Older Excel on Windows tries to read a double-clicked CSV using the legacy local encoding. So a UTF-8 CSV exported by a web service or program comes out garbled. That is Excel's default behavior, not a corrupted file.",
-          "There are two ways around it. One is to import via Data → 'From Text/CSV' and specify UTF-8 on the way in. The other is to re-save the file in a form Excel reads happily — UTF-8 with a BOM, or the legacy encoding.",
+          "A UTF-8 CSV without a BOM can open as garbled text when Excel, its version, or the Windows locale assumes a different encoding. That is an interpretation mismatch rather than a corrupted file.",
+          "Microsoft recommends either saving the UTF-8 CSV with a BOM or importing it through Data → From Text/CSV. Adding the BOM is convenient when recipients need to double-click the file without repeating import settings.",
         ],
       },
       {
@@ -3441,6 +3536,13 @@ const enGuides: GuideEntry[] = [
         paragraphs: [
           "Beyond encoding, CSVs love to drift columns. When a cell contains a comma or a line break that is not properly wrapped in quotes (\"), the column count stops matching. Address fields and free-text notes are common offenders.",
           "Sometimes the delimiter is a tab or semicolon rather than a comma. If everything lands in one column, or columns shift badly, suspect the delimiter and quoting — not just the encoding.",
+        ],
+      },
+      {
+        title: "Fix it with the CSV encoding tool",
+        paragraphs: [
+          "Filewisp's Fix CSV Encoding tool reads UTF-8, Shift_JIS, and UTF-16 LE or BE, then exports UTF-8 with or without a BOM. A five-row preview shows the decoded text and column count before download, so you can catch a wrong choice immediately.",
+          "Auto mode detects UTF-8 and UTF-16 BOMs and otherwise starts with UTF-8. If the preview is still garbled, explicitly choose Shift_JIS. If the preview remains a single column, switch to the CSV Delimiter Converter because encoding conversion will not change separators.",
         ],
       },
       {
@@ -3460,7 +3562,7 @@ const enGuides: GuideEntry[] = [
         title: "Bottom line: line up the encoding first",
         paragraphs: [
           "CSV garbling is almost always a UTF-8 vs Shift_JIS mismatch. Match the encoding the recipient expects, and for Excel re-save as UTF-8 with a BOM. If columns drift, check the delimiter and quoting too.",
-          "CSV ⇄ JSON and CSV ⇄ Parquet conversions are free, signup-free, and in-browser on Filewisp — useful when you need to fix the shape without corrupting the contents.",
+          "Fix CSV Encoding, CSV Delimiter Converter, CSV ⇄ JSON, and CSV ⇄ Parquet all run in-browser on Filewisp, so you can choose the fix that matches the symptom without uploading the data.",
         ],
       },
     ],
@@ -3587,6 +3689,17 @@ const enGuides: GuideEntry[] = [
       "An image you saved from the web is a .avif that will not open or send. Here is what AVIF is, why it is high quality yet small, and how to convert it to JPG or PNG so it is easy to work with.",
     cardDescription:
       "What the high-compression AVIF format is, and how to convert it to JPG or PNG.",
+    updatedAt: "2026-07-14",
+    sources: [
+      {
+        label: "Alliance for Open Media: What is AVIF?",
+        href: "https://aomedia.org/specifications/avif/",
+      },
+      {
+        label: "MDN: Image file type and format guide (AVIF)",
+        href: "https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types#avif_image",
+      },
+    ],
     sections: [
       {
         title: "AVIF is a newer, high-quality, small format",
@@ -3598,8 +3711,15 @@ const enGuides: GuideEntry[] = [
       {
         title: "Why it won't open or send",
         paragraphs: [
-          "Because AVIF is new, some software and services still do not support it. Older Windows viewers, some photo editors, and certain social, chat, or web-form uploads may refuse to open it or reject the upload.",
-          "Even when your current browser displays it, whether the recipient can open it, or a submission site accepts it, is a separate question. For sharing, submission, or editing in another app, converting to widely supported JPG or PNG is the practical fix.",
+          "Current major browsers display AVIF, but an older operating-system viewer, an unmaintained editor, or an upload form restricted to JPEG and PNG may still reject it. Browser support and the support in a desktop app or submission service are separate questions.",
+          "If the image displays in a browser but not after you save it, the file is not necessarily damaged. For sharing, submission, or editing in another app, converting to widely supported JPG or PNG is the practical fix.",
+        ],
+      },
+      {
+        title: "Renaming the extension is not conversion",
+        paragraphs: [
+          "Changing image.avif to image.jpg only changes the filename. The bytes remain AVIF, so software still tries to decode AVIF data and the file may continue to fail. A converter must decode the source and write a real JPG, PNG, or WebP file.",
+          "Choose the output by use: JPG for photos you need to share or submit, PNG for transparency or continued editing, and WebP for a web asset that balances size with workflow compatibility. Keep the original AVIF in case you need a different output later.",
         ],
       },
       {
@@ -3625,15 +3745,15 @@ const enGuides: GuideEntry[] = [
       {
         title: "If you are exporting for the web yourself",
         paragraphs: [
-          "If instead you want to serve highly compressed images to lighten your own site, AVIF and WebP are the candidates. AVIF goes smaller, but its support is still spreading, so if you want a balance with compatibility, start with WebP.",
-          "Choose AVIF for 'as small as possible, mostly modern environments' and WebP for 'balance of size and compatibility'. JPG → WebP conversion is available on Filewisp too.",
+          "If you want to serve highly compressed images on your own site, AVIF and WebP are both candidates. AVIF emphasizes compression efficiency, while WebP can fit more established editing and publishing workflows. Check your target browsers and inspect the actual output before choosing.",
+          "For a received AVIF that needs to enter a web workflow, Filewisp also converts AVIF to WebP. Think JPG for photo sharing, PNG when alpha matters, and WebP when the destination is a web asset.",
         ],
       },
       {
         title: "Bottom line: receive in JPG/PNG, serve in AVIF/WebP",
         paragraphs: [
-          "AVIF is high quality and small, but support is still catching up. To handle a received AVIF reliably, convert to JPG for sharing or PNG for transparency and editing. When serving light images yourself, choose between AVIF and WebP.",
-          "AVIF to JPG and AVIF to PNG are free, signup-free, and in-browser on Filewisp.",
+          "AVIF is a high-compression format supported by major browsers, but that does not guarantee support in every older app or upload form. Convert to JPG for sharing, PNG for transparency and editing, or WebP when the next stop is a web workflow.",
+          "AVIF to JPG, AVIF to PNG, and AVIF to WebP are free, signup-free, and in-browser on Filewisp.",
         ],
       },
     ],
