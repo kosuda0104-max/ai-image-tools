@@ -217,6 +217,12 @@ Claude にこう頼めば、秘書として機能します：
 - JSON/CSV記事を図2枚付きで新規公開: https://qiita.com/coscoskosuda/items/baf91b0dbf553e7c1531
 - 各公開ページ上で画像表示、本文、Filewispリンクを確認済み。
 
+### 2026/07/16 — DEVアカウント作成と英語記事公開
+**完了内容:**
+- GitHub連携でDEVアカウント `@kosuda` を作成し、表示名・Filewispサイト・英語Bio・技術スタックを設定: https://dev.to/kosuda
+- Parquet / AWS英語記事をカバー画像付きで公開: https://dev.to/kosuda/i-wanted-to-peek-at-aws-parquet-files-as-csv-in-the-browser-so-i-built-a-tool-21p6
+- 公開記事上でFilewisp表記、英語ツール・ガイド6リンク、カバー画像を確認し、全リンクのHTTP 200を確認済み。
+
 ### 2026/07/16 — GSC未完了URLの一括監査
 **監査結果:** 未完了として記録されていた75 URLをURL Inspection APIで確認し、登録済み19・未登録56・取得エラー0だった。
 
@@ -296,7 +302,7 @@ Claude にこう頼めば、秘書として機能します：
 2. **完了: Qiita Parquet記事にFilewisp追記** ← 2026/07/16にParquet Viewerへのリンクを追加。
 3. **[完了: json/csv記事（Qiita）](promo/json-csv-article-qiita.md)** ← 2026/07/16に図2枚付きで公開: https://qiita.com/coscoskosuda/items/baf91b0dbf553e7c1531
 4. **[HEIC記事（note/ブログ用 JA）](promo/heic-iphone-article-ja.md)** ← 同テーマ別媒体。Qiitaと別ドメインから張ると被リンク多様性が出る。
-5. **[Parquet記事（dev.to・英語）](promo/parquet-csv-aws-article-en.md)** ← 英語クラスタ（crawled-not-indexed の本丸）に外部シグナル。
+5. **[完了: Parquet記事（dev.to・英語）](promo/parquet-csv-aws-article-en.md)** ← 2026/07/16に公開: https://dev.to/kosuda/i-wanted-to-peek-at-aws-parquet-files-as-csv-in-the-browser-so-i-built-a-tool-21p6
 
 > avifは申請・記事不要（**既に2位＝インデックス済み**）。format系クラスタ（what-is-webp / image-format-basics）への内部リンクは強化済み（2026-06-30）。
 
@@ -305,4 +311,4 @@ Claude にこう頼めば、秘書として機能します：
 - [x] Qiita（2026/06/14公開・2026/07/16更新）: https://qiita.com/coscoskosuda/items/eabb35e06445e8338207 — Parquet ViewerへのFilewispリンクを追記済み。
 - [x] Qiita（2026/06/15公開・2026/07/16更新）: https://qiita.com/coscoskosuda/items/33280d0892d2e2b4f604 — 4枚目の図・HEIF/HEIC修正文・公式資料を反映済み。
 - [x] Qiita（2026/07/16）: https://qiita.com/coscoskosuda/items/baf91b0dbf553e7c1531 — 「JSONとCSVを相互変換するときにハマる、ネスト・文字コード・区切り文字」。図2枚掲載済み。
-- [ ] dev.to（英語）: [docs/promo/parquet-csv-aws-article-en.md](../docs/promo/parquet-csv-aws-article-en.md) 未投稿
+- [x] dev.to（2026/07/16）: https://dev.to/kosuda/i-wanted-to-peek-at-aws-parquet-files-as-csv-in-the-browser-so-i-built-a-tool-21p6 — Parquet / AWS英語記事。Filewispプロフィールと英語主要リンク6本を設定済み。

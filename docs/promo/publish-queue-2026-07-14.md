@@ -31,6 +31,9 @@ The drafts below are technically reviewed and ready for their target editors. Pu
 
 ## 3. Parquet / AWS
 
+- Status: published on 2026-07-16
+- Published article: `https://dev.to/kosuda/i-wanted-to-peek-at-aws-parquet-files-as-csv-in-the-browser-so-i-built-a-tool-21p6`
+- DEV profile: `https://dev.to/kosuda`
 - Target: dev.to
 - Title: `I wanted to peek at AWS Parquet files as CSV in the browser, so I built a tool`
 - Publish-ready source: `docs/promo/parquet-csv-aws-article-en.md`

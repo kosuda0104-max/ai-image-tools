@@ -1,9 +1,9 @@
 ---
 # dev.to front matter (Qiita/Hashnode: delete this block, paste the body)
 title: "I wanted to peek at AWS Parquet files as CSV in the browser, so I built a tool"
-published: false # set true when you publish
+published: true
 tags: aws, parquet, dataengineering, csv
-# cover_image: https://ai-image-tools.com/og.png
+cover_image: https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/3mxe9q6w3aswbicrpi9k.png
 ---
 
 > Cross-post target: dev.to / Hashnode. A publish checklist is at the very bottom.
@@ -67,6 +67,8 @@ So the rule of thumb becomes: **Parquet for what the platform runs, CSV for chec
 
 To make "just let me see it" as short as possible, the converter runs **entirely in the browser**.
 
+I published it as part of [Filewisp](https://ai-image-tools.com/), a collection of free browser-based tools for image, PDF, and data conversion.
+
 - **Parquet → CSV**: https://ai-image-tools.com/en/tools/parquet-to-csv
 - **CSV → Parquet**: https://ai-image-tools.com/en/tools/csv-to-parquet
 - **Parquet Viewer**: https://ai-image-tools.com/en/tools/parquet-viewer
@@ -110,8 +112,10 @@ If "I want to turn an AWS Parquet into CSV right in the browser" has ever stoppe
 
 ## 📣 Pre-publish checklist (do not include in the article)
 
-- [ ] Flip `published: true` (dev.to)
-- [ ] Set up to 4 tags; optionally set `cover_image`
-- [ ] Verify the 4 links resolve
-- [ ] Self-review for over-promotion (keep story → explanation → tool order; dev.to dislikes pure ads)
-- [ ] After publishing, log the URL in index-request-secretary.md ("並行してやると効くこと")
+- [x] Flip `published: true` (dev.to)
+- [x] Set up to 4 tags and `cover_image`
+- [x] Verify all Filewisp links resolve
+- [x] Self-review for over-promotion (keep story → explanation → tool order; dev.to dislikes pure ads)
+- [x] After publishing, log the URL in index-request-secretary.md ("並行してやると効くこと")
+
+Published: https://dev.to/kosuda/i-wanted-to-peek-at-aws-parquet-files-as-csv-in-the-browser-so-i-built-a-tool-21p6
