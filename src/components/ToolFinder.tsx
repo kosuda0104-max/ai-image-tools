@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import {
+  useEffect,
   useId,
   useMemo,
   useRef,
@@ -31,6 +32,7 @@ const finderCopy = {
     dropTitle: "ここにファイルをドロップ",
     fileAction: "ファイルを選択",
     fileHint: "種類を自動判定して、使えるツールをすぐに表示します",
+    pasteHint: "スクリーンショットは Ctrl+V で貼り付けもできます",
     chooseAnother: "別のファイルを選択",
     clearFile: "選択を解除",
     recommendations: "このファイルで使えるツール",
@@ -57,6 +59,7 @@ const finderCopy = {
     dropTitle: "Drop your file here",
     fileAction: "Choose file",
     fileHint: "We detect the format and show only the tools that fit",
+    pasteHint: "You can also paste a screenshot with Ctrl+V",
     chooseAnother: "Choose another file",
     clearFile: "Clear selected file",
     recommendations: "Tools for this file",
@@ -154,6 +157,21 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
     selectFiles(event.dataTransfer.files);
   };
 
+  // Accept a pasted screenshot or file (Ctrl+V / Cmd+V) anywhere on the page.
+  // Text pastes (e.g. into the search box) carry no files and pass through.
+  useEffect(() => {
+    const onPaste = (event: ClipboardEvent) => {
+      const pasted = event.clipboardData?.files;
+      if (pasted && pasted.length > 0) {
+        event.preventDefault();
+        setFiles(Array.from(pasted));
+        setDragging(false);
+      }
+    };
+    window.addEventListener("paste", onPaste);
+    return () => window.removeEventListener("paste", onPaste);
+  }, []);
+
   // Hand the selected files to the tool page so the user does not have to
   // pick them again after navigating.
   const handleToolSelected = () => {
@@ -207,6 +225,7 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
             {t.fileAction}
           </label>
           <p className="mt-3 text-xs text-gray-500">{t.fileHint}</p>
+          <p className="mt-1 text-xs text-gray-400">{t.pasteHint}</p>
           <p className="mt-1 text-xs font-medium text-emerald-700">{t.privacy}</p>
         </div>
       ) : (

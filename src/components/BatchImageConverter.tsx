@@ -1,12 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { zipSync } from "fflate";
 import PrimaryButton from "@/components/PrimaryButton";
 import StatusMessage from "@/components/StatusMessage";
 import ToolPageLayout from "@/components/ToolPageLayout";
 import type { StandardImageConversionContent } from "@/src/lib/conversion-content";
+import { setPendingFiles } from "@/src/lib/pending-files";
 import { usePendingFiles } from "@/src/lib/use-pending-files";
+import { getToolItem } from "@/src/data/tool-directory";
 import {
   convertImageWithCanvas,
   formatFileSize,
@@ -61,6 +64,7 @@ export default function BatchImageConverter({
 }: Props) {
   const { page, ui } = content;
   const ja = isJa(page.title);
+  const router = useRouter();
 
   const L = ja
     ? {
@@ -227,6 +231,27 @@ export default function BatchImageConverter({
       const blob = new Blob([zipped.slice().buffer], { type: "application/zip" });
       triggerBlobDownload(blob, "converted.zip");
     });
+  };
+
+  // Follow-up tools that make sense for the produced format. Clicking one
+  // hands the converted results over so the user keeps working on them.
+  const chainSlugs =
+    outputExtension === "jpg"
+      ? ["jpg-compress", "image-to-pdf"]
+      : outputExtension === "png"
+        ? ["png-compress", "image-to-pdf"]
+        : outputExtension === "webp"
+          ? ["webp-compress"]
+          : [];
+  const chainTools = chainSlugs.map((slug) =>
+    getToolItem(ja ? "ja" : "en", slug),
+  );
+
+  const handleChain = (href: string) => {
+    setPendingFiles(
+      results.map((r) => new File([r.blob], r.name, { type: outputType })),
+    );
+    router.push(href);
   };
 
   const handleReset = () => {
@@ -415,6 +440,28 @@ export default function BatchImageConverter({
                 {L.convertMore}
               </button>
             </div>
+
+            {chainTools.length > 0 ? (
+              <div className="rounded-xl border border-blue-100 bg-blue-50/60 px-4 py-3">
+                <p className="text-xs font-semibold text-gray-700">
+                  {ja
+                    ? "このファイルで続けて作業する"
+                    : "Keep working with these files"}
+                </p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {chainTools.map((tool) => (
+                    <button
+                      key={tool.slug}
+                      type="button"
+                      onClick={() => handleChain(tool.href)}
+                      className="rounded-lg border border-blue-200 bg-white px-3 py-2 text-xs font-semibold text-blue-800 transition hover:border-blue-400 hover:bg-blue-50"
+                    >
+                      {tool.name} →
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
         )}
 

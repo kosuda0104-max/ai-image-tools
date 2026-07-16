@@ -5,6 +5,7 @@ import {
 } from "@/src/data/home-page";
 import AdUnit from "@/components/AdUnit";
 import ToolFinder from "@/src/components/ToolFinder";
+import RecentTools from "@/src/components/RecentTools";
 import { AD_SLOTS } from "@/src/lib/ads";
 import { getAllToolItems } from "@/src/data/tool-directory";
 import { ToolIcon } from "@/src/lib/tool-visuals";
@@ -129,6 +130,7 @@ export default function HomePage({ locale }: Props) {
           <div className="mt-6">
             <ToolFinder locale={locale} tools={allTools} />
           </div>
+          <RecentTools locale={locale} />
         </div>
       </section>
 

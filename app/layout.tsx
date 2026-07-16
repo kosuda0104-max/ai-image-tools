@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import AdSenseLoader from "@/components/AdSenseLoader";
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import { siteUrl } from "@/src/lib/site";
 
 const googleVerification =
@@ -107,6 +108,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased bg-white text-gray-900">
         <AdSenseLoader />
+        <ServiceWorkerRegister />
         {children}
       </body>
     </html>

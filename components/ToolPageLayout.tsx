@@ -1,5 +1,6 @@
 import FAQJsonLd from "@/components/FAQJsonLd";
 import AdUnit from "@/components/AdUnit";
+import RecentToolTracker from "@/src/components/RecentToolTracker";
 import { AD_SLOTS } from "@/src/lib/ads";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -478,6 +479,7 @@ export default function ToolPageLayout({
 
   return (
     <>
+      <RecentToolTracker />
       <FAQJsonLd faqs={faqs} />
       <script
         type="application/ld+json"
