@@ -210,17 +210,12 @@ Claude にこう頼めば、秘書として機能します：
 - AVIF to JPG・BMP to JPGは既存のツール用SEOメタデータへ統一。
 - 型検査、Lint、全92テスト、本番ビルドに合格。生成HTML上で14ページすべてcanonical一致を確認。
 
-### 2026/07/16 — Qiita公開状況と図の再確認
-**確認結果:**
-- HEIC記事は新規投稿待ちではなく、2026/06/15に公開済み: https://qiita.com/coscoskosuda/items/33280d0892d2e2b4f604
-- 公開本文には図が3枚ある。`iphone-camera-format.png` だけ未掲載。
-- 公開本文には古いHEIC説明とExif保持の記述が残っているため、修正版 `docs/promo/heic-iphone-article-qiita.md` で既存記事を更新する。
-- Qiitaの重複投稿は行わず、次の新規投稿はJSON/CSV記事とする。
-- JSON/CSV記事には、ネストの平坦化とCSVの3つの失敗原因を説明する図2枚を追加済み。
-
-**投稿環境:**
-- ログイン済みQiitaを利用してよい旨を確認済み。
-- この作業環境にはQiita APIトークンまたは操作可能なブラウザ連携がないため、外部記事の更新操作自体は未実施。
+### 2026/07/16 — Qiita記事3件を公開対応
+**完了内容:**
+- HEIC既存記事を修正版へ更新し、4枚目の設定図・公式資料・メタデータ注意書きを反映: https://qiita.com/coscoskosuda/items/33280d0892d2e2b4f604
+- Parquet既存記事へFilewisp Parquet Viewerの案内を追記: https://qiita.com/coscoskosuda/items/eabb35e06445e8338207
+- JSON/CSV記事を図2枚付きで新規公開: https://qiita.com/coscoskosuda/items/baf91b0dbf553e7c1531
+- 各公開ページ上で画像表示、本文、Filewispリンクを確認済み。
 
 ### 2026/07/16 — GSC未完了URLの一括監査
 **監査結果:** 未完了として記録されていた75 URLをURL Inspection APIで確認し、登録済み19・未登録56・取得エラー0だった。
@@ -297,9 +292,9 @@ Claude にこう頼めば、秘書として機能します：
 ### 🚀 次に進める被リンク施策（優先順・素材準備済み）
 > 2026-06レポートの示唆：オンサイトは打ち切った。針を動かすのは**被リンク＝表示面の拡大**。
 > Tier S直結の更新と、未公開の新規記事から順に進める。
-1. **[公開済みHEIC記事を更新](promo/heic-iphone-article-qiita.md)** ← 図3枚は掲載済み。`iphone-camera-format.png` を追加し、HEIF/HEIC説明・Exif保持・公式資料を修正版へ更新する。重複投稿はしない。
-2. **Qiita Parquet記事に「Filewisp」追記** ← 既投稿（https://qiita.com/coscoskosuda/items/eabb35e06445e8338207）の本文末尾に `Filewisp（https://ai-image-tools.com）` を追記。1分で効く。
-3. **[json/csv記事（Qiita）](promo/json-csv-article-qiita.md)** ← 次の新規Qiita投稿。図2枚も準備済み。データクラスタ（csv-encoding-fix / json-and-csv）の権威補強。
+1. **[完了: 公開済みHEIC記事を更新](promo/heic-iphone-article-qiita.md)** ← 2026/07/16に4枚目の図・修正文・公式資料を反映。
+2. **完了: Qiita Parquet記事にFilewisp追記** ← 2026/07/16にParquet Viewerへのリンクを追加。
+3. **[完了: json/csv記事（Qiita）](promo/json-csv-article-qiita.md)** ← 2026/07/16に図2枚付きで公開: https://qiita.com/coscoskosuda/items/baf91b0dbf553e7c1531
 4. **[HEIC記事（note/ブログ用 JA）](promo/heic-iphone-article-ja.md)** ← 同テーマ別媒体。Qiitaと別ドメインから張ると被リンク多様性が出る。
 5. **[Parquet記事（dev.to・英語）](promo/parquet-csv-aws-article-en.md)** ← 英語クラスタ（crawled-not-indexed の本丸）に外部シグナル。
 
@@ -307,6 +302,7 @@ Claude にこう頼めば、秘書として機能します：
 
 ### 投稿した記事ログ
 - [x] Zenn（2026/06/13）: https://zenn.dev/kosuda/articles/0e8cf5da824a64 — 「AWSのParquetをブラウザだけでCSVにしたかったので、ツールを作って公開した」
-- [x] Qiita（2026/06/14）: https://qiita.com/coscoskosuda/items/eabb35e06445e8338207 — 同内容。※リンクはあるが本文に「Filewisp」ブランド名が未記載。記事末尾に「Filewisp（https://ai-image-tools.com）」を追記推奨
-- [x] Qiita（2026/06/15）: https://qiita.com/coscoskosuda/items/33280d0892d2e2b4f604 — 「iPhoneのHEIC写真がPCで開けない問題を、ブラウザだけで解決する」。図3枚掲載済み、4枚目と修正文は更新待ち。
+- [x] Qiita（2026/06/14公開・2026/07/16更新）: https://qiita.com/coscoskosuda/items/eabb35e06445e8338207 — Parquet ViewerへのFilewispリンクを追記済み。
+- [x] Qiita（2026/06/15公開・2026/07/16更新）: https://qiita.com/coscoskosuda/items/33280d0892d2e2b4f604 — 4枚目の図・HEIF/HEIC修正文・公式資料を反映済み。
+- [x] Qiita（2026/07/16）: https://qiita.com/coscoskosuda/items/baf91b0dbf553e7c1531 — 「JSONとCSVを相互変換するときにハマる、ネスト・文字コード・区切り文字」。図2枚掲載済み。
 - [ ] dev.to（英語）: [docs/promo/parquet-csv-aws-article-en.md](../docs/promo/parquet-csv-aws-article-en.md) 未投稿

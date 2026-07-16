@@ -4,6 +4,7 @@ The drafts below are technically reviewed and ready for their target editors. Pu
 
 ## 1. Existing HEIC / Windows article update (highest priority)
 
+- Status: completed on 2026-07-16
 - Published article: `https://qiita.com/coscoskosuda/items/33280d0892d2e2b4f604`
 - Published: 2026-06-15
 - Action: update the existing article; do not publish a duplicate
@@ -18,6 +19,8 @@ The drafts below are technically reviewed and ready for their target editors. Pu
 
 ## 2. JSON / CSV (next new Qiita post)
 
+- Status: published on 2026-07-16
+- Published article: `https://qiita.com/coscoskosuda/items/baf91b0dbf553e7c1531`
 - Target: Qiita
 - Suggested title: `JSONとCSVを相互変換するときにハマる、ネスト・文字コード・区切り文字`
 - Paste-ready body: `docs/promo/json-csv-article-qiita.md`
@@ -36,6 +39,8 @@ The drafts below are technically reviewed and ready for their target editors. Pu
 - Tool link to feature first: `https://ai-image-tools.com/en/tools/parquet-viewer`
 
 ## Existing Parquet Qiita article update
+
+Status: completed on 2026-07-16.
 
 Add this short paragraph near the existing Parquet article's conclusion:
 
