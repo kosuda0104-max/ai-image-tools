@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { useState, useMemo } from "react";
 import {
   createHomeFaqJsonLd,
   homePageContent,
@@ -23,19 +20,10 @@ type CardTool = {
   description?: string;
 };
 
-function ToolCard({
-  tool,
-  locale,
-}: {
-  tool: CardTool;
-  locale: "ja" | "en";
-}) {
-  const href =
-    locale === "en" ? tool.href.replace(/^\/tools/, "/en/tools") : tool.href;
-
+function ToolCard({ tool }: { tool: CardTool }) {
   return (
     <Link
-      href={href}
+      href={tool.href}
       className="group flex h-full flex-col rounded-lg border border-gray-200 bg-white p-4 transition duration-200 hover:border-blue-200 hover:shadow-md"
     >
       <ToolIcon name={tool.name} href={tool.href} />
@@ -51,6 +39,20 @@ function ToolCard({
   );
 }
 
+function CompactToolCard({ tool }: { tool: CardTool }) {
+  return (
+    <Link
+      href={tool.href}
+      className="group flex items-center gap-3 rounded-lg border border-gray-200 bg-white px-3 py-2.5 transition hover:border-blue-200 hover:shadow-sm"
+    >
+      <ToolIcon name={tool.name} href={tool.href} size="sm" />
+      <span className="min-w-0 flex-1 text-sm font-semibold text-gray-900 group-hover:text-blue-700">
+        {tool.name}
+      </span>
+    </Link>
+  );
+}
+
 export default function HomePage({ locale }: Props) {
   const t = homePageContent[locale];
   const faqJsonLd = createHomeFaqJsonLd(locale);
@@ -61,28 +63,19 @@ export default function HomePage({ locale }: Props) {
       ? "All processing stays in your browser — files are not stored."
       : "すべてブラウザ内処理・ファイルは保存されません";
 
-  const allTools = useMemo(() => getAllToolItems(locale), [locale]);
-  const [activeTab, setActiveTab] = useState(0); // 0 = popular, 1+ = categories
+  const allTools = getAllToolItems(locale);
   const labels =
     locale === "en"
       ? {
-          popularTab: "Popular",
+          popularTitle: "Popular tools",
+          allByCategory: "All tools by category",
           viewAll: "View all tools",
-          categoryTabs: "Tool categories",
         }
       : {
-          popularTab: "人気",
-          viewAll: "すべてのツールを見る",
-          categoryTabs: "ツールカテゴリ",
+          popularTitle: "よく使われるツール",
+          allByCategory: "すべてのツール（カテゴリ別）",
+          viewAll: "ツール一覧ページへ",
         };
-
-  const tabs = [
-    { label: labels.popularTab, tools: t.popularTools },
-    ...t.categories.map((c) => ({ label: c.title, tools: c.tools })),
-  ];
-  const activeTools = (tabs[activeTab]?.tools ?? tabs[0].tools).slice(0, 8);
-
-  const allToolItems = allTools;
 
   const websiteCollectionJsonLd = {
     "@context": "https://schema.org",
@@ -94,12 +87,12 @@ export default function HomePage({ locale }: Props) {
     mainEntity: {
       "@type": "ItemList",
       name: locale === "en" ? "Featured tool collection" : "掲載ツール一覧",
-      numberOfItems: allToolItems.length,
-      itemListElement: allToolItems.map((tool, index) => ({
+      numberOfItems: allTools.length,
+      itemListElement: allTools.map((tool, index) => ({
         "@type": "ListItem",
         position: index + 1,
         name: tool.name,
-        url: `${siteUrl}${locale === "en" ? tool.href.replace(/^\/tools/, "/en/tools") : tool.href}`,
+        url: `${siteUrl}${tool.href}`,
       })),
     },
   };
@@ -121,74 +114,34 @@ export default function HomePage({ locale }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteCollectionJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
 
-      {/* ── Hero ── */}
+      {/* ── Hero: drop a file and get routed to the right tool ── */}
       <section className="border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-10 text-center sm:px-6 sm:py-12 lg:px-8">
+        <div className="mx-auto max-w-6xl px-4 py-8 text-center sm:px-6 sm:py-10 lg:px-8">
           <p className="text-xs font-semibold text-emerald-700">
             {trustMessage}
           </p>
-          <h1 className="mx-auto mt-4 max-w-5xl text-3xl font-extrabold text-gray-950 [overflow-wrap:anywhere] sm:text-4xl">
+          <h1 className="mx-auto mt-3 max-w-5xl text-2xl font-extrabold text-gray-950 [overflow-wrap:anywhere] sm:text-3xl">
             {t.hero.title}
           </h1>
-          <p className="mx-auto mt-3 max-w-3xl text-sm leading-7 text-gray-600 sm:text-base">
+          <p className="mx-auto mt-2 max-w-3xl text-sm leading-7 text-gray-600">
             {t.hero.description}
           </p>
-          <div className="mt-7">
+          <div className="mt-6">
             <ToolFinder locale={locale} tools={allTools} />
           </div>
         </div>
       </section>
 
+      {/* ── Popular tools ── */}
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <section className="py-10">
-          <div className="mb-5 text-center">
-            <h2 className="text-xl font-bold text-gray-950">
-              {locale === "en" ? "Browse by goal" : "目的から選ぶ"}
-            </h2>
-          </div>
-          <div className="overflow-x-auto pb-1">
-            <div
-              role="tablist"
-              aria-label={labels.categoryTabs}
-              className="mx-auto flex w-max min-w-full gap-1 rounded-lg bg-gray-200 p-1 sm:min-w-0"
-            >
-              {tabs.map((tab, index) => (
-                <button
-                  key={tab.label}
-                  type="button"
-                  role="tab"
-                  aria-selected={activeTab === index}
-                  aria-controls="home-tool-panel"
-                  onClick={() => setActiveTab(index)}
-                  className={`min-h-10 flex-1 whitespace-nowrap rounded-md px-4 py-2 text-sm font-semibold transition ${
-                    activeTab === index
-                      ? "bg-gray-950 text-white shadow-sm"
-                      : "text-gray-600 hover:bg-white/70 hover:text-gray-950"
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div
-            id="home-tool-panel"
-            role="tabpanel"
-            className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4"
-          >
-            {activeTools.map((tool) => (
-              <ToolCard key={tool.href} tool={tool} locale={locale} />
+          <h2 className="text-center text-xl font-bold text-gray-950">
+            {labels.popularTitle}
+          </h2>
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+            {t.popularTools.slice(0, 8).map((tool) => (
+              <ToolCard key={tool.href} tool={tool} />
             ))}
-          </div>
-
-          <div className="mt-8 text-center">
-            <Link
-              href={`${basePath}/tools`}
-              className="inline-flex rounded-md bg-blue-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-800"
-            >
-              {labels.viewAll} →
-            </Link>
           </div>
         </section>
       </div>
@@ -199,8 +152,42 @@ export default function HomePage({ locale }: Props) {
         </div>
       </div>
 
-      {/* ── Guides ── */}
+      {/* ── All tools, always visible by category ── */}
       <div className="border-t border-gray-200 bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+          <h2 className="text-center text-xl font-bold text-gray-950">
+            {labels.allByCategory}
+          </h2>
+          <div className="mt-8 space-y-10">
+            {t.categories.map((category) => (
+              <section key={category.title}>
+                <h3 className="text-base font-bold text-gray-950">
+                  {category.title}
+                </h3>
+                <p className="mt-1 max-w-3xl text-sm leading-6 text-gray-600">
+                  {category.description}
+                </p>
+                <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                  {category.tools.map((tool) => (
+                    <CompactToolCard key={tool.href} tool={tool} />
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Link
+              href={`${basePath}/tools`}
+              className="inline-flex rounded-md border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-800 transition hover:border-blue-300 hover:text-blue-800"
+            >
+              {labels.viewAll} →
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Guides ── */}
+      <div className="border-t border-gray-200 bg-gray-50">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div className="max-w-2xl">

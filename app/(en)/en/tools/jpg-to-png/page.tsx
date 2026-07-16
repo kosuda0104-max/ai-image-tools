@@ -4,12 +4,12 @@ import { createToolMetadata } from "@/src/lib/tool-metadata";
 export const metadata = createToolMetadata({
   locale: "en",
   slug: "jpg-to-png",
-  jaTitle: "JPGをPNGに変換【無料・高速・安全】オンラインツール",
+  jaTitle: "JPGをPNGに一括変換【無料・アップロード不要】",
   jaDescription:
-    "JPG画像をPNG形式に変換できる無料オンラインツールです。アップロード不要・高速・安全。ブラウザだけで簡単に変換できます。",
-  enTitle: "JPG to PNG Converter Free Online",
+    "JPG画像をPNGにまとめて変換できる無料オンラインツールです。ファイルはサーバーに送信されず、ブラウザ内で処理。複数ファイルの一括変換とZIP保存に対応しています。",
+  enTitle: "JPG to PNG Converter – Free, Batch, No Upload",
   enDescription:
-    "Convert JPG to PNG online for free. No upload required, fast, secure, and easy to use in your browser.",
+    "Convert JPG to PNG online for free. Files never leave your browser. Batch conversion with ZIP download supported.",
 });
 
 export default function Page() {

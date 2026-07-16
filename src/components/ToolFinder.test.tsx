@@ -8,7 +8,7 @@ afterEach(cleanup);
 describe("ToolFinder", () => {
   it("shows only relevant actions after a file is selected", () => {
     render(<ToolFinder locale="en" tools={getAllToolItems("en")} />);
-    const input = screen.getByLabelText("Choose or drop a file");
+    const input = screen.getByLabelText("Choose file");
 
     fireEvent.change(input, {
       target: {
@@ -26,7 +26,6 @@ describe("ToolFinder", () => {
   it("finds a tool from a plain-language problem", () => {
     render(<ToolFinder locale="en" tools={getAllToolItems("en")} />);
 
-    fireEvent.click(screen.getByRole("tab", { name: "Search by problem" }));
     fireEvent.change(screen.getByLabelText("Describe the problem"), {
       target: { value: "CSV opens in one column" },
     });
@@ -38,7 +37,6 @@ describe("ToolFinder", () => {
   it("supports one-tap Japanese problem suggestions", () => {
     render(<ToolFinder locale="ja" tools={getAllToolItems("ja")} />);
 
-    fireEvent.click(screen.getByRole("tab", { name: "困りごとから探す" }));
     fireEvent.click(screen.getByRole("button", { name: "画像の背景を透明に" }));
 
     expect(screen.getByText("画像の背景を透明化")).toBeInTheDocument();
@@ -50,7 +48,7 @@ describe("ToolFinder", () => {
   it("handles a file type with no matching workflow", () => {
     render(<ToolFinder locale="en" tools={getAllToolItems("en")} />);
 
-    fireEvent.change(screen.getByLabelText("Choose or drop a file"), {
+    fireEvent.change(screen.getByLabelText("Choose file"), {
       target: {
         files: [
           new File(["archive"], "backup.zip", { type: "application/zip" }),

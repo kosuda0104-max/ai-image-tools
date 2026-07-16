@@ -287,6 +287,18 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "base64-to-image",
         ]),
       },
+      {
+        title: "Web・SNS向けツール",
+        description:
+          "favicon 作成、OGP 画像、SNS 用リサイズ、EXIF・位置情報の削除、カラーパレット抽出など、公開前のこまごました作業に使えるツールです。",
+        tools: getToolItems("ja", [
+          "social-image-resize",
+          "ogp-image-maker",
+          "favicon-generator",
+          "remove-exif",
+          "color-palette-extractor",
+        ]),
+      },
     ],
     guidesSection: {
       title: "使い方ガイド",
@@ -447,6 +459,18 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "csv-to-json",
           "image-to-base64",
           "base64-to-image",
+        ]),
+      },
+      {
+        title: "Web & Social Tools",
+        description:
+          "Small pre-publish helpers: favicon generation, OGP images, social media resizing, EXIF and GPS removal, and color palette extraction.",
+        tools: getToolItems("en", [
+          "social-image-resize",
+          "ogp-image-maker",
+          "favicon-generator",
+          "remove-exif",
+          "color-palette-extractor",
         ]),
       },
     ],

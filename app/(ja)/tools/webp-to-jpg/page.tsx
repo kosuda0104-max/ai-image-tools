@@ -4,10 +4,10 @@ import { createToolMetadata } from "@/src/lib/tool-metadata";
 export const metadata = createToolMetadata({
   locale: "ja",
   slug: "webp-to-jpg",
-  jaTitle: "WebPをJPGに変換 - ブラウザだけで使える無料ツール",
+  jaTitle: "WebPをJPGに一括変換【無料・アップロード不要】",
   jaDescription:
     "WebP画像をJPGに変換できる無料オンラインツールです。アップロード不要でブラウザだけで処理でき、共有しやすいJPGを作れます。",
-  enTitle: "WebP to JPG Converter - Convert WebP Images in Your Browser",
+  enTitle: "WebP to JPG Converter – Free, Batch, No Upload",
   enDescription:
     "Convert WebP images to JPG directly in your browser for free. No upload required, fast, secure, and easy to use online.",
 });
