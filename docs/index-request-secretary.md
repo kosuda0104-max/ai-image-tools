@@ -32,20 +32,19 @@ Claude にこう頼めば、秘書として機能します：
 
 ## 🚦 本日申請する10件（2026/07/16）
 
-> GSCのURL検査に1件ずつ貼り付ける。完了後、この10件を該当バッチ側でも `[x]` に更新する。
-> `/guides/parquet-csv-workflows` は2026/06/19に登録済み確認済みのため、今回の10件から除外。
-> 2026/07/12にキュー化した10件が未完了のままなので、2026/07/16も同じ10件を継続する。
+> 2026-07-16のURL Inspection API監査で未登録だったURLを、既存の優先順で並べた先頭10件。
+> APIは登録状況の読み取り専用。「インデックス登録をリクエスト」はSearch Console画面で1件ずつ行う。
 
-- [ ] https://ai-image-tools.com/guides/what-is-parquet
-- [ ] https://ai-image-tools.com/en/guides/what-is-parquet
-- [ ] https://ai-image-tools.com/en/guides/parquet-csv-workflows
 - [ ] https://ai-image-tools.com/en/tools/parquet-to-csv
-- [ ] https://ai-image-tools.com/en/tools/csv-to-parquet
-- [ ] https://ai-image-tools.com/guides/csv-encoding-fix
-- [ ] https://ai-image-tools.com/guides/json-and-csv
 - [ ] https://ai-image-tools.com/guides/heic-cannot-open-windows
-- [ ] https://ai-image-tools.com/guides/png-transparency-basics
 - [ ] https://ai-image-tools.com/guides/what-is-webp
+- [ ] https://ai-image-tools.com/tools/merge-pdf
+- [ ] https://ai-image-tools.com/tools/png-to-webp
+- [ ] https://ai-image-tools.com/tools/split-pdf
+- [ ] https://ai-image-tools.com/tools/webp-to-png
+- [ ] https://ai-image-tools.com/tools/jpg-compress
+- [ ] https://ai-image-tools.com/tools/png-compress
+- [ ] https://ai-image-tools.com/tools/webp-compress
 
 ---
 
@@ -83,27 +82,27 @@ Claude にこう頼めば、秘書として機能します：
 > 「AWSでParquet⇄CSVをブラウザだけで変換したい」需要を取りに行く最重要クラスタ。
 > ツール本体（/tools/parquet-to-csv・/tools/csv-to-parquet）はバッチ2で申請済みなので、
 > ここでは新ガイドとEN版・データ系ガイドを優先する。
-- [ ] https://ai-image-tools.com/guides/what-is-parquet
+- [x] https://ai-image-tools.com/guides/what-is-parquet
 - [x] https://ai-image-tools.com/guides/parquet-csv-workflows ✅ 登録済み確認（2026/06/19 URL検査）
-- [ ] https://ai-image-tools.com/en/guides/what-is-parquet
-- [ ] https://ai-image-tools.com/en/guides/parquet-csv-workflows
+- [x] https://ai-image-tools.com/en/guides/what-is-parquet
+- [x] https://ai-image-tools.com/en/guides/parquet-csv-workflows
 - [ ] https://ai-image-tools.com/en/tools/parquet-to-csv
-- [ ] https://ai-image-tools.com/en/tools/csv-to-parquet
-- [ ] https://ai-image-tools.com/guides/csv-encoding-fix
-- [ ] https://ai-image-tools.com/guides/json-and-csv
+- [x] https://ai-image-tools.com/en/tools/csv-to-parquet
+- [x] https://ai-image-tools.com/guides/csv-encoding-fix
+- [x] https://ai-image-tools.com/guides/json-and-csv
 （2026/07/12の追加枠： https://ai-image-tools.com/guides/png-transparency-basics 。what-is-avif は既に2位のため今回は見送り）
 
 ### バッチ3：人気ツール第2弾 ※未申請なら最優先
 - [ ] https://ai-image-tools.com/tools/merge-pdf
-- [ ] https://ai-image-tools.com/tools/jpg-to-webp
+- [x] https://ai-image-tools.com/tools/jpg-to-webp
 - [ ] https://ai-image-tools.com/tools/png-to-webp
-- [ ] https://ai-image-tools.com/tools/webp-to-jpg
-- [ ] https://ai-image-tools.com/tools/heic-to-png
-- [ ] https://ai-image-tools.com/tools/resize-image
+- [x] https://ai-image-tools.com/tools/webp-to-jpg
+- [x] https://ai-image-tools.com/tools/heic-to-png
+- [x] https://ai-image-tools.com/tools/resize-image
 - [ ] https://ai-image-tools.com/tools/split-pdf
-- [ ] https://ai-image-tools.com/guides
-- [ ] https://ai-image-tools.com/en
-- [ ] https://ai-image-tools.com/en/tools/heic-to-jpg
+- [x] https://ai-image-tools.com/guides
+- [x] https://ai-image-tools.com/en
+- [x] https://ai-image-tools.com/en/tools/heic-to-jpg
 
 ### バッチ4：圧縮・編集・PDF系
 - [ ] https://ai-image-tools.com/tools/webp-to-png
@@ -145,13 +144,13 @@ Claude にこう頼めば、秘書として機能します：
 - [ ] https://ai-image-tools.com/guides/pdf-to-jpg-guide
 - [ ] https://ai-image-tools.com/guides/resize-images-for-web
 - [ ] https://ai-image-tools.com/guides/merge-or-split-pdf
-- [ ] https://ai-image-tools.com/guides/choose-best-image-format-for-web
+- [x] https://ai-image-tools.com/guides/choose-best-image-format-for-web
 - [ ] https://ai-image-tools.com/guides/how-to-remove-pages-from-pdf
 - [ ] https://ai-image-tools.com/guides/prepare-images-for-upload
 - [ ] https://ai-image-tools.com/guides/iphone-photos-to-pdf
-- [ ] https://ai-image-tools.com/guides/parquet-csv-workflows
+- [x] https://ai-image-tools.com/guides/parquet-csv-workflows
 - [ ] https://ai-image-tools.com/guides/optimize-blog-and-site-images
-- [ ] https://ai-image-tools.com/en/tools
+- [x] https://ai-image-tools.com/en/tools
 
 ### バッチ7.5：新規ガイド（2026/06/05追加・AdSense対策記事）
 - [ ] https://ai-image-tools.com/guides/heic-cannot-open-windows
@@ -168,15 +167,15 @@ Claude にこう頼めば、秘書として機能します：
 - [ ] https://ai-image-tools.com/guides/marketplace-product-photos
 
 ### バッチ7.7：新規ガイド第3弾（2026/06/13追加・データ系＋透過＋AVIF＋Parquet）
-- [ ] https://ai-image-tools.com/guides/png-transparency-basics
-- [ ] https://ai-image-tools.com/guides/csv-encoding-fix
-- [ ] https://ai-image-tools.com/guides/what-is-parquet
-- [ ] https://ai-image-tools.com/guides/json-and-csv
-- [ ] https://ai-image-tools.com/guides/what-is-avif
+- [x] https://ai-image-tools.com/guides/png-transparency-basics
+- [x] https://ai-image-tools.com/guides/csv-encoding-fix
+- [x] https://ai-image-tools.com/guides/what-is-parquet
+- [x] https://ai-image-tools.com/guides/json-and-csv
+- [x] https://ai-image-tools.com/guides/what-is-avif
 
 ### バッチ8（任意）：英語の主要ページ
 ※基本はサイトマップ任せでOK。余裕があれば。
-- [ ] https://ai-image-tools.com/en/tools/jpg-to-png
+- [x] https://ai-image-tools.com/en/tools/jpg-to-png
 - [ ] https://ai-image-tools.com/en/tools/png-to-jpg
 - [ ] https://ai-image-tools.com/en/tools/image-compress
 - [ ] https://ai-image-tools.com/en/tools/pdf-to-jpg
@@ -191,6 +190,7 @@ Claude にこう頼めば、秘書として機能します：
 |---|---|---|---|
 | 2026/06/05 | バッチ1・2 | 9 | 検出-未登録123→0、クロール済み-未登録2（EN×2、検証中） |
 | 2026/06/19 | （申請なし・状況確認） | 23 | クロール済み-未登録9（Parquet/CSVクラスタ＋/en/tools等）。06/17に新検証開始（内部リンク修正後の初回）。GSC画面の最終更新は06/12でラグあり。parquet-csv-workflows はURL検査で登録済み確認 |
+| 2026/07/16 | URL Inspection API監査 | 監査対象75中19 | 登録済み19・未登録56・取得エラー0。手動申請は未実施 |
 |  |  |  |  |
 
 > 申請した日にこの表へ1行追記する。「登録済み数」はGSCの「ページのインデックス登録」画面の緑の数字。
@@ -210,25 +210,14 @@ Claude にこう頼めば、秘書として機能します：
 - ログイン済みQiitaを利用してよい旨を確認済み。
 - この作業環境にはQiita APIトークンまたは操作可能なブラウザ連携がないため、外部記事の更新操作自体は未実施。
 
-### 2026/07/16 — インデックス申請10件の継続キュー確認
-**きっかけ:** 2026/07/12に作成した申請キューが未完了のまま残っているため、今日の手動申請対象として再確認。
+### 2026/07/16 — GSC未完了URLの一括監査
+**監査結果:** 未完了として記録されていた75 URLをURL Inspection APIで確認し、登録済み19・未登録56・取得エラー0だった。
 
-**今日申請する10件:**
-- `/guides/what-is-parquet`
-- `/en/guides/what-is-parquet`
-- `/en/guides/parquet-csv-workflows`
-- `/en/tools/parquet-to-csv`
-- `/en/tools/csv-to-parquet`
-- `/guides/csv-encoding-fix`
-- `/guides/json-and-csv`
-- `/guides/heic-cannot-open-windows`
-- `/guides/png-transparency-basics`
-- `/guides/what-is-webp`
-
-**申請ステータス:**
-- この更新ではGSCの手動申請完了は確認していないため、チェックボックスは未完了のまま維持。
-- GSCで「リクエスト済み」を確認したら、本日申請リストと該当バッチ側の同URLを `[x]` に更新する。
-
+**反映内容:**
+- 登録済み19 URLは、チェックリスト内の同じURLをすべて `[x]` に更新。
+- 本日の申請候補は、未登録URLの優先順先頭10件へ差し替え。
+- URL Inspection APIは読み取り専用のため、手動の「インデックス登録をリクエスト」はまだ実施していない。
+- 詳細: `docs/seo-reports/index-audit-2026-07-16.md`
 ### 2026/07/14 — ツールFinder公開準備＋3クラスタ集中改修
 **きっかけ:** 直近3か月がクリック0・表示49・平均順位36.2で、ツール数の追加だけでは入口が分かりにくく、表示後の検索意図への回答も弱かった。
 
