@@ -1,10 +1,14 @@
 import StaticContentPage from "@/src/components/StaticContentPage";
+import { createLocalizedPageMetadata } from "@/src/lib/localized-page-metadata";
 
-export const metadata = {
+export const metadata = createLocalizedPageMetadata({
+  locale: "ja",
   title: "利用規約 | Filewisp",
   description:
     "Filewisp の利用にあたっての基本的な条件、禁止事項、免責事項についてまとめています。",
-};
+  jaPath: "/terms",
+  enPath: "/en/terms",
+});
 
 export default function Page() {
   return (

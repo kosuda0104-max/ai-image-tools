@@ -1,10 +1,14 @@
 import Link from "next/link";
+import { createLocalizedPageMetadata } from "@/src/lib/localized-page-metadata";
 
-export const metadata = {
+export const metadata = createLocalizedPageMetadata({
+  locale: "en",
   title: "Privacy Policy | Filewisp",
   description:
     "This page explains how Filewisp handles cookies, Google AdSense advertising, analytics, and contact form data.",
-};
+  jaPath: "/privacy-policy",
+  enPath: "/en/privacy-policy",
+});
 
 export default function Page() {
   return (

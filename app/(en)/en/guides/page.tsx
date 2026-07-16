@@ -1,11 +1,15 @@
 import Link from "next/link";
 import { getGuides } from "@/src/data/guides";
+import { createLocalizedPageMetadata } from "@/src/lib/localized-page-metadata";
 
-export const metadata = {
+export const metadata = createLocalizedPageMetadata({
+  locale: "en",
   title: "Guides – Image, PDF, Web Development & Data Workflows",
   description:
     "Practical guides on image formats, compression, PDF workflows, CSV, JSON, Parquet, Base64, and browser-based web development tasks. Find the right workflow with less trial and error.",
-};
+  jaPath: "/guides",
+  enPath: "/en/guides",
+});
 
 const guides = getGuides("en");
 

@@ -1,11 +1,15 @@
 import StaticContentPage from "@/src/components/StaticContentPage";
+import { createLocalizedPageMetadata } from "@/src/lib/localized-page-metadata";
 import { siteUrl } from "@/src/lib/site";
 
-export const metadata = {
+export const metadata = createLocalizedPageMetadata({
+  locale: "ja",
   title: "このサイトについて | Filewisp",
   description:
     "Filewisp の運営方針、サイトの目的、更新の考え方、安心して使うための案内をまとめたページです。",
-};
+  jaPath: "/about",
+  enPath: "/en/about",
+});
 
 const aboutJsonLd = {
   "@context": "https://schema.org",

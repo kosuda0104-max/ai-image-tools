@@ -1,16 +1,16 @@
 import AvifToJpgTool from "@/src/components/AvifToJpgTool";
+import { createToolMetadata } from "@/src/lib/tool-metadata";
 
-export const metadata = {
-  title: "AVIFをJPGに変換【無料・高速・安全】オンラインツール",
-  description:
+export const metadata = createToolMetadata({
+  locale: "ja",
+  slug: "avif-to-jpg",
+  jaTitle: "AVIFをJPGに変換【無料・高速・安全】オンラインツール",
+  jaDescription:
     "AVIF画像をJPG形式に変換できる無料オンラインツールです。アップロード不要・高速・安全。ブラウザだけで簡単に変換できます。",
-  alternates: {
-    languages: {
-      ja: "/tools/avif-to-jpg",
-      en: "/en/tools/avif-to-jpg",
-    },
-  },
-};
+  enTitle: "AVIF to JPG Converter Free Online",
+  enDescription:
+    "Convert AVIF to JPG online for free. No upload required, fast, secure, and easy to use in your browser.",
+});
 
 export default function Page() {
   return <AvifToJpgTool locale="ja" />;

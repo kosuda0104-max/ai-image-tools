@@ -199,6 +199,17 @@ Claude にこう頼めば、秘書として機能します：
 
 ## 🛠️ 対応ログ（やったこと記録）
 
+### 2026/07/16 — サイトマップ全214URLのcanonical監査
+**確認結果:**
+- `sitemap.xml` 掲載の214 URLを本番HTMLで一括確認。
+- 全URLがHTTP 200で、`noindex` はなし。
+- 14ページで自己canonicalが欠けていた: 日英のガイド一覧・About・Contact・Privacy Policy・Terms・AVIF to JPG・BMP to JPG。
+
+**対応:**
+- 運営ページとガイド一覧に、日英の自己canonicalと `ja` / `en` / `x-default` を生成する共通メタデータを追加。
+- AVIF to JPG・BMP to JPGは既存のツール用SEOメタデータへ統一。
+- 型検査、Lint、全92テスト、本番ビルドに合格。生成HTML上で14ページすべてcanonical一致を確認。
+
 ### 2026/07/16 — Qiita公開状況と図の再確認
 **確認結果:**
 - HEIC記事は新規投稿待ちではなく、2026/06/15に公開済み: https://qiita.com/coscoskosuda/items/33280d0892d2e2b4f604

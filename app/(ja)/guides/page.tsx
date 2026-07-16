@@ -1,11 +1,15 @@
 import Link from "next/link";
 import { getGuides } from "@/src/data/guides";
+import { createLocalizedPageMetadata } from "@/src/lib/localized-page-metadata";
 
-export const metadata = {
+export const metadata = createLocalizedPageMetadata({
+  locale: "ja",
   title: "ガイド – 画像変換・PDF・Web制作・データ処理の使い方",
   description:
     "JPG・PNG・WebP・HEIC の選び方、画像圧縮、PDF、CSV・JSON・Parquet、Base64 の使い方を解説。Web制作やデータ処理の前後に役立つ実務的なガイドです。",
-};
+  jaPath: "/guides",
+  enPath: "/en/guides",
+});
 
 const guides = getGuides("ja");
 
