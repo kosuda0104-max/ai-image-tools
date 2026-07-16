@@ -11,6 +11,7 @@ const INSPECTION_URL = 'https://searchconsole.googleapis.com/v1/urlInspection/in
 const SCOPE = 'https://www.googleapis.com/auth/webmasters.readonly';
 const SOURCE_FILE = path.join(process.cwd(), 'docs', 'index-request-secretary.md');
 const DRY_RUN = process.argv.includes('--dry-run');
+const APPLY_RESULTS = process.env.GSC_INDEX_AUDIT_APPLY === '1';
 
 main().catch((error) => {
   console.error(`\nAudit failed: ${error.message}`);
@@ -47,6 +48,11 @@ async function main() {
   const outFile = path.join(outDir, `index-audit-${date}.md`);
   fs.writeFileSync(outFile, report);
   console.log(`\nSaved: ${path.relative(process.cwd(), outFile)}`);
+
+  if (APPLY_RESULTS) {
+    applyResultsToSecretary(date, results);
+    console.log(`Updated: ${path.relative(process.cwd(), SOURCE_FILE)}`);
+  }
 }
 
 function readPendingUrls() {
@@ -125,6 +131,64 @@ function buildReport(date, results) {
 
   lines.push('', '---', '生成: `node scripts/gsc-index-audit.mjs`');
   return `${lines.join('\n')}\n`;
+}
+
+function applyResultsToSecretary(date, results) {
+  let markdown = fs.readFileSync(SOURCE_FILE, 'utf8');
+  const indexed = results.filter((result) => result.indexed);
+  const pending = results.filter((result) => !result.indexed && !result.error);
+  const errors = results.filter((result) => result.error);
+
+  for (const result of indexed) {
+    const unchecked = new RegExp(`^- \\[ \\] ${escapeRegex(result.url)}$`, 'gm');
+    markdown = markdown.replace(unchecked, `- [x] ${result.url}`);
+  }
+
+  const queue = [
+    `## 🚦 本日申請する10件（${date.replaceAll('-', '/')}）`,
+    '',
+    `> ${date}のURL Inspection API監査で未登録だったURLを、既存の優先順で並べた先頭10件。`,
+    '> APIは登録状況の読み取り専用。「インデックス登録をリクエスト」はSearch Console画面で1件ずつ行う。',
+    '',
+    ...pending.slice(0, 10).map((result) => `- [ ] ${result.url}`),
+  ].join('\n');
+  markdown = markdown.replace(
+    /## 🚦 本日申請する10件（[^）]+）[\s\S]*?\n---/,
+    `${queue}\n\n---`,
+  );
+
+  const progressRow = `| ${date.replaceAll('-', '/')} | URL Inspection API監査 | 監査対象${results.length}中${indexed.length} | 登録済み${indexed.length}・未登録${pending.length}・取得エラー${errors.length}。手動申請は未実施 |`;
+  const progressPattern = new RegExp(`^\\| ${escapeRegex(date.replaceAll('-', '/'))} \\| URL Inspection API監査 \\|.*$`, 'm');
+  if (progressPattern.test(markdown)) {
+    markdown = markdown.replace(progressPattern, progressRow);
+  } else {
+    markdown = markdown.replace('|  |  |  |  |', `${progressRow}\n|  |  |  |  |`);
+  }
+
+  const log = buildAuditLog(date, results, indexed, pending, errors);
+  const previousQueueLog = /### 2026\/07\/16 — インデックス申請10件の継続キュー確認[\s\S]*?(?=\n### |\n---)/;
+  if (previousQueueLog.test(markdown)) {
+    markdown = markdown.replace(previousQueueLog, log.trimEnd());
+  } else if (!markdown.includes(`### ${date.replaceAll('-', '/')} — GSC未完了URLの一括監査`)) {
+    markdown = markdown.replace('## 🛠️ 対応ログ（やったこと記録）\n', `## 🛠️ 対応ログ（やったこと記録）\n\n${log}`);
+  }
+
+  fs.writeFileSync(SOURCE_FILE, markdown);
+}
+
+function buildAuditLog(date, results, indexed, pending, errors) {
+  const displayDate = date.replaceAll('-', '/');
+  return [
+    `### ${displayDate} — GSC未完了URLの一括監査`,
+    `**監査結果:** 未完了として記録されていた${results.length} URLをURL Inspection APIで確認し、登録済み${indexed.length}・未登録${pending.length}・取得エラー${errors.length}だった。`,
+    '',
+    '**反映内容:**',
+    `- 登録済み${indexed.length} URLは、チェックリスト内の同じURLをすべて \`[x]\` に更新。`,
+    '- 本日の申請候補は、未登録URLの優先順先頭10件へ差し替え。',
+    '- URL Inspection APIは読み取り専用のため、手動の「インデックス登録をリクエスト」はまだ実施していない。',
+    `- 詳細: \`docs/seo-reports/index-audit-${date}.md\``,
+    '',
+  ].join('\n');
 }
 
 function table(results) {
@@ -230,6 +294,10 @@ function shortDate(timestamp) {
 
 function escapeCell(value) {
   return String(value).replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
+}
+
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 function jstDate() {
