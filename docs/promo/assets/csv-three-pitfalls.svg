@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1520" height="700" viewBox="0 0 1520 700" role="img" aria-labelledby="title desc">
+  <title id="title">CSV変換で崩れる3つの原因</title>
+  <desc id="desc">文字コード、区切り文字、引用符の問題と確認ポイントを3列で示す図</desc>
+  <rect width="1520" height="700" fill="#f8fafc"/>
+  <rect x="2" y="2" width="1516" height="696" rx="28" fill="none" stroke="#dbe3ee" stroke-width="4"/>
+
+  <text x="760" y="82" text-anchor="middle" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="38" font-weight="700" fill="#10213d">CSV変換で崩れる3つの原因</text>
+  <text x="760" y="122" text-anchor="middle" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="22" fill="#60708a">見た目の症状から、確認する場所を切り分ける</text>
+
+  <g font-family="Arial, 'Noto Sans JP', sans-serif">
+    <rect x="70" y="175" width="430" height="400" rx="18" fill="#ffffff" stroke="#f87171" stroke-width="3"/>
+    <circle cx="135" cy="240" r="34" fill="#fee2e2"/>
+    <text x="135" y="250" text-anchor="middle" font-size="30" font-weight="700" fill="#b91c1c">1</text>
+    <text x="190" y="250" font-size="28" font-weight="700" fill="#10213d">文字化け</text>
+    <text x="110" y="325" font-size="23" fill="#475569">症状</text>
+    <text x="110" y="365" font-size="27" font-weight="700" fill="#b91c1c">譁�蟄励↓縺ｪ繧�</text>
+    <path d="M110 405h350" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="110" y="453" font-size="23" fill="#475569">確認</text>
+    <text x="110" y="493" font-size="24" font-weight="700" fill="#10213d">UTF-8 BOM / Shift_JIS</text>
+    <text x="110" y="532" font-size="20" fill="#64748b">Excelの読み込み方法も確認</text>
+
+    <rect x="545" y="175" width="430" height="400" rx="18" fill="#ffffff" stroke="#fb923c" stroke-width="3"/>
+    <circle cx="610" cy="240" r="34" fill="#ffedd5"/>
+    <text x="610" y="250" text-anchor="middle" font-size="30" font-weight="700" fill="#c2410c">2</text>
+    <text x="665" y="250" font-size="28" font-weight="700" fill="#10213d">1列に入る</text>
+    <text x="585" y="325" font-size="23" fill="#475569">症状</text>
+    <text x="585" y="365" font-size="24" font-weight="700" fill="#c2410c">id,name,city が1セル</text>
+    <path d="M585 405h350" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="585" y="453" font-size="23" fill="#475569">確認</text>
+    <text x="585" y="493" font-size="24" font-weight="700" fill="#10213d">カンマ / タブ / セミコロン</text>
+    <text x="585" y="532" font-size="20" fill="#64748b">区切り文字の指定を合わせる</text>
+
+    <rect x="1020" y="175" width="430" height="400" rx="18" fill="#ffffff" stroke="#34d399" stroke-width="3"/>
+    <circle cx="1085" cy="240" r="34" fill="#d1fae5"/>
+    <text x="1085" y="250" text-anchor="middle" font-size="30" font-weight="700" fill="#047857">3</text>
+    <text x="1140" y="250" font-size="28" font-weight="700" fill="#10213d">列・行がずれる</text>
+    <text x="1060" y="325" font-size="23" fill="#475569">症状</text>
+    <text x="1060" y="365" font-size="24" font-weight="700" fill="#047857">カンマや改行で分割</text>
+    <path d="M1060 405h350" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="1060" y="453" font-size="23" fill="#475569">確認</text>
+    <text x="1060" y="493" font-size="24" font-weight="700" fill="#10213d">引用符 "..." とエスケープ</text>
+    <text x="1060" y="532" font-size="20" fill="#64748b">CSVパーサーを使って出力する</text>
+  </g>
+
+  <rect x="255" y="610" width="1010" height="56" rx="12" fill="#10213d"/>
+  <text x="760" y="647" text-anchor="middle" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="24" font-weight="700" fill="#ffffff">文字コード ≠ 区切り文字 ≠ 引用符　原因ごとに直し方が違う</text>
+</svg>

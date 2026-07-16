@@ -21,6 +21,7 @@ The drafts below are technically reviewed and ready for their target editors. Pu
 - Target: Qiita
 - Suggested title: `JSONとCSVを相互変換するときにハマる、ネスト・文字コード・区切り文字`
 - Paste-ready body: `docs/promo/json-csv-article-qiita.md`
+- Upload figures: `docs/promo/assets/json-csv-flattening.png` and `docs/promo/assets/csv-three-pitfalls.png`
 - Tags: `JSON`, `CSV`, `Excel`, `文字コード`, `データ変換`
 - Primary link: `https://ai-image-tools.com/guides/json-and-csv`
 - Priority supporting link: `https://ai-image-tools.com/tools/csv-encoding-fix`

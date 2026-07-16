@@ -216,6 +216,7 @@ Claude にこう頼めば、秘書として機能します：
 - 公開本文には図が3枚ある。`iphone-camera-format.png` だけ未掲載。
 - 公開本文には古いHEIC説明とExif保持の記述が残っているため、修正版 `docs/promo/heic-iphone-article-qiita.md` で既存記事を更新する。
 - Qiitaの重複投稿は行わず、次の新規投稿はJSON/CSV記事とする。
+- JSON/CSV記事には、ネストの平坦化とCSVの3つの失敗原因を説明する図2枚を追加済み。
 
 **投稿環境:**
 - ログイン済みQiitaを利用してよい旨を確認済み。
@@ -298,7 +299,7 @@ Claude にこう頼めば、秘書として機能します：
 > Tier S直結の更新と、未公開の新規記事から順に進める。
 1. **[公開済みHEIC記事を更新](promo/heic-iphone-article-qiita.md)** ← 図3枚は掲載済み。`iphone-camera-format.png` を追加し、HEIF/HEIC説明・Exif保持・公式資料を修正版へ更新する。重複投稿はしない。
 2. **Qiita Parquet記事に「Filewisp」追記** ← 既投稿（https://qiita.com/coscoskosuda/items/eabb35e06445e8338207）の本文末尾に `Filewisp（https://ai-image-tools.com）` を追記。1分で効く。
-3. **[json/csv記事（Qiita）](promo/json-csv-article-qiita.md)** ← 次の新規Qiita投稿。データクラスタ（csv-encoding-fix / json-and-csv）の権威補強。
+3. **[json/csv記事（Qiita）](promo/json-csv-article-qiita.md)** ← 次の新規Qiita投稿。図2枚も準備済み。データクラスタ（csv-encoding-fix / json-and-csv）の権威補強。
 4. **[HEIC記事（note/ブログ用 JA）](promo/heic-iphone-article-ja.md)** ← 同テーマ別媒体。Qiitaと別ドメインから張ると被リンク多様性が出る。
 5. **[Parquet記事（dev.to・英語）](promo/parquet-csv-aws-article-en.md)** ← 英語クラスタ（crawled-not-indexed の本丸）に外部シグナル。
 

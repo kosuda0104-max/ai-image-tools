@@ -21,6 +21,8 @@
 
 JSON は入れ子（オブジェクト・配列）を持てますが、CSV は**フラットな表**です。ここが変換の肝。
 
+**【投稿時に画像を追加】`docs/promo/assets/json-csv-flattening.png`**
+
 ```json
 [
   { "id": 1, "name": "佐藤", "tags": ["a", "b"], "addr": { "city": "東京" } },
@@ -96,6 +98,8 @@ with open("data.csv", "w", newline="", encoding="utf-8-sig") as f:
 CSV→JSON は `csv.DictReader` で読んで `json.dump(..., ensure_ascii=False)` するだけです。
 
 ## ハマりやすい3点（まとめ）
+
+**【投稿時に画像を追加】`docs/promo/assets/csv-three-pitfalls.png`**
 
 1. **ネスト**：JSON の入れ子をどう平らにするか（ドット列／配列の結合）を最初に決める
 2. **文字コード**：Excel で開くなら **BOM 付き UTF-8（`utf-8-sig`）** が無難。化けたら Shift_JIS も疑う
