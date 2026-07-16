@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { usePendingFiles } from "@/src/lib/use-pending-files";
 
 type Props = {
   file: File | null;
@@ -24,6 +25,10 @@ export default function FileDropzone({
 }: Props) {
   const pathname = usePathname();
   const isEnglish = pathname?.startsWith("/en");
+
+  // Pick up a file handed over from the homepage drop zone so the user does
+  // not have to select it again after navigating here.
+  usePendingFiles((files) => onFileSelect(files[0] ?? null));
 
   const defaultSelectButtonLabel = isEnglish ? "Choose File" : "ファイルを選択";
   const changeFileLabel = isEnglish ? "Change file" : "ファイルを変更";

@@ -5,6 +5,7 @@ import { PDFDocument } from "pdf-lib";
 import ToolPageLayout from "@/components/ToolPageLayout";
 import PrimaryButton from "@/components/PrimaryButton";
 import StatusMessage from "@/components/StatusMessage";
+import { usePendingFiles } from "@/src/lib/use-pending-files";
 
 type Locale = "ja" | "en";
 
@@ -186,12 +187,9 @@ export default function MergePdfTool({ locale }: Props) {
 
   const fileNames = useMemo(() => files.map((file) => file.name), [files]);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const applyFiles = (nextFiles: File[]) => {
     setMessage("");
     setMergedBlob(null);
-
-    const nextFiles = Array.from(event.target.files ?? []);
-    event.target.value = "";
 
     if (nextFiles.length === 0) {
       setFiles([]);
@@ -210,6 +208,15 @@ export default function MergePdfTool({ locale }: Props) {
 
     setFiles(pdfFiles);
   };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const nextFiles = Array.from(event.target.files ?? []);
+    event.target.value = "";
+    applyFiles(nextFiles);
+  };
+
+  // Pick up files handed over from the homepage drop zone.
+  usePendingFiles(applyFiles);
 
   const handleMerge = async () => {
     if (files.length < 2) {

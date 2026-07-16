@@ -5,6 +5,7 @@ import { PDFDocument } from "pdf-lib";
 import ToolPageLayout from "@/components/ToolPageLayout";
 import PrimaryButton from "@/components/PrimaryButton";
 import StatusMessage from "@/components/StatusMessage";
+import { usePendingFiles } from "@/src/lib/use-pending-files";
 
 type Locale = "ja" | "en";
 
@@ -291,6 +292,11 @@ export default function ImageToPdfTool({ locale }: Props) {
   const [margin, setMargin] = useState(24);
   const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
   const [downloadFileName, setDownloadFileName] = useState("images.pdf");
+
+  // Pick up files handed over from the homepage drop zone.
+  usePendingFiles((files) => {
+    void handleFiles(files);
+  });
 
   const handleFiles = async (files: FileList | File[] | null) => {
     setMessage("");

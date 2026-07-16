@@ -1,3 +1,10 @@
+<!--
+Qiita既存記事の更新用本文。
+https://qiita.com/coscoskosuda/items/33280d0892d2e2b4f604
+画像1・2・4はQiitaへアップロード済み。画像3だけ
+docs/promo/assets/iphone-camera-format.png を追加アップロードして差し替える。
+-->
+
 ## TL;DR
 
 - iPhone で撮った写真を Windows PC に送ると `.heic` で**開けない／表示されない**ことがある
@@ -8,11 +15,11 @@
 
 同じところで詰まった人に届けばと思って書きます。
 
-**【画像①】heic-explainer.png をここにドラッグ&ドロップ**
+![HEICをJPGへ変換するとWindowsやWebで開ける流れ](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/4447886/8c6c30ab-6dca-424f-a0e2-29547677965e.png)
 
 ## 何が起きるか
 
-**【画像②】heic-error-windows.png をここにドラッグ&ドロップ**
+![WindowsでHEICファイルを開けないときの表示例](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/4447886/9f31eff8-8a83-4d01-aa46-965805a7425a.png)
 
 「iPhone の写真を Windows のPCに送ったら、サムネイルが出ない／開けない」——わりとよくある相談です。具体的には、
 
@@ -33,7 +40,7 @@ iPhone は iOS 11 以降、カメラの「高効率」設定で写真を **HEIF*
 
 > ちなみに iPhone 側で「設定 → カメラ → フォーマット → 互換性優先」にしておくと、以後の撮影は JPEG で保存されます。ただし**すでに撮った HEIC 写真には効かない**ので、過去の写真は結局変換が必要になります。
 
-**【画像③】iphone-camera-format.png をここにドラッグ&ドロップ**
+**【追加アップロード】`docs/promo/assets/iphone-camera-format.png` をここにドラッグ&ドロップ**
 
 ## どう解決するか
 
@@ -67,7 +74,7 @@ iPhone は iOS 11 以降、カメラの「高効率」設定で写真を **HEIF*
 2. JPG か PNG を選ぶ（共有・印刷なら JPG、透過や劣化を避けたいなら PNG）
 3. 変換 → ダウンロード
 
-**【画像④】filewisp-convert-steps.png をここにドラッグ&ドロップ**
+![FilewispでHEICをJPGまたはPNGへ変換する3ステップ](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/4447886/2894eb42-5264-4fc8-805f-cd81ead06dbf.png)
 
 ### 注意点（正直に）
 

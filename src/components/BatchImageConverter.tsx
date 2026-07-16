@@ -6,7 +6,7 @@ import PrimaryButton from "@/components/PrimaryButton";
 import StatusMessage from "@/components/StatusMessage";
 import ToolPageLayout from "@/components/ToolPageLayout";
 import type { StandardImageConversionContent } from "@/src/lib/conversion-content";
-import { takePendingFiles } from "@/src/lib/pending-files";
+import { usePendingFiles } from "@/src/lib/use-pending-files";
 import {
   convertImageWithCanvas,
   formatFileSize,
@@ -154,10 +154,7 @@ export default function BatchImageConverter({
 
   // Pick up files handed over from the homepage drop zone so the user does
   // not have to select them again after navigating here.
-  useEffect(() => {
-    const handedOver = takePendingFiles();
-    if (handedOver) addFiles(handedOver);
-  }, [addFiles]);
+  usePendingFiles(addFiles);
 
   const removeItem = (id: string) => {
     setItems((prev) => prev.filter((i) => i.id !== id));
