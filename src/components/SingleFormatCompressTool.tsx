@@ -270,7 +270,7 @@ export default function SingleFormatCompressTool({ locale, format }: Props) {
                       onClick={() => setQuality(preset.value)}
                       className={`rounded-xl border px-4 py-3 text-sm font-medium transition ${
                         quality === preset.value
-                          ? "border-blue-600 bg-blue-50 text-blue-700"
+                          ? "border-teal-600 bg-teal-50 text-teal-700"
                           : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
                       }`}
                     >

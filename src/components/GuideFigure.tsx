@@ -37,7 +37,7 @@ function Frame({
   caption?: string;
 }) {
   return (
-    <figure className="my-1 overflow-hidden rounded-xl border border-gray-200 bg-gradient-to-br from-slate-50 to-blue-50">
+    <figure className="my-1 overflow-hidden rounded-xl border border-gray-200 bg-gradient-to-br from-slate-50 to-teal-50">
       <svg viewBox="0 0 720 150" className="h-auto w-full" role="img" aria-hidden="true">
         {children}
       </svg>

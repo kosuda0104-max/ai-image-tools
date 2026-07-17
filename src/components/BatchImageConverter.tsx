@@ -6,6 +6,7 @@ import { zipSync } from "fflate";
 import PrimaryButton from "@/components/PrimaryButton";
 import StatusMessage from "@/components/StatusMessage";
 import ToolPageLayout from "@/components/ToolPageLayout";
+import WispMascot from "@/src/components/WispMascot";
 import type { StandardImageConversionContent } from "@/src/lib/conversion-content";
 import { setPendingFiles } from "@/src/lib/pending-files";
 import { usePendingFiles } from "@/src/lib/use-pending-files";
@@ -292,7 +293,7 @@ export default function BatchImageConverter({
             {/* Multi-file dropzone */}
             <label
               htmlFor="batch-file-input"
-              className="group block cursor-pointer rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 transition-colors hover:border-blue-400 hover:bg-blue-50/40"
+              className="group block cursor-pointer rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 transition-colors hover:border-teal-400 hover:bg-teal-50/40"
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => {
                 e.preventDefault();
@@ -311,7 +312,7 @@ export default function BatchImageConverter({
                 }}
               />
               <div className="flex flex-col items-center gap-3 px-6 py-10 text-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 text-gray-500 transition-colors group-hover:bg-blue-100 group-hover:text-blue-600">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 text-gray-500 transition-colors group-hover:bg-teal-100 group-hover:text-teal-600">
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                   </svg>
@@ -320,7 +321,7 @@ export default function BatchImageConverter({
                   <p className="text-sm font-semibold text-gray-900">{ui.emptyTitle}</p>
                   <p className="mt-1 text-xs text-gray-400">{L.dropHint}</p>
                 </div>
-                <span className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white transition-colors group-hover:bg-blue-600">
+                <span className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white transition-colors group-hover:bg-teal-600">
                   {L.addMore}
                 </span>
               </div>
@@ -374,7 +375,7 @@ export default function BatchImageConverter({
                 </div>
                 <div className="h-2 w-full overflow-hidden rounded-full bg-gray-100">
                   <div
-                    className="h-full rounded-full bg-blue-500 transition-all duration-200"
+                    className="h-full rounded-full bg-teal-500 transition-all duration-200"
                     style={{ width: `${(progress.done / progress.total) * 100}%` }}
                   />
                 </div>
@@ -399,12 +400,35 @@ export default function BatchImageConverter({
         ) : (
           /* ── Result step ── */
           <div className="space-y-5">
-            <div className="flex items-center gap-2 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm font-medium text-green-800">
-              <svg className="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              {L.resultsTitle}（{results.length}）
-            </div>
+            {(() => {
+              const totalOriginal = items.reduce((sum, i) => sum + i.file.size, 0);
+              const totalResult = results.reduce((sum, r) => sum + r.size, 0);
+              const reductionPct =
+                totalOriginal > 0
+                  ? Math.round((1 - totalResult / totalOriginal) * 100)
+                  : 0;
+              const showSavings = reductionPct >= 2;
+              return (
+                <div className="flex items-center gap-3 rounded-xl border border-green-200 bg-green-50 px-4 py-3">
+                  <WispMascot size={44} mood="cheer" className="shrink-0" />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold text-green-800">
+                      {L.resultsTitle}（{results.length}）
+                    </p>
+                    {showSavings ? (
+                      <p className="mt-0.5 text-xs text-gray-600">
+                        {formatFileSize(totalOriginal)} → {formatFileSize(totalResult)}
+                      </p>
+                    ) : null}
+                  </div>
+                  {showSavings ? (
+                    <p className="shrink-0 text-3xl font-extrabold tracking-tight text-green-700">
+                      -{reductionPct}%
+                    </p>
+                  ) : null}
+                </div>
+              );
+            })()}
 
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {results.map((r) => (
@@ -416,7 +440,7 @@ export default function BatchImageConverter({
                     <button
                       type="button"
                       onClick={() => triggerBlobDownload(r.blob, r.name)}
-                      className="mt-auto inline-flex items-center justify-center gap-1.5 rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-blue-700"
+                      className="mt-auto inline-flex items-center justify-center gap-1.5 rounded-lg bg-teal-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-teal-700"
                     >
                       <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 11l5 5 5-5M12 4v12" />
@@ -442,7 +466,7 @@ export default function BatchImageConverter({
             </div>
 
             {chainTools.length > 0 ? (
-              <div className="rounded-xl border border-blue-100 bg-blue-50/60 px-4 py-3">
+              <div className="rounded-xl border border-teal-100 bg-teal-50/60 px-4 py-3">
                 <p className="text-xs font-semibold text-gray-700">
                   {ja
                     ? "このファイルで続けて作業する"
@@ -454,7 +478,7 @@ export default function BatchImageConverter({
                       key={tool.slug}
                       type="button"
                       onClick={() => handleChain(tool.href)}
-                      className="rounded-lg border border-blue-200 bg-white px-3 py-2 text-xs font-semibold text-blue-800 transition hover:border-blue-400 hover:bg-blue-50"
+                      className="rounded-lg border border-teal-200 bg-white px-3 py-2 text-xs font-semibold text-teal-800 transition hover:border-teal-400 hover:bg-teal-50"
                     >
                       {tool.name} →
                     </button>

@@ -575,8 +575,8 @@ export default function SocialImageResizeTool({ locale }: Props) {
                   onClick={() => selectPreset(p.key)}
                   className={`rounded-xl border px-3 py-2.5 text-left transition ${
                     active
-                      ? "border-blue-500 bg-blue-50 text-blue-700"
-                      : "border-gray-200 bg-white text-gray-700 hover:border-blue-300"
+                      ? "border-teal-500 bg-teal-50 text-teal-700"
+                      : "border-gray-200 bg-white text-gray-700 hover:border-teal-300"
                   }`}
                 >
                   <span className="block text-sm font-medium">

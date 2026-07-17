@@ -224,7 +224,7 @@ export default function CsvEncodingFixTool({ locale }: Props) {
             <select
               value={sourceEncoding}
               onChange={(event) => setSourceEncoding(event.target.value as CsvSourceEncoding)}
-              className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+              className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-100"
             >
               {sourceOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -239,7 +239,7 @@ export default function CsvEncodingFixTool({ locale }: Props) {
             <select
               value={outputEncoding}
               onChange={(event) => setOutputEncoding(event.target.value as CsvOutputEncoding)}
-              className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+              className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-teal-400 focus:ring-4 focus:ring-teal-100"
             >
               {outputOptions.map((option) => (
                 <option key={option.value} value={option.value}>

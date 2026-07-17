@@ -220,7 +220,7 @@ export default function Base64ToImageTool({ locale }: Props) {
             }}
             placeholder={t.placeholder}
             rows={7}
-            className="w-full rounded-xl border border-gray-200 bg-white p-3 font-mono text-xs text-gray-700 outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+            className="w-full rounded-xl border border-gray-200 bg-white p-3 font-mono text-xs text-gray-700 outline-none transition focus:border-teal-400 focus:ring-4 focus:ring-teal-100"
           />
         </label>
 

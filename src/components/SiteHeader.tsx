@@ -133,7 +133,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
                     <Link
                       key={link.href + link.name}
                       href={link.href}
-                      className="block rounded-lg px-3 py-2 text-sm text-gray-700 transition hover:bg-blue-50 hover:text-blue-700"
+                      className="block rounded-lg px-3 py-2 text-sm text-gray-700 transition hover:bg-teal-50 hover:text-teal-700"
                     >
                       {link.name}
                     </Link>
@@ -141,7 +141,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
                   <div className="mt-1 border-t border-gray-100 pt-1">
                     <Link
                       href={group.viewAll.href}
-                      className="block rounded-lg px-3 py-2 text-sm font-medium text-blue-600 transition hover:bg-blue-50"
+                      className="block rounded-lg px-3 py-2 text-sm font-medium text-teal-600 transition hover:bg-teal-50"
                     >
                       {group.viewAll.name} →
                     </Link>
@@ -162,7 +162,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
         <div className="flex items-center gap-2">
           <Link
             href={nav.allTools.href}
-            className="hidden rounded-xl bg-blue-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-400 sm:inline-flex"
+            className="hidden rounded-xl bg-teal-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-400 sm:inline-flex"
           >
             {nav.allTools.name}
           </Link>
@@ -200,7 +200,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
           <Link
             href={nav.allTools.href}
             onClick={() => setMobileOpen(false)}
-            className="mb-4 block rounded-xl bg-blue-500 px-4 py-3 text-center text-sm font-semibold text-white"
+            className="mb-4 block rounded-xl bg-teal-500 px-4 py-3 text-center text-sm font-semibold text-white"
           >
             {nav.allTools.name}
           </Link>

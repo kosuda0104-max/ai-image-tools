@@ -548,7 +548,7 @@ export default function ToolPageLayout({
             <div className="mt-5 grid gap-4 md:grid-cols-2">
               <div className="rounded-2xl border border-gray-200 bg-white p-5">
                 <h3 className="flex items-center gap-2 text-base font-semibold text-gray-900">
-                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-700">1</span>
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-teal-100 text-xs font-bold text-teal-700">1</span>
                   {practicalChecklist.beforeTitle}
                 </h3>
                 <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-gray-600">
@@ -581,7 +581,7 @@ export default function ToolPageLayout({
                     href={tool.href}
                     className="group rounded-2xl border border-gray-200 bg-white p-5 transition duration-200 hover:-translate-y-0.5 hover:border-transparent hover:shadow-lg hover:shadow-gray-200/70"
                   >
-                    <h3 className="text-base font-semibold text-gray-900 group-hover:text-blue-700">
+                    <h3 className="text-base font-semibold text-gray-900 group-hover:text-teal-700">
                       {tool.name}
                     </h3>
                     <p className="mt-2 text-sm leading-6 text-gray-500">
@@ -648,7 +648,7 @@ export default function ToolPageLayout({
             <ol className="space-y-2.5">
               {steps.map((step, index) => (
                 <li key={index} className="flex items-start gap-3 text-sm leading-7 text-gray-600">
-                  <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-700">
+                  <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-teal-100 text-xs font-bold text-teal-700">
                     {index + 1}
                   </span>
                   {step}
@@ -681,7 +681,7 @@ export default function ToolPageLayout({
                   <Link
                     key={tool.href}
                     href={tool.href}
-                    className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700 transition hover:border-blue-300 hover:text-blue-700"
+                    className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700 transition hover:border-teal-300 hover:text-teal-700"
                   >
                     {tool.name}
                   </Link>

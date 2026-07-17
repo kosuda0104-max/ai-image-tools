@@ -45,10 +45,10 @@ export default function RecentTools({ locale }: Props) {
           <Link
             key={tool.slug}
             href={tool.href}
-            className="group flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 transition hover:border-blue-300 hover:shadow-sm"
+            className="group flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 transition hover:border-teal-300 hover:shadow-sm"
           >
             <ToolIcon name={tool.name} href={tool.href} size="sm" />
-            <span className="text-xs font-semibold text-gray-800 group-hover:text-blue-700">
+            <span className="text-xs font-semibold text-gray-800 group-hover:text-teal-700">
               {tool.name}
             </span>
           </Link>

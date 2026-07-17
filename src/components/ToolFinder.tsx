@@ -101,14 +101,14 @@ function ToolResults({
         >
           <ToolIcon name={tool.name} href={tool.href} size="sm" />
           <span className="min-w-0 flex-1">
-            <span className="block text-sm font-semibold text-gray-900 group-hover:text-blue-700">
+            <span className="block text-sm font-semibold text-gray-900 group-hover:text-teal-700">
               {tool.name}
             </span>
             <span className="mt-0.5 block truncate text-xs text-gray-500">
               {tool.description}
             </span>
           </span>
-          <span aria-hidden="true" className="text-lg text-gray-300 group-hover:text-blue-600">
+          <span aria-hidden="true" className="text-lg text-gray-300 group-hover:text-teal-600">
             ›
           </span>
         </Link>
@@ -207,7 +207,7 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
           onDrop={handleDrop}
           className={`rounded-lg border-2 border-dashed text-center transition ${
             dragging
-              ? "border-blue-500 bg-blue-50"
+              ? "border-teal-500 bg-teal-50"
               : "border-gray-300 bg-gray-50"
           } ${variant === "home" ? "px-4 py-10 sm:py-12" : "px-4 py-7"}`}
         >
@@ -218,7 +218,7 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
           ) : null}
           <label
             htmlFor={`${id}-file-input`}
-            className={`inline-flex cursor-pointer items-center justify-center rounded-md bg-blue-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-800 ${
+            className={`inline-flex cursor-pointer items-center justify-center rounded-md bg-teal-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-teal-800 ${
               variant === "home" ? "mt-4" : ""
             }`}
           >
@@ -226,7 +226,7 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
           </label>
           <p className="mt-3 text-xs text-gray-500">{t.fileHint}</p>
           <p className="mt-1 text-xs text-gray-400">{t.pasteHint}</p>
-          <p className="mt-1 text-xs font-medium text-emerald-700">{t.privacy}</p>
+          <p className="mt-1 text-xs font-medium text-teal-700">{t.privacy}</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -266,7 +266,7 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
                 </h2>
                 <label
                   htmlFor={`${id}-file-input`}
-                  className="cursor-pointer text-xs font-semibold text-blue-700 hover:text-blue-900"
+                  className="cursor-pointer text-xs font-semibold text-teal-700 hover:text-teal-900"
                 >
                   {t.chooseAnother}
                 </label>
@@ -276,7 +276,7 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
               {fileTools.length > visibleFileTools.length ? (
                 <Link
                   href={directoryHref}
-                  className="inline-flex text-xs font-semibold text-blue-700 hover:text-blue-900"
+                  className="inline-flex text-xs font-semibold text-teal-700 hover:text-teal-900"
                 >
                   {t.moreResults(fileTools.length - visibleFileTools.length)}
                 </Link>
@@ -307,7 +307,7 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder={t.problemPlaceholder}
-            className="h-12 w-full rounded-lg border border-gray-300 bg-white px-4 pr-11 text-sm text-gray-950 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            className="h-12 w-full rounded-lg border border-gray-300 bg-white px-4 pr-11 text-sm text-gray-950 outline-none transition placeholder:text-gray-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
           />
           {query ? (
             <button
@@ -328,7 +328,7 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
                 key={suggestion}
                 type="button"
                 onClick={() => setQuery(suggestion)}
-                className="rounded-md border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-700 hover:border-blue-300 hover:text-blue-800"
+                className="rounded-md border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-700 hover:border-teal-300 hover:text-teal-800"
               >
                 {suggestion}
               </button>
@@ -347,7 +347,7 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
             {problemTools.length > visibleProblemTools.length ? (
               <Link
                 href={directoryHref}
-                className="inline-flex text-xs font-semibold text-blue-700 hover:text-blue-900"
+                className="inline-flex text-xs font-semibold text-teal-700 hover:text-teal-900"
               >
                 {t.moreResults(problemTools.length - visibleProblemTools.length)}
               </Link>

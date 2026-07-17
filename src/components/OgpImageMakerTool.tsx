@@ -558,7 +558,7 @@ export default function OgpImageMakerTool({ locale }: Props) {
                     key={theme.key}
                     type="button"
                     onClick={() => applyTheme(theme)}
-                    className="flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-700 transition hover:border-blue-300"
+                    className="flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-700 transition hover:border-teal-300"
                   >
                     <span
                       className="inline-block h-4 w-4 rounded-full border border-black/10"
@@ -613,8 +613,8 @@ export default function OgpImageMakerTool({ locale }: Props) {
                     onClick={() => setAlign("left")}
                     className={`flex-1 rounded-xl border px-3 py-2 text-sm transition ${
                       align === "left"
-                        ? "border-blue-500 bg-blue-50 text-blue-700"
-                        : "border-gray-300 text-gray-700 hover:border-blue-300"
+                        ? "border-teal-500 bg-teal-50 text-teal-700"
+                        : "border-gray-300 text-gray-700 hover:border-teal-300"
                     }`}
                   >
                     {ui.alignLeft}
@@ -624,8 +624,8 @@ export default function OgpImageMakerTool({ locale }: Props) {
                     onClick={() => setAlign("center")}
                     className={`flex-1 rounded-xl border px-3 py-2 text-sm transition ${
                       align === "center"
-                        ? "border-blue-500 bg-blue-50 text-blue-700"
-                        : "border-gray-300 text-gray-700 hover:border-blue-300"
+                        ? "border-teal-500 bg-teal-50 text-teal-700"
+                        : "border-gray-300 text-gray-700 hover:border-teal-300"
                     }`}
                   >
                     {ui.alignCenter}

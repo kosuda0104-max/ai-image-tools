@@ -127,11 +127,11 @@ export default function ToolsPage({ locale }: Props) {
                     <Link
                       key={tool.href}
                       href={tool.href}
-                      className="group/tool flex min-h-20 items-center gap-3 border-b border-gray-200 bg-white px-4 py-3 transition hover:bg-blue-50/40"
+                      className="group/tool flex min-h-20 items-center gap-3 border-b border-gray-200 bg-white px-4 py-3 transition hover:bg-teal-50/40"
                     >
                       <ToolIcon name={tool.name} href={tool.href} size="sm" />
                       <span className="min-w-0 flex-1">
-                        <span className="block text-sm font-semibold text-gray-900 group-hover/tool:text-blue-700">
+                        <span className="block text-sm font-semibold text-gray-900 group-hover/tool:text-teal-700">
                           {tool.name}
                         </span>
                         <span className="mt-0.5 block line-clamp-2 text-xs leading-5 text-gray-500">
@@ -168,7 +168,7 @@ export default function ToolsPage({ locale }: Props) {
                     <Link
                       key={tool.href}
                       href={tool.href}
-                      className="text-xs font-semibold text-blue-700 hover:text-blue-900 hover:underline"
+                      className="text-xs font-semibold text-teal-700 hover:text-teal-900 hover:underline"
                     >
                       {tool.name}
                     </Link>

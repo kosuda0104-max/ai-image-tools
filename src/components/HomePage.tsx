@@ -6,6 +6,7 @@ import {
 import AdUnit from "@/components/AdUnit";
 import ToolFinder from "@/src/components/ToolFinder";
 import RecentTools from "@/src/components/RecentTools";
+import WispMascot from "@/src/components/WispMascot";
 import { AD_SLOTS } from "@/src/lib/ads";
 import { getAllToolItems } from "@/src/data/tool-directory";
 import { ToolIcon } from "@/src/lib/tool-visuals";
@@ -25,10 +26,10 @@ function ToolCard({ tool }: { tool: CardTool }) {
   return (
     <Link
       href={tool.href}
-      className="group flex h-full flex-col rounded-lg border border-gray-200 bg-white p-4 transition duration-200 hover:border-blue-200 hover:shadow-md"
+      className="group flex h-full flex-col rounded-lg border border-gray-200 bg-white p-4 transition duration-200 hover:border-teal-200 hover:shadow-md"
     >
       <ToolIcon name={tool.name} href={tool.href} />
-      <p className="mt-3 text-sm font-semibold text-gray-900 group-hover:text-blue-700">
+      <p className="mt-3 text-sm font-semibold text-gray-900 group-hover:text-teal-700">
         {tool.name}
       </p>
       {tool.description ? (
@@ -44,10 +45,10 @@ function CompactToolCard({ tool }: { tool: CardTool }) {
   return (
     <Link
       href={tool.href}
-      className="group flex items-center gap-3 rounded-lg border border-gray-200 bg-white px-3 py-2.5 transition hover:border-blue-200 hover:shadow-sm"
+      className="group flex items-center gap-3 rounded-lg border border-gray-200 bg-white px-3 py-2.5 transition hover:border-teal-200 hover:shadow-sm"
     >
       <ToolIcon name={tool.name} href={tool.href} size="sm" />
-      <span className="min-w-0 flex-1 text-sm font-semibold text-gray-900 group-hover:text-blue-700">
+      <span className="min-w-0 flex-1 text-sm font-semibold text-gray-900 group-hover:text-teal-700">
         {tool.name}
       </span>
     </Link>
@@ -118,7 +119,8 @@ export default function HomePage({ locale }: Props) {
       {/* ── Hero: drop a file and get routed to the right tool ── */}
       <section className="border-b border-gray-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-8 text-center sm:px-6 sm:py-10 lg:px-8">
-          <p className="text-xs font-semibold text-emerald-700">
+          <WispMascot size={64} className="mx-auto" />
+          <p className="mt-2 text-xs font-semibold text-teal-700">
             {trustMessage}
           </p>
           <h1 className="mx-auto mt-3 max-w-5xl text-2xl font-extrabold text-gray-950 [overflow-wrap:anywhere] sm:text-3xl">
@@ -161,26 +163,50 @@ export default function HomePage({ locale }: Props) {
             {labels.allByCategory}
           </h2>
           <div className="mt-8 space-y-10">
-            {t.categories.map((category) => (
-              <section key={category.title}>
-                <h3 className="text-base font-bold text-gray-950">
-                  {category.title}
-                </h3>
-                <p className="mt-1 max-w-3xl text-sm leading-6 text-gray-600">
-                  {category.description}
-                </p>
-                <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                  {category.tools.map((tool) => (
-                    <CompactToolCard key={tool.href} tool={tool} />
-                  ))}
-                </div>
-              </section>
-            ))}
+            {t.categories.map((category) => {
+              const visibleTools = category.tools.slice(0, 6);
+              const foldedTools = category.tools.slice(6);
+              return (
+                <section key={category.title}>
+                  <h3 className="text-base font-bold text-gray-950">
+                    {category.title}
+                  </h3>
+                  <p className="mt-1 max-w-3xl text-sm leading-6 text-gray-600">
+                    {category.description}
+                  </p>
+                  <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                    {visibleTools.map((tool) => (
+                      <CompactToolCard key={tool.href} tool={tool} />
+                    ))}
+                  </div>
+                  {foldedTools.length > 0 ? (
+                    <details className="group/fold mt-2">
+                      <summary className="inline-flex cursor-pointer list-none items-center gap-1 rounded-md px-1 py-1.5 text-sm font-semibold text-teal-700 hover:text-teal-900">
+                        <span className="group-open/fold:hidden">
+                          {locale === "en"
+                            ? `Show ${foldedTools.length} more`
+                            : `残り${foldedTools.length}件を表示`}
+                        </span>
+                        <span className="hidden group-open/fold:inline">
+                          {locale === "en" ? "Show less" : "折りたたむ"}
+                        </span>
+                        <span aria-hidden="true" className="transition group-open/fold:rotate-180">▾</span>
+                      </summary>
+                      <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                        {foldedTools.map((tool) => (
+                          <CompactToolCard key={tool.href} tool={tool} />
+                        ))}
+                      </div>
+                    </details>
+                  ) : null}
+                </section>
+              );
+            })}
           </div>
           <div className="mt-10 text-center">
             <Link
               href={`${basePath}/tools`}
-              className="inline-flex rounded-md border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-800 transition hover:border-blue-300 hover:text-blue-800"
+              className="inline-flex rounded-md border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-800 transition hover:border-teal-300 hover:text-teal-800"
             >
               {labels.viewAll} →
             </Link>
@@ -200,7 +226,7 @@ export default function HomePage({ locale }: Props) {
             </div>
             <Link
               href={`${basePath}/guides`}
-              className="text-sm font-medium text-blue-700 underline decoration-blue-300 underline-offset-4 hover:text-blue-900"
+              className="text-sm font-medium text-teal-700 underline decoration-teal-300 underline-offset-4 hover:text-teal-900"
             >
               {t.guidesSection.viewAllLabel} →
             </Link>
@@ -212,7 +238,7 @@ export default function HomePage({ locale }: Props) {
                 href={`${basePath}/guides/${guide.slug}`}
                 className="group flex h-full flex-col rounded-lg border border-gray-200 bg-white p-5 transition hover:border-gray-300 hover:shadow-md"
               >
-                <h3 className="text-base font-semibold text-gray-900 group-hover:text-blue-700">
+                <h3 className="text-base font-semibold text-gray-900 group-hover:text-teal-700">
                   {guide.title}
                 </h3>
                 <p className="mt-2 line-clamp-3 text-sm leading-6 text-gray-500">

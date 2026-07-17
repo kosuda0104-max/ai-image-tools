@@ -54,7 +54,7 @@ export default function Page() {
                   href="https://www.google.com/settings/ads"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 underline"
+                  className="text-teal-600 underline"
                 >
                   Google&apos;s Ads Settings page
                 </a>
@@ -63,7 +63,7 @@ export default function Page() {
                   href="https://www.aboutads.info/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 underline"
+                  className="text-teal-600 underline"
                 >
                   aboutads.info
                 </a>
@@ -75,7 +75,7 @@ export default function Page() {
                   href="https://policies.google.com/privacy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 underline"
+                  className="text-teal-600 underline"
                 >
                   Google Privacy Policy
                 </a>
@@ -116,7 +116,7 @@ export default function Page() {
               </p>
               <p>
                 If you have questions about privacy, please reach out through the{" "}
-                <Link href="/en/contact" className="text-blue-600 underline">
+                <Link href="/en/contact" className="text-teal-600 underline">
                   contact page
                 </Link>
                 .

@@ -70,7 +70,7 @@ function Arrow({ x, y }: { x: number; y: number }) {
 
 function Frame({ children }: { children: ReactNode }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-slate-50 to-teal-50">
       <svg viewBox="0 0 720 200" className="h-auto w-full" role="img" aria-hidden="true">
         {children}
       </svg>

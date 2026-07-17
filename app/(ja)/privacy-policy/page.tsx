@@ -54,7 +54,7 @@ export default function Page() {
                   href="https://www.google.com/settings/ads"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 underline"
+                  className="text-teal-600 underline"
                 >
                   Google の広告設定ページ
                 </a>
@@ -63,7 +63,7 @@ export default function Page() {
                   href="https://www.aboutads.info/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 underline"
+                  className="text-teal-600 underline"
                 >
                   aboutads.info
                 </a>
@@ -75,7 +75,7 @@ export default function Page() {
                   href="https://policies.google.com/privacy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 underline"
+                  className="text-teal-600 underline"
                 >
                   Google プライバシーポリシー
                 </a>
@@ -116,7 +116,7 @@ export default function Page() {
               </p>
               <p>
                 プライバシーに関する質問がある場合は、
-                <Link href="/contact" className="text-blue-600 underline">
+                <Link href="/contact" className="text-teal-600 underline">
                   お問い合わせページ
                 </Link>
                 からご連絡ください。
