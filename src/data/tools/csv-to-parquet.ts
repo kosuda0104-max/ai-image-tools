@@ -121,9 +121,9 @@ export const csvToParquetContent: Record<ToolLocale, CsvToParquetContent> = {
       ],
       relatedToolsTitle: "関連ツール",
       relatedTools: [
+        { name: "Parquet ビューア", href: "/tools/parquet-viewer" },
         { name: "Parquet を CSV に変換", href: "/tools/parquet-to-csv" },
-        { name: "CSV を JSON に変換", href: "/tools/csv-to-json" },
-        { name: "JSON を CSV に変換", href: "/tools/json-to-csv" },
+        { name: "ガイド: BigQuery・AWSでのParquet活用", href: "/guides/parquet-csv-workflows" },
         { name: "ガイド: Parquet とは？", href: "/guides/what-is-parquet" },
       ],
     },
@@ -243,9 +243,9 @@ export const csvToParquetContent: Record<ToolLocale, CsvToParquetContent> = {
       ],
       relatedToolsTitle: "Related tools",
       relatedTools: [
+        { name: "Parquet Viewer", href: "/en/tools/parquet-viewer" },
         { name: "Parquet to CSV", href: "/en/tools/parquet-to-csv" },
-        { name: "CSV to JSON", href: "/en/tools/csv-to-json" },
-        { name: "JSON to CSV", href: "/en/tools/json-to-csv" },
+        { name: "Guide: Parquet vs CSV for BigQuery and AWS", href: "/en/guides/parquet-csv-workflows" },
         { name: "Guide: What is Parquet?", href: "/en/guides/what-is-parquet" },
       ],
     },

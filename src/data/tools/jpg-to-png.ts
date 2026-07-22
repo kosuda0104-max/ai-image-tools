@@ -91,10 +91,10 @@ export const jpgToPngContent: Record<ToolLocale, JpgToPngContent> = {
       ],
       relatedToolsTitle: "次に使いやすい関連ツール",
       relatedTools: [
+        { name: "画像の背景を透過", href: "/tools/image-background-transparent" },
         { name: "PNGをJPGに変換", href: "/tools/png-to-jpg" },
         { name: "WebPをPNGに変換", href: "/tools/webp-to-png" },
-        { name: "画像圧縮", href: "/tools/image-compress" },
-        { name: "画像リサイズ", href: "/tools/resize-image" },
+        { name: "PNGを圧縮", href: "/tools/png-compress" },
       ],
     },
     ui: {
@@ -219,10 +219,10 @@ export const jpgToPngContent: Record<ToolLocale, JpgToPngContent> = {
       ],
       relatedToolsTitle: "Related tools people often use next",
       relatedTools: [
+        { name: "Make Image Background Transparent", href: "/en/tools/image-background-transparent" },
         { name: "PNG to JPG", href: "/en/tools/png-to-jpg" },
         { name: "WebP to PNG", href: "/en/tools/webp-to-png" },
-        { name: "Image Compress", href: "/en/tools/image-compress" },
-        { name: "Resize Image", href: "/en/tools/resize-image" },
+        { name: "PNG Compress", href: "/en/tools/png-compress" },
       ],
     },
     ui: {

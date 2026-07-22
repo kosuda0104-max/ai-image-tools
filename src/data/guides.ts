@@ -1310,9 +1310,9 @@ const jaGuides: GuideEntry[] = [
   },
   {
     slug: "png-transparency-basics",
-    title: "PNGの透過（背景透明）の基礎｜JPGにすると消える理由と扱い方",
+    title: "PNGの透過とは？JPG・JPEGで背景が白くなる理由と直し方",
     description:
-      "ロゴやアイコンの背景が白く塗りつぶされる、透過したまま軽くしたい——PNGの透過（アルファチャンネル）の仕組みと、JPGに変換すると透明が失われる理由、WebPで透過のまま軽量化する方法をまとめます。",
+      "JPG・JPEGは透過できません。PNGの背景透明（アルファチャンネル）の仕組み、JPGにすると背景が白くなる理由、透過を保つ方法と背景を消す方法を解説します。",
     cardDescription:
       "PNGの透過がJPGで消える理由と、透明を保ったまま軽くする方法を整理します。",
     sections: [
@@ -1330,7 +1330,7 @@ const jaGuides: GuideEntry[] = [
         ],
       },
       {
-        title: "JPGにすると背景が白くなる理由",
+        title: "JPG・JPEGは透過できない：背景が白くなる理由",
         paragraphs: [
           "JPGは透明度を保存できない形式です。そのため透過PNGをJPGに変換すると、透明だった部分が白（ツールによっては黒）で塗りつぶされます。「ロゴをJPGにしたら背景に白い四角がついた」というトラブルのほとんどが、これが原因です。",
           "一度JPGにして背景が塗られてしまうと、あとからその白を透明には戻せません。透過が必要な画像は、編集・保管の段階ではPNG（やWebP）のまま持っておき、透過がいらない最終用途に限ってJPGへ変換するのが安全です。",
@@ -1401,6 +1401,13 @@ const jaGuides: GuideEntry[] = [
           "文字は読めるのに全項目が1列へ入るなら、原因は文字コードではなく区切り文字です。カンマ、セミコロン、タブのどれで区切られているかを確認します。列が途中からずれる場合は、値の中のカンマ・改行・二重引用符の扱いを疑うと、無駄な再変換を減らせます。",
         ],
       },
+    updatedAt: "2026-07-22",
+    sources: [
+      {
+        label: "MDN：画像ファイル形式ガイド（JPEG・PNG）",
+        href: "https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types",
+      },
+    ],
       {
         title: "Excelで開くと化ける定番パターン",
         figure: {
@@ -1458,9 +1465,9 @@ const jaGuides: GuideEntry[] = [
   },
   {
     slug: "what-is-parquet",
-    title: "Parquetとは？CSVとの違いとデータ分析での使いどころ",
+    title: "Parquet（パーケット）とは？CSVとの違いとBigQueryでの使い方",
     description:
-      "データ基盤やBigQuery・Athenaでよく見る「.parquet」ファイル。Parquetとはどんな形式で、なぜCSVより速く・安くなるのか、どんなときにCSVと使い分けるべきかを、専門用語を抑えめに解説します。",
+      "Parquetの読み方は「パーケット」です。CSVとの違い、列指向で速く・小さくなる仕組み、BigQueryやAthenaでの使い方、ブラウザでの変換方法を解説します。",
     cardDescription:
       "列指向フォーマットParquetの正体と、CSVとの違い・使い分けをやさしく整理します。",
     sections: [
@@ -1549,6 +1556,21 @@ const jaGuides: GuideEntry[] = [
           kind: "steps",
           steps: ["JSONを用意", "キーを列に\n展開する", "CSVへ変換", "Excelで確認"],
           caption: "入れ子のJSONはキーを列に展開してからCSVにすると崩れにくい",
+    updatedAt: "2026-07-22",
+    sources: [
+      {
+        label: "Apache Parquet：公式ドキュメント",
+        href: "https://parquet.apache.org/docs/",
+      },
+      {
+        label: "Google Cloud：BigQueryへParquetを読み込む",
+        href: "https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-parquet?hl=ja",
+      },
+      {
+        label: "AWS：Athenaで列指向形式を使う",
+        href: "https://docs.aws.amazon.com/athena/latest/ug/columnar-storage.html",
+      },
+    ],
         },
         paragraphs: [
           "JSON→CSVで一番つまずくのが、入れ子や配列の扱いです。階層を持つJSONを無理に表へ落とすと、列がうまく決まらなかったり、配列が1セルに詰め込まれたりします。先にどのキーを列にするかを決め、ネストを平らに展開してから変換すると崩れにくくなります。",
@@ -1571,14 +1593,21 @@ const jaGuides: GuideEntry[] = [
       },
     ],
   },
+      {
+        title: "BigQueryでParquetを使う方法",
+        paragraphs: [
+          "BigQueryでは、Cloud Storageに置いたParquetをBigQueryのテーブルへ読み込む方法と、外部テーブルとしてCloud Storage上のファイルを直接クエリする方法があります。同じデータを繰り返し分析し、クエリ性能を優先するなら通常のテーブルへ読み込み、まず中身を確認したい場合やファイルを移さず参照したい場合は外部テーブルを使う、と分けると選びやすくなります。",
+          "CSVから用意する場合は、先にParquetへ変換してCloud Storageへ置き、データセットとバケットのロケーションを合わせて読み込みます。当サイトのCSV→Parquet変換は全列を文字列型で出力するため、数値や日付はBigQuery側のスキーマやクエリで必要な型へ変換してください。",
+        ],
+      },
   {
     slug: "what-is-avif",
-    title: "AVIFとは？開けないときの対処とJPG・PNGへの変換方法",
+    title: "AVIF（.avif）とは？開けない原因とJPG・PNGへの変換方法",
     description:
-      "Webで保存した画像が「.avif」で開けない・送れない。AVIFとはどんな形式で、なぜ高画質なのに軽いのか、JPGやPNGへ変換して扱いやすくする方法を解説します。",
+      "AVIF（.avif）は高画質・高圧縮の画像形式です。ファイルが開けない原因と、無料のブラウザツールでJPG・PNGへ変換する方法を解説します。",
     cardDescription:
       "高圧縮の新しい画像形式AVIFの正体と、JPG・PNGへの変換方法を解説します。",
-    updatedAt: "2026-07-14",
+    updatedAt: "2026-07-22",
     sources: [
       {
         label: "Alliance for Open Media：What is AVIF?",
@@ -2730,9 +2759,9 @@ const enGuides: GuideEntry[] = [
   },
   {
     slug: "parquet-csv-workflows",
-    title: "Parquet vs CSV for AWS, BigQuery, and Spark",
+    title: "Parquet vs CSV for BigQuery, AWS Athena, and Spark",
     description:
-      "Why Parquet cuts AWS Athena and BigQuery costs, when CSV still makes more sense, and how to convert between the two formats directly in your browser.",
+      "Compare Parquet and CSV for BigQuery, AWS Athena, and Spark. Learn when to load Parquet, query external files, or keep CSV, then convert in your browser.",
     cardDescription:
       "How Parquet reduces costs on AWS Athena and BigQuery, when to stick with CSV, and browser-based conversion tools that require no setup.",
     sections: [
@@ -2744,10 +2773,17 @@ const enGuides: GuideEntry[] = [
         ],
       },
       {
-        title: "Redshift, BigQuery, and Spark",
+        title: "BigQuery and Parquet: load files or query them in place",
         paragraphs: [
-          "BigQuery also charges based on bytes scanned, so the same logic applies — Parquet files mean smaller scans and lower per-query costs. Redshift Spectrum works similarly when reading from S3-backed external tables.",
-          "For Spark or EMR batch jobs, Parquet input reduces the time spent deserializing data. If you're running daily jobs against large S3 datasets, switching from CSV to Parquet is one of the easier wins.",
+          "BigQuery can load Parquet files from Cloud Storage into a native table, or query those files in place through an external table. Loading is usually the stronger choice for repeated analysis and full BigQuery performance. External tables are useful for ad hoc access or when the source must stay in Cloud Storage.",
+          "Keep the Cloud Storage bucket and BigQuery dataset in compatible locations. This browser converter writes every CSV column as STRING, so cast numeric and date fields in your BigQuery schema or queries after loading the Parquet output.",
+        ],
+      },
+      {
+        title: "Redshift and Spark workflows",
+        paragraphs: [
+          "Redshift Spectrum can read Parquet from S3-backed external tables, while Spark and EMR can process Parquet as a typed, columnar input. These workflows benefit when jobs select a subset of columns or repeatedly scan the same large dataset.",
+          "CSV remains useful at the edges of the workflow for exports and manual checks, while Parquet is the better long-lived format for analytical storage and repeat processing.",
         ],
       },
       {
@@ -2907,6 +2943,25 @@ const enGuides: GuideEntry[] = [
         title: "Option 1: Compress the images",
         paragraphs: [
           "The easiest fix is compression — slightly lowering photo quality to cut file size. For photographs, compressing to around 80% quality is usually invisible to the eye and can halve the file size or better.",
+    updatedAt: "2026-07-22",
+    sources: [
+      {
+        label: "Apache Parquet documentation",
+        href: "https://parquet.apache.org/docs/",
+      },
+      {
+        label: "Google Cloud: Loading Parquet data from Cloud Storage",
+        href: "https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-parquet?hl=en",
+      },
+      {
+        label: "Google Cloud: Introduction to external tables",
+        href: "https://docs.cloud.google.com/bigquery/docs/external-tables",
+      },
+      {
+        label: "AWS: Use columnar storage formats in Athena",
+        href: "https://docs.aws.amazon.com/athena/latest/ug/columnar-storage.html",
+      },
+    ],
           "Our image compressor lets you adjust strength with a slider while comparing before/after previews and sizes. Everything is processed in your browser, so private photos never leave your device.",
         ],
       },
@@ -3689,7 +3744,7 @@ const enGuides: GuideEntry[] = [
       "An image you saved from the web is a .avif that will not open or send. Here is what AVIF is, why it is high quality yet small, and how to convert it to JPG or PNG so it is easy to work with.",
     cardDescription:
       "What the high-compression AVIF format is, and how to convert it to JPG or PNG.",
-    updatedAt: "2026-07-14",
+    updatedAt: "2026-07-22",
     sources: [
       {
         label: "Alliance for Open Media: What is AVIF?",

@@ -7,7 +7,7 @@ export const metadata = createToolMetadata({
   jaTitle: "JPGをPNGに一括変換【無料・アップロード不要】",
   jaDescription:
     "JPG画像をPNGにまとめて変換できる無料オンラインツールです。ファイルはサーバーに送信されず、ブラウザ内で処理。複数ファイルの一括変換とZIP保存に対応しています。",
-  enTitle: "JPG to PNG Converter – Free, Batch, No Upload",
+  enTitle: "JPG to PNG Converter Online – Free, Batch, No Upload",
   enDescription:
     "Convert JPG to PNG online for free. Files never leave your browser. Batch conversion with ZIP download supported.",
 });

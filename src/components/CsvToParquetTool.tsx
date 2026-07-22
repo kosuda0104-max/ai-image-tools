@@ -141,6 +141,8 @@ export default function CsvToParquetTool({ locale }: Props) {
       aboutText={page.aboutText}
       contentSections={page.contentSections}
       listSections={page.listSections}
+      comparisonTitle={page.comparisonTitle}
+      comparisonItems={page.comparisonItems}
       stepsTitle={page.stepsTitle}
       steps={page.steps}
       faqTitle={page.faqTitle}
