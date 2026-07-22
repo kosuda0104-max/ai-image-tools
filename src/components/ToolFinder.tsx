@@ -28,10 +28,11 @@ type Props = {
 
 const finderCopy = {
   ja: {
-    label: "ツールを絞り込む",
-    dropTitle: "ここにファイルをドロップ",
-    fileAction: "ファイルを選択",
-    fileHint: "種類を自動判定して、使えるツールをすぐに表示します",
+    label: "ファイルに合うツールを探す",
+    dropTitle: "ファイルに合う変換・編集ツールを探す",
+    fileAction: "ファイルを選んで候補を見る",
+    fileHint: "ファイル形式を判定し、対応するツールを次に表示します",
+    noConversionHint: "ここではまだ変換・編集は始まりません",
     pasteHint: "スクリーンショットは Ctrl+V で貼り付けもできます",
     chooseAnother: "別のファイルを選択",
     clearFile: "選択を解除",
@@ -59,6 +60,7 @@ const finderCopy = {
     dropTitle: "Drop your file here",
     fileAction: "Choose file",
     fileHint: "We detect the format and show only the tools that fit",
+    noConversionHint: "No conversion or editing starts at this step",
     pasteHint: "You can also paste a screenshot with Ctrl+V",
     chooseAnother: "Choose another file",
     clearFile: "Clear selected file",
@@ -191,7 +193,7 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
         type="file"
         multiple
         className="sr-only"
-        accept="image/*,.pdf,.csv,.tsv,.txt,.json,.jsonl,.ndjson,.parquet"
+        accept="image/*,.pdf,.csv,.tsv,.txt,.json,.jsonl,.ndjson,.parquet,.gz"
         aria-label={t.fileAction}
         onChange={(event) => selectFiles(event.target.files)}
       />
@@ -225,6 +227,9 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
             {t.fileAction}
           </label>
           <p className="mt-3 text-xs text-gray-500">{t.fileHint}</p>
+          <p className="mt-1 text-xs font-medium text-gray-600">
+            {t.noConversionHint}
+          </p>
           <p className="mt-1 text-xs text-gray-400">{t.pasteHint}</p>
           <p className="mt-1 text-xs font-medium text-teal-700">{t.privacy}</p>
         </div>

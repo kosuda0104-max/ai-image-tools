@@ -16,10 +16,11 @@ export type RelatedGuideLink = {
  */
 const guideRelatedGuidesMap: Record<string, string[]> = {
   // ── Data cluster (fully interlinked) ──
-  "what-is-parquet": ["parquet-csv-workflows", "json-and-csv", "csv-encoding-fix"],
-  "parquet-csv-workflows": ["what-is-parquet", "json-and-csv", "csv-encoding-fix"],
-  "json-and-csv": ["csv-encoding-fix", "what-is-parquet", "parquet-csv-workflows"],
-  "csv-encoding-fix": ["json-and-csv", "what-is-parquet", "parquet-csv-workflows"],
+  "aws-export-file-formats": ["what-is-parquet", "parquet-csv-workflows", "json-and-csv"],
+  "what-is-parquet": ["parquet-csv-workflows", "json-and-csv", "csv-encoding-fix", "aws-export-file-formats"],
+  "parquet-csv-workflows": ["what-is-parquet", "json-and-csv", "csv-encoding-fix", "aws-export-file-formats"],
+  "json-and-csv": ["csv-encoding-fix", "what-is-parquet", "parquet-csv-workflows", "aws-export-file-formats"],
+  "csv-encoding-fix": ["json-and-csv", "what-is-parquet", "parquet-csv-workflows", "aws-export-file-formats"],
   "base64-data-uri-for-web-development": [
     "choose-best-image-format-for-web",
     "optimize-blog-and-site-images",

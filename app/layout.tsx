@@ -9,7 +9,7 @@ const googleVerification =
 
 const siteTitle = "Filewisp";
 const siteDescription =
-  "JPG・PNG・WebP・HEIC・AVIF・TIFF・PDF、CSV・JSONL・Parquet の変換、背景透過、スキーマ確認をブラウザだけで行える無料ツール集。登録不要・ファイルはサーバーに送信されません。61種類のツールを提供しています。";
+  "画像・PDF、CSV・Parquet・AWSエクスポートの変換や確認をブラウザだけで行える無料ツール集。登録不要・ファイルはサーバーに送信されません。67種類のツールを提供しています。";
 
 const websiteJsonLd = {
   "@context": "https://schema.org",

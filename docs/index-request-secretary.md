@@ -78,6 +78,19 @@ Claude にこう頼めば、秘書として機能します：
 
 ## ⬜ 残りの申請（1日1バッチずつ）
 
+### ★AWS変換クラスタ（2026/07/22追加・本番反映後に申請）
+> AWSサービス固有形式の新規6ツールとハブガイドを優先する。日本語7件に、英語で検索意図が明確な3件を加えた10件。
+- [ ] https://ai-image-tools.com/tools/dynamodb-json-converter
+- [ ] https://ai-image-tools.com/tools/textract-json-to-excel
+- [ ] https://ai-image-tools.com/tools/cloudtrail-log-to-csv
+- [ ] https://ai-image-tools.com/tools/s3-inventory-viewer
+- [ ] https://ai-image-tools.com/tools/cloudwatch-logs-converter
+- [ ] https://ai-image-tools.com/tools/transcribe-json-to-srt
+- [ ] https://ai-image-tools.com/guides/aws-export-file-formats
+- [ ] https://ai-image-tools.com/en/tools/dynamodb-json-converter
+- [ ] https://ai-image-tools.com/en/tools/cloudtrail-log-to-csv
+- [ ] https://ai-image-tools.com/en/tools/s3-inventory-viewer
+
 ### ★バッチ最優先：Parquet⇄CSV 訴求（2026/06/13作成・2026/07/12申請キュー化）
 > 「AWSでParquet⇄CSVをブラウザだけで変換したい」需要を取りに行く最重要クラスタ。
 > ツール本体（/tools/parquet-to-csv・/tools/csv-to-parquet）はバッチ2で申請済みなので、
@@ -198,6 +211,13 @@ Claude にこう頼めば、秘書として機能します：
 ---
 
 ## 🛠️ 対応ログ（やったこと記録）
+
+### 2026/07/22 — AWS固有形式の変換クラスタを追加
+**追加ツール:** DynamoDB JSON、Amazon Textract JSON、CloudTrail .json.gz、S3 Inventory、CloudWatch Logs .gz、Amazon Transcribe JSONの6形式を、CSV・Excel・JSONL・SRT・VTTへ変換できる日英ページとして追加。
+
+**SEO対応:** `/guides/aws-export-file-formats` の日英ガイドをAWS公式資料6本の出典付きで公開対象に追加。6ツール間、既存Parquet/JSONガイド、トップ、ツール一覧から内部リンクし、Finderのファイル名・gzip・自然文検索にも登録。サイトマップとGSC申請キューへ追加した。
+
+**検証:** 形式別パーサー、gzip、複数ファイル結合、複数シートExcel、字幕タイムコード、日英UIの自動テストを追加。
 
 ### 2026/07/22 — 最新GSCレポート反映
 **確認結果:** 2026/06/22〜07/19はクリック0・表示21・平均順位41.3。前期間より表示は13増、平均順位は87.1から41.3へ改善した。`.avif とは` は表示8・2位、ページでは `/guides/what-is-avif` が表示9・12.4位。8〜20位には `/en/tools/jpg-to-png`（8位）、`/en/tools/csv-to-parquet`（9位）、日本語のJPG/PNG/WebP変換3ページが入った。

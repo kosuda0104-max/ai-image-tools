@@ -155,12 +155,21 @@ const dataToolSlugs = [
   "base64-to-image",
 ] as const;
 
+const awsToolSlugs = [
+  "dynamodb-json-converter",
+  "textract-json-to-excel",
+  "cloudtrail-log-to-csv",
+  "s3-inventory-viewer",
+  "cloudwatch-logs-converter",
+  "transcribe-json-to-srt",
+] as const;
+
 const ja = {
   heroTitle: "画像・PDF・データツール一覧",
   heroDescription:
-    "画像変換・圧縮・編集、PDF整理、CSV・JSONL・Parquet処理をブラウザだけで進められます。ファイル形式か困りごとから、必要なツールへ絞り込めます。",
+    "画像変換・圧縮・編集、PDF整理、CSV・Parquet・AWSエクスポート処理をブラウザだけで進められます。ファイル形式か困りごとから、必要なツールへ絞り込めます。",
   stats: [
-    { value: "61ツール", label: "画像・PDF・データ変換をカバー" },
+    { value: "67ツール", label: "画像・PDF・データ変換をカバー" },
     { value: "無料", label: "登録不要ですぐ使える" },
     { value: "安全", label: "ブラウザ内で処理" },
   ],
@@ -170,7 +179,7 @@ const ja = {
   topPageLinkLabel: "トップページへ",
   seoSpotlightTitle: "まず見ておきたいツール",
   seoSpotlightDescription:
-    "形式変換だけでなく、圧縮、リサイズ、PDF 整理のように次の作業につながりやすいツールもまとめています。何から始めればよいか迷うときにも選びやすい並びです。",
+    "よく使われる変換に加え、圧縮、リサイズ、PDF整理への入口を並べています。目的に近いものから選んでください。",
   chooserTitle: "目的から選ぶ",
   chooserDescription:
     "拡張子や専門用語が分からなくても、やりたい作業から近いツールへ進めるようにしました。",
@@ -179,14 +188,14 @@ const ja = {
     "どの形式や作業を選ぶべきか分からないときは、状況に近い行から始めると失敗しにくくなります。",
   guide1: "この一覧ページの使い方",
   guide1a:
-    "まずは目的に近いカテゴリを見るのがおすすめです。形式を変えたいのか、容量を軽くしたいのか、PDF を整えたいのかで分けると迷いにくくなります。",
+    "形式を変える、容量を下げる、PDFを整える、のどれに近いかでカテゴリを選びます。拡張子が分かる場合は検索欄へ入力してください。",
   guide1b:
     "たとえば共有向けなら JPG や WebP、編集前提なら PNG、提出資料なら PDF 系のツールから探すと流れを作りやすいです。",
-  guide2: "埋もれやすいけれど便利なツール",
+  guide2: "変換以外の小さな作業",
   guide2a:
-    "回転、反転、透かし、白黒化、ページ削除のような補助系ツールは、検索では見つけにくくても実作業ではかなり役立ちます。",
+    "回転、反転、透かし、白黒化、ページ削除もブラウザで処理できます。専用ソフトを開くほどではない修正向けです。",
   guide2b:
-    "変換だけで終わらず、その次の微調整までできるのがこの一覧ページの強みです。必要に応じて関連ツールもたどってみてください。",
+    "変換後に寸法や容量も直す場合は、各ページ下部の関連ツールから続けて移動できます。",
   cat1: "画像形式の変換",
   cat1d: "画像を別の形式へ変換したいときのツールです。互換性を広げたいときや、編集しやすい形式へ寄せたいときに向いています。",
   cat2: "画像の調整と圧縮",
@@ -202,7 +211,7 @@ const ja = {
   homeDescription: "よく使うツールだけを素早く見たい場合は、トップページから人気ツールにすぐ移動できます。",
   homeButton: "トップページへ",
   contactTitle: "お問い合わせ",
-  contactDescription: "不具合報告や追加してほしいツールがあれば、お問い合わせページから気軽に送れます。",
+  contactDescription: "不具合報告や追加してほしいツールは、お問い合わせページで受け付けています。",
   contactButton: "お問い合わせページへ",
 };
 
@@ -225,7 +234,7 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
       {
         ...getToolItem("ja", "heic-to-jpg"),
         reason:
-          "iPhone 写真を送信や入稿で詰まりにくい形式へそろえたいときに便利です。",
+          "iPhone写真をWindowsや提出フォームで開けるJPGへ変換します。",
       },
       {
         ...getToolItem("ja", "image-compress"),
@@ -235,7 +244,7 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
       {
         ...getToolItem("ja", "webp-compress"),
         reason:
-          "すでに WebP にしてある画像を、さらに軽くしたいときに役立つ補助ツールです。",
+          "WebPのまま容量を下げたいときに使います。形式は変わりません。",
       },
       {
         ...getToolItem("ja", "pdf-remove-pages"),
@@ -270,7 +279,7 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
         {
           title: "提出用 PDF を作りたい",
           description:
-            "画像を PDF にまとめたり、PDF から画像を取り出したりするときに便利です。",
+            "複数画像を1つのPDFにするか、PDFの各ページを画像として書き出します。",
           tools: [
             getToolItem("ja", "image-to-pdf"),
             getToolItem("ja", "jpg-to-pdf"),
@@ -400,6 +409,12 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
         description: ja.cat4d,
         tools: getToolItems("ja", dataToolSlugs),
       },
+      {
+        title: "AWSデータ変換ツール",
+        description:
+          "DynamoDB、Textract、CloudTrail、S3 Inventory、CloudWatch Logs、Transcribe固有のエクスポートを表や字幕へ変換します。",
+        tools: getToolItems("ja", awsToolSlugs),
+      },
     ],
     aboutSection: {
       title: ja.aboutTitle,
@@ -421,10 +436,10 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
     hero: {
       title: "Image, PDF, and Data Tools",
       description:
-        "Convert and edit images, organize PDFs, and process CSV, JSONL, or Parquet files directly in your browser. Start with a file or describe the problem to narrow all 61 tools to the relevant options.",
+        "Convert and edit images, organize PDFs, and process CSV, Parquet, or AWS export files directly in your browser. Start with a file or describe the problem to narrow all 67 tools to the relevant options.",
     },
     stats: [
-      { value: "61 Tools", label: "Image, PDF, and data conversion tools" },
+      { value: "67 Tools", label: "Image, PDF, and data conversion tools" },
       { value: "Free", label: "No signup required" },
       { value: "Safe", label: "Processed in your browser" },
     ],
@@ -631,12 +646,18 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
           "Convert CSV, JSON, Parquet, and Base64 directly in your browser. Useful for API responses, database exports, AWS S3, Athena, BigQuery, Spark, and web development workflows.",
         tools: getToolItems("en", dataToolSlugs),
       },
+      {
+        title: "AWS Data Conversion",
+        description:
+          "Convert service-specific exports from DynamoDB, Textract, CloudTrail, S3 Inventory, CloudWatch Logs, and Transcribe.",
+        tools: getToolItems("en", awsToolSlugs),
+      },
     ],
     aboutSection: {
       title: "About This Tools Page",
       paragraphs: [
-        "This page organizes image conversion, image editing, and PDF tools by category.",
-        "It is designed to help both direct search visitors and users exploring related workflows.",
+        "This page groups image, PDF, data, and AWS export tools by the job they perform.",
+        "Search by extension when you know the file type. Otherwise, start with the category closest to the result you need.",
       ],
     },
     homeSection: {

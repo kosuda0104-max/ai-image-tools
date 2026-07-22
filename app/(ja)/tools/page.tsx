@@ -1,9 +1,9 @@
 import ToolsPage from "@/src/components/ToolsPage";
 
 export const metadata = {
-  title: "ツール一覧 – 画像・PDF・データ変換ツール 61種類",
+  title: "ツール一覧 – 画像・PDF・データ変換ツール 67種類",
   description:
-    "画像背景透過、AVIF・TIFF・PDF変換、CSV・JSONL・Parquet処理など61種類の無料ツールを提供。登録不要・ブラウザだけで完結します。",
+    "画像背景透過、AVIF・PDF変換、CSV・Parquet・AWSデータ処理など67種類の無料ツールを提供。登録不要・ブラウザだけで完結します。",
   alternates: {
     canonical: "/tools",
     languages: {

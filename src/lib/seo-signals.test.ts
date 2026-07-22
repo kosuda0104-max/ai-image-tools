@@ -46,6 +46,12 @@ describe("buildToolKeywords", () => {
     ["jsonl-to-csv", "JSONL to CSV Converter", "NDJSON to CSV"],
     ["parquet-viewer", "Parquet Viewer", "Parquet schema viewer"],
     ["tiff-to-pdf", "Multi-page TIFF to PDF", "multi-page TIFF to PDF"],
+    ["dynamodb-json-converter", "DynamoDB JSON Converter", "DynamoDB JSON to CSV"],
+    ["textract-json-to-excel", "Textract JSON to Excel", "Textract table to CSV"],
+    ["cloudtrail-log-to-csv", "CloudTrail Log to CSV", "CloudTrail json.gz converter"],
+    ["s3-inventory-viewer", "S3 Inventory Viewer", "S3 Inventory CSV.GZ"],
+    ["cloudwatch-logs-converter", "CloudWatch Logs Converter", "CloudWatch .gz converter"],
+    ["transcribe-json-to-srt", "Transcribe JSON to SRT", "Amazon Transcribe JSON to SRT"],
   ])("adds targeted SEO terms for %s", (slug, title, expected) => {
     const keywords = buildToolKeywords({ locale: "en", slug, title });
 

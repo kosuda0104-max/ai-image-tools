@@ -37,12 +37,12 @@ export default function AdUnit({
 
   return (
     <aside
-      className={`my-8 ${className ?? ""}`}
+      className={`my-8 min-w-0 max-w-full overflow-hidden ${className ?? ""}`}
       aria-label="Advertisement"
     >
       <ins
         className="adsbygoogle"
-        style={{ display: "block" }}
+        style={{ display: "block", minWidth: 0, width: "100%", maxWidth: "100%" }}
         data-ad-client={ADSENSE_CLIENT}
         data-ad-slot={slot}
         data-ad-format={format}

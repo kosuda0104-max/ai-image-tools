@@ -23,6 +23,7 @@ const HOME_GUIDE_SLUGS = [
   "compress-images-without-losing-quality",
   "pdf-workflows",
   "parquet-csv-workflows",
+  "aws-export-file-formats",
 ];
 
 function getHomeGuides(locale: "ja" | "en") {
@@ -112,13 +113,13 @@ type HomePageContent = {
 };
 
 const ja = {
-  heroTitle: "画像・PDF・データの無料ブラウザツール",
+  heroTitle: "ファイルを選ぶだけ。使える変換・編集ツールが見つかる",
   heroDescription:
-    "画像変換や背景透過、PDF整理、CSV・JSONL・Parquet処理まで61種類。ファイルを選ぶか困りごとを入力すると、使えるツールだけに絞れます。登録不要・ファイルは外部サーバーに送信されません。",
+    "画像・PDF・CSVなどのファイル形式を判定し、対応するツールを表示します。ここで自動変換されることはありません。やりたいことを入力して探すこともできます。登録不要・ファイルは外部サーバーに送信されません。",
   viewTools: "ツール一覧を見る",
   contact: "お問い合わせ",
   stats: [
-    { value: "61種類", label: "画像・PDF・データ変換ツールを提供中" },
+    { value: "67種類", label: "画像・PDF・データ変換ツールを提供中" },
     { value: "完全無料", label: "登録なしですぐ試せる" },
     { value: "ブラウザ完結", label: "ファイルはサーバーに送信されない" },
   ],
@@ -134,20 +135,20 @@ const ja = {
     "初めて使う人でも流れが追いやすいこと、仕事の途中でもすぐ使えること、形式の違いで困りにくいことを意識して更新しています。",
   toolsTitle: "ツール一覧ページ",
   toolsDescription:
-    "画像変換、画像編集、PDF ツールをカテゴリごとにまとめています。やりたい作業が決まっているときも、似たツールを見比べたいときも探しやすい構成です。",
+    "画像変換、画像編集、PDF、データ処理のツールを作業別に並べています。拡張子が分かる場合は検索、分からない場合はカテゴリから探せます。",
   toolsButton: "ツール一覧へ",
   faqTitle: "よくある質問",
   faq1q: "Filewisp は無料で使えますか？",
-  faq1a: "はい。公開しているツールは無料で使えます。まず試してから使い勝手を確認したい人向けのサイトです。",
+  faq1a: "はい。公開中のツールは無料で、会員登録も要りません。",
   faq2q: "画像は安全に扱われますか？",
-  faq2a: "多くのツールはブラウザ内で処理するため、画像を外部サーバーに送らずに済みます。提出前の画像や社内資料でも使いやすいよう、この点は特に重視しています。",
+  faq2a: "多くのツールはブラウザ内で処理します。対象ページに「アップロード不要」とある場合、ファイルは外部サーバーへ送られません。",
   faq3q: "どの形式に対応していますか？",
   faq3a: "JPG、PNG、WebP、HEIC、GIF、AVIF、BMP、TIFF、ICO、SVG、PDF まわりの作業に対応しています。変換だけでなく、圧縮やリサイズ、結合や分割まで扱えます。",
   faq4q: "今後もツールは増えますか？",
-  faq4a: "増やす予定はありますが、数だけを増やすよりも、いまあるツールの使い勝手や説明を先に改善する方針です。必要性の高いものから順に追加します。",
+  faq4a: "必要性の高いものから追加します。既存ツールの不具合修正や説明の見直しも並行して行います。",
   contactTitle: "お問い合わせ",
   contactBody:
-    "不具合報告、機能要望、追加してほしいツールの相談があれば、お問い合わせページから送れます。実際の困りごとをもとに改善内容を決めることが多いです。",
+    "不具合報告や追加してほしいツールがあれば、お問い合わせページから送ってください。再現手順や元ファイルの形式が分かると調査が早くなります。",
   contactButton: "お問い合わせページへ",
   cat1: "画像形式の変換",
   cat1d: "JPG、PNG、WebP、HEIC などを別の形式へ変換したいときのツールです。互換性を広げたいときや、編集しやすい形式へ寄せたいときに向いています。",
@@ -191,17 +192,17 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       items: [
         {
           title: "提出用にまとめたい",
-          description: "複数画像を PDF にまとめたり、PDF を軽くしたりして、そのまま提出しやすい形へ整える流れです。",
+          description: "複数画像を1つのPDFにし、必要なら容量も下げます。フォーム提出やメール添付の前に使う組み合わせです。",
           tools: getToolItems("ja", ["image-to-pdf", "jpg-to-pdf", "compress-pdf"]),
         },
         {
           title: "共有前に軽くしたい",
-          description: "アップロード制限や送信前の容量調整が気になるときに、画像を軽くしやすいツールをまとめています。",
+          description: "アップロード上限やメールの添付制限に合わせて、画像の容量を下げます。",
           tools: getToolItems("ja", ["image-compress", "jpg-compress", "webp-compress"]),
         },
         {
           title: "形式で詰まったとき",
-          description: "iPhone 写真や PNG / JPG の行き来など、相手先の環境に合わせて変換したいときに便利です。",
+          description: "iPhone写真が開けない、PNGでは容量が大きいなど、形式が原因の問題を解消します。",
           tools: getToolItems("ja", ["heic-to-jpg", "png-to-jpg", "jpg-to-png"]),
         },
       ],
@@ -288,6 +289,19 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
         ]),
       },
       {
+        title: "AWSデータ変換",
+        description:
+          "DynamoDB、Textract、CloudTrail、S3 Inventory、CloudWatch Logs、Transcribeの固有形式を扱うツールです。",
+        tools: getToolItems("ja", [
+          "dynamodb-json-converter",
+          "textract-json-to-excel",
+          "cloudtrail-log-to-csv",
+          "s3-inventory-viewer",
+          "cloudwatch-logs-converter",
+          "transcribe-json-to-srt",
+        ]),
+      },
+      {
         title: "Web・SNS向けツール",
         description:
           "favicon 作成、OGP 画像、SNS 用リサイズ、EXIF・位置情報の削除、カラーパレット抽出など、公開前のこまごました作業に使えるツールです。",
@@ -333,12 +347,12 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
     hero: {
       title: "Free Browser Tools for Images, PDFs, and Data",
       description:
-        "Convert images, clean up PDFs, remove backgrounds, and process CSV, JSONL, or Parquet files with 61 browser-based tools. Choose a file or describe the problem to see only relevant options. Files are not uploaded to an external server.",
+        "Choose an image, PDF, CSV, or other supported file to see compatible conversion and editing tools. Nothing is converted automatically at this step. You can also describe what you need. No signup is required, and files are not uploaded to an external server.",
       primaryButtonLabel: "View All Tools",
       secondaryButtonLabel: "Contact",
     },
     stats: [
-      { value: "61 Tools", label: "Image, PDF, and data conversion" },
+      { value: "67 Tools", label: "Image, PDF, and data conversion" },
       { value: "100% Free", label: "No signup required" },
       { value: "Browser-only", label: "Files never leave your device" },
     ],
@@ -361,21 +375,21 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
     taskPathsSection: {
       title: "Choose by what you need to finish",
       description:
-        "Many visitors know the task before they know the tool name. These grouped entry points make it easier to jump into the right workflow without guessing.",
+        "Start with the result you need. Each group links the tools normally used for that job.",
       items: [
         {
           title: "Prepare a file for submission",
-          description: "Turn images into PDF, organize the output, and reduce file size before sending or uploading.",
+          description: "Combine images into a PDF, put them in order, and reduce the final file size before submission.",
           tools: getToolItems("en", ["image-to-pdf", "jpg-to-pdf", "compress-pdf"]),
         },
         {
           title: "Make images lighter before sharing",
-          description: "Start here when upload limits or email size limits are the main problem and you need a smaller file quickly.",
+          description: "Reduce image size for an upload form, email attachment, or website without changing the subject of the image.",
           tools: getToolItems("en", ["image-compress", "jpg-compress", "webp-compress"]),
         },
         {
           title: "Fix a compatibility problem",
-          description: "Use these when a phone photo, PNG, or JPG is not accepted by the destination and you need a safer format fast.",
+          description: "Convert a phone photo or web image when the receiving app does not accept its current format.",
           tools: getToolItems("en", ["heic-to-jpg", "png-to-jpg", "jpg-to-png"]),
         },
       ],
@@ -459,6 +473,19 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
           "csv-to-json",
           "image-to-base64",
           "base64-to-image",
+        ]),
+      },
+      {
+        title: "AWS Data Conversion",
+        description:
+          "Handle service-specific exports from DynamoDB, Textract, CloudTrail, S3 Inventory, CloudWatch Logs, and Transcribe.",
+        tools: getToolItems("en", [
+          "dynamodb-json-converter",
+          "textract-json-to-excel",
+          "cloudtrail-log-to-csv",
+          "s3-inventory-viewer",
+          "cloudwatch-logs-converter",
+          "transcribe-json-to-srt",
         ]),
       },
       {

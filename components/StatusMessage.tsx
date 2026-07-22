@@ -6,9 +6,9 @@ export default function StatusMessage({ status }: Props) {
   if (!status) return null;
 
   const className = `rounded-xl border p-4 text-sm ${
-    status.startsWith("エラー")
+    status.startsWith("エラー") || status.startsWith("Error")
       ? "border-red-200 bg-red-50 text-red-700"
-      : status.startsWith("完了")
+      : status.startsWith("完了") || status.startsWith("Done")
       ? "border-green-200 bg-green-50 text-green-700"
       : "border-gray-200 bg-gray-50 text-gray-600"
   }`;

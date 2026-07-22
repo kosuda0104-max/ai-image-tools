@@ -2,6 +2,14 @@ import { getToolItems } from "@/src/data/tool-directory";
 import type { ToolDirectoryLocale, ToolDirectoryItem } from "@/src/data/tool-directory";
 
 const guideToolMap: Record<string, string[]> = {
+  "aws-export-file-formats": [
+    "dynamodb-json-converter",
+    "textract-json-to-excel",
+    "cloudtrail-log-to-csv",
+    "s3-inventory-viewer",
+    "cloudwatch-logs-converter",
+    "transcribe-json-to-srt",
+  ],
   "image-format-basics": ["jpg-to-png", "png-to-jpg", "jpg-to-webp", "heic-to-jpg", "webp-to-jpg"],
   "jpg-vs-png": ["jpg-to-png", "png-to-jpg", "image-compress", "resize-image"],
   "png-vs-webp": ["png-to-webp", "webp-to-png", "image-compress", "jpg-to-webp"],

@@ -27,7 +27,7 @@ export default function ToolsPage({ locale }: Props) {
       : {
           browseTitle: "カテゴリから全ツールを見る",
           browseDescription:
-            "必要なカテゴリだけ開けます。61件すべてのツールはここから利用できます。",
+            "必要なカテゴリだけ開けます。67件すべてのツールはここから利用できます。",
           tools: (count: number) => `${count}件`,
           chooser: "カテゴリを決めきれないとき",
         };

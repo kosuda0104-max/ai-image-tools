@@ -12,6 +12,9 @@ describe("file-based tool recommendations", () => {
     ["scan.tif", "", "tiff"],
     ["dataset.unknown", "application/vnd.apache.parquet", "parquet"],
     ["export", "text/csv", "csv"],
+    ["manifest.json", "application/json", "s3-inventory"],
+    ["AWSLogs_CloudTrail.json.gz", "application/gzip", "cloudtrail-log"],
+    ["export.json.gz", "application/gzip", "gz"],
   ])("detects %s as %s", (name, type, expected) => {
     expect(detectFileFormat({ name, type })).toBe(expected);
   });
@@ -32,6 +35,17 @@ describe("file-based tool recommendations", () => {
       getFileRecommendationSlugs({ name: "fax.tiff", type: "image/tiff" }),
     ).toEqual(["tiff-to-pdf", "tiff-to-png", "tiff-to-jpg"]);
   });
+
+  it("routes a generic gzip export to AWS log and inventory tools", () => {
+    expect(
+      getFileRecommendationSlugs({ name: "000000.gz", type: "application/gzip" }),
+    ).toEqual([
+      "cloudtrail-log-to-csv",
+      "cloudwatch-logs-converter",
+      "dynamodb-json-converter",
+      "s3-inventory-viewer",
+    ]);
+  });
 });
 
 describe("intent-based tool search", () => {
@@ -40,6 +54,8 @@ describe("intent-based tool search", () => {
     ["iPhone写真が開けない", "heic-to-jpg"],
     ["画像の背景を透明に", "image-background-transparent"],
     ["PDFの不要ページを消す", "pdf-remove-pages"],
+    ["cloudtrail json gzをcsv", "cloudtrail-log-to-csv"],
+    ["transcribe jsonをsrt", "transcribe-json-to-srt"],
   ])("matches the Japanese problem %s", (query, expectedSlug) => {
     const results = searchToolsByIntent(getAllToolItems("ja"), query, "ja");
 
@@ -51,6 +67,8 @@ describe("intent-based tool search", () => {
     ["make background transparent", "image-background-transparent"],
     ["open parquet", "parquet-viewer"],
     ["remove gps from photo", "remove-exif"],
+    ["dynamodb json to csv", "dynamodb-json-converter"],
+    ["open s3 inventory", "s3-inventory-viewer"],
   ])("matches the English problem %s", (query, expectedSlug) => {
     const results = searchToolsByIntent(getAllToolItems("en"), query, "en");
 

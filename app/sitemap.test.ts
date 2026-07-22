@@ -13,6 +13,23 @@ const PRIORITY_GUIDES = {
   "/en/guides/parquet-csv-workflows": "2026-07-22",
 } as const;
 
+const AWS_PATHS = [
+  "/tools/dynamodb-json-converter",
+  "/tools/textract-json-to-excel",
+  "/tools/cloudtrail-log-to-csv",
+  "/tools/s3-inventory-viewer",
+  "/tools/cloudwatch-logs-converter",
+  "/tools/transcribe-json-to-srt",
+  "/guides/aws-export-file-formats",
+  "/en/tools/dynamodb-json-converter",
+  "/en/tools/textract-json-to-excel",
+  "/en/tools/cloudtrail-log-to-csv",
+  "/en/tools/s3-inventory-viewer",
+  "/en/tools/cloudwatch-logs-converter",
+  "/en/tools/transcribe-json-to-srt",
+  "/en/guides/aws-export-file-formats",
+];
+
 describe("sitemap", () => {
   it("publishes the current modified date for priority guides in both locales", () => {
     const entries = sitemap();
@@ -27,5 +44,10 @@ describe("sitemap", () => {
   it("does not emit duplicate URLs", () => {
     const urls = sitemap().map(({ url }) => url);
     expect(new Set(urls).size).toBe(urls.length);
+  });
+
+  it("publishes every AWS tool and the AWS guide in both locales", () => {
+    const paths = new Set(sitemap().map(({ url }) => new URL(url).pathname));
+    for (const path of AWS_PATHS) expect(paths.has(path), path).toBe(true);
   });
 });

@@ -66,10 +66,28 @@ const fileRecommendations: Record<string, readonly string[]> = {
   ],
   tsv: ["csv-delimiter-converter", "csv-encoding-fix"],
   txt: ["csv-delimiter-converter", "csv-encoding-fix"],
-  json: ["json-to-excel", "json-to-csv"],
+  json: [
+    "json-to-excel",
+    "json-to-csv",
+    "dynamodb-json-converter",
+    "textract-json-to-excel",
+    "transcribe-json-to-srt",
+  ],
   jsonl: ["jsonl-to-csv"],
   ndjson: ["jsonl-to-csv"],
   parquet: ["parquet-viewer", "parquet-to-csv", "parquet-to-excel"],
+  gz: [
+    "cloudtrail-log-to-csv",
+    "cloudwatch-logs-converter",
+    "dynamodb-json-converter",
+    "s3-inventory-viewer",
+  ],
+  "dynamodb-json": ["dynamodb-json-converter"],
+  "textract-json": ["textract-json-to-excel"],
+  "cloudtrail-log": ["cloudtrail-log-to-csv"],
+  "cloudwatch-log": ["cloudwatch-logs-converter"],
+  "s3-inventory": ["s3-inventory-viewer"],
+  "transcribe-json": ["transcribe-json-to-srt"],
 };
 
 const mimeFormats: Record<string, string> = {
@@ -90,6 +108,8 @@ const mimeFormats: Record<string, string> = {
   "application/json": "json",
   "application/x-ndjson": "ndjson",
   "application/vnd.apache.parquet": "parquet",
+  "application/gzip": "gz",
+  "application/x-gzip": "gz",
 };
 
 const aliases: Record<
@@ -208,6 +228,30 @@ const aliases: Record<
     ja: ["画像をbase64に", "画像をhtmlに埋め込む"],
     en: ["image to base64", "embed image in html"],
   },
+  "dynamodb-json-converter": {
+    ja: ["dynamodb jsonをcsv", "dynamodb エクスポート 変換", "dynamodb json gz", "attributevalueを通常json"],
+    en: ["dynamodb json to csv", "convert dynamodb export", "dynamodb json gz", "unmarshall attributevalue"],
+  },
+  "textract-json-to-excel": {
+    ja: ["textract jsonをexcel", "textract 表をcsv", "ocr jsonを表に"],
+    en: ["textract json to excel", "textract table to csv", "ocr json to spreadsheet"],
+  },
+  "cloudtrail-log-to-csv": {
+    ja: ["cloudtrail json gzをcsv", "cloudtrail ログをexcel", "aws監査ログを表に"],
+    en: ["cloudtrail json gz to csv", "cloudtrail logs to excel", "aws audit log converter"],
+  },
+  "s3-inventory-viewer": {
+    ja: ["s3 inventoryを開く", "s3 inventory csv gz", "manifest jsonを見る"],
+    en: ["open s3 inventory", "s3 inventory csv gz", "view inventory manifest"],
+  },
+  "cloudwatch-logs-converter": {
+    ja: ["cloudwatch logs gzをcsv", "cloudwatch s3 export", "awsログを時刻順に"],
+    en: ["cloudwatch logs gz to csv", "cloudwatch s3 export converter", "sort aws logs"],
+  },
+  "transcribe-json-to-srt": {
+    ja: ["transcribe jsonをsrt", "aws文字起こしを字幕", "transcribe vtt変換"],
+    en: ["transcribe json to srt", "aws transcript to subtitles", "transcribe json to vtt"],
+  },
 };
 
 function normalize(value: string) {
@@ -226,6 +270,18 @@ function compact(value: string) {
 }
 
 export function detectFileFormat(file: FileDescriptor) {
+  const lowerName = file.name.toLowerCase();
+  const namedAwsFormats: [RegExp, string][] = [
+    [/manifest\.json$/, "s3-inventory"],
+    [/dynamodb/, "dynamodb-json"],
+    [/textract/, "textract-json"],
+    [/cloudtrail/, "cloudtrail-log"],
+    [/cloudwatch/, "cloudwatch-log"],
+    [/transcrib/, "transcribe-json"],
+  ];
+  const namedAws = namedAwsFormats.find(([pattern]) => pattern.test(lowerName));
+  if (namedAws) return namedAws[1];
+
   const extension = file.name.match(/\.([^.]+)$/)?.[1]?.toLowerCase();
   const normalizedExtension =
     extension === "jpeg"

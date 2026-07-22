@@ -28,6 +28,92 @@ type GuideLocale = "ja" | "en";
 
 const jaGuides: GuideEntry[] = [
   {
+    slug: "aws-export-file-formats",
+    title: "AWSエクスポート形式の変換ガイド：DynamoDB・CloudTrail・S3 Inventory",
+    description:
+      "AWSから出力されるDynamoDB JSON、Textract JSON、CloudTrail、S3 Inventory、CloudWatch Logs、TranscribeをCSV・Excel・字幕へ変換するときの違いを整理します。",
+    cardDescription:
+      "AWSサービス固有のJSON・JSON.GZ・CSV.GZを、CSV、Excel、JSONL、字幕へ変換する実務ガイドです。",
+    updatedAt: "2026-07-22",
+    sources: [
+      {
+        label: "AWS: DynamoDB table export output format",
+        href: "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/S3DataExport.Output.html",
+      },
+      {
+        label: "AWS: Exporting Textract tables to CSV",
+        href: "https://docs.aws.amazon.com/textract/latest/dg/examples-export-table-csv.html",
+      },
+      {
+        label: "AWS: CloudTrail log file examples",
+        href: "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-log-file-examples.html",
+      },
+      {
+        label: "AWS: S3 Inventory manifest and data files",
+        href: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-inventory-location.html",
+      },
+      {
+        label: "AWS: Export CloudWatch Logs to S3",
+        href: "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/S3Export.html",
+      },
+      {
+        label: "AWS: Amazon Transcribe subtitles",
+        href: "https://docs.aws.amazon.com/transcribe/latest/dg/subtitles.html",
+      },
+    ],
+    sections: [
+      {
+        title: "同じJSONでも、そのままCSVにはできない",
+        paragraphs: [
+          "AWSのエクスポートは、サービスごとにデータの意味が違います。DynamoDBはS・N・Mなどの型付きAttributeValue、TextractはIdで結ばれたBlock、CloudTrailはRecords配列です。拡張子がJSONでも、通常のJSON→CSVだけでは必要な表にならないことがあります。",
+          "まずサービス名と出力元を確認し、その形式を解釈できる変換を選ぶのが近道です。Filewispでは6形式を別ツールに分け、変換後の用途に合わせてCSV、Excel、JSONL、SRT、VTTを選べるようにしています。",
+        ],
+      },
+      {
+        title: "DynamoDB JSONは型を解除してから表にする",
+        paragraphs: [
+          "DynamoDBのS3エクスポートはJSON Linesで、各行のItemにS、N、BOOL、SS、M、Lなどの型情報が入ります。.json.gzを展開するだけでは、Excel上に型記号が残ったままです。まずAttributeValueを通常値へ戻し、その後にネストしたMapを列へ展開します。",
+          "特にN型は注意が必要です。IDや金額がJavaScriptの安全な整数範囲を超える場合があるため、変換時は文字列のまま保持すると桁落ちを防げます。増分エクスポートではKeys、NewImage、OldImageを混ぜず、それぞれの列として残すと変更前後を比較しやすくなります。",
+        ],
+      },
+      {
+        title: "Textract JSONはRelationshipをたどって表を復元する",
+        paragraphs: [
+          "TextractのTABLEはセル値を直接持たず、RelationshipでCELLへ、CELLからWORDやSELECTION_ELEMENTへつながります。RowIndexとColumnIndexも見ながらBlockを組み立て直すことで、元の行列に近い表を作れます。",
+          "複数テーブルはExcelの別シートへ分け、KEY_VALUE_SETはフォーム一覧、LINEは本文一覧として保存すると確認しやすくなります。OCR文字の誤認識自体は構造変換では直らないため、Confidenceが低い行は元画像と照合します。",
+        ],
+      },
+      {
+        title: "CloudTrailとCloudWatch Logsを混同しない",
+        paragraphs: [
+          "CloudTrailは誰がどのAWS APIを実行したかを追う監査イベントで、S3のログオブジェクトはgzip圧縮されたRecords形式です。複数ファイルをCSVへまとめると、eventSource、eventName、userIdentity、errorCodeを横断して絞り込めます。",
+          "CloudWatch Logsはアプリやサービスのログ本文です。S3エクスポートは複数の.gzへ分割され、イベントの順序が保証されないため、timestampを読み取って並べ直す処理が重要です。JSONメッセージならlevelやrequestIdも列へ展開すると調査が速くなります。",
+        ],
+      },
+      {
+        title: "S3 Inventoryはmanifestとデータをセットで読む",
+        paragraphs: [
+          "S3 Inventoryのmanifest.jsonには、出力ファイル一覧とfileSchemaが入ります。実際のBucket、Key、Size、StorageClassなどの行はCSV.GZ、ORC、またはParquet側にあるため、manifestだけではオブジェクト一覧を表示できません。",
+          "CSV.GZにはヘッダーがないので、manifestのfileSchema順に列名を割り当てます。分割ファイルはsourceFile列を付けて結合すると、欠落や重複を調べるときにも元ファイルへ戻れます。",
+        ],
+      },
+      {
+        title: "Transcribe JSONからSRT・VTTを作る",
+        paragraphs: [
+          "Amazon Transcribeは現在、ジョブ作成時にSRTやVTTの字幕出力を指定できます。一方、すでにJSONだけが残っているジョブや、字幕を指定しなかった既存データでは、results.itemsのstart_timeとend_timeから字幕を再構成する方法が使えます。",
+          "単語を句読点、文字数、時間、話者の切り替わりでまとめると読みやすい字幕になります。動画編集ならSRT、WebプレーヤーならVTT、タイムコードなしの確認用ならTXTを選びます。",
+        ],
+      },
+      {
+        title: "機密データは小さなサンプルで先に検証する",
+        paragraphs: [
+          "監査ログ、OCR帳票、顧客データには機密情報が含まれることがあります。ブラウザ内変換なら外部サーバーへファイルを送らずに処理できますが、端末のメモリを使うため、非常に大きなエクスポートは小分けにします。",
+          "本番データをまとめて変換する前に、数行または1ファイルで列名、数値の扱い、文字コード、時刻、件数を確認します。変換後のCSVやExcelも元データと件数を照合してから共有します。",
+        ],
+      },
+    ],
+  },
+  {
     slug: "image-format-basics",
     title: "画像形式の選び方",
     description:
@@ -621,7 +707,7 @@ const jaGuides: GuideEntry[] = [
     slug: "parquet-csv-workflows",
     title: "Parquet と CSV の使い分け（AWS・BigQuery 対応）",
     description:
-      "AWS S3 / Athena や BigQuery で Parquet を使うメリットと、CSV との変換タイミングをまとめたガイドです。ブラウザだけで変換できるツールも紹介します。",
+      "AWS AthenaやBigQueryで繰り返し集計するデータはParquet、Excelで確認・共有するデータはCSVが扱いやすいです。変換するタイミングと注意点を整理します。",
     cardDescription:
       "Athena・Redshift・BigQuery で Parquet を使うとコストが下がる理由と、CSV との使い分けを整理します。",
     sections: [
@@ -659,7 +745,7 @@ const jaGuides: GuideEntry[] = [
     slug: "optimize-blog-and-site-images",
     title: "ブログやサイト画像を軽くする手順",
     description:
-      "ブログ、LP、EC、ポートフォリオなどで使う画像を、見た目を保ちながら軽くするための形式選び、リサイズ、圧縮の考え方をまとめます。",
+      "Web画像は、表示寸法までリサイズしてから圧縮すると、見た目を崩さず容量を下げやすくなります。JPG・PNG・WebPの選び方も用途別に確認できます。",
     cardDescription:
       "Web掲載前に画像形式、サイズ、圧縮を見直し、表示速度と見た目のバランスを取りやすくします。",
     sections: [
@@ -704,7 +790,7 @@ const jaGuides: GuideEntry[] = [
     slug: "heic-cannot-open-windows",
     title: "HEICファイルがWindowsで開けない原因と対処法",
     description:
-      "iPhoneから送られてきた写真がWindowsで開けない。その原因のほとんどはHEICという形式にあります。なぜ開けないのか、今すぐ開くための方法、今後困らないための設定まで順番に解説します。",
+      "iPhone写真がWindowsで開けないときは、拡張子が.heicか確認してください。今すぐJPGへ変換する方法と、iPhone側で今後の保存形式を変える設定を載せています。",
     cardDescription:
       "iPhone写真（HEIC）がWindowsで開けないときの原因と、今すぐできる対処法をまとめています。",
     updatedAt: "2026-07-14",
@@ -781,9 +867,9 @@ const jaGuides: GuideEntry[] = [
     slug: "send-large-photos-by-email",
     title: "写真が重くてメールで送れないときの対処法",
     description:
-      "「添付ファイルのサイズが上限を超えています」。写真をメールで送ろうとしてこのエラーに出会ったら、画像を軽くするのが一番シンプルな解決策です。容量制限の目安と、画質をできるだけ保ったまま軽くする手順を解説します。",
+      "メールで写真を送れないときは、添付上限を確認してから画像の寸法と容量を下げます。Gmailなどの容量目安と、文字が読める画質を残す手順をまとめました。",
     cardDescription:
-      "メールの容量制限に引っかかった写真を、画質を保ちながら軽くして送る方法を解説します。",
+      "メールの添付上限に合わせて、写真を小さくする手順です。",
     sections: [
       {
         title: "メールで送れる容量の目安を知る",
@@ -840,7 +926,7 @@ const jaGuides: GuideEntry[] = [
     slug: "pdf-upload-size-limit",
     title: "PDFが容量オーバーでアップロードできないときの対処法",
     description:
-      "申請フォームや提出システムで「ファイルサイズが上限を超えています」と弾かれた。そんなときにPDFを安全に軽くする方法と、どうしても縮まないときの代替手段を解説します。",
+      "提出フォームでPDFが容量超過になる場合は、画像の圧縮、不要ページの削除、分割の順に試します。文字が読めるかを確認しながら小さくする手順です。",
     cardDescription:
       "提出先の容量制限を超えたPDFを、読める品質を保ったまま軽くする手順をまとめています。",
     sections: [
@@ -899,9 +985,9 @@ const jaGuides: GuideEntry[] = [
     slug: "what-is-webp",
     title: "WebPとは？開けないときの対処法とJPG・PNGへの変換方法",
     description:
-      "Webサイトから保存した画像が「.webp」で、いつものソフトで開けない。WebPとはどんな形式なのか、なぜ普及しているのか、開けないときにJPGやPNGへ変換する方法までまとめて解説します。",
+      "WebPはWeb配信用の軽い画像形式です。.webpが開けない場合にJPGへ変換する方法と、透過を残してPNGへ変換する方法を分けて説明します。",
     cardDescription:
-      "保存した画像がWebPで開けない・編集できないときの理由と変換方法を解説します。",
+      "WebPが開けない理由と、JPG・PNGへの変換方法です。",
     sections: [
       {
         title: "WebPはGoogleが開発した軽量画像形式",
@@ -958,9 +1044,9 @@ const jaGuides: GuideEntry[] = [
     slug: "convert-images-on-smartphone",
     title: "スマホだけで画像を変換・圧縮する方法（アプリ不要）",
     description:
-      "PCがなくても、画像の形式変換・圧縮・リサイズはスマホのブラウザだけでできます。アプリをインストールせずに、iPhone・Androidで画像を変換する手順と、スマホならではの注意点を解説します。",
+      "iPhone・Androidのブラウザでも画像の変換、圧縮、リサイズができます。ファイルの選び方、保存先、メモリ不足になったときの対処を載せています。",
     cardDescription:
-      "アプリのインストールなしで、スマホのブラウザだけで画像変換・圧縮を行う手順を解説します。",
+      "スマホのブラウザで画像を変換・圧縮する手順です。",
     sections: [
       {
         title: "アプリを入れなくても変換はできる",
@@ -1008,18 +1094,18 @@ const jaGuides: GuideEntry[] = [
         title: "まとめ：ブックマークしておけばPC不要",
         paragraphs: [
           "形式変換・圧縮・リサイズ・PDF化といった日常的な画像作業は、スマホのブラウザだけで完結します。アプリの広告や権限を気にする必要もなく、必要なときにページを開くだけです。",
-          "当サイトはスマホ表示に最適化されており、61種類のツールがすべて無料で使えます。よく使うツールをホーム画面に追加しておくと、アプリ感覚で呼び出せて便利です。",
+          "当サイトはスマホ表示に最適化されており、67種類のツールがすべて無料で使えます。よく使うツールをホーム画面に追加しておくと、アプリ感覚で呼び出せて便利です。",
         ],
       },
     ],
   },
   {
     slug: "jpg-vs-jpeg-difference",
-    title: "JPGとJPEGの違いとは？拡張子が2つある理由を解説",
+    title: "JPGとJPEGは同じ？拡張子が2つある理由",
     description:
-      "「.jpg」と「.jpeg」、同じような画像なのに拡張子が違うのはなぜ？結論から言えば中身はまったく同じです。2つの拡張子が存在する歴史的な理由と、実務で気をつけるべき唯一のポイントを解説します。",
+      "JPGとJPEGは同じ画像形式です。拡張子が2種類ある理由と、アップロードフォームで指定された拡張子へ合わせる方法を確認できます。",
     cardDescription:
-      "JPGとJPEGは同じもの？拡張子が2種類ある理由と、提出時に気をつける点を解説します。",
+      "JPGとJPEGの違いと、提出時に確認する点です。",
     sections: [
       {
         title: "結論：JPGとJPEGは完全に同じもの",
@@ -1076,9 +1162,9 @@ const jaGuides: GuideEntry[] = [
     slug: "screenshot-to-pdf",
     title: "スクリーンショットをPDFにまとめる方法（Windows・Mac・スマホ）",
     description:
-      "操作手順の説明、エラー画面の報告、Webページの保存。スクリーンショットを撮ったあと、複数枚を1つのPDFにまとめて共有したい場面は多いもの。OSごとの撮り方の基本から、ブラウザだけでPDF化する手順まで解説します。",
+      "複数のスクリーンショットは、順番を整えて1つのPDFにすると共有しやすくなります。Windows・Mac・スマホで撮る方法と、PDFへまとめる手順です。",
     cardDescription:
-      "複数のスクリーンショットを1つのPDFにまとめて、報告や共有に使いやすくする手順を解説します。",
+      "複数のスクリーンショットを1つのPDFへまとめる手順です。",
     sections: [
       {
         title: "スクショをPDFにまとめると何が便利か",
@@ -1135,7 +1221,7 @@ const jaGuides: GuideEntry[] = [
     slug: "resume-photo-size",
     title: "履歴書・応募用写真のデータサイズと形式の整え方",
     description:
-      "Web応募で写真をアップロードしようとしたら「ファイルサイズが大きすぎます」「JPG形式でアップロードしてください」。就職・転職・各種申請で求められる写真データの規定と、手持ちの写真を規定に合わせる手順を解説します。",
+      "履歴書写真は、応募先が指定する縦横比、ピクセル数、容量、JPG形式に合わせます。手持ちの写真を切り抜き、リサイズ、圧縮する順番を載せています。",
     cardDescription:
       "Web応募や申請で求められる写真データの形式・サイズ規定に、手持ちの写真を合わせる方法です。",
     sections: [
@@ -1194,9 +1280,9 @@ const jaGuides: GuideEntry[] = [
     slug: "what-is-tiff",
     title: "TIFFとは？開けないときの対処法とJPG・PNGへの変換方法",
     description:
-      "スキャナーやデジカメ、印刷会社から受け取ったファイルが「.tif」「.tiff」で開けない・共有できない。TIFFとはどんな形式で、なぜ今も使われているのか、JPGやPNGへ変換して扱いやすくする方法を解説します。",
+      "TIFFはスキャンや印刷で使われる高画質な形式です。.tif・.tiffが開けない場合に、写真はJPG、図や文字はPNGへ変換する手順を確認できます。",
     cardDescription:
-      "スキャンデータや入稿データでよく見るTIFF形式の正体と、JPG・PNGへの変換方法を解説します。",
+      "TIFFの用途と、JPG・PNGへ変換する際の注意点です。",
     sections: [
       {
         title: "TIFFは「劣化させない」ための業務用形式",
@@ -1253,7 +1339,7 @@ const jaGuides: GuideEntry[] = [
     slug: "marketplace-product-photos",
     title: "フリマアプリの出品写真を整える方法（サイズ・明るさ・形式）",
     description:
-      "メルカリやラクマなどのフリマアプリでは、写真の質が売れ行きを大きく左右します。アップロード前に写真を整えるための基本テクニックと、正方形への切り抜き・容量調整・形式変換の手順を解説します。",
+      "フリマの商品写真は、明るい無地の背景で撮り、商品を中央に置いて正方形へ切り抜きます。撮影から容量調整まで、出品前に確認する項目をまとめました。",
     cardDescription:
       "出品写真を正方形に切り抜き、容量と形式を整えて、フリマアプリで見栄えよく見せる手順です。",
     sections: [
@@ -1312,9 +1398,16 @@ const jaGuides: GuideEntry[] = [
     slug: "png-transparency-basics",
     title: "PNGの透過とは？JPG・JPEGで背景が白くなる理由と直し方",
     description:
-      "JPG・JPEGは透過できません。PNGの背景透明（アルファチャンネル）の仕組み、JPGにすると背景が白くなる理由、透過を保つ方法と背景を消す方法を解説します。",
+      "JPG・JPEGは透過できません。PNGをJPGにすると背景が白くなる理由と、透過を保つ形式、すでに写っている背景を消す方法を分けて説明します。",
     cardDescription:
       "PNGの透過がJPGで消える理由と、透明を保ったまま軽くする方法を整理します。",
+    updatedAt: "2026-07-22",
+    sources: [
+      {
+        label: "MDN：画像ファイル形式ガイド（JPEG・PNG）",
+        href: "https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types",
+      },
+    ],
     sections: [
       {
         title: "透過とは「背景がない」状態のこと",
@@ -1376,9 +1469,9 @@ const jaGuides: GuideEntry[] = [
     slug: "csv-encoding-fix",
     title: "CSVの文字化けを直す方法｜Excel・UTF-8・Shift_JISの基礎",
     description:
-      "Excelで開いたCSVが「譁・喧縺・」のように文字化けする——原因は文字コード（UTF-8とShift_JIS）の食い違いです。なぜ起きるのか、その場で直す手順、崩れにくいデータの渡し方までまとめます。",
+      "ExcelでCSVが文字化けする原因は、UTF-8とShift_JISの食い違いです。文字コードを指定して開き直す方法と、UTF-8 BOM付きで保存する手順を載せています。",
     cardDescription:
-      "ExcelでCSVが文字化けする原因（UTF-8とShift_JIS）と、その場で直す手順を解説します。",
+      "CSVが文字化けする原因と、Excelで開き直す手順です。",
     updatedAt: "2026-07-14",
     sources: [
       {
@@ -1401,13 +1494,6 @@ const jaGuides: GuideEntry[] = [
           "文字は読めるのに全項目が1列へ入るなら、原因は文字コードではなく区切り文字です。カンマ、セミコロン、タブのどれで区切られているかを確認します。列が途中からずれる場合は、値の中のカンマ・改行・二重引用符の扱いを疑うと、無駄な再変換を減らせます。",
         ],
       },
-    updatedAt: "2026-07-22",
-    sources: [
-      {
-        label: "MDN：画像ファイル形式ガイド（JPEG・PNG）",
-        href: "https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types",
-      },
-    ],
       {
         title: "Excelで開くと化ける定番パターン",
         figure: {
@@ -1467,9 +1553,24 @@ const jaGuides: GuideEntry[] = [
     slug: "what-is-parquet",
     title: "Parquet（パーケット）とは？CSVとの違いとBigQueryでの使い方",
     description:
-      "Parquetの読み方は「パーケット」です。CSVとの違い、列指向で速く・小さくなる仕組み、BigQueryやAthenaでの使い方、ブラウザでの変換方法を解説します。",
+      "Parquetの読み方は「パーケット」です。CSVとの違い、BigQuery・Athenaで使う理由、ブラウザで中身を確認する方法をまとめました。",
     cardDescription:
       "列指向フォーマットParquetの正体と、CSVとの違い・使い分けをやさしく整理します。",
+    updatedAt: "2026-07-22",
+    sources: [
+      {
+        label: "Apache Parquet：公式ドキュメント",
+        href: "https://parquet.apache.org/docs/",
+      },
+      {
+        label: "Google Cloud：BigQueryへParquetを読み込む",
+        href: "https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-parquet?hl=ja",
+      },
+      {
+        label: "AWS：Athenaで列指向形式を使う",
+        href: "https://docs.aws.amazon.com/athena/latest/ug/columnar-storage.html",
+      },
+    ],
     sections: [
       {
         title: "Parquetは「列ごとに持つ」分析向け形式",
@@ -1489,7 +1590,14 @@ const jaGuides: GuideEntry[] = [
         title: "どんなときにParquetを選ぶか",
         paragraphs: [
           "S3＋AthenaやBigQueryのように、読み取ったデータ量に応じて課金される環境では、Parquetにしておくとスキャン量が減り、クエリのたびにコストを抑えられます。Spark・Redshift Spectrum・EMRなどでの大規模なバッチ処理でも、入力がParquetだと実行時間が短くなりやすいです。",
-          "「同じデータに何度もクエリを投げる」「列数が多くて一部の列しか使わない」「データが大きくて転送・保管コストが気になる」——こうした条件がそろうほど、Parquetの利点が効いてきます。データ基盤に長く置くファイルは、最初からParquetにしておくと後がラクです。",
+          "「同じデータに何度もクエリを投げる」「列数が多くて一部の列しか使わない」「データが大きくて転送・保管コストが気になる」。こうした条件がそろうほど、Parquetの利点が効いてきます。データ基盤に長く置くファイルは、最初からParquetにしておくと後がラクです。",
+        ],
+      },
+      {
+        title: "BigQueryでParquetを使う方法",
+        paragraphs: [
+          "BigQueryでは、Cloud Storageに置いたParquetをBigQueryのテーブルへ読み込む方法と、外部テーブルとしてCloud Storage上のファイルを直接クエリする方法があります。同じデータを繰り返し分析し、クエリ性能を優先するなら通常のテーブルへ読み込み、まず中身を確認したい場合やファイルを移さず参照したい場合は外部テーブルを使う、と分けると選びやすくなります。",
+          "CSVから用意する場合は、先にParquetへ変換してCloud Storageへ置き、データセットとバケットのロケーションを合わせて読み込みます。当サイトのCSV→Parquet変換は全列を文字列型で出力するため、数値や日付はBigQuery側のスキーマやクエリで必要な型へ変換してください。",
         ],
       },
       {
@@ -1525,7 +1633,7 @@ const jaGuides: GuideEntry[] = [
     slug: "json-and-csv",
     title: "JSONとCSVの違いと相互変換｜どちらで持つべきか",
     description:
-      "APIのレスポンスはJSON、Excelで開く表はCSV——同じデータでも形が違うと扱いやすさが変わります。JSONとCSVの違い、向いている場面、相互変換でつまずきやすいポイントをまとめます。",
+      "JSONは階層や配列を持てますが、CSVは行と列だけの表です。相互変換で崩れやすい入れ子、配列、文字コードの扱いを具体例で確認できます。",
     cardDescription:
       "表向きのCSVと入れ子に強いJSONの違いと、相互変換のコツを整理します。",
     sections: [
@@ -1556,21 +1664,6 @@ const jaGuides: GuideEntry[] = [
           kind: "steps",
           steps: ["JSONを用意", "キーを列に\n展開する", "CSVへ変換", "Excelで確認"],
           caption: "入れ子のJSONはキーを列に展開してからCSVにすると崩れにくい",
-    updatedAt: "2026-07-22",
-    sources: [
-      {
-        label: "Apache Parquet：公式ドキュメント",
-        href: "https://parquet.apache.org/docs/",
-      },
-      {
-        label: "Google Cloud：BigQueryへParquetを読み込む",
-        href: "https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-parquet?hl=ja",
-      },
-      {
-        label: "AWS：Athenaで列指向形式を使う",
-        href: "https://docs.aws.amazon.com/athena/latest/ug/columnar-storage.html",
-      },
-    ],
         },
         paragraphs: [
           "JSON→CSVで一番つまずくのが、入れ子や配列の扱いです。階層を持つJSONを無理に表へ落とすと、列がうまく決まらなかったり、配列が1セルに詰め込まれたりします。先にどのキーを列にするかを決め、ネストを平らに展開してから変換すると崩れにくくなります。",
@@ -1593,20 +1686,13 @@ const jaGuides: GuideEntry[] = [
       },
     ],
   },
-      {
-        title: "BigQueryでParquetを使う方法",
-        paragraphs: [
-          "BigQueryでは、Cloud Storageに置いたParquetをBigQueryのテーブルへ読み込む方法と、外部テーブルとしてCloud Storage上のファイルを直接クエリする方法があります。同じデータを繰り返し分析し、クエリ性能を優先するなら通常のテーブルへ読み込み、まず中身を確認したい場合やファイルを移さず参照したい場合は外部テーブルを使う、と分けると選びやすくなります。",
-          "CSVから用意する場合は、先にParquetへ変換してCloud Storageへ置き、データセットとバケットのロケーションを合わせて読み込みます。当サイトのCSV→Parquet変換は全列を文字列型で出力するため、数値や日付はBigQuery側のスキーマやクエリで必要な型へ変換してください。",
-        ],
-      },
   {
     slug: "what-is-avif",
     title: "AVIF（.avif）とは？開けない原因とJPG・PNGへの変換方法",
     description:
-      "AVIF（.avif）は高画質・高圧縮の画像形式です。ファイルが開けない原因と、無料のブラウザツールでJPG・PNGへ変換する方法を解説します。",
+      "AVIF（.avif）は高画質・高圧縮の画像形式です。開けない場合は、写真ならJPG、透過や編集が必要ならPNGへ変換します。変換は無料で、ファイルを送信せずブラウザ内で処理します。",
     cardDescription:
-      "高圧縮の新しい画像形式AVIFの正体と、JPG・PNGへの変換方法を解説します。",
+      "AVIFが開けない理由と、JPG・PNGへの変換方法です。",
     updatedAt: "2026-07-22",
     sources: [
       {
@@ -1682,7 +1768,7 @@ const jaGuides: GuideEntry[] = [
     description:
       "カラー写真を白黒（グレースケール）に変換する手順と、資料・印刷・統一感づくりで失敗しないコツをまとめたガイドです。ブラウザだけで手早く変換できます。",
     cardDescription:
-      "カラー写真をモノクロにする手順と、用途別の注意点をまとめます。",
+      "カラー写真をモノクロへ変換する手順と、印刷・SNS・資料で確認したい点です。",
     sections: [
       {
         title: "写真を白黒にしたくなる場面",
@@ -1721,7 +1807,7 @@ const jaGuides: GuideEntry[] = [
     description:
       "写真やイラストに透かし（ウォーターマーク）を入れて無断転載を抑える方法と、目立ちすぎず効果的に入れるコツをまとめたガイドです。ブラウザだけで設定できます。",
     cardDescription:
-      "無断転載を抑える透かしの入れ方と、効果的に見せるコツをまとめます。",
+      "写真へ名前や著作権表記を入れる位置、濃さ、文字サイズの決め方です。",
     sections: [
       {
         title: "透かしを入れる目的",
@@ -1760,7 +1846,7 @@ const jaGuides: GuideEntry[] = [
     description:
       "プロフィールアイコンやSNS投稿用に、画像を正方形（1:1）へ切り抜く手順と、被写体を中央にきれいに収めるコツをまとめたガイドです。",
     cardDescription:
-      "アイコンやSNS用に、画像を正方形へ切り抜く手順とコツをまとめます。",
+      "SNSアイコン用に、被写体を中央へ残して画像を正方形に切り抜く手順です。",
     sections: [
       {
         title: "正方形に切り抜きたい場面",
@@ -1797,9 +1883,9 @@ const jaGuides: GuideEntry[] = [
     slug: "base64-data-uri-for-web-development",
     title: "画像をBase64に変換してHTML・CSSに埋め込む方法",
     description:
-      "画像をBase64文字列やdata URIに変換し、HTML・CSS・APIで扱うときの使い分けを解説します。Web制作や開発で、ブラウザ内だけで安全に変換したいときの実務ガイドです。",
+      "Base64は画像データを文字列として持つ形式、data URIはその文字列をHTMLやCSSへ埋め込む書き方です。使い分けと容量増加の注意点を確認できます。",
     cardDescription:
-      "Base64とdata URIの仕組み、向く画像、容量の注意点、HTML・CSSでの使いどころを解説します。",
+      "Base64とdata URIの違い、容量、HTML・CSSでの使いどころです。",
     updatedAt: "2026-06-21",
     sections: [
       {
@@ -1848,9 +1934,9 @@ const jaGuides: GuideEntry[] = [
     slug: "remove-photo-location-data",
     title: "写真の位置情報・EXIFを削除する方法",
     description:
-      "スマホやカメラで撮った写真に残るEXIF・GPS位置情報を、画質を落とさず安全に削除する方法を解説します。SNSやフリマ投稿前のプライバシー対策に。",
+      "スマホ写真には撮影日時やGPS位置情報が残ることがあります。SNSやフリマへ投稿する前にEXIFを確認し、画質を変えずに削除する手順です。",
     cardDescription:
-      "写真に埋め込まれた位置情報やEXIFを、ブラウザだけで安全に削除する手順とチェックポイントをまとめます。",
+      "写真の位置情報とEXIFを削除し、投稿前に確認する手順です。",
     updatedAt: "2026-06-22",
     sections: [
       {
@@ -1912,9 +1998,9 @@ const jaGuides: GuideEntry[] = [
     slug: "how-to-create-favicon",
     title: "faviconの作り方（PNGからfavicon.icoを作成）",
     description:
-      "ブラウザのタブやブックマークに表示されるfaviconを、PNG画像から作る方法を解説します。favicon.icoと各サイズPNGの用意、HTMLへの設置までをまとめます。",
+      "faviconはブラウザのタブやブックマークに出る小さなアイコンです。PNGから.icoと各サイズの画像を作り、HTMLへ指定するところまで確認できます。",
     cardDescription:
-      "PNGからfavicon.icoと各サイズのアイコンを作り、HTMLに設置するまでの手順をまとめます。",
+      "PNGからfavicon.icoを作り、HTMLへ設定するまでの手順です。",
     updatedAt: "2026-06-22",
     sections: [
       {
@@ -1976,9 +2062,9 @@ const jaGuides: GuideEntry[] = [
     slug: "how-to-create-ogp-image",
     title: "OGP画像の作り方（1200×630の作成方法）",
     description:
-      "SNSでURLをシェアしたときに表示されるOGP画像（1200×630）の作り方を解説します。推奨サイズ、metaタグの設定、見やすくするコツ、確認方法までまとめます。",
+      "OGP画像は1200×630pxを基準に作り、タイトルやロゴを端へ寄せすぎないよう配置します。metaタグへの指定と公開後の確認方法も載せています。",
     cardDescription:
-      "OGP画像の推奨サイズ、ブラウザでの作成手順、metaタグの設定と確認方法をまとめます。",
+      "OGP画像のサイズ、作成手順、metaタグの設定方法です。",
     updatedAt: "2026-06-22",
     sections: [
       {
@@ -2042,7 +2128,7 @@ const jaGuides: GuideEntry[] = [
     description:
       "X（Twitter）・Instagram・YouTube・LINE・note・Qiitaなど、主要SNSの推奨画像サイズと、崩さずにリサイズするコツをまとめた早見ガイドです。",
     cardDescription:
-      "主要SNSの推奨画像サイズと、切り抜き・余白の使い分け、まとめてリサイズする手順を解説します。",
+      "X、Instagram、Facebook、YouTubeで使う画像サイズと縦横比を一覧にし、元画像をまとめてリサイズする手順を載せています。",
     updatedAt: "2026-06-22",
     sections: [
       {
@@ -2104,9 +2190,9 @@ const jaGuides: GuideEntry[] = [
     slug: "extract-color-palette-from-image",
     title: "画像から色を抽出する方法（カラーパレットの作り方）",
     description:
-      "写真やイラスト、ロゴから主要な色を抽出してカラーパレットを作る方法を解説します。HEX・RGB・CSS変数での活用や、きれいな配色にするコツまでまとめます。",
+      "写真やロゴから主要色を抽出し、HEX・RGB・CSS変数として使う方法です。似た色が多すぎる場合の整理方法も確認できます。",
     cardDescription:
-      "画像から主要な色を抽出し、HEX・RGB・CSS変数として配色に活かす手順とコツをまとめます。",
+      "画像から主要色を抽出し、HEX・RGB・CSS変数へ使う手順です。",
     updatedAt: "2026-06-22",
     sections: [
       {
@@ -2167,6 +2253,92 @@ const jaGuides: GuideEntry[] = [
 ];
 
 const enGuides: GuideEntry[] = [
+  {
+    slug: "aws-export-file-formats",
+    title: "AWS Export File Conversion: DynamoDB, CloudTrail & S3 Inventory",
+    description:
+      "Learn how DynamoDB JSON, Textract JSON, CloudTrail, S3 Inventory, CloudWatch Logs, and Transcribe exports differ before converting them to CSV, Excel, JSONL, or subtitles.",
+    cardDescription:
+      "A practical guide to converting service-specific AWS JSON, JSON.GZ, and CSV.GZ exports into useful tables and subtitles.",
+    updatedAt: "2026-07-22",
+    sources: [
+      {
+        label: "AWS: DynamoDB table export output format",
+        href: "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/S3DataExport.Output.html",
+      },
+      {
+        label: "AWS: Exporting Textract tables to CSV",
+        href: "https://docs.aws.amazon.com/textract/latest/dg/examples-export-table-csv.html",
+      },
+      {
+        label: "AWS: CloudTrail log file examples",
+        href: "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-log-file-examples.html",
+      },
+      {
+        label: "AWS: S3 Inventory manifest and data files",
+        href: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-inventory-location.html",
+      },
+      {
+        label: "AWS: Export CloudWatch Logs to S3",
+        href: "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/S3Export.html",
+      },
+      {
+        label: "AWS: Amazon Transcribe subtitles",
+        href: "https://docs.aws.amazon.com/transcribe/latest/dg/subtitles.html",
+      },
+    ],
+    sections: [
+      {
+        title: "The same .json extension can hide very different structures",
+        paragraphs: [
+          "AWS exports carry service-specific meaning. DynamoDB uses typed AttributeValue wrappers such as S, N, and M. Textract returns Blocks linked by IDs. CloudTrail wraps audit events in Records. A generic JSON-to-CSV converter cannot always produce the table you expect.",
+          "Identify the source service first, then choose a converter that understands its structure. Filewisp separates six AWS formats and offers the output that fits each workflow: CSV, Excel, JSONL, SRT, VTT, or plain text.",
+        ],
+      },
+      {
+        title: "Unmarshall DynamoDB JSON before flattening it",
+        paragraphs: [
+          "DynamoDB S3 exports use JSON Lines, with each Item containing types such as S, N, BOOL, SS, M, and L. Simply decompressing .json.gz leaves those wrappers in every cell. Unmarshall AttributeValue first, then flatten nested maps into columns.",
+          "Keep N values as strings when precision matters because IDs and large integers may exceed JavaScript's safe integer range. For incremental exports, preserve Keys, NewImage, and OldImage separately so before-and-after values remain comparable.",
+        ],
+      },
+      {
+        title: "Rebuild Textract tables through Relationships",
+        paragraphs: [
+          "A Textract TABLE does not directly contain its cell text. Relationships point to CELL blocks, and those cells point to WORD or SELECTION_ELEMENT blocks. Following those IDs with RowIndex and ColumnIndex reconstructs a spreadsheet grid.",
+          "Put each table on a separate Excel sheet, KEY_VALUE_SET pairs on a Forms sheet, and LINE blocks on a Text Lines sheet. Structural conversion does not correct OCR mistakes, so compare low-confidence text with the source document.",
+        ],
+      },
+      {
+        title: "Do not treat CloudTrail and CloudWatch Logs as the same thing",
+        paragraphs: [
+          "CloudTrail records who called which AWS API. Trail objects delivered to S3 contain gzip-compressed Records arrays. Combining files into CSV makes it easier to filter eventSource, eventName, userIdentity, and errorCode across an investigation window.",
+          "CloudWatch Logs contain application and service messages. S3 exports may be split across multiple .gz objects and order is not guaranteed, so parsed timestamps should be sorted. JSON messages can also expose fields such as level and requestId as columns.",
+        ],
+      },
+      {
+        title: "Read an S3 Inventory manifest with its data files",
+        paragraphs: [
+          "S3 Inventory manifest.json lists data objects and fileSchema. Actual Bucket, Key, Size, StorageClass, and optional fields live in CSV.GZ, ORC, or Parquet files, so the manifest alone cannot display inventory rows.",
+          "CSV.GZ data has no header row. Apply columns in fileSchema order and merge split objects with a sourceFile column. That source reference helps when checking missing or duplicate rows.",
+        ],
+      },
+      {
+        title: "Create SRT or VTT from Transcribe JSON",
+        paragraphs: [
+          "Amazon Transcribe can now create SRT or VTT when subtitles are requested with the job. For existing JSON or jobs created without subtitles, results.items still provides start_time and end_time values that can rebuild cues.",
+          "Group words by punctuation, length, duration, and speaker changes. Choose SRT for common video editing workflows, VTT for web players, or TXT when you only need transcript text.",
+        ],
+      },
+      {
+        title: "Validate with a small sample before a large export",
+        paragraphs: [
+          "Audit logs, OCR documents, and customer data may contain sensitive information. Browser-side conversion avoids uploading files to another server, but it still uses device memory, so process very large exports in smaller batches.",
+          "Before converting production data in bulk, verify columns, numeric precision, encoding, timestamps, and counts with a small file. Compare output row counts with the source before sharing the result.",
+        ],
+      },
+    ],
+  },
   {
     slug: "image-format-basics",
     title: "How to choose an image format",
@@ -2764,6 +2936,25 @@ const enGuides: GuideEntry[] = [
       "Compare Parquet and CSV for BigQuery, AWS Athena, and Spark. Learn when to load Parquet, query external files, or keep CSV, then convert in your browser.",
     cardDescription:
       "How Parquet reduces costs on AWS Athena and BigQuery, when to stick with CSV, and browser-based conversion tools that require no setup.",
+    updatedAt: "2026-07-22",
+    sources: [
+      {
+        label: "Apache Parquet documentation",
+        href: "https://parquet.apache.org/docs/",
+      },
+      {
+        label: "Google Cloud: Loading Parquet data from Cloud Storage",
+        href: "https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-parquet?hl=en",
+      },
+      {
+        label: "Google Cloud: Introduction to external tables",
+        href: "https://docs.cloud.google.com/bigquery/docs/external-tables",
+      },
+      {
+        label: "AWS: Use columnar storage formats in Athena",
+        href: "https://docs.aws.amazon.com/athena/latest/ug/columnar-storage.html",
+      },
+    ],
     sections: [
       {
         title: "Why Parquet matters on AWS",
@@ -2943,25 +3134,6 @@ const enGuides: GuideEntry[] = [
         title: "Option 1: Compress the images",
         paragraphs: [
           "The easiest fix is compression — slightly lowering photo quality to cut file size. For photographs, compressing to around 80% quality is usually invisible to the eye and can halve the file size or better.",
-    updatedAt: "2026-07-22",
-    sources: [
-      {
-        label: "Apache Parquet documentation",
-        href: "https://parquet.apache.org/docs/",
-      },
-      {
-        label: "Google Cloud: Loading Parquet data from Cloud Storage",
-        href: "https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-parquet?hl=en",
-      },
-      {
-        label: "Google Cloud: Introduction to external tables",
-        href: "https://docs.cloud.google.com/bigquery/docs/external-tables",
-      },
-      {
-        label: "AWS: Use columnar storage formats in Athena",
-        href: "https://docs.aws.amazon.com/athena/latest/ug/columnar-storage.html",
-      },
-    ],
           "Our image compressor lets you adjust strength with a slider while comparing before/after previews and sizes. Everything is processed in your browser, so private photos never leave your device.",
         ],
       },
@@ -3174,7 +3346,7 @@ const enGuides: GuideEntry[] = [
         title: "Bottom line: bookmark it and skip the PC",
         paragraphs: [
           "Everyday image chores — converting, compressing, resizing, making PDFs — all work straight from a phone browser, with no app ads or permissions to worry about.",
-          "Filewisp is optimized for mobile, with 61 free tools. Add your most-used ones to the home screen and they behave like apps.",
+          "Filewisp is optimized for mobile, with 67 free tools. Add your most-used ones to the home screen and they behave like apps.",
         ],
       },
     ],

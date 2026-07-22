@@ -17,6 +17,7 @@ type ToolKind =
   | "grayscale"
   | "code"
   | "data"
+  | "aws"
   | "convert";
 
 const gradients: Record<ToolKind | string, string> = {
@@ -30,6 +31,7 @@ const gradients: Record<ToolKind | string, string> = {
   grayscale: "from-slate-500 to-gray-600",
   code: "from-indigo-500 to-violet-500",
   data: "from-teal-500 to-emerald-500",
+  aws: "from-amber-500 to-red-500",
   // conversions colored by the primary format
   jpg: "from-orange-500 to-amber-500",
   png: "from-blue-500 to-indigo-500",
@@ -72,6 +74,7 @@ const icons: Record<ToolKind, ReactNode> = {
   grayscale: <Glyph d="M12 3a9 9 0 0 0 0 18zM12 3a9 9 0 0 1 0 18" fill />,
   code: <Glyph d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12" />,
   data: <Glyph d="M4 5h16v14H4zM4 10h16M4 15h16M10 5v14" />,
+  aws: <Glyph d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 8.5 4.5 4.5 0 0 0 7 18z" />,
   convert: <Glyph d="M4 8h12l-3-3M20 16H8l3 3" />,
 };
 
@@ -117,6 +120,16 @@ function detectKind(slug: string, name: string): ToolVisual {
   if (s.includes("watermark") || n.includes("透かし")) return { kind: "watermark", colorKey: "watermark" };
   if (s.includes("grayscale") || n.includes("白黒")) return { kind: "grayscale", colorKey: "grayscale" };
   if (s.includes("base64")) return { kind: "code", colorKey: "code" };
+  if (
+    s.includes("dynamodb") ||
+    s.includes("textract") ||
+    s.includes("cloudtrail") ||
+    s.includes("cloudwatch") ||
+    s.includes("s3-inventory") ||
+    s.includes("transcribe")
+  ) {
+    return { kind: "aws", colorKey: "aws" };
+  }
   if (s.includes("parquet") || s.includes("csv") || s.includes("json")) return { kind: "data", colorKey: "data" };
 
   // conversions: show + color by the TARGET format (after "-to-")
