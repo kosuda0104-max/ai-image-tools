@@ -30,6 +30,19 @@ const AWS_PATHS = [
   "/en/guides/aws-export-file-formats",
 ];
 
+const ZH_TW_PATHS = [
+  "/zh-tw",
+  "/zh-tw/tools",
+  "/zh-tw/guides",
+  "/zh-tw/tools/csv-encoding-fix",
+  "/zh-tw/tools/parquet-to-csv",
+  "/zh-tw/tools/dynamodb-json-converter",
+  "/zh-tw/tools/cloudtrail-log-to-csv",
+  "/zh-tw/tools/heic-to-jpg",
+  "/zh-tw/tools/webp-to-jpg",
+  "/zh-tw/guides/aws-export-file-formats",
+] as const;
+
 describe("sitemap", () => {
   it("publishes the current modified date for priority guides in both locales", () => {
     const entries = sitemap();
@@ -49,5 +62,12 @@ describe("sitemap", () => {
   it("publishes every AWS tool and the AWS guide in both locales", () => {
     const paths = new Set(sitemap().map(({ url }) => new URL(url).pathname));
     for (const path of AWS_PATHS) expect(paths.has(path), path).toBe(true);
+  });
+
+  it("publishes only the complete Traditional Chinese pilot routes", () => {
+    const paths = sitemap().map(({ url }) => new URL(url).pathname);
+    const zhTwPaths = paths.filter((path) => path.startsWith("/zh-tw"));
+
+    expect(zhTwPaths.sort()).toEqual([...ZH_TW_PATHS].sort());
   });
 });

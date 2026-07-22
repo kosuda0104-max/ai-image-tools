@@ -9,6 +9,7 @@ export const metadata = createLocalizedPageMetadata({
     "Practical guides on image formats, compression, PDF workflows, CSV, JSON, Parquet, Base64, and browser-based web development tasks. Find the right workflow with less trial and error.",
   jaPath: "/guides",
   enPath: "/en/guides",
+  zhTwPath: "/zh-tw/guides",
 });
 
 const guides = getGuides("en");

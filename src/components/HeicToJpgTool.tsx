@@ -2,8 +2,10 @@
 
 import StandardImageConversionTool from "@/src/components/StandardImageConversionTool";
 import type { StandardImageConversionContent } from "@/src/lib/conversion-content";
+import { heicToJpgZhTwContent } from "@/src/data/zh-tw/heic-to-jpg";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
-type Locale = "ja" | "en";
+type Locale = Exclude<SiteLocale, "zh-TW">;
 
 async function heicToPngFile(file: File): Promise<File> {
   const heic2any = (await import("heic2any")).default;
@@ -260,10 +262,11 @@ const content: Record<Locale, StandardImageConversionContent> = {
   },
 };
 
-export default function HeicToJpgTool({ locale }: { locale: Locale }) {
+export default function HeicToJpgTool({ locale }: { locale: SiteLocale }) {
   return (
     <StandardImageConversionTool
-      content={content[locale]}
+      pageLocale={locale}
+      content={locale === "zh-TW" ? heicToJpgZhTwContent : content[locale]}
       accept=".heic,.heif,image/heic,image/heif"
       outputExtension="jpg"
       outputType="image/jpeg"

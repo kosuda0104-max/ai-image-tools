@@ -6,6 +6,7 @@ export type ParsedCsv = {
 export type CsvSourceEncoding =
   | "auto"
   | "utf-8"
+  | "big5"
   | "shift_jis"
   | "utf-16le"
   | "utf-16be";

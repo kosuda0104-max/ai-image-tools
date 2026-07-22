@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { getRelatedGuides } from "@/src/data/guide-related-guides";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
 type Props = {
-  locale: "ja" | "en";
+  locale: SiteLocale;
   slug: string;
 };
 
 export default function GuideRelatedGuides({ locale, slug }: Props) {
+  if (locale === "zh-TW") return null;
+
   const guides = getRelatedGuides(locale, slug);
 
   if (guides.length === 0) return null;

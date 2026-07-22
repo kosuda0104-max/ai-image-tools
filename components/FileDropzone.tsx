@@ -25,16 +25,27 @@ export default function FileDropzone({
 }: Props) {
   const pathname = usePathname();
   const isEnglish = pathname?.startsWith("/en");
+  const isZhTw = pathname?.startsWith("/zh-tw");
 
   // Pick up a file handed over from the homepage drop zone so the user does
   // not have to select it again after navigating here.
   usePendingFiles((files) => onFileSelect(files[0] ?? null));
 
-  const defaultSelectButtonLabel = isEnglish ? "Choose File" : "ファイルを選択";
-  const changeFileLabel = isEnglish ? "Change file" : "ファイルを変更";
-  const dropOrClickLabel = isEnglish
-    ? "Drop file here or click to browse"
-    : "ここにドロップ、またはクリックして選択";
+  const defaultSelectButtonLabel = isZhTw
+    ? "選擇檔案"
+    : isEnglish
+      ? "Choose File"
+      : "ファイルを選択";
+  const changeFileLabel = isZhTw
+    ? "重新選擇"
+    : isEnglish
+      ? "Change file"
+      : "ファイルを変更";
+  const dropOrClickLabel = isZhTw
+    ? "拖放到這裡，或點擊選擇"
+    : isEnglish
+      ? "Drop file here or click to browse"
+      : "ここにドロップ、またはクリックして選択";
 
   return (
     <label

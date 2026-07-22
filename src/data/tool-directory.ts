@@ -1,4 +1,10 @@
-export type ToolDirectoryLocale = "ja" | "en";
+import {
+  isZhTwToolSlug,
+  ZH_TW_TOOL_COPY,
+} from "@/src/data/zh-tw";
+import type { SiteLocale } from "@/src/lib/site-locale";
+
+export type ToolDirectoryLocale = SiteLocale;
 
 export type ToolDirectoryItem = {
   slug: string;
@@ -96,6 +102,18 @@ export function getToolItem(locale: ToolDirectoryLocale, slug: string): ToolDire
     throw new Error(`Unknown tool slug: ${slug}`);
   }
 
+  if (locale === "zh-TW") {
+    if (!isZhTwToolSlug(slug)) {
+      throw new Error(`Tool is not available in zh-TW: ${slug}`);
+    }
+
+    return {
+      slug,
+      ...ZH_TW_TOOL_COPY[slug],
+      href: `/zh-tw/tools/${slug}`,
+    };
+  }
+
   return {
     slug,
     name: locale === "ja" ? entry.jaName : entry.enName,
@@ -113,6 +131,12 @@ export function getToolItems(
 }
 
 export function getAllToolItems(locale: ToolDirectoryLocale): ToolDirectoryItem[] {
+  if (locale === "zh-TW") {
+    return Array.from(toolMap.keys())
+      .filter(isZhTwToolSlug)
+      .map((slug) => getToolItem(locale, slug));
+  }
+
   return toolEntries.map((entry) => ({
     slug: entry.slug,
     name: locale === "ja" ? entry.jaName : entry.enName,

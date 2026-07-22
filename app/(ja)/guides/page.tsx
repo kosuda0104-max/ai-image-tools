@@ -9,6 +9,7 @@ export const metadata = createLocalizedPageMetadata({
     "JPG・PNG・WebP・HEIC の選び方、画像圧縮、PDF、CSV・JSON・Parquet、Base64 の使い方を解説。Web制作やデータ処理の前後に役立つ実務的なガイドです。",
   jaPath: "/guides",
   enPath: "/en/guides",
+  zhTwPath: "/zh-tw/guides",
 });
 
 const guides = getGuides("ja");

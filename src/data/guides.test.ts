@@ -3,6 +3,7 @@ import { getGuide } from "@/src/data/guides";
 import { getRelatedGuides } from "@/src/data/guide-related-guides";
 import { getGuideRelatedTools } from "@/src/data/guide-related-tools";
 import { buildGuideArticleJsonLd } from "@/src/lib/guide-seo";
+import { awsExportFormatsZhTwGuide } from "@/src/data/guides.zh-tw";
 
 const TARGET_GUIDES = {
   "heic-cannot-open-windows": "2026-07-14",
@@ -100,4 +101,20 @@ describe("AWS export conversion cluster", () => {
       ).toContain("aws-export-file-formats");
     },
   );
+
+  it("publishes a complete Traditional Chinese AWS guide and only localized tools", () => {
+    const tools = getGuideRelatedTools("zh-TW", "aws-export-file-formats");
+    const jsonLd = buildGuideArticleJsonLd(awsExportFormatsZhTwGuide, "zh-TW");
+
+    expect(awsExportFormatsZhTwGuide.sources).toHaveLength(6);
+    expect(awsExportFormatsZhTwGuide.sections).toHaveLength(7);
+    expect(tools.map((tool) => tool.slug)).toEqual([
+      "dynamodb-json-converter",
+      "cloudtrail-log-to-csv",
+      "parquet-to-csv",
+      "csv-encoding-fix",
+    ]);
+    expect(jsonLd.inLanguage).toBe("zh-TW");
+    expect(jsonLd.url).toContain("/zh-tw/guides/aws-export-file-formats");
+  });
 });

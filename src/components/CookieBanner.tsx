@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
 type Props = {
-  locale: "ja" | "en";
+  locale: SiteLocale;
 };
 
 export default function CookieBanner({ locale }: Props) {
@@ -26,6 +27,7 @@ export default function CookieBanner({ locale }: Props) {
   if (!visible) return null;
 
   const isJa = locale === "ja";
+  const isZhTw = locale === "zh-TW";
   const privacyHref = isJa ? "/privacy-policy" : "/en/privacy-policy";
 
   return (
@@ -39,6 +41,14 @@ export default function CookieBanner({ locale }: Props) {
                 プライバシーポリシー
               </Link>
               へ。
+            </>
+          ) : isZhTw ? (
+            <>
+              本站使用 Cookie 進行流量分析與廣告投放。詳情請參閱
+              <Link href={privacyHref} className="text-teal-400 underline underline-offset-2 hover:text-teal-300">
+                隱私權政策（英文）
+              </Link>
+              。
             </>
           ) : (
             <>
@@ -54,7 +64,7 @@ export default function CookieBanner({ locale }: Props) {
           onClick={accept}
           className="mt-3 w-full rounded-xl bg-teal-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-teal-400"
         >
-          {isJa ? "了解" : "OK"}
+          {isZhTw ? "了解" : isJa ? "了解" : "OK"}
         </button>
       </div>
     </div>

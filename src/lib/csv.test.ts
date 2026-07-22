@@ -1,11 +1,20 @@
 import { describe, expect, it } from "vitest";
 import {
+  decodeCsvText,
   detectCsvDelimiter,
   parseDelimitedText,
   rowsToDelimited,
 } from "@/src/lib/csv";
 
 describe("delimited text helpers", () => {
+  it("decodes explicitly selected Big5 CSV text", () => {
+    const bytes = new Uint8Array([
+      0x6e, 0x61, 0x6d, 0x65, 0x0a, 0xa4, 0xa4, 0xa4, 0xe5,
+    ]);
+
+    expect(decodeCsvText(bytes.buffer, "big5")).toBe("name\n中文");
+  });
+
   it("detects semicolon-delimited CSV and preserves quoted delimiters", () => {
     const input = 'name;note\r\nAda;"alpha;beta"\r\nLin;plain';
 

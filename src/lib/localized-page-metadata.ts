@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { siteUrl } from "@/src/lib/site";
-
-type Locale = "ja" | "en";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
 type CreateLocalizedPageMetadataParams = {
-  locale: Locale;
+  locale: SiteLocale;
   title: string;
   description: string;
   jaPath: string;
   enPath: string;
+  zhTwPath?: string;
 };
 
 export function createLocalizedPageMetadata({
@@ -17,19 +17,28 @@ export function createLocalizedPageMetadata({
   description,
   jaPath,
   enPath,
+  zhTwPath,
 }: CreateLocalizedPageMetadataParams): Metadata {
-  const canonicalPath = locale === "en" ? enPath : jaPath;
+  const canonicalPath =
+    locale === "zh-TW" && zhTwPath
+      ? zhTwPath
+      : locale === "en"
+        ? enPath
+        : jaPath;
+  const languages: Record<string, string> = {
+    ja: `${siteUrl}${jaPath}`,
+    en: `${siteUrl}${enPath}`,
+    "x-default": `${siteUrl}${jaPath}`,
+  };
+
+  if (zhTwPath) languages["zh-TW"] = `${siteUrl}${zhTwPath}`;
 
   return {
     title,
     description,
     alternates: {
       canonical: `${siteUrl}${canonicalPath}`,
-      languages: {
-        ja: `${siteUrl}${jaPath}`,
-        en: `${siteUrl}${enPath}`,
-        "x-default": `${siteUrl}${jaPath}`,
-      },
+      languages,
     },
   };
 }

@@ -10,6 +10,7 @@ export const metadata = {
     languages: {
       ja: "/tools",
       en: "/en/tools",
+      "zh-TW": "/zh-tw/tools",
       "x-default": "/tools",
     },
   },

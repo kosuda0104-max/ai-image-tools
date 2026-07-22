@@ -37,4 +37,22 @@ describe("createLocalizedPageMetadata", () => {
       "https://ai-image-tools.com/guides",
     );
   });
+
+  it("adds a Traditional Chinese alternate only when a real path is supplied", () => {
+    const metadata = createLocalizedPageMetadata({
+      locale: "zh-TW",
+      title: "指南",
+      description: "說明",
+      jaPath: "/guides",
+      enPath: "/en/guides",
+      zhTwPath: "/zh-tw/guides",
+    });
+
+    expect(metadata.alternates?.canonical).toBe(
+      "https://ai-image-tools.com/zh-tw/guides",
+    );
+    expect(metadata.alternates?.languages?.["zh-TW"]).toBe(
+      "https://ai-image-tools.com/zh-tw/guides",
+    );
+  });
 });

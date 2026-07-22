@@ -55,6 +55,9 @@ export function getGuideRelatedTools(
   locale: ToolDirectoryLocale,
   slug: string,
 ): ToolDirectoryItem[] {
-  const slugs = guideToolMap[slug] ?? [];
+  const slugs =
+    locale === "zh-TW" && slug === "aws-export-file-formats"
+      ? ["dynamodb-json-converter", "cloudtrail-log-to-csv", "parquet-to-csv", "csv-encoding-fix"]
+      : guideToolMap[slug] ?? [];
   return getToolItems(locale, slugs);
 }

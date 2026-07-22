@@ -1,14 +1,48 @@
 import Link from "next/link";
 import SiteLogo from "@/src/components/SiteLogo";
-
-type Locale = "ja" | "en";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
 type FooterLink = { name: string; href: string };
 
 type FooterColumn = { title: string; links: FooterLink[] };
 
-function getColumns(locale: Locale): FooterColumn[] {
-  const p = locale === "en" ? "/en" : "";
+function getColumns(locale: SiteLocale): FooterColumn[] {
+  const p = locale === "en" ? "/en" : locale === "zh-TW" ? "/zh-tw" : "";
+
+  if (locale === "zh-TW") {
+    return [
+      {
+        title: "圖片轉換",
+        links: [
+          { name: "HEIC 轉 JPG", href: `${p}/tools/heic-to-jpg` },
+          { name: "WebP 轉 JPG", href: `${p}/tools/webp-to-jpg` },
+        ],
+      },
+      {
+        title: "資料工具",
+        links: [
+          { name: "修復 CSV 亂碼", href: `${p}/tools/csv-encoding-fix` },
+          { name: "Parquet 轉 CSV", href: `${p}/tools/parquet-to-csv` },
+        ],
+      },
+      {
+        title: "AWS 工具",
+        links: [
+          { name: "DynamoDB JSON 轉換器", href: `${p}/tools/dynamodb-json-converter` },
+          { name: "CloudTrail 日誌轉 CSV", href: `${p}/tools/cloudtrail-log-to-csv` },
+        ],
+      },
+      {
+        title: "網站",
+        links: [
+          { name: "所有工具", href: `${p}/tools` },
+          { name: "指南", href: `${p}/guides` },
+          { name: "隱私權政策（英文）", href: "/en/privacy-policy" },
+          { name: "使用條款（英文）", href: "/en/terms" },
+        ],
+      },
+    ];
+  }
 
   if (locale === "ja") {
     return [
@@ -101,16 +135,20 @@ function getColumns(locale: Locale): FooterColumn[] {
   ];
 }
 
-export default function SiteFooter({ locale }: { locale: Locale }) {
+export default function SiteFooter({ locale }: { locale: SiteLocale }) {
   const columns = getColumns(locale);
   const description =
-    locale === "ja"
+    locale === "zh-TW"
+      ? "免費的圖片、CSV、Parquet 與 AWS 資料轉換工具。檔案只在瀏覽器內處理，不會上傳到外部伺服器。"
+      : locale === "ja"
       ? "画像変換、画像編集、PDF・データ作業をブラウザだけで完結できる無料ツールサイト。ファイルは外部サーバーに送信されません。"
       : "Free browser-based tools for image conversion, editing, PDF, and data workflows. Your files never leave your device.";
-  const langLink =
+  const languageLinks =
     locale === "ja"
-      ? { name: "English", href: "/en" }
-      : { name: "日本語", href: "/" };
+      ? [{ name: "English", href: "/en" }, { name: "繁體中文", href: "/zh-tw" }]
+      : locale === "en"
+        ? [{ name: "日本語", href: "/" }, { name: "繁體中文", href: "/zh-tw" }]
+        : [{ name: "日本語", href: "/" }, { name: "English", href: "/en" }];
 
   return (
     <footer className="bg-slate-900">
@@ -120,7 +158,7 @@ export default function SiteFooter({ locale }: { locale: Locale }) {
             <SiteLogo compact tone="dark" />
             <p className="text-sm leading-6 text-slate-400">{description}</p>
             <p className="inline-flex items-center gap-1.5 rounded-full border border-green-400/30 bg-green-400/10 px-3 py-1 text-xs text-green-300">
-              🔒 {locale === "ja" ? "すべてブラウザ内処理" : "100% browser-side processing"}
+              🔒 {locale === "zh-TW" ? "所有處理都在瀏覽器內完成" : locale === "ja" ? "すべてブラウザ内処理" : "100% browser-side processing"}
             </p>
           </div>
 
@@ -147,12 +185,13 @@ export default function SiteFooter({ locale }: { locale: Locale }) {
           <p className="text-sm text-slate-500">
             © {new Date().getFullYear()} Filewisp
           </p>
-          <Link
-            href={langLink.href}
-            className="text-sm text-slate-400 transition hover:text-white"
-          >
-            🌐 {langLink.name}
-          </Link>
+          <div className="flex gap-4">
+            {languageLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="text-sm text-slate-400 transition hover:text-white">
+                🌐 {link.name}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

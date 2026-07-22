@@ -7,6 +7,8 @@ import StatusMessage from "@/components/StatusMessage";
 import ToolPageLayout from "@/components/ToolPageLayout";
 import { formatFileSize, getBaseName, getErrorMessage, triggerBlobDownload } from "@/src/lib/image-conversion";
 import { parquetToCsvContent } from "@/src/data/tools/parquet-to-csv";
+import { parquetToCsvZhTwContent } from "@/src/data/zh-tw/parquet-to-csv";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
 const PREVIEW_ROWS = 5;
 
@@ -32,11 +34,12 @@ function rowsToCsv(columns: string[], rows: Record<string, unknown>[]): string {
 }
 
 type Props = {
-  locale: "ja" | "en";
+  locale: SiteLocale;
 };
 
 export default function ParquetToCsvTool({ locale }: Props) {
-  const { page, ui } = parquetToCsvContent[locale];
+  const { page, ui } =
+    locale === "zh-TW" ? parquetToCsvZhTwContent : parquetToCsvContent[locale];
   const [file, setFile] = useState<File | null>(null);
   const [parsed, setParsed] = useState<ParsedData | null>(null);
   const [status, setStatus] = useState("");
@@ -96,6 +99,9 @@ export default function ParquetToCsvTool({ locale }: Props) {
 
   return (
     <ToolPageLayout
+      pageLocale={locale}
+      slug="parquet-to-csv"
+      toolCategory="data"
       title={page.title}
       description={page.description}
       aboutTitle={page.aboutTitle}

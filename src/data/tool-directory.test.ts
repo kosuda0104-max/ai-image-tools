@@ -7,6 +7,7 @@ import {
   TOOL_COUNT,
 } from "@/src/data/tool-directory";
 import { toolsPageContent } from "@/src/data/tools/tools-page";
+import { ZH_TW_TOOL_SLUGS } from "@/src/data/zh-tw";
 
 const newSlugs = [
   "image-background-transparent",
@@ -70,6 +71,26 @@ describe("tool directory", () => {
       expect(routeSlugs).toEqual(registeredSlugs);
     },
   );
+
+  it("publishes exactly the six complete Traditional Chinese pilot tools", () => {
+    const tools = getAllToolItems("zh-TW");
+    const routeRoot = join(process.cwd(), "app", "(zh-tw)", "zh-tw", "tools");
+    const routeSlugs = readdirSync(routeRoot, { withFileTypes: true })
+      .filter(
+        (entry) =>
+          entry.isDirectory() &&
+          existsSync(join(routeRoot, entry.name, "page.tsx")),
+      )
+      .map((entry) => entry.name)
+      .sort();
+
+    expect(tools).toHaveLength(6);
+    expect(tools.map((tool) => tool.slug).sort()).toEqual(
+      [...ZH_TW_TOOL_SLUGS].sort(),
+    );
+    expect(routeSlugs).toEqual([...ZH_TW_TOOL_SLUGS].sort());
+    expect(tools.every((tool) => tool.href.startsWith("/zh-tw/tools/"))).toBe(true);
+  });
 
   it.each(["ja", "en"] as const)(
     "lists every %s tool in exactly one directory category",

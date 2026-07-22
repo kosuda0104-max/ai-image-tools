@@ -5,10 +5,11 @@ import GuideHero from "@/src/components/GuideHero";
 import { buildGuideArticleJsonLd } from "@/src/lib/guide-seo";
 import { AD_SLOTS } from "@/src/lib/ads";
 import type { GuideEntry } from "@/src/data/guides";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
 type Props = {
   guide: GuideEntry;
-  locale: "ja" | "en";
+  locale: SiteLocale;
 };
 
 export default function GuidePageTemplate({ guide, locale }: Props) {

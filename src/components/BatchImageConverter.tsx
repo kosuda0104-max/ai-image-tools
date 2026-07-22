@@ -11,6 +11,7 @@ import type { StandardImageConversionContent } from "@/src/lib/conversion-conten
 import { setPendingFiles } from "@/src/lib/pending-files";
 import { usePendingFiles } from "@/src/lib/use-pending-files";
 import { getToolItem } from "@/src/data/tool-directory";
+import type { SiteLocale } from "@/src/lib/site-locale";
 import {
   convertImageWithCanvas,
   formatFileSize,
@@ -20,6 +21,7 @@ import {
 } from "@/src/lib/image-conversion";
 
 type Props = {
+  pageLocale?: SiteLocale;
   content: StandardImageConversionContent;
   accept: string;
   outputExtension: string;
@@ -54,6 +56,7 @@ function makeId() {
 }
 
 export default function BatchImageConverter({
+  pageLocale,
   content,
   accept,
   outputExtension,
@@ -64,10 +67,29 @@ export default function BatchImageConverter({
   preprocess,
 }: Props) {
   const { page, ui } = content;
-  const ja = isJa(page.title);
+  const locale: SiteLocale = pageLocale ?? (isJa(page.title) ? "ja" : "en");
+  const ja = locale === "ja";
+  const zh = locale === "zh-TW";
   const router = useRouter();
 
-  const L = ja
+  const L = zh
+    ? {
+        addMore: "新增圖片",
+        dropHint: "拖放到這裡，或點擊選擇（可多選）",
+        selected: (n: number) => `已選擇 ${n} 張圖片`,
+        remove: "移除",
+        convert: (n: number) => (n > 1 ? `一次轉換 ${n} 個檔案` : ui.convertButton),
+        converting: ui.convertingButton,
+        progress: (done: number, total: number) => `轉換中... ${done} / ${total}`,
+        resultsTitle: "轉換結果",
+        download: "下載",
+        downloadAll: "全部下載為 ZIP",
+        convertMore: "轉換其他圖片",
+        invalid: ui.invalidFileError,
+        someInvalid: "已略過不支援的檔案。",
+        empty: "請新增要轉換的圖片。",
+      }
+    : ja
     ? {
         addMore: "画像を追加",
         dropHint: "ここにドラッグ＆ドロップ、またはクリックして選択（複数可）",
@@ -244,9 +266,9 @@ export default function BatchImageConverter({
         : outputExtension === "webp"
           ? ["webp-compress"]
           : [];
-  const chainTools = chainSlugs.map((slug) =>
-    getToolItem(ja ? "ja" : "en", slug),
-  );
+  const chainTools = zh
+    ? []
+    : chainSlugs.map((slug) => getToolItem(locale, slug));
 
   const handleChain = (href: string) => {
     setPendingFiles(
@@ -271,6 +293,7 @@ export default function BatchImageConverter({
 
   return (
     <ToolPageLayout
+      pageLocale={locale}
       slug={page.slug}
       title={page.title}
       description={page.description}
@@ -392,7 +415,7 @@ export default function BatchImageConverter({
                   onClick={handleReset}
                   className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
                 >
-                  {ui.resetButton ?? (ja ? "リセット" : "Reset")}
+                  {ui.resetButton ?? (zh ? "重設" : ja ? "リセット" : "Reset")}
                 </button>
               ) : null}
             </div>
@@ -468,9 +491,11 @@ export default function BatchImageConverter({
             {chainTools.length > 0 ? (
               <div className="rounded-xl border border-teal-100 bg-teal-50/60 px-4 py-3">
                 <p className="text-xs font-semibold text-gray-700">
-                  {ja
-                    ? "このファイルで続けて作業する"
-                    : "Keep working with these files"}
+                  {zh
+                    ? "繼續處理這些檔案"
+                    : ja
+                      ? "このファイルで続けて作業する"
+                      : "Keep working with these files"}
                 </p>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {chainTools.map((tool) => (

@@ -3,11 +3,13 @@
 import SimpleImageConversionTool, {
   type SimpleImageConversionContent,
 } from "@/src/components/SimpleImageConversionTool";
+import { webpToJpgZhTwContent } from "@/src/data/zh-tw/webp-to-jpg";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
-type Locale = "ja" | "en";
+type Locale = Exclude<SiteLocale, "zh-TW">;
 
 type Props = {
-  locale: Locale;
+  locale: SiteLocale;
 };
 
 const content: Record<Locale, SimpleImageConversionContent> = {
@@ -230,7 +232,8 @@ const content: Record<Locale, SimpleImageConversionContent> = {
 export default function WebpToJpgTool({ locale }: Props) {
   return (
     <SimpleImageConversionTool
-      content={content[locale]}
+      pageLocale={locale}
+      content={locale === "zh-TW" ? webpToJpgZhTwContent : content[locale]}
       accept="image/webp,.webp"
       outputExtension="jpg"
       outputType="image/jpeg"

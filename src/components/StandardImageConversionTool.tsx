@@ -2,10 +2,12 @@
 
 import BatchImageConverter from "@/src/components/BatchImageConverter";
 import type { StandardImageConversionContent } from "@/src/lib/conversion-content";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
 export type { StandardImageConversionContent } from "@/src/lib/conversion-content";
 
 type Props = {
+  pageLocale?: SiteLocale;
   content: StandardImageConversionContent;
   accept: string;
   outputExtension: string;

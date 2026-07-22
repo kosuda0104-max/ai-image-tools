@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import type { GuideEntry } from "@/src/data/guides";
 import { siteUrl } from "@/src/lib/site";
 import { TOOL_CONTENT_LAST_UPDATED } from "@/src/lib/seo-signals";
+import { isZhTwGuideSlug } from "@/src/data/zh-tw";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
 const GUIDE_AUTHOR = {
   "@type": "Person",
@@ -15,12 +17,10 @@ const GUIDE_PUBLISHER = {
   url: siteUrl,
 };
 
-export function buildGuideArticleJsonLd(guide: GuideEntry, locale: "ja" | "en") {
+export function buildGuideArticleJsonLd(guide: GuideEntry, locale: SiteLocale) {
   const updatedAt = guide.updatedAt ?? TOOL_CONTENT_LAST_UPDATED;
-  const url =
-    locale === "ja"
-      ? `${siteUrl}/guides/${guide.slug}`
-      : `${siteUrl}/en/guides/${guide.slug}`;
+  const base = locale === "ja" ? "/guides" : locale === "en" ? "/en/guides" : "/zh-tw/guides";
+  const url = `${siteUrl}${base}/${guide.slug}`;
 
   return {
     "@context": "https://schema.org",
@@ -43,30 +43,29 @@ export function buildGuideArticleJsonLd(guide: GuideEntry, locale: "ja" | "en") 
 
 export function generateGuideMetadata(
   guide: GuideEntry,
-  locale: "ja" | "en",
+  locale: SiteLocale,
 ): Metadata {
   const updatedAt = guide.updatedAt ?? TOOL_CONTENT_LAST_UPDATED;
   const jaUrl = `${siteUrl}/guides/${guide.slug}`;
   const enUrl = `${siteUrl}/en/guides/${guide.slug}`;
-  const canonicalUrl = locale === "ja" ? jaUrl : enUrl;
+  const zhTwUrl = `${siteUrl}/zh-tw/guides/${guide.slug}`;
+  const canonicalUrl = locale === "zh-TW" ? zhTwUrl : locale === "ja" ? jaUrl : enUrl;
+  const languages: Record<string, string> = { ja: jaUrl, en: enUrl, "x-default": jaUrl };
+  if (isZhTwGuideSlug(guide.slug)) languages["zh-TW"] = zhTwUrl;
 
   return {
     title: guide.title,
     description: guide.description,
     alternates: {
       canonical: canonicalUrl,
-      languages: {
-        ja: jaUrl,
-        en: enUrl,
-        "x-default": jaUrl,
-      },
+      languages,
     },
     openGraph: {
       title: guide.title,
       description: guide.description,
       url: canonicalUrl,
       siteName: "Filewisp",
-      locale: locale === "ja" ? "ja_JP" : "en_US",
+      locale: locale === "zh-TW" ? "zh_TW" : locale === "ja" ? "ja_JP" : "en_US",
       type: "article",
       images: [
         {

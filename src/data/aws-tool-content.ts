@@ -3,6 +3,8 @@ import {
   type AwsOutputFormat,
   type AwsToolKind,
 } from "@/src/lib/aws-converter";
+import { getZhTwAwsToolContent } from "@/src/data/aws-tool-content.zh-tw";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
 type Locale = "ja" | "en";
 
@@ -237,7 +239,9 @@ function transcribe(locale: Locale): AwsToolContent {
   };
 }
 
-export function getAwsToolContent(kind: AwsToolKind, locale: Locale) {
+export function getAwsToolContent(kind: AwsToolKind, locale: SiteLocale) {
+  if (locale === "zh-TW") return getZhTwAwsToolContent(kind);
+
   switch (kind) {
     case "dynamodb": return dynamodb(locale);
     case "textract": return textract(locale);

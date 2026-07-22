@@ -11,6 +11,7 @@ import {
 } from "@/src/lib/seo-signals";
 import { getAllToolItems, getToolItems } from "@/src/data/tool-directory";
 import { siteUrl } from "@/src/lib/site";
+import { getLocaleBasePath, type SiteLocale } from "@/src/lib/site-locale";
 
 type FAQItem = {
   question: string;
@@ -52,6 +53,7 @@ type PracticalChecklist = {
 };
 
 type Props = {
+  pageLocale?: SiteLocale;
   slug?: string;
   toolCategory?: "image" | "pdf" | "data";
   title: string;
@@ -97,11 +99,34 @@ function buildWorkflowSuggestions({
   title,
   category: explicitCategory,
 }: {
-  locale: "ja" | "en";
+  locale: SiteLocale;
   title: string;
   category?: Props["toolCategory"];
 }): WorkflowSuggestion[] {
   const category = detectToolCategory(title, explicitCategory);
+
+  if (locale === "zh-TW") {
+    const zhSuggestions =
+      category === "data"
+        ? [
+            { slug: "csv-encoding-fix", reason: "先修正 CSV 的文字編碼，再交給 Excel 或其他資料流程使用。" },
+            { slug: "parquet-to-csv", reason: "將 Parquet 匯出成 CSV，方便快速檢查或分享資料。" },
+            { slug: "dynamodb-json-converter", reason: "把 DynamoDB 型別資料整理成一般 JSON、CSV 或 Excel。" },
+            { slug: "cloudtrail-log-to-csv", reason: "合併 CloudTrail 稽核日誌並整理成容易篩選的表格。" },
+          ]
+        : [
+            { slug: "heic-to-jpg", reason: "將 iPhone 照片轉成相容性更高的 JPG。" },
+            { slug: "webp-to-jpg", reason: "需要舊版軟體或上傳表單支援時，可改用 JPG。" },
+          ];
+
+    return getToolItems(
+      locale,
+      zhSuggestions.map((entry) => entry.slug),
+    ).map((tool, index) => ({
+      ...tool,
+      reason: zhSuggestions[index].reason,
+    }));
+  }
 
   const suggestionsByCategory: Record<string, { slug: string; jaReason: string; enReason: string }[]> = {
     conversion: [
@@ -187,12 +212,48 @@ function buildPracticalChecklist({
   title,
   category: explicitCategory,
 }: {
-  locale: "ja" | "en";
+  locale: SiteLocale;
   title: string;
   category?: Props["toolCategory"];
 }): PracticalChecklist {
   const category = detectToolCategory(title, explicitCategory);
   const isJa = locale === "ja";
+
+  if (locale === "zh-TW") {
+    if (category === "data") {
+      return {
+        title: "資料轉換前後的檢查重點",
+        beforeTitle: "轉換前",
+        beforeItems: [
+          "保留原始檔案，並先確認文字編碼與資料格式。",
+          "確認第一列是否為欄位名稱，以及欄位是否符合預期。",
+          "若含個人或機密資料，先確認處理位置與分享對象。",
+        ],
+        afterTitle: "轉換後",
+        afterItems: [
+          "利用預覽確認中文、欄位名稱與資料筆數。",
+          "在 Excel 或目的系統中檢查日期與長數字是否正確。",
+          "以不同檔名保存結果，方便和原始資料比對。",
+        ],
+      };
+    }
+
+    return {
+      title: "圖片轉換前後的檢查重點",
+      beforeTitle: "轉換前",
+      beforeItems: [
+        "確認上傳網站、應用程式或收件人要求的圖片格式。",
+        "先保留原始圖片，並留意透明背景、動畫與畫質可能改變。",
+        "依相容性、編輯需求或檔案大小選擇輸出格式。",
+      ],
+      afterTitle: "轉換後",
+      afterItems: [
+        "開啟轉換後的圖片，檢查色彩、文字邊緣與透明區域。",
+        "確認檔名、尺寸與容量是否符合目的地限制。",
+        "確認無誤後再上傳或分享，並保留原始檔案。",
+      ],
+    };
+  }
 
   if (category === "data") {
     return isJa
@@ -330,6 +391,7 @@ function buildPracticalChecklist({
 }
 
 export default function ToolPageLayout({
+  pageLocale,
   slug,
   toolCategory,
   title,
@@ -364,26 +426,30 @@ export default function ToolPageLayout({
     relatedToolsTitle === "Related Tools"
       ? fallback.relatedToolsTitle
       : relatedToolsTitle;
-  const isJapanesePage = isJapaneseText(title);
+  const locale: SiteLocale =
+    pageLocale ?? (isJapaneseText(title) ? "ja" : "en");
+  const isJapanesePage = locale === "ja";
+  const isZhTwPage = locale === "zh-TW";
   const workflowSuggestions = buildWorkflowSuggestions({
-    locale: isJapanesePage ? "ja" : "en",
+    locale,
     title,
     category: toolCategory,
   });
   const practicalChecklist = buildPracticalChecklist({
-    locale: isJapanesePage ? "ja" : "en",
+    locale,
     title,
     category: toolCategory,
   });
-  const workflowSuggestionsTitle = isJapanesePage
-    ? "次に続けやすい作業"
-    : "Common next steps";
-  const basePath = isJapanesePage ? "" : "/en";
+  const workflowSuggestionsTitle = isZhTwPage
+    ? "下一步常用工具"
+    : isJapanesePage
+      ? "次に続けやすい作業"
+      : "Common next steps";
+  const basePath = getLocaleBasePath(locale);
   const homePath = basePath || "/";
   const toolsPath = `${basePath}/tools`;
   const guidesPath = `${basePath}/guides`;
   const toolHubUrl = `${siteUrl}${toolsPath}`;
-  const locale = isJapanesePage ? "ja" : "en";
   const normalizedTitle = title.toLocaleLowerCase(locale);
   const inferredTool = getAllToolItems(locale)
     .sort((left, right) => right.name.length - left.name.length)
@@ -406,7 +472,7 @@ export default function ToolPageLayout({
     operatingSystem: "Any",
     browserRequirements: "Requires a modern web browser",
     isAccessibleForFree: true,
-    inLanguage: isJapanesePage ? "ja" : "en",
+    inLanguage: locale,
     dateModified: TOOL_CONTENT_LAST_UPDATED,
     isPartOf: {
       "@type": "WebSite",
@@ -428,13 +494,13 @@ export default function ToolPageLayout({
       {
         "@type": "ListItem",
         position: 1,
-        name: isJapanesePage ? "ホーム" : "Home",
+        name: isZhTwPage ? "首頁" : isJapanesePage ? "ホーム" : "Home",
         item: `${siteUrl}${homePath === "/" ? "" : homePath}` || siteUrl,
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: isJapanesePage ? "ツール一覧" : "Tools",
+        name: isZhTwPage ? "工具" : isJapanesePage ? "ツール一覧" : "Tools",
         item: toolHubUrl,
       },
       {
@@ -452,7 +518,7 @@ export default function ToolPageLayout({
           "@type": "HowTo",
           name: title,
           description,
-          inLanguage: isJapanesePage ? "ja" : "en",
+          inLanguage: locale,
           step: steps.map((step, index) => ({
             "@type": "HowToStep",
             position: index + 1,
@@ -517,13 +583,13 @@ export default function ToolPageLayout({
               <ol className="flex flex-wrap items-center gap-2">
                 <li>
                   <Link href={homePath} className="transition hover:text-gray-900">
-                    {isJapanesePage ? "ホーム" : "Home"}
+                    {isZhTwPage ? "首頁" : isJapanesePage ? "ホーム" : "Home"}
                   </Link>
                 </li>
                 <li>/</li>
                 <li>
                   <Link href={toolsPath} className="transition hover:text-gray-900">
-                    {isJapanesePage ? "ツール一覧" : "Tools"}
+                    {isZhTwPage ? "工具" : isJapanesePage ? "ツール一覧" : "Tools"}
                   </Link>
                 </li>
                 <li>/</li>
@@ -694,21 +760,29 @@ export default function ToolPageLayout({
             <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
               <div className="space-y-1">
                 <h2 className="text-base font-bold text-gray-900">
-                  {isJapanesePage
-                    ? "使い方に迷ったときはガイドも確認"
-                    : "Need help choosing the right workflow?"}
+                  {isZhTwPage
+                    ? "需要更多格式與工作流程說明？"
+                    : isJapanesePage
+                      ? "使い方に迷ったときはガイドも確認"
+                      : "Need help choosing the right workflow?"}
                 </h2>
                 <p className="text-sm leading-6 text-gray-500">
-                  {isJapanesePage
-                    ? "画像形式の違い、圧縮のコツ、PDFのまとめ方などをガイドページで整理しています。"
-                    : "The guide section covers format differences, compression tips, and common PDF workflows."}
+                  {isZhTwPage
+                    ? "指南整理了 AWS 匯出格式、資料轉換與常見注意事項。"
+                    : isJapanesePage
+                      ? "画像形式の違い、圧縮のコツ、PDFのまとめ方などをガイドページで整理しています。"
+                      : "The guide section covers format differences, compression tips, and common PDF workflows."}
                 </p>
               </div>
               <Link
                 href={guidesPath}
                 className="shrink-0 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-gray-700"
               >
-                {isJapanesePage ? "ガイド一覧を見る" : "Browse guides"}
+                {isZhTwPage
+                  ? "查看指南"
+                  : isJapanesePage
+                    ? "ガイド一覧を見る"
+                    : "Browse guides"}
               </Link>
             </div>
           </section>

@@ -6,6 +6,7 @@ import type {
   GuideFigure as GuideFigureData,
   GuideSource,
 } from "@/src/data/guides";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
 type Section = {
   title: string;
@@ -17,7 +18,7 @@ type Props = {
   title: string;
   description: string;
   sections: Section[];
-  locale: "ja" | "en";
+  locale: SiteLocale;
   /** Optional illustration shown under the page intro (used by guides). */
   hero?: ReactNode;
   /** Optional AdSense slot. Omit on legal/static utility pages. */
@@ -35,7 +36,18 @@ export default function StaticContentPage({
   sources,
 }: Props) {
   const links =
-    locale === "en"
+    locale === "zh-TW"
+      ? {
+          tools: "/zh-tw/tools",
+          contact: "/en/contact",
+          about: "/en/about",
+          guides: "/zh-tw/guides",
+          toolsLabel: "工具",
+          contactLabel: "聯絡我們（英文）",
+          aboutLabel: "關於本站（英文）",
+          guidesLabel: "指南",
+        }
+      : locale === "en"
       ? {
           tools: "/en/tools",
           contact: "/en/contact",
@@ -90,7 +102,7 @@ export default function StaticContentPage({
           {sources && sources.length > 0 ? (
             <section className="space-y-3 border-t border-gray-200 pt-8">
               <h2 className="text-xl font-semibold text-gray-900">
-                {locale === "ja" ? "公式資料" : "Official references"}
+                {locale === "zh-TW" ? "官方參考資料" : locale === "ja" ? "公式資料" : "Official references"}
               </h2>
               <ul className="space-y-2 text-sm leading-7 text-gray-700">
                 {sources.map((source) => (

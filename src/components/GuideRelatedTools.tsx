@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { getGuideRelatedTools } from "@/src/data/guide-related-tools";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
 type Props = {
-  locale: "ja" | "en";
+  locale: SiteLocale;
   slug: string;
 };
 
@@ -11,11 +12,9 @@ export default function GuideRelatedTools({ locale, slug }: Props) {
 
   if (tools.length === 0) return null;
 
-  const title =
-    locale === "ja" ? "このガイドに関連するツール" : "Tools related to this guide";
-  const allToolsLabel =
-    locale === "ja" ? "ツール一覧を見る" : "Browse all tools";
-  const toolsPath = locale === "ja" ? "/tools" : "/en/tools";
+  const title = locale === "zh-TW" ? "與本指南相關的工具" : locale === "ja" ? "このガイドに関連するツール" : "Tools related to this guide";
+  const allToolsLabel = locale === "zh-TW" ? "查看所有工具" : locale === "ja" ? "ツール一覧を見る" : "Browse all tools";
+  const toolsPath = locale === "zh-TW" ? "/zh-tw/tools" : locale === "ja" ? "/tools" : "/en/tools";
 
   return (
     <section className="border-t border-gray-200 bg-gray-50">

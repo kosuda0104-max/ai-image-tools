@@ -6,6 +6,7 @@ import type {
   PageContent,
   StandardImageConversionContent,
 } from "@/src/lib/conversion-content";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
 export type SimpleImageConversionContent = {
   page: PageContent;
@@ -23,6 +24,7 @@ export type SimpleImageConversionContent = {
 };
 
 type Props = {
+  pageLocale?: SiteLocale;
   content: SimpleImageConversionContent;
   accept: string;
   outputExtension: string;
@@ -39,6 +41,7 @@ type Props = {
  */
 export default function SimpleImageConversionTool({
   content,
+  pageLocale,
   ...rest
 }: Props) {
   const mapped = useMemo<StandardImageConversionContent>(() => {
@@ -56,16 +59,16 @@ export default function SimpleImageConversionTool({
         successMessage: () => ui.done,
         invalidFileError: ui.invalidFile,
         selectedImageTitle: ui.emptyTitle,
-        fileNameLabel: "Name",
-        fileTypeLabel: "Type",
-        fileSizeLabel: "Size",
-        previewLabel: "Preview",
+        fileNameLabel: pageLocale === "zh-TW" ? "檔案名稱" : "Name",
+        fileTypeLabel: pageLocale === "zh-TW" ? "格式" : "Type",
+        fileSizeLabel: pageLocale === "zh-TW" ? "大小" : "Size",
+        previewLabel: pageLocale === "zh-TW" ? "預覽" : "Preview",
         convertButton: ui.button,
         convertingButton: ui.loading,
         resetButton: ui.resetButton,
       },
     };
-  }, [content]);
+  }, [content, pageLocale]);
 
-  return <BatchImageConverter content={mapped} {...rest} />;
+  return <BatchImageConverter content={mapped} pageLocale={pageLocale} {...rest} />;
 }

@@ -13,8 +13,8 @@ import {
   type AwsToolKind,
 } from "@/src/lib/aws-converter";
 import { getErrorMessage, triggerBlobDownload } from "@/src/lib/image-conversion";
+import type { SiteLocale } from "@/src/lib/site-locale";
 
-type Locale = "ja" | "en";
 const PREVIEW_ROWS = 10;
 const PREVIEW_COLUMNS = 12;
 
@@ -23,7 +23,7 @@ export default function AwsDataConverterTool({
   locale,
 }: {
   kind: AwsToolKind;
-  locale: Locale;
+  locale: SiteLocale;
 }) {
   const content = getAwsToolContent(kind, locale);
   const [files, setFiles] = useState<File[]>([]);
@@ -73,6 +73,7 @@ export default function AwsDataConverterTool({
 
   return (
     <ToolPageLayout
+      pageLocale={locale}
       slug={content.slug}
       toolCategory="data"
       title={content.title}
@@ -131,7 +132,9 @@ export default function AwsDataConverterTool({
                     {omittedColumns > 0
                       ? locale === "ja"
                         ? ` ほか${omittedColumns}列は保存ファイルに含まれます。`
-                        : ` ${omittedColumns} more columns are included in the download.`
+                        : locale === "zh-TW"
+                          ? ` 其餘 ${omittedColumns} 個欄位會保留在下載檔案中。`
+                          : ` ${omittedColumns} more columns are included in the download.`
                       : ""}
                   </p>
                 </div>

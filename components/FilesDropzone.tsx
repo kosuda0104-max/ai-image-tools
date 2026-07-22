@@ -22,17 +22,26 @@ export default function FilesDropzone({
 }: Props) {
   const pathname = usePathname();
   const isEnglish = pathname?.startsWith("/en");
+  const isZhTw = pathname?.startsWith("/zh-tw");
   usePendingFiles((pending) => onFilesSelect(multiple ? pending : pending.slice(0, 1)));
 
-  const choose = isEnglish
+  const choose = isZhTw
+    ? multiple
+      ? "選擇檔案"
+      : "選擇檔案"
+    : isEnglish
     ? multiple
       ? "Choose Files"
       : "Choose File"
     : multiple
       ? "ファイルを選択"
       : "ファイルを選択";
-  const change = isEnglish ? "Change selection" : "選び直す";
-  const drop = isEnglish
+  const change = isZhTw ? "重新選擇" : isEnglish ? "Change selection" : "選び直す";
+  const drop = isZhTw
+    ? multiple
+      ? "拖放多個檔案到這裡，或點擊選擇"
+      : "拖放檔案到這裡，或點擊選擇"
+    : isEnglish
     ? multiple
       ? "Drop files here or click to browse"
       : "Drop a file here or click to browse"
@@ -79,7 +88,9 @@ export default function FilesDropzone({
         <div className="min-w-0 max-w-full text-center">
           <p className="text-sm font-semibold text-gray-900">
             {files.length > 0
-              ? isEnglish
+              ? isZhTw
+                ? `已選擇 ${files.length} 個檔案`
+                : isEnglish
                 ? `${files.length} file${files.length === 1 ? "" : "s"} selected`
                 : `${files.length}件を選択中`
               : emptyTitle}
