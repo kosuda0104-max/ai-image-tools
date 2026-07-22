@@ -33,6 +33,15 @@ export type AwsToolKind =
 
 export type AwsOutputFormat = "json" | "csv" | "xlsx" | "jsonl" | "srt" | "vtt" | "txt";
 
+export const AWS_OUTPUT_FORMATS = {
+  dynamodb: ["json", "csv", "xlsx"],
+  textract: ["xlsx", "csv"],
+  cloudtrail: ["csv", "jsonl"],
+  "s3-inventory": ["csv", "xlsx"],
+  cloudwatch: ["csv", "jsonl"],
+  transcribe: ["srt", "vtt", "txt"],
+} as const satisfies Record<AwsToolKind, readonly AwsOutputFormat[]>;
+
 export type AwsArtifact = {
   format: AwsOutputFormat;
   filename: string;
@@ -252,18 +261,37 @@ async function convertTranscribe(files: File[]): Promise<AwsConversionResult> {
 
 export async function convertAwsFiles(kind: AwsToolKind, files: File[]) {
   if (files.length === 0) throw new Error("No files were selected.");
+  let result: AwsConversionResult;
+
   switch (kind) {
     case "dynamodb":
-      return convertDynamoDb(files);
+      result = await convertDynamoDb(files);
+      break;
     case "textract":
-      return convertTextract(files);
+      result = await convertTextract(files);
+      break;
     case "cloudtrail":
-      return convertCloudTrail(files);
+      result = await convertCloudTrail(files);
+      break;
     case "s3-inventory":
-      return convertS3Inventory(files);
+      result = await convertS3Inventory(files);
+      break;
     case "cloudwatch":
-      return convertCloudWatch(files);
+      result = await convertCloudWatch(files);
+      break;
     case "transcribe":
-      return convertTranscribe(files);
+      result = await convertTranscribe(files);
+      break;
   }
+
+  const actualFormats = result.artifacts.map((artifact) => artifact.format);
+  const expectedFormats = AWS_OUTPUT_FORMATS[kind];
+  if (
+    actualFormats.length !== expectedFormats.length ||
+    actualFormats.some((format, index) => format !== expectedFormats[index])
+  ) {
+    throw new Error(`Output format configuration is inconsistent for ${kind}.`);
+  }
+
+  return result;
 }

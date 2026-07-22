@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { TOOL_COUNT } from "@/src/data/tool-directory";
 
 export const dynamic = "force-static";
 
@@ -74,7 +75,7 @@ export function GET() {
             fontSize: "28px",
           }}
         >
-          {["JPG", "PNG", "WebP", "HEIC", "PDF", "CSV"].map((label) => (
+          {["JPG", "PNG", "PDF", "CSV", "Parquet", "AWS"].map((label) => (
             <div
               key={label}
               style={{
@@ -97,7 +98,7 @@ export function GET() {
             color: "rgba(255,255,255,0.85)",
           }}
         >
-          無料・登録不要・67種類のツール
+          {`無料・登録不要・${TOOL_COUNT}種類のツール`}
         </div>
       </div>
     ),

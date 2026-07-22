@@ -1,4 +1,4 @@
-import { getToolItems } from "@/src/data/tool-directory";
+import { getToolItems, TOOL_COUNT } from "@/src/data/tool-directory";
 import { getGuide } from "@/src/data/guides";
 
 /**
@@ -119,7 +119,7 @@ const ja = {
   viewTools: "ツール一覧を見る",
   contact: "お問い合わせ",
   stats: [
-    { value: "67種類", label: "画像・PDF・データ変換ツールを提供中" },
+    { value: `${TOOL_COUNT}種類`, label: "画像・PDF・データ・AWSツールを提供中" },
     { value: "完全無料", label: "登録なしですぐ試せる" },
     { value: "ブラウザ完結", label: "ファイルはサーバーに送信されない" },
   ],
@@ -352,7 +352,7 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       secondaryButtonLabel: "Contact",
     },
     stats: [
-      { value: "67 Tools", label: "Image, PDF, and data conversion" },
+      { value: `${TOOL_COUNT} Tools`, label: "Image, PDF, data, and AWS workflows" },
       { value: "100% Free", label: "No signup required" },
       { value: "Browser-only", label: "Files never leave your device" },
     ],

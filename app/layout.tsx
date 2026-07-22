@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import AdSenseLoader from "@/components/AdSenseLoader";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
+import { TOOL_COUNT } from "@/src/data/tool-directory";
 import { siteUrl } from "@/src/lib/site";
 
 const googleVerification =
@@ -9,7 +10,7 @@ const googleVerification =
 
 const siteTitle = "Filewisp";
 const siteDescription =
-  "画像・PDF、CSV・Parquet・AWSエクスポートの変換や確認をブラウザだけで行える無料ツール集。登録不要・ファイルはサーバーに送信されません。67種類のツールを提供しています。";
+  `画像・PDF、CSV・Parquet・AWSエクスポートの変換や確認をブラウザだけで行える無料ツール集。登録不要・ファイルはサーバーに送信されません。${TOOL_COUNT}種類のツールを提供しています。`;
 
 const websiteJsonLd = {
   "@context": "https://schema.org",
@@ -42,6 +43,10 @@ export const metadata: Metadata = {
     "HEIC JPG 変換",
     "WebP 変換",
     "画像リサイズ",
+    "CSV 文字化け 修正",
+    "Parquet CSV 変換",
+    "DynamoDB JSON 変換",
+    "CloudTrail CSV 変換",
     "オンラインツール",
     "無料",
     "Filewisp",

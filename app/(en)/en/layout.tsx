@@ -3,12 +3,11 @@ import SiteHeader from "@/src/components/SiteHeader";
 import SiteFooter from "@/src/components/SiteFooter";
 import CookieBanner from "@/src/components/CookieBanner";
 import LangAttribute from "@/src/components/LangAttribute";
-
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+import { TOOL_COUNT } from "@/src/data/tool-directory";
+import { siteUrl } from "@/src/lib/site";
 
 const siteDescription =
-  "Free online tools for image, PDF, CSV, Parquet, and AWS data workflows. Convert files and inspect exports in your browser with 67 tools and no upload to a server.";
+  `Free online tools for image, PDF, CSV, Parquet, and AWS data workflows. Convert files and inspect exports in your browser with ${TOOL_COUNT} tools and no upload to a server.`;
 
 export const metadata: Metadata = {
   description: siteDescription,

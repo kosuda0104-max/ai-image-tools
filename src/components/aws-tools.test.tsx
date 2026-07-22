@@ -1,6 +1,11 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import AwsDataConverterTool from "@/src/components/AwsDataConverterTool";
+import { getAwsToolContent } from "@/src/data/aws-tool-content";
+import {
+  AWS_OUTPUT_FORMATS,
+  type AwsToolKind,
+} from "@/src/lib/aws-converter";
 
 afterEach(cleanup);
 
@@ -11,6 +16,21 @@ function selectFiles(container: HTMLElement, files: File[]) {
 }
 
 describe("AWS conversion tools", () => {
+  it.each([
+    "dynamodb",
+    "textract",
+    "cloudtrail",
+    "s3-inventory",
+    "cloudwatch",
+    "transcribe",
+  ] as AwsToolKind[])("keeps %s output labels aligned with converter artifacts", (kind) => {
+    for (const locale of ["ja", "en"] as const) {
+      expect(
+        getAwsToolContent(kind, locale).ui.formats.map((item) => item.format),
+      ).toEqual(AWS_OUTPUT_FORMATS[kind]);
+    }
+  });
+
   it("converts DynamoDB typed JSON and offers three outputs", async () => {
     const { container } = render(
       <AwsDataConverterTool kind="dynamodb" locale="en" />,

@@ -1,9 +1,10 @@
 import ToolsPage from "@/src/components/ToolsPage";
+import { TOOL_COUNT } from "@/src/data/tool-directory";
 
 export const metadata = {
-  title: "All 67 Free Online Tools – Image, PDF & Data",
+  title: `All ${TOOL_COUNT} Free Online Tools – Image, PDF & Data`,
   description:
-    "Browse 67 free browser-based tools for images, PDFs, CSV, Parquet, and AWS data exports without installing anything.",
+    `Browse ${TOOL_COUNT} free browser-based tools for images, PDFs, CSV, Parquet, and AWS data exports without installing anything.`,
   alternates: {
     canonical: "/en/tools",
     languages: {

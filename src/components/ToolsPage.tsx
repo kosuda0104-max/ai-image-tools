@@ -20,14 +20,14 @@ export default function ToolsPage({ locale }: Props) {
       ? {
           browseTitle: "Browse all tools by category",
           browseDescription:
-            "Open only the category you need. Every tool remains available here.",
+            `Open only the category you need. All ${allTools.length} tools remain available here.`,
           tools: (count: number) => `${count} tools`,
           chooser: "Not sure which category to open?",
         }
       : {
           browseTitle: "カテゴリから全ツールを見る",
           browseDescription:
-            "必要なカテゴリだけ開けます。67件すべてのツールはここから利用できます。",
+            `必要なカテゴリだけ開けます。${allTools.length}件すべてのツールはここから利用できます。`,
           tools: (count: number) => `${count}件`,
           chooser: "カテゴリを決めきれないとき",
         };

@@ -1,4 +1,5 @@
 import StaticContentPage from "@/src/components/StaticContentPage";
+import { TOOL_COUNT } from "@/src/data/tool-directory";
 import { createLocalizedPageMetadata } from "@/src/lib/localized-page-metadata";
 import { siteUrl } from "@/src/lib/site";
 
@@ -23,7 +24,7 @@ const aboutJsonLd = {
     name: "Filewisp",
     url: siteUrl,
     description:
-      "画像変換、画像編集、PDF 作業をブラウザだけで進められるオンラインツール集です。",
+      "画像・PDF・CSV・Parquet・AWSエクスポートをブラウザ内で変換・確認できるオンラインツール集です。",
     foundingDate: "2026",
     founder: {
       "@type": "Person",
@@ -48,7 +49,7 @@ export default function Page() {
           {
             title: "サイトの目的",
             paragraphs: [
-              "JPG、PNG、WebP、HEIC、PDFなどの変換や調整を、追加ソフトなしで済ませるために作りました。圧縮、リサイズ、切り抜き、PDFの結合・分割にも対応しています。",
+              "画像やPDFの変換・調整に加え、CSV、JSON、Parquet、AWSエクスポートの確認や変換を、追加ソフトなしで済ませるために作りました。",
               "各ツールには、変換で失われる情報や対応形式も書いています。操作前に注意点を確認し、必要なら元ファイルを残して使ってください。",
             ],
           },
@@ -84,7 +85,7 @@ export default function Page() {
             title: "主な更新履歴",
             paragraphs: [
               "2026年6月：サイト名を Filewisp に変更し、デザインを全面刷新しました。変換ツールに複数ファイルの一括変換・進捗表示・ZIP一括ダウンロードを追加し、TIFF 変換の不具合を修正しました。あわせて、HEIC・WebP・メール添付・PDF 容量などの悩み解決ガイドを追加しています。",
-              "2026年3〜5月：画像・PDF・データ変換など50種類のツールを公開しました。2026年7月にはCSV文字化け修正、Parquetビューアー、背景透過に加え、DynamoDB、Textract、CloudTrail、S3 Inventory、CloudWatch Logs、Transcribe向け変換を追加し、67種類へ拡充しました。",
+              `2026年3〜5月：画像・PDF・データ変換など50種類のツールを公開しました。2026年7月にはCSV文字化け修正、Parquetビューアー、背景透過、AWS固有形式の変換などを追加し、現在は${TOOL_COUNT}種類を公開しています。`,
             ],
           },
         ]}

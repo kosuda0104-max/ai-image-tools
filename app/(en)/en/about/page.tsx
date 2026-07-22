@@ -1,4 +1,5 @@
 import StaticContentPage from "@/src/components/StaticContentPage";
+import { TOOL_COUNT } from "@/src/data/tool-directory";
 import { createLocalizedPageMetadata } from "@/src/lib/localized-page-metadata";
 import { siteUrl } from "@/src/lib/site";
 
@@ -23,7 +24,7 @@ const aboutJsonLd = {
     name: "Filewisp",
     url: siteUrl,
     description:
-      "A browser-based site for image conversion, image editing, and practical PDF tasks.",
+      "Browser-based tools for converting and inspecting images, PDFs, CSV, Parquet, and AWS exports.",
     foundingDate: "2026",
     founder: {
       "@type": "Person",
@@ -48,7 +49,7 @@ export default function Page() {
           {
             title: "What this site is for",
             paragraphs: [
-              "Filewisp handles small file jobs that should not require installing another app: image conversion, compression, cropping, and PDF cleanup.",
+              "Filewisp handles file jobs that should not require installing another app, including image and PDF work plus CSV, JSON, Parquet, and AWS export conversion.",
               "Each tool states what it accepts, what it produces, and what may be lost during conversion. Keep the original file when quality, transparency, or metadata matters.",
             ],
           },
@@ -84,7 +85,7 @@ export default function Page() {
             title: "Update history",
             paragraphs: [
               "June 2026: Rebranded to Filewisp with a full redesign. Converters gained multi-file batch processing, progress indicators, and ZIP download; a TIFF conversion bug was fixed; and new problem-solving guides (HEIC, WebP, email attachments, PDF size limits) were published.",
-              "March-May 2026: Launched 50 image, PDF, and data tools. In July 2026, added CSV repair, Parquet inspection, background transparency, and converters for DynamoDB, Textract, CloudTrail, S3 Inventory, CloudWatch Logs, and Transcribe, expanding the directory to 67 tools.",
+              `March-May 2026: Launched 50 image, PDF, and data tools. In July 2026, added CSV repair, Parquet inspection, background transparency, and service-specific AWS converters, bringing the current directory to ${TOOL_COUNT} tools.`,
             ],
           },
         ]}

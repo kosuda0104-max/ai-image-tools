@@ -85,6 +85,8 @@ const toolEntries: ToolEntry[] = [
   { slug: "webp-to-png", jaName: "WebP を PNG に変換", jaDescription: "WebP を PNG に変えて、再編集しやすい形で残せます。", enName: "WebP to PNG", enDescription: "Convert WebP into PNG for easier follow-up editing." },
 ];
 
+export const TOOL_COUNT = toolEntries.length;
+
 const toolMap = new Map(toolEntries.map((entry) => [entry.slug, entry]));
 
 export function getToolItem(locale: ToolDirectoryLocale, slug: string): ToolDirectoryItem {

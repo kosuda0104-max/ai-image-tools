@@ -1,6 +1,7 @@
-import type {
-  AwsOutputFormat,
-  AwsToolKind,
+import {
+  AWS_OUTPUT_FORMATS,
+  type AwsOutputFormat,
+  type AwsToolKind,
 } from "@/src/lib/aws-converter";
 
 type Locale = "ja" | "en";
@@ -42,6 +43,23 @@ const href = (locale: Locale, slug: string) =>
   `${locale === "en" ? "/en" : ""}/tools/${slug}`;
 const guideHref = (locale: Locale) =>
   `${locale === "en" ? "/en" : ""}/guides/aws-export-file-formats`;
+
+const outputFormatLabels: Record<AwsOutputFormat, string> = {
+  json: "JSON",
+  csv: "CSV",
+  xlsx: "Excel",
+  jsonl: "JSONL",
+  srt: "SRT",
+  vtt: "VTT",
+  txt: "TXT",
+};
+
+function outputFormats(kind: AwsToolKind) {
+  return AWS_OUTPUT_FORMATS[kind].map((format) => ({
+    format,
+    label: outputFormatLabels[format],
+  }));
+}
 
 function commonRelated(locale: Locale, current: AwsToolKind) {
   const names: Record<AwsToolKind, [string, string]> = {
@@ -117,7 +135,7 @@ function dynamodb(locale: Locale): AwsToolContent {
       previewNote: ja ? "先頭10行まで表示します。" : "Showing up to the first 10 rows.",
       outputTitle: ja ? "保存形式" : "Output format",
       download: ja ? "ダウンロード" : "Download",
-      formats: [{ format: "json", label: "JSON" }, { format: "csv", label: "CSV" }, { format: "xlsx", label: "Excel" }],
+      formats: outputFormats("dynamodb"),
       stats: { items: ja ? "Item数" : "Items", columns: ja ? "列数" : "Columns" },
     },
   };
@@ -142,7 +160,7 @@ function textract(locale: Locale): AwsToolContent {
     faqTitle: ja ? "よくある質問" : "FAQ",
     faqs: ja ? [{ question: "複数の表を扱えますか？", answer: "はい。Excelでは表ごとに別シートを作成します。" }, { question: "フォームのキーと値も出せますか？", answer: "はい。KEY_VALUE_SETのKEYとVALUEをFormsシートへ出力します。" }, { question: "手書きやOCRの誤認識も直りますか？", answer: "OCR結果の文字自体は修正しません。Textractが返したTextを表構造へ並べ直します。" }] : [{ question: "Can it handle multiple tables?", answer: "Yes. Each table is written to a separate Excel sheet." }, { question: "Are form key-value pairs included?", answer: "Yes. KEY_VALUE_SET relationships are exported to a Forms sheet." }, { question: "Does it correct OCR errors?", answer: "No. It reconstructs the structure while preserving the Text returned by Textract." }],
     relatedTools: [...commonRelated(locale, "textract"), { name: ja ? "AWSエクスポート形式ガイド" : "AWS export formats guide", href: guideHref(locale) }],
-    ui: { dropTitle: ja ? "Textract JSONを選択" : "Choose Textract JSON", dropDescription: ja ? "AnalyzeDocument・GetDocumentAnalysisのJSONに対応" : "For AnalyzeDocument and GetDocumentAnalysis JSON", convert: ja ? "Textract JSONを変換" : "Convert Textract JSON", converting: ja ? "表を復元中..." : "Reconstructing...", success: (rows) => ja ? `完了: 表データ${rows.toLocaleString()}行を復元しました。` : `Done: Reconstructed ${rows.toLocaleString()} table rows.`, error: ja ? "エラー" : "Error", preview: ja ? "最初の表" : "First table", previewNote: ja ? "先頭10行まで表示します。" : "Showing up to the first 10 rows.", outputTitle: ja ? "保存形式" : "Output format", download: ja ? "ダウンロード" : "Download", formats: [{ format: "xlsx", label: "Excel" }, { format: "csv", label: "CSV" }], stats: { blocks: ja ? "Block数" : "Blocks", tables: ja ? "表" : "Tables", forms: ja ? "フォーム項目" : "Form fields", lines: ja ? "本文行" : "Text lines" } },
+    ui: { dropTitle: ja ? "Textract JSONを選択" : "Choose Textract JSON", dropDescription: ja ? "AnalyzeDocument・GetDocumentAnalysisのJSONに対応" : "For AnalyzeDocument and GetDocumentAnalysis JSON", convert: ja ? "Textract JSONを変換" : "Convert Textract JSON", converting: ja ? "表を復元中..." : "Reconstructing...", success: (rows) => ja ? `完了: 表データ${rows.toLocaleString()}行を復元しました。` : `Done: Reconstructed ${rows.toLocaleString()} table rows.`, error: ja ? "エラー" : "Error", preview: ja ? "最初の表" : "First table", previewNote: ja ? "先頭10行まで表示します。" : "Showing up to the first 10 rows.", outputTitle: ja ? "保存形式" : "Output format", download: ja ? "ダウンロード" : "Download", formats: outputFormats("textract"), stats: { blocks: ja ? "Block数" : "Blocks", tables: ja ? "表" : "Tables", forms: ja ? "フォーム項目" : "Form fields", lines: ja ? "本文行" : "Text lines" } },
   };
 }
 
@@ -161,7 +179,7 @@ function cloudtrail(locale: Locale): AwsToolContent {
     stepsTitle: ja ? "使い方" : "How to use", steps: ja ? ["S3から取得した.json.gzを複数選択します", "変換ボタンを押します", "イベントとエラー列を確認します", "CSVまたはJSONLを保存します"] : ["Choose one or more .json.gz objects from S3", "Click convert", "Review event and error columns", "Download CSV or JSONL"],
     faqTitle: ja ? "よくある質問" : "FAQ", faqs: ja ? [{ question: "複数の.json.gzをまとめられますか？", answer: "はい。選択したすべてのRecordsを結合し、元ファイル名を残します。" }, { question: "CloudTrail Lakeの出力にも使えますか？", answer: "このツールは主にTrailからS3へ配信されるRecords形式を対象にしています。" }, { question: "機密ログはアップロードされますか？", answer: "いいえ。gzip展開と変換はブラウザ内で完結します。" }] : [{ question: "Can it merge multiple .json.gz files?", answer: "Yes. Records from every selected file are merged and retain their source filename." }, { question: "Is this for CloudTrail Lake exports?", answer: "It primarily targets the Records format delivered by trails to S3." }, { question: "Are sensitive audit logs uploaded?", answer: "No. Decompression and conversion stay in your browser." }],
     relatedTools: [...commonRelated(locale, "cloudtrail"), { name: ja ? "AWSエクスポート形式ガイド" : "AWS export formats guide", href: guideHref(locale) }],
-    ui: { dropTitle: ja ? "CloudTrailログをまとめて選択" : "Choose CloudTrail log files", dropDescription: ja ? ".json.gz・.json・.jsonlを複数選択できます" : "Select multiple .json.gz, .json, or .jsonl files", convert: ja ? "CloudTrailログを変換" : "Convert CloudTrail Logs", converting: ja ? "ログを結合中..." : "Merging logs...", success: (rows) => ja ? `完了: ${rows.toLocaleString()}件のイベントを結合しました。` : `Done: Merged ${rows.toLocaleString()} CloudTrail events.`, error: ja ? "エラー" : "Error", preview: ja ? "イベントプレビュー" : "Event preview", previewNote: ja ? "先頭10件まで表示します。" : "Showing up to the first 10 events.", outputTitle: ja ? "保存形式" : "Output format", download: ja ? "ダウンロード" : "Download", formats: [{ format: "csv", label: "CSV" }, { format: "jsonl", label: "JSONL" }], stats: { events: ja ? "イベント" : "Events", files: ja ? "ファイル" : "Files" } },
+    ui: { dropTitle: ja ? "CloudTrailログをまとめて選択" : "Choose CloudTrail log files", dropDescription: ja ? ".json.gz・.json・.jsonlを複数選択できます" : "Select multiple .json.gz, .json, or .jsonl files", convert: ja ? "CloudTrailログを変換" : "Convert CloudTrail Logs", converting: ja ? "ログを結合中..." : "Merging logs...", success: (rows) => ja ? `完了: ${rows.toLocaleString()}件のイベントを結合しました。` : `Done: Merged ${rows.toLocaleString()} CloudTrail events.`, error: ja ? "エラー" : "Error", preview: ja ? "イベントプレビュー" : "Event preview", previewNote: ja ? "先頭10件まで表示します。" : "Showing up to the first 10 events.", outputTitle: ja ? "保存形式" : "Output format", download: ja ? "ダウンロード" : "Download", formats: outputFormats("cloudtrail"), stats: { events: ja ? "イベント" : "Events", files: ja ? "ファイル" : "Files" } },
   };
 }
 
@@ -179,7 +197,7 @@ function s3Inventory(locale: Locale): AwsToolContent {
     stepsTitle: ja ? "使い方" : "How to use", steps: ja ? ["manifest.jsonとデータファイルを同じ場所へ取得します", "manifestとCSV.GZまたはParquetをまとめて選択します", "読み込みボタンを押して一覧を確認します", "CSVまたはExcelを保存します"] : ["Download manifest.json and its data objects", "Select the manifest plus CSV.GZ or Parquet files", "Click load and inspect the rows", "Download merged CSV or Excel"],
     faqTitle: ja ? "よくある質問" : "FAQ", faqs: ja ? [{ question: "manifest.jsonだけで一覧を表示できますか？", answer: "いいえ。manifestにはデータファイルの場所とスキーマがあり、実際のオブジェクト一覧はCSV.GZまたはParquetに入っています。" }, { question: "分割されたファイルを結合できますか？", answer: "はい。選択したデータファイルを同じ列構成へ揃えて結合します。" }, { question: "S3へ直接接続しますか？", answer: "いいえ。認証情報は使わず、端末へ取得済みのファイルだけをブラウザ内で処理します。" }] : [{ question: "Can the manifest alone show object rows?", answer: "No. The manifest contains locations and schema; actual object rows are stored in CSV.GZ or Parquet data files." }, { question: "Can it merge split data files?", answer: "Yes. Selected files are aligned to a shared set of columns and merged." }, { question: "Does it connect directly to S3?", answer: "No. It uses no credentials and processes only files already downloaded to your device." }],
     relatedTools: [...commonRelated(locale, "s3-inventory"), { name: ja ? "AWSエクスポート形式ガイド" : "AWS export formats guide", href: guideHref(locale) }],
-    ui: { dropTitle: ja ? "manifestとInventoryデータを選択" : "Choose manifest and inventory data", dropDescription: ja ? "manifest.json + .csv.gz・.csv・.parquet" : "manifest.json plus .csv.gz, .csv, or .parquet", convert: ja ? "S3 Inventoryを読み込む" : "Load S3 Inventory", converting: ja ? "Inventoryを結合中..." : "Merging inventory...", success: (rows) => ja ? `完了: ${rows.toLocaleString()}件のオブジェクトを読み込みました。` : `Done: Loaded ${rows.toLocaleString()} inventory rows.`, error: ja ? "エラー" : "Error", preview: ja ? "オブジェクト一覧" : "Object inventory", previewNote: ja ? "先頭10件まで表示します。" : "Showing up to the first 10 rows.", outputTitle: ja ? "保存形式" : "Output format", download: ja ? "ダウンロード" : "Download", formats: [{ format: "csv", label: "CSV" }, { format: "xlsx", label: "Excel" }], stats: { rows: ja ? "行数" : "Rows", columns: ja ? "列数" : "Columns", loadedFiles: ja ? "読込ファイル" : "Loaded files", manifestFiles: ja ? "manifest記載" : "Manifest files" } },
+    ui: { dropTitle: ja ? "manifestとInventoryデータを選択" : "Choose manifest and inventory data", dropDescription: ja ? "manifest.json + .csv.gz・.csv・.parquet" : "manifest.json plus .csv.gz, .csv, or .parquet", convert: ja ? "S3 Inventoryを読み込む" : "Load S3 Inventory", converting: ja ? "Inventoryを結合中..." : "Merging inventory...", success: (rows) => ja ? `完了: ${rows.toLocaleString()}件のオブジェクトを読み込みました。` : `Done: Loaded ${rows.toLocaleString()} inventory rows.`, error: ja ? "エラー" : "Error", preview: ja ? "オブジェクト一覧" : "Object inventory", previewNote: ja ? "先頭10件まで表示します。" : "Showing up to the first 10 rows.", outputTitle: ja ? "保存形式" : "Output format", download: ja ? "ダウンロード" : "Download", formats: outputFormats("s3-inventory"), stats: { rows: ja ? "行数" : "Rows", columns: ja ? "列数" : "Columns", loadedFiles: ja ? "読込ファイル" : "Loaded files", manifestFiles: ja ? "manifest記載" : "Manifest files" } },
   };
 }
 
@@ -197,7 +215,7 @@ function cloudwatch(locale: Locale): AwsToolContent {
     stepsTitle: ja ? "使い方" : "How to use", steps: ja ? ["S3から取得した.gzログを複数選択します", "変換ボタンを押します", "時刻順のイベントを確認します", "CSVまたはJSONLを保存します"] : ["Choose one or more exported .gz files", "Click convert", "Review events in timestamp order", "Download CSV or JSONL"],
     faqTitle: ja ? "よくある質問" : "FAQ", faqs: ja ? [{ question: "ログの順番は直りますか？", answer: "timestampを読み取れた行は昇順に並べます。時刻がない行は後ろに保持します。" }, { question: "JSONログも列にできますか？", answer: "はい。messageがJSONオブジェクトなら、message.levelのような列へ展開します。" }, { question: "大容量ログにも使えますか？", answer: "ブラウザのメモリ内で処理するため、非常に大きなエクスポートは分割して使ってください。" }] : [{ question: "Does it restore event order?", answer: "Rows with parsed timestamps are sorted ascending; rows without timestamps remain at the end." }, { question: "Can JSON logs become columns?", answer: "Yes. JSON objects in message are expanded into columns such as message.level." }, { question: "Can it handle very large exports?", answer: "Processing uses browser memory, so split very large exports into smaller batches." }],
     relatedTools: [...commonRelated(locale, "cloudwatch"), { name: ja ? "AWSエクスポート形式ガイド" : "AWS export formats guide", href: guideHref(locale) }],
-    ui: { dropTitle: ja ? "CloudWatch Logsの.gzを選択" : "Choose CloudWatch Logs exports", dropDescription: ja ? ".gz・.log・.txt・.jsonlを複数選択できます" : "Select multiple .gz, .log, .txt, or .jsonl files", convert: ja ? "CloudWatch Logsを変換" : "Convert CloudWatch Logs", converting: ja ? "ログを展開・整列中..." : "Decompressing and sorting...", success: (rows) => ja ? `完了: ${rows.toLocaleString()}件のログを時刻順に整理しました。` : `Done: Sorted ${rows.toLocaleString()} log events.`, error: ja ? "エラー" : "Error", preview: ja ? "ログプレビュー" : "Log preview", previewNote: ja ? "先頭10件まで表示します。" : "Showing up to the first 10 events.", outputTitle: ja ? "保存形式" : "Output format", download: ja ? "ダウンロード" : "Download", formats: [{ format: "csv", label: "CSV" }, { format: "jsonl", label: "JSONL" }], stats: { events: ja ? "ログ件数" : "Events", files: ja ? "ファイル" : "Files" } },
+    ui: { dropTitle: ja ? "CloudWatch Logsの.gzを選択" : "Choose CloudWatch Logs exports", dropDescription: ja ? ".gz・.log・.txt・.jsonlを複数選択できます" : "Select multiple .gz, .log, .txt, or .jsonl files", convert: ja ? "CloudWatch Logsを変換" : "Convert CloudWatch Logs", converting: ja ? "ログを展開・整列中..." : "Decompressing and sorting...", success: (rows) => ja ? `完了: ${rows.toLocaleString()}件のログを時刻順に整理しました。` : `Done: Sorted ${rows.toLocaleString()} log events.`, error: ja ? "エラー" : "Error", preview: ja ? "ログプレビュー" : "Log preview", previewNote: ja ? "先頭10件まで表示します。" : "Showing up to the first 10 events.", outputTitle: ja ? "保存形式" : "Output format", download: ja ? "ダウンロード" : "Download", formats: outputFormats("cloudwatch"), stats: { events: ja ? "ログ件数" : "Events", files: ja ? "ファイル" : "Files" } },
   };
 }
 
@@ -215,7 +233,7 @@ function transcribe(locale: Locale): AwsToolContent {
     stepsTitle: ja ? "使い方" : "How to use", steps: ja ? ["Amazon TranscribeのJSON結果を選択します", "変換ボタンを押します", "字幕キューと話者を確認します", "SRT・VTT・TXTを選んで保存します"] : ["Choose an Amazon Transcribe JSON result", "Click convert", "Review cues and speaker labels", "Download SRT, VTT, or TXT"],
     faqTitle: ja ? "よくある質問" : "FAQ", faqs: ja ? [{ question: "Amazon Transcribeは直接SRTを出せませんか？", answer: "現在のTranscribeはジョブ作成時に字幕出力を指定できます。このツールは既存JSONや字幕を指定しなかったジョブの変換に便利です。" }, { question: "話者ラベルを残せますか？", answer: "はい。speaker_labelsまたは各itemのspeaker_labelを字幕へ付けます。" }, { question: "日本語にも使えますか？", answer: "はい。日本語の句読点にも対応し、CJK文字の間へ不要な空白を入れないよう処理します。" }] : [{ question: "Can Amazon Transcribe output SRT directly?", answer: "Current jobs can request subtitles. This tool is useful for existing JSON or jobs created without subtitle output." }, { question: "Are speaker labels preserved?", answer: "Yes. Labels from speaker_labels or individual items are added to cues." }, { question: "Does it work with Japanese transcripts?", answer: "Yes. Japanese punctuation is recognized and unnecessary spaces between CJK characters are avoided." }],
     relatedTools: [...commonRelated(locale, "transcribe"), { name: ja ? "AWSエクスポート形式ガイド" : "AWS export formats guide", href: guideHref(locale) }],
-    ui: { dropTitle: ja ? "Transcribe JSONを選択" : "Choose Transcribe JSON", dropDescription: ja ? "文字起こしジョブのJSON結果" : "JSON output from a transcription job", convert: ja ? "字幕へ変換" : "Convert to Subtitles", converting: ja ? "字幕を作成中..." : "Creating subtitles...", success: (rows) => ja ? `完了: ${rows.toLocaleString()}個の字幕キューを作成しました。` : `Done: Created ${rows.toLocaleString()} subtitle cues.`, error: ja ? "エラー" : "Error", preview: ja ? "字幕プレビュー" : "Subtitle preview", previewNote: ja ? "先頭10キューまで表示します。" : "Showing up to the first 10 cues.", outputTitle: ja ? "保存形式" : "Output format", download: ja ? "ダウンロード" : "Download", formats: [{ format: "srt", label: "SRT" }, { format: "vtt", label: "VTT" }, { format: "txt", label: "TXT" }], stats: { cues: ja ? "字幕キュー" : "Cues", duration: ja ? "終了時刻（秒）" : "End time (sec)" } },
+    ui: { dropTitle: ja ? "Transcribe JSONを選択" : "Choose Transcribe JSON", dropDescription: ja ? "文字起こしジョブのJSON結果" : "JSON output from a transcription job", convert: ja ? "字幕へ変換" : "Convert to Subtitles", converting: ja ? "字幕を作成中..." : "Creating subtitles...", success: (rows) => ja ? `完了: ${rows.toLocaleString()}個の字幕キューを作成しました。` : `Done: Created ${rows.toLocaleString()} subtitle cues.`, error: ja ? "エラー" : "Error", preview: ja ? "字幕プレビュー" : "Subtitle preview", previewNote: ja ? "先頭10キューまで表示します。" : "Showing up to the first 10 cues.", outputTitle: ja ? "保存形式" : "Output format", download: ja ? "ダウンロード" : "Download", formats: outputFormats("transcribe"), stats: { cues: ja ? "字幕キュー" : "Cues", duration: ja ? "終了時刻（秒）" : "End time (sec)" } },
   };
 }
 

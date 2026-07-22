@@ -2,12 +2,11 @@ import type { Metadata } from "next";
 import SiteHeader from "@/src/components/SiteHeader";
 import SiteFooter from "@/src/components/SiteFooter";
 import CookieBanner from "@/src/components/CookieBanner";
-
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+import { TOOL_COUNT } from "@/src/data/tool-directory";
+import { siteUrl } from "@/src/lib/site";
 
 const siteDescription =
-  "画像・PDF、CSV・Parquet・AWSエクスポートの変換や確認をブラウザだけで行える無料ツール集。登録不要・ファイルはサーバーに送信されません。67種類のツールを提供しています。";
+  `画像・PDF、CSV・Parquet・AWSエクスポートの変換や確認をブラウザだけで行える無料ツール集。登録不要・ファイルはサーバーに送信されません。${TOOL_COUNT}種類のツールを提供しています。`;
 
 export const metadata: Metadata = {
   description: siteDescription,

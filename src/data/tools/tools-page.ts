@@ -1,4 +1,4 @@
-import { getToolItem, getToolItems } from "@/src/data/tool-directory";
+import { getToolItem, getToolItems, TOOL_COUNT } from "@/src/data/tool-directory";
 
 export type ToolPageLocale = "ja" | "en";
 
@@ -44,10 +44,6 @@ type ToolsPageContent = {
     title: string;
     description: string;
   };
-  stats: {
-    value: string;
-    label: string;
-  }[];
   popularToolsTitle: string;
   popularToolsDescription: string;
   topPageLinkLabel: string;
@@ -167,12 +163,7 @@ const awsToolSlugs = [
 const ja = {
   heroTitle: "画像・PDF・データツール一覧",
   heroDescription:
-    "画像変換・圧縮・編集、PDF整理、CSV・Parquet・AWSエクスポート処理をブラウザだけで進められます。ファイル形式か困りごとから、必要なツールへ絞り込めます。",
-  stats: [
-    { value: "67ツール", label: "画像・PDF・データ変換をカバー" },
-    { value: "無料", label: "登録不要ですぐ使える" },
-    { value: "安全", label: "ブラウザ内で処理" },
-  ],
+    `画像変換・圧縮・編集、PDF整理、CSV・Parquet・AWSエクスポート処理に対応する${TOOL_COUNT}種類から、ファイル形式か困りごとで必要なツールへ絞り込めます。`,
   popularToolsTitle: "注目ツール",
   popularToolsDescription:
     "変換、互換性対応、軽量化のように、最初に探されやすい作業を中心に並べています。",
@@ -219,7 +210,6 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
   ja: {
     badge: "Filewisp",
     hero: { title: ja.heroTitle, description: ja.heroDescription },
-    stats: ja.stats,
     popularToolsTitle: ja.popularToolsTitle,
     popularToolsDescription: ja.popularToolsDescription,
     topPageLinkLabel: ja.topPageLinkLabel,
@@ -436,13 +426,8 @@ export const toolsPageContent: Record<ToolPageLocale, ToolsPageContent> = {
     hero: {
       title: "Image, PDF, and Data Tools",
       description:
-        "Convert and edit images, organize PDFs, and process CSV, Parquet, or AWS export files directly in your browser. Start with a file or describe the problem to narrow all 67 tools to the relevant options.",
+        `Convert and edit images, organize PDFs, and process CSV, Parquet, or AWS export files directly in your browser. Start with a file or describe the problem to narrow all ${TOOL_COUNT} tools to the relevant options.`,
     },
-    stats: [
-      { value: "67 Tools", label: "Image, PDF, and data conversion tools" },
-      { value: "Free", label: "No signup required" },
-      { value: "Safe", label: "Processed in your browser" },
-    ],
     popularToolsTitle: "Popular Tools",
     popularToolsDescription:
       "These are the tools many users look for first when they need a fast image or PDF workflow fix.",
