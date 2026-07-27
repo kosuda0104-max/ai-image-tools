@@ -33,12 +33,12 @@ export const parquetToCsvContent: Record<ToolLocale, ParquetToCsvContent> = {
         "Parquet ファイルをブラウザ上で CSV に変換できる無料オンラインツールです。アップロード不要・高速・安全。AWS や BigQuery などのデータ作業に使えます。",
       aboutTitle: "Parquet を CSV に変換するとどんなときに便利？",
       aboutText:
-        "Parquet は AWS S3 や BigQuery などのデータ基盤でよく使われる列指向フォーマットです。分析には便利ですが、Excel や他のツールで中身を確認したいときに手間がかかります。このツールを使えば、ブラウザ上で Parquet ファイルを直接 CSV に変換でき、外部サーバーへのアップロードは不要です。",
+        "AWS S3やBigQueryから取得したParquetをCSVへ変換し、Excelで開けるようにします。処理はブラウザ内で行い、ファイルは外部サーバーへ送りません。",
       contentSections: [
         {
           title: "Parquet ファイルを CSV で確認したくなる場面",
           paragraphs: [
-            "AWS Athena や S3 上のデータを手元で確認したいとき、BigQuery や Spark が出力した Parquet の中身を Excel で開きたいとき、データパイプラインのデバッグで特定カラムを素早く確認したいときに役立ちます。",
+            "Athena、BigQuery、Sparkが出力したParquetを手元で確認するときに使います。CSVへ変換後、Excelやテキストエディタで行と列を確認できます。",
             "このツールはブラウザ内で処理するため、機密データを含むファイルも安全に変換できます。",
           ],
         },
@@ -76,7 +76,7 @@ export const parquetToCsvContent: Record<ToolLocale, ParquetToCsvContent> = {
         {
           label: "この変換が向く場面",
           value:
-            "S3・BigQuery・Spark などから得た Parquet の内容を、Excel やスプレッドシートで確認したいときに便利です。",
+            "S3・BigQuery・SparkのParquetを、Excelやスプレッドシートで確認できます。",
         },
         {
           label: "注意点",

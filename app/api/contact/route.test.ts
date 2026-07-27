@@ -31,5 +31,27 @@ describe("buildContactEmail", () => {
 
   it("returns null for invalid payloads", () => {
     expect(buildContactEmail({ locale: "en", name: "", email: "", message: "" })).toBeNull();
+    expect(
+      buildContactEmail({
+        locale: "en",
+        name: "Taylor",
+        email: "not-an-email",
+        message: "Need help",
+      }),
+    ).toBeNull();
+  });
+
+  it("caps fields before building the outbound message", () => {
+    const result = buildContactEmail({
+      locale: "en",
+      name: "N".repeat(120),
+      email: "t@example.com",
+      tool: "T".repeat(180),
+      message: "M".repeat(5_000),
+    });
+
+    expect(result?.text).toContain(`Name: ${"N".repeat(80)}`);
+    expect(result?.text).toContain(`Tool: ${"T".repeat(120)}`);
+    expect(result?.text).not.toContain("M".repeat(4_001));
   });
 });

@@ -241,26 +241,26 @@ function buildConversionContent(
     return {
       contentSections: [
         {
-          title: `${title}が向いている場面`,
+          title: `${title}を使う場面`,
           paragraphs: [
-            `${src.label}は${src.strength}ですが、${src.caveat}。一方で${dst.label}は${dst.strength}で、${dst.bestFor}に向いています。${title}は、この違いを活かして次の作業に進みやすくしたいときに役立ちます。`,
-            `変換そのものが目的というより、${dst.bestFor}を見据えて形式をそろえる一手として考えると選びやすくなります。`,
+            `${src.label}は${src.strength}です。ただし、${src.caveat}。${dst.bestFor}で使うなら、${dst.strength}な${dst.label}へ変えておくと受け渡しが楽です。`,
+            "変換先は、提出先や使用するアプリの指定に合わせるのが確実です。指定がなければ、変換後に編集するのか、そのまま共有するのかで決めてください。",
           ],
         },
         {
-          title: "変換前に決めておくと迷いにくいこと",
+          title: "変換前に確認すること",
           paragraphs: [
-            `${src.label}のまま使い続けると${src.caveat}という点が気になる場面では、早めに${dst.label}へ寄せておくと扱いやすくなります。`,
-            "元ファイルはそのまま残し、用途に合わせたコピーだけを変換しておくと、あとからやり直しやすくなります。",
+            `${src.label}のままで困っていないなら、無理に変換する必要はありません。${src.caveat}という問題があるときだけ、${dst.label}への変換を検討します。`,
+            "元ファイルは残してください。変換したコピーを使えば、画質や透過が想定と違ったときにもやり直せます。",
           ],
         },
       ],
       listSections: [
         {
-          title: "失敗しにくくするポイント",
+          title: "変換時の注意",
           items: [
             `${src.label}から${dst.label}へ変換しても、元画像で失われた情報が戻るわけではありません。`,
-            `${dst.label}は${dst.bestFor}に向く一方で、${dst.caveat}点には注意してください。`,
+            `${dst.label}は${dst.bestFor}向きですが、${dst.caveat}。`,
             "提出先やアップロード先に指定形式がある場合は、先に条件を確認してから変換すると無駄がありません。",
             "変換後もファイルが重いと感じる場合は、圧縮やリサイズを組み合わせると扱いやすくなります。",
           ],
@@ -270,7 +270,7 @@ function buildConversionContent(
       comparisonItems: [
         { label: `${src.label}の特徴`, value: `${src.strength}。ただし${src.caveat}。` },
         { label: `${dst.label}の特徴`, value: `${dst.strength}。ただし${dst.caveat}。` },
-        { label: "向いている用途", value: `${dst.label}は${dst.bestFor}で特に扱いやすくなります。` },
+        { label: "向いている用途", value: `${dst.label}は${dst.bestFor}向きです。` },
         {
           label: "次の作業",
           value:
@@ -279,7 +279,7 @@ function buildConversionContent(
                   .slice(0, 2)
                   .map((tool) => tool.name)
                   .join(" や ")} を続けて使う流れもよくあります。`
-              : "変換のあとに、圧縮やリサイズで仕上げると扱いやすくなることがあります。",
+              : "容量や寸法も変えるなら、変換後に圧縮やリサイズを行います。",
         },
       ],
       relatedToolsTitle,
@@ -289,17 +289,17 @@ function buildConversionContent(
   return {
     contentSections: [
       {
-        title: `When ${title} makes sense`,
+        title: `When to use ${title}`,
         paragraphs: [
-          `${src.label} is ${src.strength}, but ${src.caveat}. ${dst.label}, on the other hand, is ${dst.strength}, which makes it a better fit for ${dst.bestFor}. ${title} helps you move from one to the other when that difference matters.`,
-          `The goal is usually less about the conversion itself and more about lining the format up with ${dst.bestFor}.`,
+          `${src.label} is ${src.strength}, but ${src.caveat}. For ${dst.bestFor}, ${dst.label} is the more practical choice because it is ${dst.strength}.`,
+          "Follow the format required by the app, client, or upload form. If there is no requirement, decide based on whether the file will be edited or simply shared.",
         ],
       },
       {
-        title: "What to decide before converting",
+        title: "Check before converting",
         paragraphs: [
-          `If staying on ${src.label} is a problem because ${src.caveat}, moving to ${dst.label} early tends to make the rest of the work smoother.`,
-          "Keep the original file untouched, export a working copy, and only optimize that copy if the next step calls for it.",
+          `There is no reason to convert a ${src.label} file that already works for its destination. Convert when ${src.caveat} is causing a real problem.`,
+          "Keep the original file. Work from a converted copy so you can try again if quality or transparency changes unexpectedly.",
         ],
       },
     ],
@@ -318,7 +318,7 @@ function buildConversionContent(
     comparisonItems: [
       { label: `${src.label}`, value: `${capitalize(src.strength)}. However, ${src.caveat}.` },
       { label: `${dst.label}`, value: `${capitalize(dst.strength)}. However, ${dst.caveat}.` },
-      { label: "Best for", value: `${dst.label} is easiest to work with for ${dst.bestFor}.` },
+      { label: "Best for", value: `${dst.label} suits ${dst.bestFor}.` },
       {
         label: "Next step",
         value:
@@ -348,7 +348,7 @@ const editingOperations: { match: (t: string) => boolean; profile: OperationProf
     profile: {
       ja: {
         what: "画像の必要な部分だけを残し、余白や写したくない範囲を取り除く操作です",
-        why: "サムネイルや SNS 投稿、資料用に、見せたい範囲へ視線を集めたいときに役立ちます",
+        why: "サムネイルやSNS投稿で、見せたい範囲へ視線を集められます",
         tip: "縦横比が指定された掲載先に合わせるなら、切り抜き時に比率を決めておくと崩れません",
       },
       en: {
@@ -423,7 +423,7 @@ const editingOperations: { match: (t: string) => boolean; profile: OperationProf
     profile: {
       ja: {
         what: "画像に名前や注意書きなどの透かしを重ねて保存する操作です",
-        why: "無断利用を抑えたいとき、出典を示したいとき、配布前に印を付けたいときに役立ちます",
+        why: "無断利用を抑えたり、配布前の画像へ出典を残したりできます",
         tip: "透かしは主役の被写体を隠さない位置と濃さに調整すると見栄えを保てます",
       },
       en: {
@@ -604,7 +604,7 @@ const pdfOperations: { match: (t: string) => boolean; profile: OperationProfile 
     profile: {
       ja: {
         what: "PDF から不要なページだけを取り除く作業です",
-        why: "余計なページを外して、必要な内容だけに絞った資料を用意したいときに役立ちます",
+        why: "余計なページを外し、必要な内容だけの資料を作れます",
         tip: "削除前に元ファイルを残しておくと、誤って必要なページを消しても戻せます",
       },
       en: {
@@ -664,16 +664,16 @@ function buildPdfContent(
     return {
       contentSections: [
         {
-          title: `${title}が役立つ場面`,
+          title: `${title}を使う場面`,
           paragraphs: [
             p
-              ? `${title}は、${p.what}。${p.why}。`
-              : `${title}は、PDF を提出前に整えたいとき、共有しやすい形に直したいときに便利です。`,
-            "デスクトップソフトを開くほどではない、でも今すぐ少し整えたい、そんな場面で使いやすい PDF 作業を想定しています。",
+              ? `${p.what}。${p.why}。`
+              : "提出前のPDFから不要な部分を外したり、共有できる形へ直したりするときに使います。",
+            "専用ソフトを開かなくても、受け取ったPDFをブラウザですぐ整えられます。",
           ],
         },
         {
-          title: "PDF 作業で迷いにくくする考え方",
+          title: "先に決めること",
           paragraphs: [
             "先に確認したいのは、最終的に PDF のまま使うのか、画像にしたいのか、ページ構成を整えたいのかという目的です。",
             "ページ順や不要ページの整理を先に済ませてから、変換や圧縮を行うと、やり直しが少なくなります。",
@@ -684,7 +684,7 @@ function buildPdfContent(
         {
           title: "始める前のチェック",
           items: [
-            p ? `${capitalize(p.tip)}。` : "ページ順、向き、不要ページの有無を先に確認しておくと流れがスムーズです。",
+            p ? `${capitalize(p.tip)}。` : "ページ順、向き、不要ページの有無を確認してください。",
             "提出先が PDF を求めているのか、画像化したファイルを求めているのかを先に見ておくと判断しやすくなります。",
             "複数工程になる場合は、整理を先に済ませ、そのあとに変換や圧縮へ進むのが基本です。",
             "大きい PDF では、最終結果を一度確認してから共有すると安心です。",
@@ -703,7 +703,7 @@ function buildPdfContent(
                   .slice(0, 3)
                   .map((tool) => tool.name)
                   .join("、")} などと組み合わせる流れが自然です。`
-              : "結合、分割、圧縮、画像変換を順番に使う流れになることが多いです。",
+              : "必要に応じて、結合、分割、圧縮、画像変換を組み合わせます。",
         },
         { label: "進め方のコツ", value: "まず内容と順番を整え、そのあとに変換や軽量化を行うと、最終確認がしやすくなります。" },
       ],
@@ -771,10 +771,10 @@ function genericEditing(
     return {
       contentSections: [
         {
-          title: `${title}の使いどころ`,
+          title: `${title}を使う場面`,
           paragraphs: [
-            `${title}は、画像を整える途中で役立つ編集系ツールです。見た目を整えたいとき、掲載先に合わせたいとき、あとから使いやすい形にしたいときに向いています。`,
-            "画像編集では一つひとつの処理は小さく見えても、順番次第で仕上がりが変わります。どこで使うかを意識すると、この手のツールはかなり便利です。",
+            "掲載先の寸法や見た目に合わせて、画像を部分的に直すためのツールです。変換や圧縮の前に使うと、不要な部分へ処理をかけずに済みます。",
+            "複数の編集を行うなら、切り抜きや向きの調整を先に、圧縮と形式変換を最後に回してください。",
           ],
         },
       ],

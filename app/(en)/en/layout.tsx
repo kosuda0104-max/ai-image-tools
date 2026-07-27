@@ -4,7 +4,7 @@ import SiteFooter from "@/src/components/SiteFooter";
 import CookieBanner from "@/src/components/CookieBanner";
 import LangAttribute from "@/src/components/LangAttribute";
 import { TOOL_COUNT } from "@/src/data/tool-directory";
-import { siteUrl } from "@/src/lib/site";
+import { siteUrl, socialImagePath } from "@/src/lib/site";
 
 const siteDescription =
   `Free online tools for image, PDF, CSV, Parquet, and AWS data workflows. Convert files and inspect exports in your browser with ${TOOL_COUNT} tools and no upload to a server.`;
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "Filewisp",
     images: [
       {
-        url: "/og.png",
+        url: socialImagePath,
         width: 1200,
         height: 630,
         alt: "Filewisp",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Filewisp",
     description: siteDescription,
-    images: ["/og.png"],
+    images: [socialImagePath],
   },
 };
 

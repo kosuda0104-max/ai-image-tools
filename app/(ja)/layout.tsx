@@ -3,7 +3,7 @@ import SiteHeader from "@/src/components/SiteHeader";
 import SiteFooter from "@/src/components/SiteFooter";
 import CookieBanner from "@/src/components/CookieBanner";
 import { TOOL_COUNT } from "@/src/data/tool-directory";
-import { siteUrl } from "@/src/lib/site";
+import { siteUrl, socialImagePath } from "@/src/lib/site";
 
 const siteDescription =
   `画像・PDF、CSV・Parquet・AWSエクスポートの変換や確認をブラウザだけで行える無料ツール集。登録不要・ファイルはサーバーに送信されません。${TOOL_COUNT}種類のツールを提供しています。`;
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Filewisp",
     images: [
       {
-        url: "/og.png",
+        url: socialImagePath,
         width: 1200,
         height: 630,
         alt: "Filewisp",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Filewisp",
     description: siteDescription,
-    images: ["/og.png"],
+    images: [socialImagePath],
   },
 };
 

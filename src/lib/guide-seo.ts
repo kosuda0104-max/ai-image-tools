@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { GuideEntry } from "@/src/data/guides";
-import { siteUrl } from "@/src/lib/site";
+import { siteUrl, socialImageUrl } from "@/src/lib/site";
 import { TOOL_CONTENT_LAST_UPDATED } from "@/src/lib/seo-signals";
 import { isZhTwGuideSlug } from "@/src/data/zh-tw";
 import type { SiteLocale } from "@/src/lib/site-locale";
@@ -27,7 +27,7 @@ export function buildGuideArticleJsonLd(guide: GuideEntry, locale: SiteLocale) {
     "@type": "Article",
     headline: guide.title,
     description: guide.description,
-    image: [`${siteUrl}/og.png`],
+    image: [socialImageUrl],
     inLanguage: locale,
     datePublished: updatedAt,
     dateModified: updatedAt,
@@ -69,7 +69,7 @@ export function generateGuideMetadata(
       type: "article",
       images: [
         {
-          url: `${siteUrl}/og.png`,
+          url: socialImageUrl,
           width: 1200,
           height: 630,
           alt: guide.title,
@@ -80,7 +80,7 @@ export function generateGuideMetadata(
       card: "summary_large_image",
       title: guide.title,
       description: guide.description,
-      images: [`${siteUrl}/og.png`],
+      images: [socialImageUrl],
     },
     other: {
       "article:published_time": updatedAt,

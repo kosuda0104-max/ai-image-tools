@@ -7,7 +7,7 @@ export const gifToJpgContent: Record<ToolLocale, ResizeImageContent> = {
       description: "GIF画像をJPG形式に変換できる無料ツールです。",
       aboutTitle: "GIF to JPGとは？",
       aboutText:
-        "GIF画像をJPG形式へ変換できる無料ツールです。静止画像として保存したい時や、共有しやすいJPG形式に変えたい時に便利です。",
+        "GIFの先頭フレームをJPGとして保存します。アニメーションは残らないため、静止画として共有したい場合に使ってください。",
       stepsTitle: "使い方",
       steps: [
         "GIF画像をアップロードします",

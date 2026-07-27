@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { siteUrl } from "@/src/lib/site";
+import { siteUrl, socialImageUrl } from "@/src/lib/site";
 import {
   buildToolKeywords,
   TOOL_CONTENT_LAST_UPDATED,
@@ -78,7 +78,7 @@ export function createToolMetadata({
       type: "website",
       images: [
         {
-          url: `${siteUrl}/og.png`,
+          url: socialImageUrl,
           width: 1200,
           height: 630,
           alt: title,
@@ -89,7 +89,7 @@ export function createToolMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [`${siteUrl}/og.png`],
+      images: [socialImageUrl],
     },
     other: {
       "article:modified_time": TOOL_CONTENT_LAST_UPDATED,

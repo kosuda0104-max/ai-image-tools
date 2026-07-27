@@ -136,6 +136,39 @@ export default function HomePage({ locale }: Props) {
         </div>
       </section>
 
+      {/* ── Search-proven problems: direct paths from a symptom to a solution ── */}
+      <section className="border-b border-gray-200 bg-teal-50/50">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <h2 className="text-xl font-bold text-gray-950">
+              {t.problemGuidesSection.title}
+            </h2>
+            <p className="mt-2 text-sm leading-7 text-gray-600">
+              {t.problemGuidesSection.description}
+            </p>
+          </div>
+          <div className="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+            {t.problemGuidesSection.items.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="group rounded-lg border border-teal-100 bg-white p-4 transition hover:border-teal-300 hover:shadow-sm"
+              >
+                <h3 className="text-sm font-semibold leading-6 text-gray-900 group-hover:text-teal-800">
+                  {item.title}
+                </h3>
+                <p className="mt-1 text-xs leading-5 text-gray-500">
+                  {item.description}
+                </p>
+                <span className="mt-3 inline-flex text-xs font-semibold text-teal-700" aria-hidden="true">
+                  {locale === "en" ? "See the fix" : "原因と解決方法を見る"} →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Popular tools ── */}
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <section className="py-10">

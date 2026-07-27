@@ -7,7 +7,7 @@ export const flipImageContent: Record<ToolLocale, ResizeImageContent> = {
       description: "画像を左右反転・上下反転できる無料ツールです。",
       aboutTitle: "Flip Imageとは？",
       aboutText:
-        "画像を左右または上下に反転して保存できる無料ツールです。鏡像を作りたい時や、向きを調整したい時に便利です。",
+        "画像を左右または上下に反転して保存します。鏡像を作る場合や、撮影した向きを合わせる場合に使います。",
       stepsTitle: "使い方",
       steps: [
         "画像をアップロードします",

@@ -13,7 +13,7 @@ export const webpToJpgContent: Record<ToolLocale, ResizeImageContent> = {
         {
           title: "変換が役立つ場面",
           paragraphs: [
-            "CMS 入稿、資料貼り付け、クラウド共有、フォーム提出、社内ツールなどで WebP がそのまま扱いにくいときに役立ちます。相手先が JPG に慣れている環境では、先に変換しておくほうが説明や再提出の手間を減らせます。",
+            "CMS、資料、フォームがWebPを受け付けない場合にJPGへ変換します。相手がJPGを指定している場合も、送信前に形式をそろえられます。",
             "とくに Web 用に軽くした画像をあとで別用途へ流用するとき、WebP のままだと互換性で困ることがあります。JPG にそろえることで、その後の共有や圧縮も進めやすくなります。",
           ],
         },
@@ -76,7 +76,7 @@ export const webpToJpgContent: Record<ToolLocale, ResizeImageContent> = {
         {
           question: "画質は変わりますか？",
           answer:
-            "画像の内容によっては見え方が少し変わることがあります。公開先や提出先で実際の見え方を確認するのがおすすめです。",
+            "変換後は、公開先や提出先で色と輪郭の見え方を確認してください。",
         },
         {
           question: "安全に使えますか？",

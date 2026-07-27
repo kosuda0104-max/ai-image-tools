@@ -7,7 +7,7 @@ export const rotateImageContent: Record<ToolLocale, ResizeImageContent> = {
       description: "画像を回転できる無料ツールです。",
       aboutTitle: "Rotate Imageとは？",
       aboutText:
-        "画像を90度、180度、270度で回転して保存できる無料ツールです。向きを整えたい時や、写真を見やすくしたい時に便利です。",
+        "画像を90度、180度、270度回転して保存します。スマホ写真やスキャン画像の向きが違う場合に使います。",
       stepsTitle: "使い方",
       steps: [
         "画像をアップロードします",

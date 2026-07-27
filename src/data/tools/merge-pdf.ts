@@ -7,7 +7,7 @@ export const mergePdfContent: Record<ToolLocale, ResizeImageContent> = {
       description: "複数のPDFを1つに結合できる無料ツールです。",
       aboutTitle: "Merge PDFとは？",
       aboutText:
-        "複数のPDFファイルを1つにまとめられる無料ツールです。資料や書類を1つのPDFとして整理したい時に便利です。",
+        "複数のPDFを選んだ順に結合し、1つのPDFとして保存します。分かれて届いた資料や申請書をまとめる作業向けです。",
       stepsTitle: "使い方",
       steps: [
         "PDFファイルを複数アップロードします",
