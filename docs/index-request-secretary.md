@@ -30,6 +30,19 @@ Claude にこう頼めば、秘書として機能します：
 
 ---
 
+## 🔄 2026/07/27 更新ページの再クロール候補
+
+> 2026/07/24レポートで実際に出た検索語に合わせて本文・内部リンクを更新した2ページ。
+> すでに検索結果へ出ている変換ページは再申請せず、変更したページだけ確認する。
+
+- [ ] https://ai-image-tools.com/tools/image-compress
+- [ ] https://ai-image-tools.com/guides/png-transparency-basics
+
+順位を維持しているため再申請しないページ：
+`/en/tools/jpg-to-png`、`/en/tools/csv-to-parquet`、`/tools`、`/tools/jpg-to-png`、`/tools/png-to-jpg`、`/tools/webp-to-jpg`
+
+---
+
 ## 🚦 本日申請する10件（2026/07/16）
 
 > 2026-07-16のURL Inspection API監査で未登録だったURLを、既存の優先順で並べた先頭10件。

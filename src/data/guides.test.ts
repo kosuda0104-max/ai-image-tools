@@ -4,6 +4,7 @@ import { getRelatedGuides } from "@/src/data/guide-related-guides";
 import { getGuideRelatedTools } from "@/src/data/guide-related-tools";
 import { buildGuideArticleJsonLd } from "@/src/lib/guide-seo";
 import { awsExportFormatsZhTwGuide } from "@/src/data/guides.zh-tw";
+import { imageCompressContent } from "@/src/data/tools/image-compress";
 
 const TARGET_GUIDES = {
   "heic-cannot-open-windows": "2026-07-14",
@@ -43,6 +44,7 @@ describe("latest GSC opportunities", () => {
   it("targets the Japanese AVIF and transparency queries in prominent copy", () => {
     const avif = getGuide("ja", "what-is-avif");
     const transparency = getGuide("ja", "png-transparency-basics");
+    const transparencyTools = getGuideRelatedTools("ja", "png-transparency-basics");
 
     expect(avif?.title).toContain(".avif");
     expect(avif?.description).toMatch(/無料.*ブラウザ/);
@@ -50,6 +52,21 @@ describe("latest GSC opportunities", () => {
     expect(transparency?.sections.some((section) => /JPG・JPEGは透過できない/.test(section.title))).toBe(
       true,
     );
+    expect(
+      transparency?.sections.some((section) => /PNGに変換するだけでは透過にならない/.test(section.title)),
+    ).toBe(true);
+    expect(transparencyTools.map((tool) => tool.slug).slice(0, 2)).toEqual([
+      "image-background-transparent",
+      "jpg-to-png",
+    ]);
+  });
+
+  it("answers the image lightweight AI query without claiming AI processing", () => {
+    const jaPage = imageCompressContent.ja.page;
+    const aiFaq = jaPage.faqs.find((faq) => /AIで作った画像/.test(faq.question));
+
+    expect(aiFaq?.answer).toMatch(/JPG、PNG、WebP/);
+    expect(aiFaq?.answer).toMatch(/AIで画像を加工する機能ではなく/);
   });
 
   it("answers Parquet reading and BigQuery workflow queries with sources", () => {
