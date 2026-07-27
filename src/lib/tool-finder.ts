@@ -137,8 +137,8 @@ const aliases: Record<
     en: ["make background transparent", "remove white background", "transparent background", "transparent png"],
   },
   "heic-to-jpg": {
-    ja: ["iphone写真が開けない", "heicが開けない", "iphone写真をjpg", "写真を送れない"],
-    en: ["iphone photo will not open", "cannot open heic", "iphone photo to jpg", "heic upload rejected"],
+    ja: ["iphone写真が開けない", "iphoneの写真がwindowsで開けない", "heicが開けない", "iphone写真をjpg", "写真を送れない"],
+    en: ["iphone photo will not open", "iphone photo will not open on windows", "cannot open heic", "iphone photo to jpg", "heic upload rejected"],
   },
   "avif-to-jpg": {
     ja: ["avifが開けない", "avifをjpg"],
@@ -215,6 +215,10 @@ const aliases: Record<
   "parquet-viewer": {
     ja: ["parquetの中身を見る", "parquetを開く", "parquetのスキーマを確認"],
     en: ["view parquet contents", "open parquet", "inspect parquet schema"],
+  },
+  "parquet-to-csv": {
+    ja: ["parquetをcsvに", "parquetをcsvにしたい", "parquet csv 変換", "parquetを表で開く"],
+    en: ["parquet to csv", "convert parquet to csv", "open parquet as csv"],
   },
   "parquet-to-excel": {
     ja: ["parquetをexcelで開く", "parquetをxlsx"],

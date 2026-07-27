@@ -5,7 +5,7 @@ export const metadata = createLocalizedPageMetadata({
   locale: "en",
   title: "Privacy Policy | Filewisp",
   description:
-    "This page explains how Filewisp handles cookies, Google AdSense advertising, analytics, and contact form data.",
+    "This page explains how Filewisp handles cookies, Google AdSense advertising, analytics, tool assistant feedback, and contact form data.",
   jaPath: "/privacy-policy",
   enPath: "/en/privacy-policy",
 });
@@ -104,6 +104,9 @@ export default function Page() {
               </p>
               <p>
                 When you use the contact form, we may receive your name, email address, and message content to respond to your inquiry. This information is used solely for support purposes.
+              </p>
+              <p>
+                When you answer the tool assistant&apos;s feedback prompt, we receive the question, suggested tools, whether the problem was solved, and any optional reason or comment you provide. We use this information to improve suggestions and tools. The file itself and its name are not sent, and the feedback form does not collect a name or email address.
               </p>
             </div>
           </section>

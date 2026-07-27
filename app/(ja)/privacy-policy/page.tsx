@@ -5,7 +5,7 @@ export const metadata = createLocalizedPageMetadata({
   locale: "ja",
   title: "プライバシーポリシー | Filewisp",
   description:
-    "Filewisp におけるCookie、Google AdSense広告、アクセス解析、お問い合わせ時の情報の取り扱いについてまとめています。",
+    "Filewisp におけるCookie、Google AdSense広告、アクセス解析、ツール案内への回答、お問い合わせ時の情報の取り扱いについてまとめています。",
   jaPath: "/privacy-policy",
   enPath: "/en/privacy-policy",
 });
@@ -104,6 +104,9 @@ export default function Page() {
               </p>
               <p>
                 お問い合わせフォームを利用した場合には、氏名・メールアドレス・問い合わせ内容を返信や確認の目的で受け取ります。これらは問い合わせ対応以外の目的では使用しません。
+              </p>
+              <p>
+                ツール案内で回答を送信した場合は、相談文、表示した候補ツール、解決したかどうか、任意で入力した理由や補足を受け取ります。案内精度とツール改善のために利用し、ファイル本体やファイル名は送信しません。氏名やメールアドレスも収集しません。
               </p>
             </div>
           </section>

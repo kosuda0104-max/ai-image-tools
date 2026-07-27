@@ -33,10 +33,24 @@ NEXT_PUBLIC_AD_SLOT_GUIDE=1234567890
 RESEND_API_KEY=your_resend_api_key
 CONTACT_TO_EMAIL=hello@example.com
 CONTACT_FROM_EMAIL=noreply@example.com
+TOOL_FEEDBACK_TO_EMAIL=feedback@example.com
+TOOL_FEEDBACK_WEBHOOK_URL=https://example.com/feedback-webhook
 ```
 
 `CONTACT_FROM_EMAIL` is optional. If omitted, the contact API falls back to
 `onboarding@resend.dev`.
+
+Tool assistant feedback is stored as one structured JSON file per event in the
+private Vercel Blob store connected to the project. Vercel creates
+`BLOB_READ_WRITE_TOKEN` when the store is linked. Files are grouped under
+`tool-feedback/YYYY-MM-DD/` and can be downloaded from the Storage dashboard.
+
+Resend and `TOOL_FEEDBACK_WEBHOOK_URL` are optional additional destinations.
+Email uses `TOOL_FEEDBACK_TO_EMAIL`, falling back to `CONTACT_TO_EMAIL`. The
+webhook can point to Google Apps Script, Make, or another HTTPS endpoint for
+spreadsheet or database collection. Every destination receives the same
+`feedbackId`, so the initial unresolved rating and its optional detail can be
+joined later.
 
 AdSense uses `ca-pub-9678380581323736` by default and reuses
 `NEXT_PUBLIC_AD_SLOT_GUIDE` across guide, tool, home, and directory placements

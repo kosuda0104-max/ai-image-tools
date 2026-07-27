@@ -10,12 +10,12 @@ import {
   type DragEvent,
 } from "react";
 import type { ToolDirectoryItem } from "@/src/data/tool-directory";
+import ToolAssistant from "@/src/components/ToolAssistant";
 import { formatFileSize } from "@/src/lib/image-conversion";
 import { setPendingFiles } from "@/src/lib/pending-files";
 import {
   detectFileFormat,
   getFileRecommendationSlugs,
-  searchToolsByIntent,
   type ToolFinderLocale,
 } from "@/src/lib/tool-finder";
 import { ToolIcon } from "@/src/lib/tool-visuals";
@@ -43,16 +43,6 @@ const finderCopy = {
     privacy: "ファイルは送信されません",
     unknown: "このファイル形式に合うツールを判定できませんでした。",
     problemDivider: "またはやりたいことで探す",
-    problemLabel: "困りごとを入力",
-    problemPlaceholder: "例：CSVが1列になる、iPhone写真が開けない",
-    results: (count: number) => `${count}件の候補`,
-    noResults: "近いツールが見つかりませんでした。別の言葉でお試しください。",
-    suggestions: [
-      "CSVが1列になる",
-      "画像の背景を透明に",
-      "iPhone写真が開けない",
-      "PDFの不要ページを消す",
-    ],
     moreResults: (count: number) => `ほか${count}件はツール一覧から確認できます`,
   },
   en: {
@@ -71,16 +61,6 @@ const finderCopy = {
     privacy: "Your file is not uploaded",
     unknown: "No tools could be matched to this file format.",
     problemDivider: "Or search by what you need",
-    problemLabel: "Describe the problem",
-    problemPlaceholder: "Example: CSV opens in one column",
-    results: (count: number) => `${count} matching tool${count === 1 ? "" : "s"}`,
-    noResults: "No close match was found. Try a different phrase.",
-    suggestions: [
-      "CSV opens in one column",
-      "Make background transparent",
-      "iPhone photo will not open",
-      "Delete unwanted PDF pages",
-    ],
     moreResults: (count: number) => `${count} more available in the full directory`,
   },
 } as const;
@@ -124,7 +104,6 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
   const id = useId();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [files, setFiles] = useState<File[]>([]);
-  const [query, setQuery] = useState("");
   const [dragging, setDragging] = useState(false);
 
   const file = files[0] ?? null;
@@ -140,13 +119,7 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
       );
     });
   }, [file, tools]);
-  const problemTools = useMemo(
-    () => searchToolsByIntent(tools, query, locale),
-    [locale, query, tools],
-  );
-
   const visibleFileTools = fileTools.slice(0, 6);
-  const visibleProblemTools = problemTools.slice(0, 8);
   const directoryHref = locale === "en" ? "/en/tools" : "/tools";
 
   const selectFiles = (selected: FileList | File[] | null) => {
@@ -302,63 +275,7 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
       </div>
 
       <div className="pt-4">
-        <label htmlFor={`${id}-problem-input`} className="sr-only">
-          {t.problemLabel}
-        </label>
-        <div className="relative">
-          <input
-            id={`${id}-problem-input`}
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder={t.problemPlaceholder}
-            className="h-12 w-full rounded-lg border border-gray-300 bg-white px-4 pr-11 text-sm text-gray-950 outline-none transition placeholder:text-gray-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
-          />
-          {query ? (
-            <button
-              type="button"
-              aria-label={locale === "ja" ? "検索をクリア" : "Clear search"}
-              onClick={() => setQuery("")}
-              className="absolute inset-y-0 right-1 flex w-10 items-center justify-center text-xl text-gray-400 hover:text-gray-800"
-            >
-              ×
-            </button>
-          ) : null}
-        </div>
-
-        {!query.trim() ? (
-          <div className="mt-3 flex flex-wrap justify-center gap-2">
-            {t.suggestions.map((suggestion) => (
-              <button
-                key={suggestion}
-                type="button"
-                onClick={() => setQuery(suggestion)}
-                className="rounded-md border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-700 hover:border-teal-300 hover:text-teal-800"
-              >
-                {suggestion}
-              </button>
-            ))}
-          </div>
-        ) : (
-          <div className="mt-4 space-y-2 text-left" aria-live="polite">
-            <p className="text-xs font-medium text-gray-500">
-              {problemTools.length > 0
-                ? t.results(problemTools.length)
-                : t.noResults}
-            </p>
-            {visibleProblemTools.length > 0 ? (
-              <ToolResults tools={visibleProblemTools} />
-            ) : null}
-            {problemTools.length > visibleProblemTools.length ? (
-              <Link
-                href={directoryHref}
-                className="inline-flex text-xs font-semibold text-teal-700 hover:text-teal-900"
-              >
-                {t.moreResults(problemTools.length - visibleProblemTools.length)}
-              </Link>
-            ) : null}
-          </div>
-        )}
+        <ToolAssistant locale={locale} tools={tools} />
       </div>
     </section>
   );

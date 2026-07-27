@@ -56,6 +56,7 @@ describe("intent-based tool search", () => {
     ["PDFの不要ページを消す", "pdf-remove-pages"],
     ["cloudtrail json gzをcsv", "cloudtrail-log-to-csv"],
     ["transcribe jsonをsrt", "transcribe-json-to-srt"],
+    ["ParquetをCSVにしたい", "parquet-to-csv"],
   ])("matches the Japanese problem %s", (query, expectedSlug) => {
     const results = searchToolsByIntent(getAllToolItems("ja"), query, "ja");
 
