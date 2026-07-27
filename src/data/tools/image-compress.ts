@@ -84,6 +84,11 @@ export const imageCompressContent: Record<ToolLocale, JpgToPngContent> = {
             "PNG は画像内容によって圧縮効果が出にくいことがあります。写真なら JPG / WebP への変換、サイズが大きすぎるならリサイズも検討すると改善しやすいです。",
         },
         {
+          question: "AIで作った画像も軽量化できますか？",
+          answer:
+            "JPG、PNG、WebPで保存された画像なら圧縮できます。AIで画像を加工する機能ではなく、ブラウザ内でファイルサイズを下げるツールです。",
+        },
+        {
           question: "安全に使えますか？",
           answer:
             "はい。処理はブラウザ内で行われるため、画像ファイルは外部サーバーへアップロードされません。",
