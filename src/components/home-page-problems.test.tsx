@@ -19,4 +19,20 @@ describe("homepage problem guides", () => {
     expect(details).not.toHaveAttribute("open");
     expect(screen.getByText("6件")).toBeInTheDocument();
   });
+
+  it("keeps the guide directory compact until it is opened", () => {
+    render(<HomePage locale="ja" />);
+
+    const heading = screen.getByRole("heading", { name: "使い方ガイド" });
+    const summary = heading.closest("summary");
+    const details = summary?.closest("details");
+
+    expect(summary).not.toBeNull();
+    expect(details).not.toBeNull();
+    expect(details).not.toHaveAttribute("open");
+    expect(screen.getByText("11件")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /HEICファイルがWindowsで開けない原因と対処法/ }),
+    ).toHaveAttribute("href", "/guides/heic-cannot-open-windows");
+  });
 });

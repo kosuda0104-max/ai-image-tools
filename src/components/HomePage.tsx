@@ -262,40 +262,56 @@ export default function HomePage({ locale }: Props) {
       </div>
 
       {/* ── Guides ── */}
-      <div className="border-t border-gray-200 bg-gray-50">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-3">
-            <div className="max-w-2xl">
-              <h2 className="text-2xl font-bold text-gray-900">{t.guidesSection.title}</h2>
-              <p className="mt-2 text-sm leading-7 text-gray-600">
-                {t.guidesSection.description}
-              </p>
-            </div>
-            <Link
-              href={`${basePath}/guides`}
-              className="text-sm font-medium text-teal-700 underline decoration-teal-300 underline-offset-4 hover:text-teal-900"
-            >
-              {t.guidesSection.viewAllLabel} →
-            </Link>
-          </div>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {t.guidesSection.guides.map((guide) => (
-              <Link
-                key={guide.slug}
-                href={`${basePath}/guides/${guide.slug}`}
-                className="group flex h-full flex-col rounded-lg border border-gray-200 bg-white p-5 transition hover:border-gray-300 hover:shadow-md"
-              >
-                <h3 className="text-base font-semibold text-gray-900 group-hover:text-teal-700">
-                  {guide.title}
-                </h3>
-                <p className="mt-2 line-clamp-3 text-sm leading-6 text-gray-500">
-                  {guide.cardDescription}
+      <section className="border-t border-gray-200 bg-gray-50">
+        <div className="mx-auto max-w-6xl px-4 py-2.5 sm:px-6 lg:px-8">
+          <details className="group/guides">
+            <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 rounded-md px-2 py-1.5 hover:bg-gray-100">
+              <div className="min-w-0">
+                <h2 className="text-sm font-bold text-gray-950">{t.guidesSection.title}</h2>
+                <p className="mt-0.5 hidden truncate text-xs text-gray-500 sm:block">
+                  {t.guidesSection.description}
                 </p>
+              </div>
+              <span className="inline-flex shrink-0 items-center gap-1 text-xs font-semibold text-teal-700">
+                {locale === "en"
+                  ? `${t.guidesSection.guides.length} guides`
+                  : `${t.guidesSection.guides.length}件`}
+                <span
+                  aria-hidden="true"
+                  className="transition-transform group-open/guides:rotate-180"
+                >
+                  ▾
+                </span>
+              </span>
+            </summary>
+            <div className="grid gap-2 px-2 pb-2 pt-3 sm:grid-cols-2 lg:grid-cols-3">
+              {t.guidesSection.guides.map((guide) => (
+                <Link
+                  key={guide.slug}
+                  href={`${basePath}/guides/${guide.slug}`}
+                  className="group flex min-h-11 items-center justify-between gap-3 rounded-md border border-gray-200 bg-white px-3 py-2 transition hover:border-teal-300"
+                >
+                  <span className="text-xs font-semibold leading-5 text-gray-800 group-hover:text-teal-800">
+                    {guide.title}
+                  </span>
+                  <span className="shrink-0 text-xs text-teal-700" aria-hidden="true">
+                    →
+                  </span>
+                  <span className="sr-only">{guide.cardDescription}</span>
+                </Link>
+              ))}
+            </div>
+            <div className="px-2 pb-2 text-right">
+              <Link
+                href={`${basePath}/guides`}
+                className="text-xs font-semibold text-teal-700 underline decoration-teal-300 underline-offset-4 hover:text-teal-900"
+              >
+                {t.guidesSection.viewAllLabel} →
               </Link>
-            ))}
-          </div>
+            </div>
+          </details>
         </div>
-      </div>
+      </section>
 
       {/* ── FAQ ── */}
       <div className="border-t border-gray-200 bg-white">
