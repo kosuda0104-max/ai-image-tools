@@ -7,7 +7,7 @@ export const rotatePdfContent: Record<ToolLocale, ResizeImageContent> = {
       description: "PDFの全ページを回転できる無料ツールです。",
       aboutTitle: "Rotate PDFとは？",
       aboutText:
-        "PDFの全ページをまとめて回転して保存できる無料ツールです。縦横の向きを整えたい時に便利です。",
+        "PDFの全ページを90度単位で回転し、新しいPDFとして保存します。横向きのスキャン資料をまとめて直せます。",
       stepsTitle: "使い方",
       steps: [
         "PDFファイルをアップロードします",

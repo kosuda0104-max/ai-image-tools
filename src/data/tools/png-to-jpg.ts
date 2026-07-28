@@ -14,7 +14,7 @@ export const pngToJpgContent: Record<ToolLocale, JpgToPngContent> = {
           title: "PNGからJPGへ変換したい代表例",
           paragraphs: [
             "Web 掲載用の画像を軽くしたいとき、商品画像を複数枚アップしたいとき、メールやチャットで送りやすいファイルにしたいときに向いています。",
-            "特に写真系の PNG は JPG にすると容量がかなり下がることがあるため、「まず軽くしたい」という場面でおすすめです。",
+            "写真をPNGで保存していて容量が大きい場合は、JPGへ変えると小さくなることがあります。",
           ],
         },
         {

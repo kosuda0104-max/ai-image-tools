@@ -7,7 +7,7 @@ export const watermarkImageContent: Record<ToolLocale, ResizeImageContent> = {
       description: "画像に透かし文字を追加できる無料ツールです。",
       aboutTitle: "Watermark Imageとは？",
       aboutText:
-        "画像に文字の透かしを追加して保存できる無料ツールです。著作権表示やSNS投稿用の簡単なウォーターマークを入れたい時に便利です。",
+        "画像へ文字の透かしを重ねて保存します。著作権表記、撮影者名、確認用の印を入れる場合に使います。",
       stepsTitle: "使い方",
       steps: [
         "画像をアップロードします",

@@ -7,7 +7,7 @@ export const cropImageContent: Record<ToolLocale, ResizeImageContent> = {
       description: "画像を切り抜ける無料ツールです。",
       aboutTitle: "Crop Imageとは？",
       aboutText:
-        "画像の一部だけを切り抜いて保存できる無料ツールです。不要な余白を削除したい時や、SNS用に構図を整えたい時に便利です。",
+        "画像の必要な範囲を選び、余白や写り込みを削って保存します。SNS投稿やプロフィール画像の構図調整にも使えます。",
       stepsTitle: "使い方",
       steps: [
         "画像ファイルをアップロードします",

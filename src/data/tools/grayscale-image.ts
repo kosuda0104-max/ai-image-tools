@@ -7,7 +7,7 @@ export const grayscaleImageContent: Record<ToolLocale, ResizeImageContent> = {
       description: "画像を白黒（グレースケール）に変換できる無料ツールです。",
       aboutTitle: "Grayscale Imageとは？",
       aboutText:
-        "画像を白黒のグレースケールに変換して保存できる無料ツールです。雰囲気を変えたい時や、モノクロ表現を作りたい時に便利です。",
+        "カラー画像を白黒へ変換して保存します。印刷用の確認や、写真の色を外して見せたい場合に使います。",
       stepsTitle: "使い方",
       steps: [
         "画像をアップロードします",

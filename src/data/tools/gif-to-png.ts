@@ -7,7 +7,7 @@ export const gifToPngContent: Record<ToolLocale, ResizeImageContent> = {
       description: "GIF画像をPNG形式に変換できる無料ツールです。",
       aboutTitle: "GIF to PNGとは？",
       aboutText:
-        "GIF画像をPNG形式へ変換できる無料ツールです。静止画像として保存したい時や、編集しやすいPNG形式に変えたい時に便利です。",
+        "GIFの先頭フレームをPNGとして保存します。アニメーションは残りませんが、静止画として編集しやすくなります。",
       stepsTitle: "使い方",
       steps: [
         "GIF画像をアップロードします",

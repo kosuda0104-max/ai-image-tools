@@ -33,7 +33,7 @@ export const csvToJsonContent: Record<ToolLocale, CsvToJsonContent> = {
         "CSV ファイルをブラウザ上で JSON に変換できる無料オンラインツールです。アップロード不要・安全。スプレッドシートのデータを API や開発ツールで使いやすい JSON 配列に変換できます。",
       aboutTitle: "CSV を JSON に変換するとどんなときに便利？",
       aboutText:
-        "Excel やスプレッドシートで管理しているデータを、Web アプリや API のテストデータとして使いたいときに便利です。CSV の各行がオブジェクトの配列として出力されるため、JavaScript・Python・Node.js などでそのまま読み込めます。",
+        "Excelやスプレッドシートの表を、WebアプリやAPIテストで読めるJSON配列へ変換します。CSVの1行が1つのオブジェクトになります。",
       contentSections: [
         {
           title: "出力される JSON の形式",

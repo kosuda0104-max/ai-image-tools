@@ -3,7 +3,7 @@ import SiteHeader from "@/src/components/SiteHeader";
 import SiteFooter from "@/src/components/SiteFooter";
 import CookieBanner from "@/src/components/CookieBanner";
 import LangAttribute from "@/src/components/LangAttribute";
-import { siteUrl } from "@/src/lib/site";
+import { siteUrl, socialImagePath } from "@/src/lib/site";
 
 const description =
   "免費的圖片、CSV、Parquet 與 AWS 資料轉換工具。檔案只在瀏覽器內處理，不會上傳到外部伺服器。";
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "Filewisp",
     locale: "zh_TW",
     type: "website",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Filewisp" }],
+    images: [{ url: socialImagePath, width: 1200, height: 630, alt: "Filewisp" }],
   },
 };
 

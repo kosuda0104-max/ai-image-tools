@@ -7,7 +7,7 @@ export const pdfRemovePagesContent: Record<ToolLocale, ResizeImageContent> = {
       description: "PDFから不要なページを削除できる無料ツールです。",
       aboutTitle: "PDF Remove Pagesとは？",
       aboutText:
-        "PDFファイルから不要なページを削除して、新しいPDFとして保存できる無料ツールです。表紙や不要ページをまとめて削除したい時に便利です。",
+        "PDFから不要なページを選んで削除し、残したページだけを新しいPDFへ保存します。元ファイルは変更しません。",
       stepsTitle: "使い方",
       steps: [
         "PDFファイルをアップロードします",

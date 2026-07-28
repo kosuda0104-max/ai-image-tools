@@ -7,7 +7,7 @@ export const splitPdfContent: Record<ToolLocale, ResizeImageContent> = {
       description: "PDFの指定ページだけを抽出できる無料ツールです。",
       aboutTitle: "Split PDFとは？",
       aboutText:
-        "PDFから必要なページだけを抽出して、新しいPDFとして保存できる無料ツールです。特定ページだけ共有したい時に便利です。",
+        "PDFから必要なページを選び、新しいPDFとして保存します。資料の一部だけを提出・共有する場合に使います。",
       stepsTitle: "使い方",
       steps: [
         "PDFファイルをアップロードします",

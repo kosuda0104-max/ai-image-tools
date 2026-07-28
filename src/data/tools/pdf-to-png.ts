@@ -7,7 +7,7 @@ export const pdfToPngContent: Record<ToolLocale, ResizeImageContent> = {
       description: "PDFをPNG画像に変換できる無料ツールです。",
       aboutTitle: "PDF to PNGとは？",
       aboutText:
-        "PDFファイルのページをPNG画像として書き出せる無料ツールです。PDFの内容を画像として保存したい時に便利です。",
+        "PDFの各ページをPNG画像として書き出します。文字や図をくっきり残したい資料向けです。",
       stepsTitle: "使い方",
       steps: [
         "PDFファイルをアップロードします",

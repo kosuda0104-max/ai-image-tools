@@ -3,7 +3,7 @@ import "./globals.css";
 import AdSenseLoader from "@/components/AdSenseLoader";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import { TOOL_COUNT } from "@/src/data/tool-directory";
-import { siteUrl } from "@/src/lib/site";
+import { siteUrl, socialImageUrl } from "@/src/lib/site";
 
 const googleVerification =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined;
@@ -16,6 +16,7 @@ const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: siteTitle,
+  alternateName: ["ai-image-tools.com"],
   url: siteUrl,
   inLanguage: ["ja", "en"],
   description: siteDescription,
@@ -71,10 +72,10 @@ export const metadata: Metadata = {
     locale: "ja_JP",
     images: [
       {
-        url: `${siteUrl}/og.png`,
+        url: socialImageUrl,
         width: 1200,
         height: 630,
-        alt: siteTitle,
+        alt: "Filewisp - 画像・PDF・データの無料ブラウザツール",
       },
     ],
   },
@@ -82,7 +83,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: [`${siteUrl}/og.png`],
+    images: [socialImageUrl],
   },
   verification: {
     google: googleVerification,

@@ -7,7 +7,7 @@ export const pdfToWebpContent: Record<ToolLocale, ResizeImageContent> = {
       description: "PDFをWebP画像に変換できる無料ツールです。",
       aboutTitle: "PDF to WebPとは？",
       aboutText:
-        "PDFファイルの各ページをWebP画像として書き出せる無料ツールです。軽量な画像形式で保存したい時に便利です。",
+        "PDFの各ページをWebP画像として書き出します。Web掲載用に、JPGやPNGより容量を抑えたい場合に使います。",
       stepsTitle: "使い方",
       steps: [
         "PDFファイルをアップロードします",

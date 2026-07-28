@@ -2,7 +2,10 @@ import type { MetadataRoute } from "next";
 import { getGuides } from "@/src/data/guides";
 import { getAllToolItems } from "@/src/data/tool-directory";
 import { siteUrl } from "@/src/lib/site";
-import { TOOL_CONTENT_LAST_UPDATED } from "@/src/lib/seo-signals";
+import {
+  getToolContentLastUpdated,
+  TOOL_CONTENT_LAST_UPDATED,
+} from "@/src/lib/seo-signals";
 import { awsExportFormatsZhTwGuide } from "@/src/data/guides.zh-tw";
 
 const jaGuides = getGuides("ja");
@@ -25,10 +28,16 @@ const staticRoutes = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const defaultLastModified = new Date(TOOL_CONTENT_LAST_UPDATED);
+  const getStaticLastModified = (path: string) => {
+    const toolPrefix = "/tools/";
+    return path.startsWith(toolPrefix)
+      ? new Date(getToolContentLastUpdated(path.slice(toolPrefix.length)))
+      : defaultLastModified;
+  };
 
   const jaStaticRoutes = staticRoutes.map((path) => ({
     url: `${siteUrl}${path}`,
-    lastModified: defaultLastModified,
+    lastModified: getStaticLastModified(path),
     changeFrequency: "weekly" as const,
     priority:
       path === ""
@@ -42,7 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const enStaticRoutes = staticRoutes.map((path) => ({
     url: `${siteUrl}/en${path === "" ? "" : path}`,
-    lastModified: defaultLastModified,
+    lastModified: getStaticLastModified(path),
     changeFrequency: "weekly" as const,
     priority:
       path === ""

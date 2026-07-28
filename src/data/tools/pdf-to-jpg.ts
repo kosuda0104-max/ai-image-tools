@@ -7,7 +7,7 @@ export const pdfToJpgContent: Record<ToolLocale, ResizeImageContent> = {
       description: "PDFをJPG画像に変換できる無料ツールです。",
       aboutTitle: "PDF to JPGとは？",
       aboutText:
-        "PDFファイルのページをJPG画像として書き出せる無料ツールです。PDFの内容を画像として保存したい時に便利です。",
+        "PDFの各ページをJPG画像として書き出します。資料のページをスライドやWeb記事へ貼る場合に使えます。",
       stepsTitle: "使い方",
       steps: [
         "PDFファイルをアップロードします",
