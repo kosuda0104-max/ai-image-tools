@@ -2,6 +2,18 @@ const JAPANESE_TEXT_PATTERN = /[ぁ-ヿ㐀-龯]/;
 
 export const TOOL_CONTENT_LAST_UPDATED = "2026-07-22";
 
+const TOOL_CONTENT_LAST_UPDATED_BY_SLUG: Record<string, string> = {
+  "bmp-to-png": "2026-07-29",
+  "csv-to-parquet": "2026-07-29",
+  "parquet-to-csv": "2026-07-29",
+  "png-to-webp": "2026-07-29",
+  "tiff-to-png": "2026-07-29",
+};
+
+export function getToolContentLastUpdated(slug: string): string {
+  return TOOL_CONTENT_LAST_UPDATED_BY_SLUG[slug] ?? TOOL_CONTENT_LAST_UPDATED;
+}
+
 const DATA_TOOL_SLUGS = new Set([
   "csv-encoding-fix",
   "csv-delimiter-converter",

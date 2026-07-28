@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { siteUrl, socialImageUrl } from "@/src/lib/site";
 import {
   buildToolKeywords,
-  TOOL_CONTENT_LAST_UPDATED,
+  getToolContentLastUpdated,
 } from "@/src/lib/seo-signals";
 import { isZhTwToolSlug } from "@/src/data/zh-tw";
 import type { SiteLocale } from "@/src/lib/site-locale";
@@ -55,6 +55,8 @@ export function createToolMetadata({
     languages["zh-TW"] = `${siteUrl}${zhTwPath}`;
   }
 
+  const contentLastUpdated = getToolContentLastUpdated(slug);
+
   return {
     title,
     description,
@@ -92,8 +94,8 @@ export function createToolMetadata({
       images: [socialImageUrl],
     },
     other: {
-      "article:modified_time": TOOL_CONTENT_LAST_UPDATED,
-      "og:updated_time": TOOL_CONTENT_LAST_UPDATED,
+      "article:modified_time": contentLastUpdated,
+      "og:updated_time": contentLastUpdated,
     },
   };
 }
