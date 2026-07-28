@@ -30,6 +30,17 @@ export default function ToolAssistantLauncher({ locale, tools }: Props) {
   const t = launcherCopy[locale];
   const panelId = useId();
   const [open, setOpen] = useState(false);
+  const [cookieNoticeVisible, setCookieNoticeVisible] = useState(false);
+
+  useEffect(() => {
+    const syncCookieNotice = () => {
+      setCookieNoticeVisible(!window.localStorage.getItem("cookie-consent"));
+    };
+
+    syncCookieNotice();
+    window.addEventListener("filewisp-cookie-consent", syncCookieNotice);
+    return () => window.removeEventListener("filewisp-cookie-consent", syncCookieNotice);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -43,12 +54,22 @@ export default function ToolAssistantLauncher({ locale, tools }: Props) {
   }, [open]);
 
   return (
-    <aside className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-3 z-[60] sm:right-5">
+    <aside
+      className={`fixed right-3 z-[60] transition-[bottom] sm:right-5 ${
+        cookieNoticeVisible
+          ? "bottom-[10rem]"
+          : "bottom-[max(1rem,env(safe-area-inset-bottom))]"
+      }`}
+    >
       <section
         id={panelId}
         hidden={!open}
         aria-labelledby={`${panelId}-title`}
-        className="mb-3 max-h-[calc(100dvh-7rem)] w-[calc(100vw-1.5rem)] max-w-sm overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-xl"
+        className={`mb-3 w-[calc(100vw-1.5rem)] max-w-sm overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-xl ${
+          cookieNoticeVisible
+            ? "max-h-[calc(100dvh-14rem)]"
+            : "max-h-[calc(100dvh-7rem)]"
+        }`}
       >
         <header className="sticky top-0 z-10 flex items-center gap-3 border-b border-gray-200 bg-white px-4 py-3">
           <span

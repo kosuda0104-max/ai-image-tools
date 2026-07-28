@@ -6,6 +6,7 @@ import { getAllToolItems } from "@/src/data/tool-directory";
 afterEach(() => {
   cleanup();
   vi.unstubAllGlobals();
+  localStorage.clear();
 });
 
 describe("ToolAssistantLauncher", () => {
@@ -23,6 +24,22 @@ describe("ToolAssistantLauncher", () => {
     expect(launcher).toHaveAttribute("aria-expanded", "true");
     expect(panel).not.toHaveAttribute("hidden");
     expect(screen.getByLabelText("困りごとを入力")).toBeInTheDocument();
+  });
+
+  it("moves above the cookie notice until consent is recorded", async () => {
+    render(<ToolAssistantLauncher locale="ja" tools={getAllToolItems("ja")} />);
+
+    const launcher = screen.getByRole("button", { name: "ウィスプに相談" });
+    const assistant = launcher.closest("aside");
+
+    await waitFor(() => expect(assistant).toHaveClass("bottom-[10rem]"));
+
+    localStorage.setItem("cookie-consent", "1");
+    window.dispatchEvent(new Event("filewisp-cookie-consent"));
+
+    await waitFor(() =>
+      expect(assistant).toHaveClass("bottom-[max(1rem,env(safe-area-inset-bottom))]"),
+    );
   });
 
   it("finds a tool from a plain-language problem", () => {
