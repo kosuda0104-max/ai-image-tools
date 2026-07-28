@@ -37,4 +37,25 @@ describe("createToolMetadata", () => {
     });
     expect(metadata.alternates?.languages?.["zh-TW"]).toBeUndefined();
   });
+
+  it("publishes the per-tool content update date for recrawl signals", () => {
+    const metadata = createToolMetadata({
+      ...base,
+      locale: "ja",
+      slug: "bmp-to-png",
+    });
+
+    expect(metadata.other?.["article:modified_time"]).toBe("2026-07-29");
+    expect(metadata.other?.["og:updated_time"]).toBe("2026-07-29");
+  });
+
+  it("keeps the baseline update date for unchanged tools", () => {
+    const metadata = createToolMetadata({
+      ...base,
+      locale: "ja",
+      slug: "jpg-to-png",
+    });
+
+    expect(metadata.other?.["article:modified_time"]).toBe("2026-07-22");
+  });
 });

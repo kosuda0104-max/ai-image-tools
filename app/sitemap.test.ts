@@ -13,6 +13,15 @@ const PRIORITY_GUIDES = {
   "/en/guides/parquet-csv-workflows": "2026-07-22",
 } as const;
 
+const RECRAWL_PRIORITY_TOOLS = [
+  "/tools/tiff-to-png",
+  "/en/tools/parquet-to-csv",
+  "/tools/png-to-webp",
+  "/tools/csv-to-parquet",
+  "/en/tools/bmp-to-png",
+  "/tools/bmp-to-png",
+] as const;
+
 const AWS_PATHS = [
   "/tools/dynamodb-json-converter",
   "/tools/textract-json-to-excel",
@@ -52,6 +61,23 @@ describe("sitemap", () => {
       expect(entry, path).toBeDefined();
       expect(entry?.lastModified).toEqual(new Date(lastModified));
     }
+  });
+
+  it("publishes an accurate fresh modified date for recrawl-priority tools", () => {
+    const entries = sitemap();
+
+    for (const path of RECRAWL_PRIORITY_TOOLS) {
+      const entry = entries.find(({ url }) => new URL(url).pathname === path);
+      expect(entry, path).toBeDefined();
+      expect(entry?.lastModified).toEqual(new Date("2026-07-29"));
+    }
+  });
+
+  it("does not mark unchanged tools as freshly modified", () => {
+    const entry = sitemap().find(
+      ({ url }) => new URL(url).pathname === "/tools/jpg-to-png",
+    );
+    expect(entry?.lastModified).toEqual(new Date("2026-07-22"));
   });
 
   it("does not emit duplicate URLs", () => {
