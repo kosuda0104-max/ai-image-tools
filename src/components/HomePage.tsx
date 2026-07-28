@@ -5,6 +5,7 @@ import {
 } from "@/src/data/home-page";
 import AdUnit from "@/components/AdUnit";
 import ToolFinder from "@/src/components/ToolFinder";
+import ToolAssistantLauncher from "@/src/components/ToolAssistantLauncher";
 import RecentTools from "@/src/components/RecentTools";
 import WispMascot from "@/src/components/WispMascot";
 import { AD_SLOTS } from "@/src/lib/ads";
@@ -318,6 +319,8 @@ export default function HomePage({ locale }: Props) {
           </div>
         </div>
       </div>
+
+      <ToolAssistantLauncher locale={locale} tools={allTools} />
     </main>
   );
 }

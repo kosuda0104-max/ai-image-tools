@@ -10,7 +10,6 @@ import {
   type DragEvent,
 } from "react";
 import type { ToolDirectoryItem } from "@/src/data/tool-directory";
-import ToolAssistant from "@/src/components/ToolAssistant";
 import { formatFileSize } from "@/src/lib/image-conversion";
 import { setPendingFiles } from "@/src/lib/pending-files";
 import {
@@ -42,7 +41,6 @@ const finderCopy = {
     format: "形式",
     privacy: "ファイルは送信されません",
     unknown: "このファイル形式に合うツールを判定できませんでした。",
-    problemDivider: "またはやりたいことで探す",
     moreResults: (count: number) => `ほか${count}件はツール一覧から確認できます`,
   },
   en: {
@@ -60,7 +58,6 @@ const finderCopy = {
     format: "Format",
     privacy: "Your file is not uploaded",
     unknown: "No tools could be matched to this file format.",
-    problemDivider: "Or search by what you need",
     moreResults: (count: number) => `${count} more available in the full directory`,
   },
 } as const;
@@ -268,15 +265,6 @@ export default function ToolFinder({ locale, tools, variant = "home" }: Props) {
         </div>
       )}
 
-      <div className="mt-4 flex items-center gap-3" aria-hidden="true">
-        <span className="h-px flex-1 bg-gray-200" />
-        <span className="text-xs font-medium text-gray-400">{t.problemDivider}</span>
-        <span className="h-px flex-1 bg-gray-200" />
-      </div>
-
-      <div className="pt-4">
-        <ToolAssistant locale={locale} tools={tools} />
-      </div>
     </section>
   );
 }
