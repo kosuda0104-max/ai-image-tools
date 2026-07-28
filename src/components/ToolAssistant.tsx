@@ -18,6 +18,7 @@ import { ToolIcon } from "@/src/lib/tool-visuals";
 type Props = {
   locale: ToolFinderLocale;
   tools: ToolDirectoryItem[];
+  showHeading?: boolean;
 };
 
 type AssistantTurn = {
@@ -254,7 +255,7 @@ function FeedbackPanel({
   );
 }
 
-export default function ToolAssistant({ locale, tools }: Props) {
+export default function ToolAssistant({ locale, tools, showHeading = true }: Props) {
   const t = assistantCopy[locale];
   const inputId = useId();
   const [query, setQuery] = useState("");
@@ -288,9 +289,11 @@ export default function ToolAssistant({ locale, tools }: Props) {
 
   return (
     <div>
-      <h2 className="text-left text-base font-bold text-gray-900">{t.heading}</h2>
+      {showHeading ? (
+        <h2 className="text-left text-base font-bold text-gray-900">{t.heading}</h2>
+      ) : null}
 
-      <form onSubmit={handleSubmit} className="mt-3 flex gap-2">
+      <form onSubmit={handleSubmit} className={showHeading ? "mt-3 flex gap-2" : "flex gap-2"}>
         <label htmlFor={inputId} className="sr-only">
           {t.label}
         </label>
