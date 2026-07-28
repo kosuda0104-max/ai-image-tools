@@ -43,7 +43,7 @@ export default function ToolAssistantLauncher({ locale, tools }: Props) {
   }, [open]);
 
   return (
-    <aside className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-3 z-50 sm:right-5">
+    <aside className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-3 z-[60] sm:right-5">
       <section
         id={panelId}
         hidden={!open}
