@@ -21,6 +21,7 @@ export default function CookieBanner({ locale }: Props) {
 
   const accept = () => {
     localStorage.setItem("cookie-consent", "1");
+    window.dispatchEvent(new Event("filewisp-cookie-consent"));
     setVisible(false);
   };
 
@@ -31,7 +32,10 @@ export default function CookieBanner({ locale }: Props) {
   const privacyHref = isJa ? "/privacy-policy" : "/en/privacy-policy";
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-50 sm:left-auto sm:max-w-sm">
+    <div
+      data-cookie-banner
+      className="fixed bottom-4 left-4 right-4 z-50 sm:left-auto sm:max-w-sm"
+    >
       <div className="rounded-2xl border border-slate-700 bg-slate-900 p-4 shadow-xl shadow-black/40">
         <p className="text-xs leading-5 text-slate-300">
           {isJa ? (
