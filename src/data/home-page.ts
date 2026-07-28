@@ -67,6 +67,12 @@ type GuideLink = {
   cardDescription: string;
 };
 
+type ProblemGuideLink = {
+  title: string;
+  description: string;
+  href: string;
+};
+
 type HomePageContent = {
   badge: string;
   hero: {
@@ -82,6 +88,11 @@ type HomePageContent = {
   popularToolsTitle: string;
   toolsPageLinkLabel: string;
   popularTools: ToolItem[];
+  problemGuidesSection: {
+    title: string;
+    description: string;
+    items: ProblemGuideLink[];
+  };
   taskPathsSection: {
     title: string;
     description: string;
@@ -186,6 +197,43 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       "webp-to-jpg",
       "merge-pdf",
     ]),
+    problemGuidesSection: {
+      title: "よくある困りごとから解決する",
+      description:
+        "ファイル名やツール名が分からなくても大丈夫です。症状に近いものを選ぶと、原因と解決手順を確認できます。",
+      items: [
+        {
+          title: "AVIF（.avif）とは？開けない原因を知りたい",
+          description: "AVIFの特徴と、写真はJPG、透過画像はPNGへ変換する判断を説明します。",
+          href: "/guides/what-is-avif",
+        },
+        {
+          title: "iPhoneのHEIC写真がWindowsで開けない",
+          description: "HEICをすぐ開く方法と、JPGへ変換するときの注意点を確認できます。",
+          href: "/guides/heic-cannot-open-windows",
+        },
+        {
+          title: "CSVが文字化けする・Excelで正しく開けない",
+          description: "文字コードを判定し、日本語を崩さずに開く方法を症状別に案内します。",
+          href: "/guides/csv-encoding-fix",
+        },
+        {
+          title: "WebPが開けない・JPGやPNGに変換したい",
+          description: "WebPの特徴と、互換性や透過の有無に合わせた変換先を選べます。",
+          href: "/guides/what-is-webp",
+        },
+        {
+          title: "JPGとJPEGの違いを知りたい",
+          description: "2つの拡張子が同じ形式である理由と、提出時の注意点を説明します。",
+          href: "/guides/jpg-vs-jpeg-difference",
+        },
+        {
+          title: "画像を正方形に切り抜きたい",
+          description: "SNSアイコンや商品画像を、被写体を残しながら正方形へ整える手順です。",
+          href: "/guides/crop-image-to-square",
+        },
+      ],
+    },
     taskPathsSection: {
       title: ja.taskPathsTitle,
       description: ja.taskPathsDescription,
@@ -372,6 +420,43 @@ export const homePageContent: Record<HomePageLocale, HomePageContent> = {
       "webp-to-jpg",
       "merge-pdf",
     ]),
+    problemGuidesSection: {
+      title: "Start with the problem you need to solve",
+      description:
+        "You do not need to know the tool name or file format. Pick the closest symptom to see the cause and the shortest path to a fix.",
+      items: [
+        {
+          title: "What is AVIF, and why won't my .avif file open?",
+          description: "Understand AVIF and choose JPG for photos or PNG when transparency matters.",
+          href: "/en/guides/what-is-avif",
+        },
+        {
+          title: "HEIC photos won't open on Windows",
+          description: "Open an iPhone photo now and learn when converting HEIC to JPG is the practical fix.",
+          href: "/en/guides/heic-cannot-open-windows",
+        },
+        {
+          title: "CSV text is garbled or opens incorrectly in Excel",
+          description: "Identify the encoding problem and reopen Japanese or multilingual text correctly.",
+          href: "/en/guides/csv-encoding-fix",
+        },
+        {
+          title: "WebP won't open, or I need JPG or PNG",
+          description: "Choose a compatible output without losing transparency you still need.",
+          href: "/en/guides/what-is-webp",
+        },
+        {
+          title: "JPG vs JPEG: are they different?",
+          description: "Learn why both extensions exist and what to check before submitting a file.",
+          href: "/en/guides/jpg-vs-jpeg-difference",
+        },
+        {
+          title: "Crop an image to a square",
+          description: "Prepare a balanced square crop for profile pictures, listings, and social posts.",
+          href: "/en/guides/crop-image-to-square",
+        },
+      ],
+    },
     taskPathsSection: {
       title: "Choose by what you need to finish",
       description:

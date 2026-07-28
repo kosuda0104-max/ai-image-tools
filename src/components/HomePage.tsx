@@ -136,6 +136,52 @@ export default function HomePage({ locale }: Props) {
         </div>
       </section>
 
+      {/* ── Search-proven problems: direct paths from a symptom to a solution ── */}
+      <section className="border-b border-gray-200 bg-teal-50/40">
+        <div className="mx-auto max-w-6xl px-4 py-2.5 sm:px-6 lg:px-8">
+          <details className="group/problems">
+            <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 rounded-md px-2 py-1.5 hover:bg-teal-50">
+              <div className="min-w-0">
+                <h2 className="text-sm font-bold text-gray-950">
+                  {t.problemGuidesSection.title}
+                </h2>
+                <p className="mt-0.5 hidden truncate text-xs text-gray-500 sm:block">
+                  {t.problemGuidesSection.description}
+                </p>
+              </div>
+              <span className="inline-flex shrink-0 items-center gap-1 text-xs font-semibold text-teal-700">
+                {locale === "en"
+                  ? `${t.problemGuidesSection.items.length} fixes`
+                  : `${t.problemGuidesSection.items.length}件`}
+                <span
+                  aria-hidden="true"
+                  className="transition-transform group-open/problems:rotate-180"
+                >
+                  ▾
+                </span>
+              </span>
+            </summary>
+            <div className="grid gap-2 px-2 pb-2 pt-3 sm:grid-cols-2 lg:grid-cols-3">
+              {t.problemGuidesSection.items.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="group flex min-h-11 items-center justify-between gap-3 rounded-md border border-teal-100 bg-white px-3 py-2 transition hover:border-teal-300"
+                >
+                  <span className="text-xs font-semibold leading-5 text-gray-800 group-hover:text-teal-800">
+                    {item.title}
+                  </span>
+                  <span className="shrink-0 text-xs text-teal-700" aria-hidden="true">
+                    →
+                  </span>
+                  <span className="sr-only">{item.description}</span>
+                </Link>
+              ))}
+            </div>
+          </details>
+        </div>
+      </section>
+
       {/* ── Popular tools ── */}
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <section className="py-10">
