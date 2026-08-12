@@ -218,6 +218,7 @@ function heroFor(slug: string): Hero {
   if (s === "png-vs-webp") return { kind: "versus", a: "PNG", b: "WebP" };
   if (s === "jpg-vs-jpeg-difference") return { kind: "versus", a: "JPG", b: "JPEG" };
   if (s === "png-transparency-basics") return { kind: "versus", a: "PNG", b: "JPG" };
+  if (s === "jpg-transparent-background") return { kind: "flow", from: "JPG", to: "PNG" };
   if (s === "json-and-csv") return { kind: "versus", a: "JSON", b: "CSV" };
   if (s === "csv-encoding-fix") return { kind: "formats", labels: ["CSV", "JSON", "Parquet"] };
 
