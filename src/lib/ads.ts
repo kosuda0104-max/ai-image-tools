@@ -11,11 +11,24 @@
 //   NEXT_PUBLIC_AD_SLOT_DIRECTORY=3456789012
 //   NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-xxxxxxxxxxxxxxxx
 
-const configuredClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim();
-const guideSlot = process.env.NEXT_PUBLIC_AD_SLOT_GUIDE?.trim() ?? "";
-const toolSlot = process.env.NEXT_PUBLIC_AD_SLOT_TOOL?.trim() || guideSlot;
-const directorySlot = process.env.NEXT_PUBLIC_AD_SLOT_DIRECTORY?.trim() || toolSlot;
-const homeSlot = process.env.NEXT_PUBLIC_AD_SLOT_HOME?.trim() || directorySlot;
+/**
+ * Slot IDs are digits only. Values arriving from dashboards and shells have
+ * picked up stray quotes and escape sequences (a literal "\r" once shipped to
+ * production and stopped AdSense from matching the unit), so anything that is
+ * not a digit is dropped rather than passed through to data-ad-slot.
+ */
+function readSlot(value: string | undefined): string {
+  return (value ?? "").replace(/\D/g, "");
+}
+
+const configuredClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim().replace(
+  /[^a-zA-Z0-9-]/g,
+  "",
+);
+const guideSlot = readSlot(process.env.NEXT_PUBLIC_AD_SLOT_GUIDE);
+const toolSlot = readSlot(process.env.NEXT_PUBLIC_AD_SLOT_TOOL) || guideSlot;
+const directorySlot = readSlot(process.env.NEXT_PUBLIC_AD_SLOT_DIRECTORY) || toolSlot;
+const homeSlot = readSlot(process.env.NEXT_PUBLIC_AD_SLOT_HOME) || directorySlot;
 
 export const ADSENSE_CLIENT =
   configuredClient || "ca-pub-9678380581323736";
