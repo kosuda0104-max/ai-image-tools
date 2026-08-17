@@ -2259,6 +2259,98 @@ const jaGuides: GuideEntry[] = [
       },
     ],
   },
+  {
+    slug: "jpg-transparent-background",
+    title: "JPGを透過にする方法｜JPEGが透過できない理由と背景を透明にする手順",
+    description:
+      "JPG・JPEGは透過を保存できない形式です。「JPGを透過にしたい」ときに必要な2つの作業（背景を消す・PNGで保存する）と、白い背景が残ってしまうときの対処を手順で説明します。",
+    cardDescription:
+      "JPGは透過できません。背景を透明にしてPNGで保存するまでの手順をまとめます。",
+    updatedAt: "2026-08-12",
+    sources: [
+      {
+        label: "MDN：画像ファイル形式ガイド（JPEG）",
+        href: "https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types#jpeg_joint_photographic_experts_group_image",
+      },
+      {
+        label: "W3C：Portable Network Graphics (PNG) 仕様（アルファチャンネル）",
+        href: "https://www.w3.org/TR/png/#6AlphaRepresentation",
+      },
+    ],
+    sections: [
+      {
+        title: "結論：JPGのまま透過にすることはできない",
+        figure: {
+          kind: "flow",
+          from: "JPG",
+          to: "PNG",
+          caption: "透過が必要なら、保存形式をPNGへ変える必要があります",
+        },
+        paragraphs: [
+          "先に結論を書くと、JPG（JPEG）というファイル形式そのものが透明度を保存できません。そのため「JPGファイルのまま背景だけ透明にする」ことは、どんなツールを使っても実現できません。拡張子を .png に書き換えるだけ、という方法もうまくいきません。中身がJPGのままだからです。",
+          "つまり「JPGを透過にしたい」という作業は、実際には〈背景を消す〉と〈透明を保存できる形式で書き出す〉という2つの作業に分かれます。この2つを別々のものとして捉えると、どこでつまずいているのかがはっきりします。",
+        ],
+      },
+      {
+        title: "なぜJPEGには透明が無いのか",
+        paragraphs: [
+          "画像の透明度は、ピクセルごとに「どのくらい透けるか」を持つアルファチャンネルという情報で表現されます。PNGやWebPはこのアルファチャンネルを持てますが、JPEGの仕様にはそれがありません。JPEGは写真をなるべく小さく保存することに特化した形式で、色の情報だけを扱います。",
+          "そのため、透過PNGをJPGとして保存し直すと、透明だった部分は白（ツールによっては黒）で塗りつぶされます。「ロゴをJPGにしたら白い四角がついた」というトラブルは、この仕様どおりの動作です。一度塗りつぶされた白は、あとから自動で透明に戻すことはできません。",
+        ],
+      },
+      {
+        title: "JPGをPNGに変換しただけでは透明にならない",
+        paragraphs: [
+          "よくある誤解が「JPGをPNGに変換すれば透過になる」というものです。変換すると保存形式はPNGになりますが、写っている白い背景はそのまま白い背景として残ります。変換処理は形式を変えるだけで、どこが背景かを判断して消す処理は行いません。",
+          "PNGへの変換が効いてくるのは、背景を消したあとです。背景を消しても保存形式がJPGのままだと透明が失われるため、〈消してから、PNGで保存する〉という順番が重要になります。",
+        ],
+      },
+      {
+        title: "手順：背景を消してから透過PNGとして保存する",
+        figure: {
+          kind: "steps",
+          steps: [
+            "JPGを背景透明化ツールで開く",
+            "消したい背景の色を選ぶ",
+            "透過PNGとして保存",
+          ],
+          caption: "背景を消す作業と、透明を保てる形式で保存する作業をこの順で行います",
+        },
+        paragraphs: [
+          "白や単色の背景であれば、背景透明化ツールで背景色を指定して消すのが最短です。当サイトの「画像の背景を透明化」ツールは、消したい色を選ぶと、その色の部分を透明にして透過PNGとして書き出します。書き出し形式が最初からPNGなので、透明が失われる心配がありません。",
+          "背景を消す必要がなく、単に編集しやすい形式へ変えたいだけであれば「JPGをPNGに変換」ツールで十分です。どちらのツールもブラウザ内で処理するため、ファイルを外部のサーバーへ送らずに作業できます。",
+        ],
+      },
+      {
+        title: "うまく透明にならないときのチェックポイント",
+        paragraphs: [
+          "背景を消したのに白いフチが残る場合、被写体と背景の境界にJPEG特有のノイズが出ていることが多いです。JPEGは圧縮の過程で境界付近の色をわずかに混ぜるため、真っ白ではない中間色の画素が薄く残ります。許容する色の範囲（しきい値）を少し広げると、この中間色まで消せます。",
+          "背景が単色ではなく写真やグラデーションの場合は、色を指定して消す方法では対応しきれません。この場合は被写体の輪郭に沿って切り抜く必要があるため、切り抜きツールや、輪郭を手作業で処理できる画像編集ソフトを使うのが確実です。",
+          "保存後に背景がまた白く見えるときは、書き出し形式を確認してください。PNGで保存したつもりでもJPGになっていると、透明部分は必ず塗りつぶされます。ファイルの拡張子と、保存時に選んだ形式の両方を見直すと原因が特定できます。",
+        ],
+      },
+      {
+        title: "透過PNGが重いときはWebPにする",
+        figure: {
+          kind: "flow",
+          from: "PNG",
+          to: "WebP",
+          caption: "WebPは透明を保ったまま、PNGより軽く保存できます",
+        },
+        paragraphs: [
+          "透過PNGは、写真のように色数が多い画像だと容量が大きくなりがちです。透明を保ったまま軽くしたい場合は、WebPへの変換が有効です。WebPはアルファチャンネルに対応しているため、透明を維持しながらPNGより小さく保存できます。",
+          "ロゴやアイコンのように色数が少ない画像であれば、PNGのまま圧縮するだけでも十分に軽くなります。受け取り先の環境が古くWebPを開けない場合もあるので、配布用にはPNG、自分のサイト掲載用にはWebP、という使い分けが安全です。",
+        ],
+      },
+      {
+        title: "まとめ",
+        paragraphs: [
+          "JPG・JPEGは透明度を保存できないため、「JPGのまま透過にする」ことはできません。やるべきことは、背景を消すことと、PNGなど透明を保てる形式で書き出すことの2つです。この順番を守れば、白い背景が残ってしまう失敗はほぼ防げます。",
+          "透過の仕組みそのものや、PNGとWebPの使い分けをもう少し詳しく知りたい場合は、PNGの透過を扱ったガイドもあわせて読んでみてください。背景透明化、JPG→PNG変換、PNG→WebP変換はいずれも無料・登録不要・ブラウザ内処理で利用できます。",
+        ],
+      },
+    ],
+  },
 ];
 
 const enGuides: GuideEntry[] = [
@@ -4478,6 +4570,98 @@ const enGuides: GuideEntry[] = [
         paragraphs: [
           "From the extracted colors, decide a base color used over large areas, secondary colors used in support, and an accent color for emphasis. Assigning roles looks more cohesive than using many colors equally.",
           "Keep enough contrast between text and background to stay readable. Rather than using the whole extracted palette as-is, picking from it to fit each use is the trick to keeping things clean.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "jpg-transparent-background",
+    title: "How to Make a JPG Transparent: Why JPEG Cannot Store Transparency",
+    description:
+      "JPG and JPEG cannot store transparency. Here are the two steps a transparent JPG actually requires (remove the background, save as PNG) and what to check when a white edge remains.",
+    cardDescription:
+      "JPG cannot be transparent. How to remove the background and save it as a transparent PNG.",
+    updatedAt: "2026-08-12",
+    sources: [
+      {
+        label: "MDN: Image file type and format guide (JPEG)",
+        href: "https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types#jpeg_joint_photographic_experts_group_image",
+      },
+      {
+        label: "W3C: Portable Network Graphics (PNG) specification, alpha representation",
+        href: "https://www.w3.org/TR/png/#6AlphaRepresentation",
+      },
+    ],
+    sections: [
+      {
+        title: "The short answer: a JPG cannot be transparent",
+        figure: {
+          kind: "flow",
+          from: "JPG",
+          to: "PNG",
+          caption: "Transparency requires saving in a format that can store it",
+        },
+        paragraphs: [
+          "The JPG (JPEG) format itself cannot store transparency, so no tool can make a file transparent while keeping it a JPG. Renaming the file to .png does not work either, because the contents are still JPEG data.",
+          "That means making a transparent version of a JPG is really two separate jobs: removing the background, and exporting to a format that can store transparency. Separating them makes it much easier to see which step is failing.",
+        ],
+      },
+      {
+        title: "Why JPEG has no transparency",
+        paragraphs: [
+          "Transparency is stored per pixel in an alpha channel that records how see-through each pixel is. PNG and WebP can carry an alpha channel; the JPEG specification has none. JPEG was designed to store photographs compactly, so it records color information only.",
+          "This is why saving a transparent PNG as a JPG fills the transparent areas with white, or sometimes black. The white box that appears around a logo after converting it to JPG is the format working as specified, and that fill cannot be turned back into transparency automatically.",
+        ],
+      },
+      {
+        title: "Converting JPG to PNG does not remove the background",
+        paragraphs: [
+          "A common misunderstanding is that converting a JPG to PNG makes it transparent. Conversion changes the container, but a white background in the picture stays a white background. Nothing in the conversion decides which pixels are background and erases them.",
+          "PNG matters after the background is gone. If you remove the background but still save as JPG, the transparency is discarded again, so the order matters: remove first, then save as PNG.",
+        ],
+      },
+      {
+        title: "The steps: remove the background, then save as PNG",
+        figure: {
+          kind: "steps",
+          steps: [
+            "Open the JPG in the background remover",
+            "Pick the background color to erase",
+            "Save as a transparent PNG",
+          ],
+          caption: "Erasing the background and saving in a transparency-capable format, in that order",
+        },
+        paragraphs: [
+          "For a white or otherwise solid background, picking the background color in a background remover is the fastest route. The Make Background Transparent tool on this site erases the color you select and exports a transparent PNG, so the transparency is never lost on the way out.",
+          "If you do not need the background gone and only want a more editable format, the JPG to PNG converter is enough. Both tools run inside your browser, so the file is never sent to a server.",
+        ],
+      },
+      {
+        title: "What to check when it does not look transparent",
+        paragraphs: [
+          "If a pale fringe remains around the subject, that is usually JPEG compression noise. JPEG blends colors slightly around edges, leaving pixels that are nearly, but not exactly, the background color. Widening the tolerance a little removes those in-between pixels too.",
+          "If the background is a photo or a gradient rather than one solid color, selecting a color cannot cover it. Those images need the subject cut out along its outline, so a crop tool or an editor with manual selection is the reliable option.",
+          "If the background looks white again after saving, check the export format. Saving as JPG by mistake always fills the transparent areas, so confirm both the file extension and the format chosen at export time.",
+        ],
+      },
+      {
+        title: "When a transparent PNG is too heavy, use WebP",
+        figure: {
+          kind: "flow",
+          from: "PNG",
+          to: "WebP",
+          caption: "WebP keeps transparency at a smaller file size than PNG",
+        },
+        paragraphs: [
+          "Transparent PNGs get large when the image has many colors, as photographs do. WebP supports an alpha channel, so it keeps the transparency while saving considerably smaller than PNG.",
+          "For logos and icons with few colors, compressing the PNG is often enough on its own. Since some older environments still cannot open WebP, PNG is the safer choice for files you hand to someone else, with WebP for pages you publish yourself.",
+        ],
+      },
+      {
+        title: "Summary",
+        paragraphs: [
+          "JPG and JPEG cannot store transparency, so there is no way to make one transparent as a JPG. The work is to remove the background and then export to PNG or another format that keeps an alpha channel. Following that order avoids nearly every case of a white background coming back.",
+          "For more on how transparency works and when to prefer PNG over WebP, see the guide on PNG transparency. Background removal, JPG to PNG, and PNG to WebP are all free, need no signup, and run in your browser.",
         ],
       },
     ],
