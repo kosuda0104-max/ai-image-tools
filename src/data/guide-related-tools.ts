@@ -36,6 +36,7 @@ const guideToolMap: Record<string, string[]> = {
   "what-is-tiff": ["tiff-to-pdf", "tiff-to-jpg", "tiff-to-png", "image-to-pdf"],
   "marketplace-product-photos": ["crop-image", "image-compress", "heic-to-jpg", "resize-image"],
   "png-transparency-basics": ["image-background-transparent", "jpg-to-png", "png-to-webp", "png-compress"],
+  "ai-generated-image-formats": ["png-to-webp", "image-compress", "resize-image", "remove-exif", "image-background-transparent"],
   "jpg-transparent-background": ["image-background-transparent", "jpg-to-png", "png-to-webp", "crop-image"],
   "csv-encoding-fix": ["csv-encoding-fix", "csv-delimiter-converter", "csv-to-json", "json-to-csv"],
   "what-is-parquet": ["parquet-viewer", "parquet-to-csv", "parquet-to-excel", "csv-to-parquet"],

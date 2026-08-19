@@ -2351,6 +2351,86 @@ const jaGuides: GuideEntry[] = [
       },
     ],
   },
+  {
+    slug: "ai-generated-image-formats",
+    title: "AI生成画像の形式と変換｜PNGのままだと重い理由と軽量化の手順",
+    description:
+      "Midjourney・DALL·E・Stable Diffusionが書き出す画像はPNGやWebPが中心です。なぜ容量が大きくなるのか、用途別にどの形式へ変換すべきか、生成情報の扱いまで手順で説明します。",
+    cardDescription:
+      "AIで作った画像が重いときに、用途別のおすすめ形式と軽量化の手順をまとめます。",
+    updatedAt: "2026-08-19",
+    sources: [
+      {
+        label: "MDN：画像ファイル形式ガイド",
+        href: "https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types",
+      },
+      {
+        label: "Google web.dev：WebPで画像を最適化する",
+        href: "https://web.dev/articles/serve-images-webp",
+      },
+    ],
+    sections: [
+      {
+        title: "AIで作った画像はPNGで出てくることが多い",
+        figure: {
+          kind: "flow",
+          from: "PNG",
+          to: "WebP",
+          caption: "生成直後のPNGは、用途に合わせて変換すると扱いやすくなります",
+        },
+        paragraphs: [
+          "画像生成AIの多くは、書き出し形式にPNGを使います。PNGは色を一切劣化させずに保存できるため、生成した絵をそのままの品質で受け取れるという利点があります。一方で、写真のように色数が多い画像ではファイルサイズが大きくなりやすく、1枚で数MBに達することも珍しくありません。",
+          "「AIで作った画像が重い」「アップロードでサイズ制限に引っかかる」という悩みは、この仕様が原因です。画質が悪いわけでも設定を間違えたわけでもなく、劣化させない形式で保存されているぶん容量を使っている、というだけです。用途に合わせて形式を変えれば、見た目をほぼ保ったまま大きく軽くできます。",
+        ],
+      },
+      {
+        title: "用途別：どの形式で保存すればいいか",
+        paragraphs: [
+          "SNSに投稿するだけなら、JPGで十分です。投稿時にプラットフォーム側で再圧縮されるため、元がPNGでも最終的な見た目はあまり変わりません。先にJPGにしておくと、アップロードも速くなります。",
+          "自分のブログやサイトに載せるなら、WebPが最も相性の良い選択です。PNGと同じく透過にも対応しながら、容量をかなり小さくできます。表示速度はページの評価にも関わるため、掲載用はWebPに寄せておくと無駄がありません。",
+          "後から加工したい、あるいは原本として残しておきたい場合は、PNGのまま保管してください。JPGに変換すると失われた情報は戻せないので、「配布用に軽くしたコピー」と「原本のPNG」を分けて持つのが安全です。",
+        ],
+      },
+      {
+        title: "軽量化の手順：まずWebP、それでも重ければ圧縮",
+        figure: {
+          kind: "steps",
+          steps: [
+            "生成したPNGを開く",
+            "WebPへ変換する",
+            "足りなければさらに圧縮",
+          ],
+          caption: "形式を変えるだけで足りることが多く、圧縮は次の手段です",
+        },
+        paragraphs: [
+          "最初に試すべきはWebPへの変換です。生成画像のようにグラデーションや細かい描き込みが多い絵ほど効果が出やすく、見た目をほとんど変えずに数分の一まで小さくなることがあります。透過が必要な画像でも、WebPなら透明を保ったまま軽くできます。",
+          "それでもまだ重い場合は、圧縮ツールで品質を少しだけ下げます。極端に下げると輪郭がにじむので、まずは控えめに設定して、実際に使うサイズで表示を確認しながら調整するのが失敗しにくい進め方です。",
+          "そもそも表示に必要な寸法より大きい場合は、リサイズが最も効きます。ブログの本文幅が800pxなのに1500pxの画像を載せていると、見た目は変わらないまま容量だけを損しています。変換や圧縮の前に、必要な幅まで縮めておくと効率的です。",
+        ],
+      },
+      {
+        title: "生成情報（メタデータ）が埋め込まれていることがある",
+        paragraphs: [
+          "生成ツールによっては、使用したプロンプトやモデル名、パラメータが画像のメタデータとして埋め込まれます。手元で管理するぶんには便利ですが、そのまま配布・投稿すると、意図せずプロンプトを公開してしまうことがあります。",
+          "外部に出す前にメタデータを取り除いておくと、この心配がなくなります。当サイトのEXIF・位置情報削除ツールは、埋め込まれた付随情報を落としたうえで書き出せます。写真をスマートフォンで撮った場合の位置情報対策と同じ考え方です。",
+        ],
+      },
+      {
+        title: "背景を透明にしたいとき",
+        paragraphs: [
+          "アイコンや素材として使うために背景を消したい場合は、背景が単色になるように生成しておくと作業が簡単になります。白や単色の背景であれば、背景透明化ツールで色を指定するだけで透過PNGにできます。",
+          "背景が風景や複雑なグラデーションになっている場合は、色を指定して消す方法では対応しきれません。その場合は切り抜きで必要な部分だけを取り出すか、背景が単純になるように生成し直すほうが早く済みます。",
+        ],
+      },
+      {
+        title: "まとめ",
+        paragraphs: [
+          "AI生成画像が重いのは、劣化させないPNGで書き出されているためです。SNS投稿ならJPG、サイト掲載ならWebP、保管用はPNGのまま、と用途で分けるだけで扱いやすさが大きく変わります。",
+          "変換・圧縮・リサイズ・メタデータ削除は、いずれも当サイトで無料・登録不要で使えます。すべてブラウザ内で処理するため、生成した画像を外部のサーバーへ送らずに作業できます。",
+        ],
+      },
+    ],
+  },
 ];
 
 const enGuides: GuideEntry[] = [
@@ -4662,6 +4742,86 @@ const enGuides: GuideEntry[] = [
         paragraphs: [
           "JPG and JPEG cannot store transparency, so there is no way to make one transparent as a JPG. The work is to remove the background and then export to PNG or another format that keeps an alpha channel. Following that order avoids nearly every case of a white background coming back.",
           "For more on how transparency works and when to prefer PNG over WebP, see the guide on PNG transparency. Background removal, JPG to PNG, and PNG to WebP are all free, need no signup, and run in your browser.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "ai-generated-image-formats",
+    title: "AI-Generated Image Formats: Why PNG Is Heavy and How to Shrink It",
+    description:
+      "Midjourney, DALL·E, and Stable Diffusion mostly export PNG. Here is why those files get large, which format to convert to for each use, and how to handle the metadata they embed.",
+    cardDescription:
+      "Which format to use for AI-generated images, and how to make heavy PNG exports smaller.",
+    updatedAt: "2026-08-19",
+    sources: [
+      {
+        label: "MDN: Image file type and format guide",
+        href: "https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types",
+      },
+      {
+        label: "Google web.dev: Serve images in WebP format",
+        href: "https://web.dev/articles/serve-images-webp",
+      },
+    ],
+    sections: [
+      {
+        title: "Image generators usually export PNG",
+        figure: {
+          kind: "flow",
+          from: "PNG",
+          to: "WebP",
+          caption: "The PNG you get from a generator is worth converting for its actual use",
+        },
+        paragraphs: [
+          "Most image generators write PNG files. PNG stores every pixel without discarding anything, so you receive the result at exactly the quality the model produced. The trade-off is size: an image with the color range of a photograph easily reaches several megabytes.",
+          "That is why AI output often feels heavy or runs into upload limits. Nothing is misconfigured and the quality is not poor; the file is simply using space to avoid any loss. Changing the format for the job at hand makes it dramatically smaller with almost no visible difference.",
+        ],
+      },
+      {
+        title: "Which format for which use",
+        paragraphs: [
+          "For posting to social platforms, JPG is enough. Those services re-compress uploads anyway, so a PNG original rarely survives as-is. Converting first also makes the upload faster.",
+          "For your own blog or site, WebP is the best fit. It supports transparency like PNG while saving considerably smaller, and page speed feeds into how pages are assessed, so publishing in WebP wastes nothing.",
+          "If you plan to edit later or want to keep an original, leave it as PNG. Detail discarded by a JPG conversion cannot be recovered, so keeping a lightweight copy for sharing and the PNG original separately is the safe habit.",
+        ],
+      },
+      {
+        title: "Shrinking it: WebP first, compression second",
+        figure: {
+          kind: "steps",
+          steps: [
+            "Open the generated PNG",
+            "Convert it to WebP",
+            "Compress further if still large",
+          ],
+          caption: "Changing format is often enough on its own; compression is the next step",
+        },
+        paragraphs: [
+          "Start with a WebP conversion. Generated art with gradients and fine detail benefits the most, often dropping to a fraction of the original while looking essentially identical. Transparent images stay transparent, so nothing is lost by trying this first.",
+          "If it is still too large, lower the quality slightly with a compression tool. Pushing quality far down smears edges, so set it conservatively and check the result at the size you will actually display.",
+          "When the image is simply bigger than it needs to be, resizing helps most. Serving a 1500px image inside an 800px column costs bytes without changing what anyone sees, so trimming to the width you need before converting is the efficient order.",
+        ],
+      },
+      {
+        title: "Generated images can carry metadata",
+        paragraphs: [
+          "Some tools embed the prompt, model name, and parameters in the file's metadata. That is convenient for your own records, but sharing the file as-is can publish the prompt along with the picture.",
+          "Stripping the metadata before the image leaves your machine removes that risk. The EXIF and location remover on this site clears embedded information on export, the same way it handles GPS coordinates in phone photos.",
+        ],
+      },
+      {
+        title: "When you need a transparent background",
+        paragraphs: [
+          "If the image is destined to be an icon or an asset, generating it against a plain background makes the cutout trivial. With a white or otherwise solid background, the background remover turns it into a transparent PNG by picking the color.",
+          "When the background is scenery or a complex gradient, selecting a color cannot cover it. Cropping to the part you need, or regenerating with a simpler background, is usually faster than fighting the cutout.",
+        ],
+      },
+      {
+        title: "Summary",
+        paragraphs: [
+          "AI output is heavy because it is exported in a format that discards nothing. Splitting by use — JPG for social posts, WebP for your own pages, PNG for archives — changes how manageable those files feel.",
+          "Conversion, compression, resizing, and metadata removal are all free here and need no signup. Everything runs inside your browser, so generated images never go to a server.",
         ],
       },
     ],

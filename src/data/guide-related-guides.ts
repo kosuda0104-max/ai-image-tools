@@ -43,6 +43,7 @@ const guideRelatedGuidesMap: Record<string, string[]> = {
   "what-is-avif": ["what-is-webp", "choose-best-image-format-for-web", "image-format-basics"],
   "jpg-vs-jpeg-difference": ["jpg-vs-png", "image-format-basics"],
   "png-transparency-basics": ["jpg-transparent-background", "png-vs-webp", "what-is-webp"],
+  "ai-generated-image-formats": ["compress-images-without-losing-quality", "png-vs-webp", "optimize-blog-and-site-images"],
   "jpg-transparent-background": ["png-transparency-basics", "jpg-vs-png", "png-vs-webp"],
   "what-is-tiff": ["image-format-basics", "what-is-avif"],
   "choose-best-image-format-for-web": [
