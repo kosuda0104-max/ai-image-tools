@@ -10,6 +10,11 @@ import { getGuide } from "@/src/data/guides";
  */
 const HOME_GUIDE_SLUGS = [
   // Tier S — winnable longtail (problem-intent queries, weak competition)
+  // The homepage is the only page still drawing impressions, and they now all
+  // come from "ai image ..." queries the domain name attracts (2026-08-14
+  // report). Lead with the guide written for that intent so those impressions
+  // reach a page that answers them.
+  "ai-generated-image-formats",
   "heic-cannot-open-windows",
   "csv-encoding-fix",
   "jpg-vs-jpeg-difference",
