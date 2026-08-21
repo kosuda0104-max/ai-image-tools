@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1520" height="700" viewBox="0 0 1520 700" role="img" aria-labelledby="title desc">
+  <title id="title">Unwrapping DynamoDB typed JSON</title>
+  <desc id="desc">DynamoDB export JSON wraps every scalar in a type tag such as S, N, BOOL, or L. Unwrapping produces plain JSON that a spreadsheet or a normal parser can read.</desc>
+  <rect width="1520" height="700" fill="#f8fafc"/>
+  <rect x="2" y="2" width="1516" height="696" rx="28" fill="none" stroke="#dbe3ee" stroke-width="4"/>
+
+  <text x="760" y="72" text-anchor="middle" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="38" font-weight="700" fill="#10213d">The types are in the way, not in the schema</text>
+  <text x="760" y="112" text-anchor="middle" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="22" fill="#60708a">DynamoDB annotates every scalar. Unwrapping it is mechanical, which is exactly why it is annoying.</text>
+
+  <!-- Left panel: DynamoDB JSON -->
+  <rect x="60" y="160" width="620" height="470" rx="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="3"/>
+  <rect x="60" y="160" width="620" height="66" rx="18" fill="#fdf1e3"/>
+  <path d="M60 226h620" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="94" y="203" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="26" font-weight="700" fill="#8a5a00">DynamoDB JSON</text>
+  <text x="646" y="203" text-anchor="end" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="19" fill="#a08258">what the export gives you</text>
+
+  <g font-family="Consolas, 'Noto Sans Mono', monospace" font-size="23" fill="#10213d">
+    <text x="96" y="278">{</text>
+    <text x="126" y="318">"userId":     { <tspan fill="#c2410c" font-weight="700">"S"</tspan>: "u_10023" },</text>
+    <text x="126" y="358">"loginCount": { <tspan fill="#c2410c" font-weight="700">"N"</tspan>: "42" },</text>
+    <text x="126" y="398">"active":     { <tspan fill="#c2410c" font-weight="700">"BOOL"</tspan>: true },</text>
+    <text x="126" y="438">"tags":       { <tspan fill="#c2410c" font-weight="700">"L"</tspan>: [</text>
+    <text x="316" y="478">{ <tspan fill="#c2410c" font-weight="700">"S"</tspan>: "beta" },</text>
+    <text x="316" y="518">{ <tspan fill="#c2410c" font-weight="700">"S"</tspan>: "jp" }</text>
+    <text x="290" y="558">] }</text>
+    <text x="96" y="598">}</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M700 392h120" stroke="#9fb0c6" stroke-width="6" fill="none"/>
+  <path d="M820 392l-18-12v24z" fill="#9fb0c6"/>
+  <text x="760" y="366" text-anchor="middle" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="20" font-weight="700" fill="#60708a">unwrap</text>
+
+  <!-- Right panel: plain JSON -->
+  <rect x="840" y="160" width="620" height="470" rx="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="3"/>
+  <rect x="840" y="160" width="620" height="66" rx="18" fill="#e8f8f1"/>
+  <path d="M840 226h620" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="874" y="203" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="26" font-weight="700" fill="#047857">Plain JSON</text>
+  <text x="1426" y="203" text-anchor="end" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="19" fill="#5a9b7c">what you can actually use</text>
+
+  <g font-family="Consolas, 'Noto Sans Mono', monospace" font-size="23" fill="#10213d">
+    <text x="876" y="298">{</text>
+    <text x="906" y="342">"userId": "u_10023",</text>
+    <text x="906" y="386">"loginCount": <tspan fill="#047857" font-weight="700">42</tspan>,</text>
+    <text x="906" y="430">"active": <tspan fill="#047857" font-weight="700">true</tspan>,</text>
+    <text x="906" y="474">"tags": ["beta", "jp"]</text>
+    <text x="876" y="518">}</text>
+  </g>
+
+  <rect x="876" y="546" width="548" height="60" rx="12" fill="#f4f8fd" stroke="#c8d8ee" stroke-width="2"/>
+  <text x="1150" y="584" text-anchor="middle" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="20" fill="#3d4d66">Sets (SS, NS, BS), maps (M), and lists (L) unwrap recursively</text>
+</svg>

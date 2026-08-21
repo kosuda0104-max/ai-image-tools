@@ -24,6 +24,9 @@ So I built browser-only converters for the ones I hit most. No upload — the fi
 | Textract | a `Block[]` graph, no tables | [Textract JSON to Excel](https://ai-image-tools.com/en/tools/textract-json-to-excel) |
 | Transcribe | one JSON blob, no cues you can use | [Transcribe JSON to SRT](https://ai-image-tools.com/en/tools/transcribe-json-to-srt) |
 
+![Six AWS export formats on the left, a browser tab in the middle doing gunzip, merge and sort, and unwrap and flatten, and CSV, Excel, JSONL, and SRT on the right](./assets/aws-exports-overview.png)
+*The six exports, what the browser does with them, and what comes out.*
+
 Sharing in case you keep rewriting the same script too.
 
 ## The actual problem: "JSON" is doing a lot of work in that sentence
@@ -62,6 +65,9 @@ That is DynamoDB JSON. What you usually want is:
 { "userId": "u_10023", "loginCount": 42, "active": true, "tags": ["beta", "jp"] }
 ```
 
+![DynamoDB JSON with every scalar wrapped in an S, N, BOOL, or L type tag on the left, and the same record as plain JSON on the right](./assets/dynamodb-typed-json.png)
+*Sets (SS, NS, BS), maps (M), and lists (L) unwrap recursively.*
+
 The unwrapping is mechanical, which is exactly why it is annoying: ten minutes of work that produces nothing reusable, and you do it again next month.
 
 ### 3. The structure is a graph, not a table
@@ -73,6 +79,9 @@ Block(PAGE) --CHILD--> Block(TABLE)
                          +--CHILD--> Block(CELL, row=1, col=1)
                                        +--CHILD--> Block(WORD, "Invoice")
 ```
+
+![A Block graph going PAGE to TABLE to CELL to WORD by CHILD relationships, rebuilt into a spreadsheet table on the right](./assets/textract-blocks-to-table.png)
+*Each edge is a `CHILD` relationship. The table only exists once you walk them and sort by row and column.*
 
 To reconstruct one spreadsheet cell you walk `Relationships[].Ids` from `TABLE` to `CELL` to `WORD`, then order by `RowIndex`/`ColumnIndex`, then join the words with the geometry in mind. The data is all there. Turning it back into the table a human saw in the PDF is a real piece of code.
 
@@ -150,7 +159,10 @@ If there is an AWS export format that keeps making you write the same script, te
 
 - [ ] Set `published: true`
 - [ ] Confirm each of the 8 Filewisp links returns 200
-- [ ] Add a cover image (the CloudTrail directory-tree snippet renders well as one)
+- [ ] Upload the 3 figures from `docs/promo/assets/` to the editor and swap the
+      `./assets/*.png` paths for the hosted URLs (dev.to does not serve repo-relative paths):
+      `aws-exports-overview.png`, `dynamodb-typed-json.png`, `textract-blocks-to-table.png`
+- [ ] Use `aws-exports-overview.png` as the cover image
 - [ ] Post to dev.to first; cross-post to Hashnode after 48h
 - [ ] Consider r/aws — link the *article*, not the tools, and lead with the problem
 - [ ] Record the published URL and date in `docs/index-request-secretary.md`
