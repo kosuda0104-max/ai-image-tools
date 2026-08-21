@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../../globals.css";
 import AdSenseLoader from "@/components/AdSenseLoader";
+import Analytics from "@/components/Analytics";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import SiteHeader from "@/src/components/SiteHeader";
 import SiteFooter from "@/src/components/SiteFooter";
@@ -96,6 +97,7 @@ export default function EnLayout({
       </head>
       <body className="antialiased bg-white text-gray-900">
         <AdSenseLoader />
+        <Analytics />
         <ServiceWorkerRegister />
         <SiteHeader locale="en" />
         <div className="min-h-screen">{children}</div>
