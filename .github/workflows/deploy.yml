@@ -1,0 +1,60 @@
+name: Deploy to Cloudflare Workers
+
+# 本番は Cloudflare Workers 上の vinext で動いている。リポジトリに残る
+# .vercel/ と Vercel の GitHub 連携は使われていない残骸で、"Account is blocked."
+# で失敗し続けていても本番には影響しない。
+#
+# デプロイはこれまで手動の `vinext deploy` だけだったため、実行されない間は
+# main にマージした内容が公開されないままになっていた（2026-07-22 のデプロイ以降、
+# 約1か月ぶんが未反映）。main への push で自動デプロイして再発を防ぐ。
+#
+# 事前準備（1回だけ）:
+#   Settings → Secrets and variables → Actions
+#     Secrets:
+#       CLOUDFLARE_API_TOKEN  … Cloudflare で発行（テンプレート "Edit Cloudflare Workers"）
+#       CLOUDFLARE_ACCOUNT_ID … Workers & Pages の概要に出る Account ID
+#     Variables（下の env で参照。未設定だと広告・解析が消えるので必ず入れる）:
+#       NEXT_PUBLIC_AD_SLOT_GUIDE など NEXT_PUBLIC_* 一式
+#
+# 手元から出すときは `wrangler login` 後に `npm run deploy`。
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# 連続 push でデプロイ同士がぶつからないようにする。
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      # 壊れたビルドを公開しないよう、デプロイ前に止める。
+      - name: Test
+        run: npm test
+
+      # NEXT_PUBLIC_* はビルド時にコードへ埋め込まれる。未設定のままビルドすると
+      # 広告スロットが空になり AdUnit が何も描画しなくなる（解析ビーコンも出ない）。
+      - name: Deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://ai-image-tools.com' }}
+          NEXT_PUBLIC_ADSENSE_CLIENT: ${{ vars.NEXT_PUBLIC_ADSENSE_CLIENT }}
+          NEXT_PUBLIC_AD_SLOT_GUIDE: ${{ vars.NEXT_PUBLIC_AD_SLOT_GUIDE }}
+          NEXT_PUBLIC_AD_SLOT_TOOL: ${{ vars.NEXT_PUBLIC_AD_SLOT_TOOL }}
+          NEXT_PUBLIC_AD_SLOT_DIRECTORY: ${{ vars.NEXT_PUBLIC_AD_SLOT_DIRECTORY }}
+          NEXT_PUBLIC_AD_SLOT_HOME: ${{ vars.NEXT_PUBLIC_AD_SLOT_HOME }}
+          NEXT_PUBLIC_CF_BEACON_TOKEN: ${{ vars.NEXT_PUBLIC_CF_BEACON_TOKEN }}
+          NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }}
+        run: npx vinext deploy

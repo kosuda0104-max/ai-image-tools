@@ -10,7 +10,8 @@
     "start:sites": "vinext start",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "deploy": "vinext deploy"
   },
   "dependencies": {
     "@vercel/blob": "^2.6.1",
