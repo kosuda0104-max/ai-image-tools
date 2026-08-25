@@ -21,6 +21,7 @@
 /build
 /dist
 /.wrangler
+/.sites-stage-v3/
 
 # misc
 .DS_Store
