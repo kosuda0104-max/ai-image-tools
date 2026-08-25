@@ -6,6 +6,11 @@
 const url = process.env.SITE_URL ?? "https://ai-image-tools.com/";
 const attempts = 6;
 
+function fail(message) {
+  console.error(`::error::${message}`);
+  process.exitCode = 1;
+}
+
 async function fetchHtml() {
   const response = await fetch(url, {
     headers: { "cache-control": "no-cache" },
@@ -23,8 +28,8 @@ for (let attempt = 1; attempt <= attempts; attempt += 1) {
     break;
   } catch (error) {
     if (attempt === attempts) {
-      console.error(`::error::${error.message}`);
-      process.exit(1);
+      fail(error.message);
+      break;
     }
     // The Workers rollout takes a moment to become globally visible.
     await new Promise((resolve) => setTimeout(resolve, 10_000));
