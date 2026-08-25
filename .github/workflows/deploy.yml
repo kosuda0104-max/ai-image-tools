@@ -1,0 +1,66 @@
+name: Deploy to Cloudflare Workers
+
+# main への push で本番へ自動デプロイする。手動実行(workflow_dispatch)も可。
+#
+# これが無かった間、2026-08-17 にマージした AdSense スロット修正(#16)とガイド追加(#17)が
+# 8日間デプロイされないままだった。本番は data-ad-slot="7926623874\r" を配信し続け、
+# 広告は1件も表示されず、どこにもエラーは出なかった。マージ＝出荷にするための workflow。
+#
+# 事前準備（1回だけ）— Settings → Secrets and variables → Actions:
+#   Secrets:
+#     CLOUDFLARE_API_TOKEN   Cloudflare → My Profile → API Tokens →
+#                            "Edit Cloudflare Workers" テンプレートで作成
+#     CLOUDFLARE_ACCOUNT_ID  ダッシュボードのアカウントID
+#   Variables（NEXT_PUBLIC_* はビルド時にバンドルへ埋め込まれる。
+#              .env.local はローカル専用でCIには存在しないため、ここに無い値は本番で undefined になる）:
+#     NEXT_PUBLIC_AD_SLOT_GUIDE, NEXT_PUBLIC_CF_BEACON_TOKEN, ほか下記 env を参照
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      # 壊れたビルドを本番へ出さない。
+      - run: npm run lint
+      - run: npm test
+
+      - name: Build
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://ai-image-tools.com' }}
+          NEXT_PUBLIC_ADSENSE_CLIENT: ${{ vars.NEXT_PUBLIC_ADSENSE_CLIENT }}
+          NEXT_PUBLIC_AD_SLOT_GUIDE: ${{ vars.NEXT_PUBLIC_AD_SLOT_GUIDE }}
+          NEXT_PUBLIC_AD_SLOT_TOOL: ${{ vars.NEXT_PUBLIC_AD_SLOT_TOOL }}
+          NEXT_PUBLIC_AD_SLOT_DIRECTORY: ${{ vars.NEXT_PUBLIC_AD_SLOT_DIRECTORY }}
+          NEXT_PUBLIC_AD_SLOT_HOME: ${{ vars.NEXT_PUBLIC_AD_SLOT_HOME }}
+          NEXT_PUBLIC_CF_BEACON_TOKEN: ${{ vars.NEXT_PUBLIC_CF_BEACON_TOKEN }}
+          NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }}
+        run: npm run build:sites
+
+      - name: Verify AdSense identifiers are clean
+        run: node scripts/verify-ad-slots.mjs
+
+      - name: Deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        working-directory: dist/server
+        run: npx wrangler deploy
+
+      # ビルドが通っても配信されていなければ意味がないので、実際の応答を見る。
+      - name: Verify the live page
+        run: node scripts/verify-live-ads.mjs
