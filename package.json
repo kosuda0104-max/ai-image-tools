@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
+    "verify:index-signals": "node scripts/verify-index-signals.mjs",
     "deploy": "vinext deploy"
   },
   "dependencies": {

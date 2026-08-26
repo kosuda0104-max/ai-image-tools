@@ -4,6 +4,7 @@ import {
   handleImageOptimization,
 } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
+import { getCanonicalHostRedirect } from "@/src/lib/canonical-host";
 
 interface AssetFetcher {
   fetch(request: Request): Promise<Response>;
@@ -35,6 +36,11 @@ const worker = {
     ctx: ExecutionContext,
   ): Promise<Response> {
     const url = new URL(request.url);
+    const canonicalRedirect = getCanonicalHostRedirect(request.url);
+
+    if (canonicalRedirect) {
+      return Response.redirect(canonicalRedirect, 308);
+    }
 
     if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];

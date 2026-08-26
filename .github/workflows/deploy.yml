@@ -82,3 +82,8 @@ jobs:
       # 通る一方で本番だけ古いバンドルを配信し続けていた。配信済みHTMLを読み返す。
       - name: Verify the live page
         run: node scripts/verify-live-ads.mjs
+
+      - name: Verify live index signals
+        env:
+          SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://ai-image-tools.com' }}
+        run: npm run verify:index-signals
