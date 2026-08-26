@@ -97,7 +97,7 @@ describe("HEIC guide cluster", () => {
 
 describe("AWS export conversion cluster", () => {
   it.each(["ja", "en"] as const)(
-    "publishes a source-backed hub linked to all six AWS tools (%s)",
+    "publishes a source-backed hub linked to the six AWS tools and the Parquet cluster (%s)",
     (locale) => {
       const guide = getGuide(locale, "aws-export-file-formats");
       const tools = getGuideRelatedTools(locale, "aws-export-file-formats");
@@ -105,6 +105,8 @@ describe("AWS export conversion cluster", () => {
       expect(guide?.updatedAt).toBe("2026-07-22");
       expect(guide?.sources).toHaveLength(6);
       expect(guide?.sections.length).toBeGreaterThanOrEqual(7);
+      // S3 Inventory and Athena hand their output over as Parquet, so the hub
+      // carries the Parquet tools after the six export-specific ones.
       expect(tools.map((tool) => tool.slug)).toEqual([
         "dynamodb-json-converter",
         "textract-json-to-excel",
@@ -112,6 +114,8 @@ describe("AWS export conversion cluster", () => {
         "s3-inventory-viewer",
         "cloudwatch-logs-converter",
         "transcribe-json-to-srt",
+        "parquet-viewer",
+        "parquet-to-csv",
       ]);
       expect(
         getRelatedGuides(locale, "what-is-parquet").map((item) => item.slug),

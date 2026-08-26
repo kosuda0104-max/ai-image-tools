@@ -88,10 +88,13 @@ export default function Page() {
             <h2 className="text-2xl font-semibold text-gray-900">アクセス解析について</h2>
             <div className="space-y-3 text-sm leading-7 text-gray-700">
               <p>
-                本サイトでは、利用状況の把握と改善のためにアクセス解析ツールを利用することがあります。これにより、どのページが多く見られているか、どの導線が使われているかなどを統計的に確認し、改善に役立てます。
+                本サイトでは、利用状況の把握と改善のために{" "}
+                <strong>Cloudflare Web Analytics</strong>{" "}
+                を利用しています。これにより、どのページが多く見られているか、どの導線が使われているかなどを統計的に確認し、改善に役立てます。
               </p>
               <p>
-                解析結果は統計的な傾向の把握に利用し、個人を特定する目的では使用しません。
+                Cloudflare Web Analytics は Cookie
+                を使用せず、訪問者を識別するためのフィンガープリントも作成しません。取得するのはページのURL・参照元・ブラウザの種類・表示速度といった情報のみで、個人を特定する目的では使用しません。
               </p>
             </div>
           </section>

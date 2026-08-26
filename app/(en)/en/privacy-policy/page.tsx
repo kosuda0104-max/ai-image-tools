@@ -88,10 +88,10 @@ export default function Page() {
             <h2 className="text-2xl font-semibold text-gray-900">Analytics</h2>
             <div className="space-y-3 text-sm leading-7 text-gray-700">
               <p>
-                This site may use analytics tools to understand usage patterns and improve the service. Analytics data helps us see which pages are most useful and how visitors navigate the site.
+                This site uses <strong>Cloudflare Web Analytics</strong> to understand usage patterns and improve the service. Analytics data helps us see which pages are most useful and how visitors navigate the site.
               </p>
               <p>
-                Analytics data is used only to identify statistical trends and is not used to identify individual users.
+                Cloudflare Web Analytics sets no cookies and does not fingerprint visitors. It collects only the page URL, referrer, browser type, and page performance timings. Analytics data is used only to identify statistical trends and is not used to identify individual users.
               </p>
             </div>
           </section>

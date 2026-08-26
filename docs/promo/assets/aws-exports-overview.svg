@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1520" height="700" viewBox="0 0 1520 700" role="img" aria-labelledby="title desc">
+  <title id="title">AWS exports converted in the browser</title>
+  <desc id="desc">Six AWS export formats are parsed inside the browser tab and turned into CSV, Excel, JSONL, and subtitle files without uploading anything to a server.</desc>
+  <rect width="1520" height="700" fill="#f8fafc"/>
+  <rect x="2" y="2" width="1516" height="696" rx="28" fill="none" stroke="#dbe3ee" stroke-width="4"/>
+
+  <text x="760" y="72" text-anchor="middle" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="38" font-weight="700" fill="#10213d">AWS exports, read without uploading them</text>
+  <text x="760" y="112" text-anchor="middle" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="22" fill="#60708a">The file is parsed in your browser tab. Nothing is sent to a server.</text>
+
+  <!-- Left: the exports -->
+  <text x="60" y="172" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="20" font-weight="700" fill="#8a5a00">WHAT AWS GIVES YOU</text>
+
+  <g font-family="Arial, 'Noto Sans JP', sans-serif">
+    <rect x="60" y="192" width="420" height="66" rx="14" fill="#ffffff" stroke="#f0c986" stroke-width="3"/>
+    <text x="86" y="223" font-size="23" font-weight="700" fill="#10213d">CloudTrail</text>
+    <text x="86" y="248" font-size="19" fill="#7a6a52">288 x .json.gz per day, per region</text>
+
+    <rect x="60" y="270" width="420" height="66" rx="14" fill="#ffffff" stroke="#f0c986" stroke-width="3"/>
+    <text x="86" y="301" font-size="23" font-weight="700" fill="#10213d">CloudWatch Logs</text>
+    <text x="86" y="326" font-size="19" fill="#7a6a52">.gz chunks, out of chronological order</text>
+
+    <rect x="60" y="348" width="420" height="66" rx="14" fill="#ffffff" stroke="#f0c986" stroke-width="3"/>
+    <text x="86" y="379" font-size="23" font-weight="700" fill="#10213d">DynamoDB export</text>
+    <text x="86" y="404" font-size="19" fill="#7a6a52">every scalar wrapped in a type tag</text>
+
+    <rect x="60" y="426" width="420" height="66" rx="14" fill="#ffffff" stroke="#f0c986" stroke-width="3"/>
+    <text x="86" y="457" font-size="23" font-weight="700" fill="#10213d">S3 Inventory</text>
+    <text x="86" y="482" font-size="19" fill="#7a6a52">headers live in a separate manifest</text>
+
+    <rect x="60" y="504" width="420" height="66" rx="14" fill="#ffffff" stroke="#f0c986" stroke-width="3"/>
+    <text x="86" y="535" font-size="23" font-weight="700" fill="#10213d">Textract</text>
+    <text x="86" y="560" font-size="19" fill="#7a6a52">a Block graph, not a table</text>
+
+    <rect x="60" y="582" width="420" height="66" rx="14" fill="#ffffff" stroke="#f0c986" stroke-width="3"/>
+    <text x="86" y="613" font-size="23" font-weight="700" fill="#10213d">Transcribe</text>
+    <text x="86" y="638" font-size="19" fill="#7a6a52">one JSON blob, no usable cues</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <path d="M498 420h74" stroke="#9fb0c6" stroke-width="5" fill="none"/>
+  <path d="M572 420l-16-11v22z" fill="#9fb0c6"/>
+
+  <!-- Middle: browser -->
+  <rect x="596" y="248" width="330" height="344" rx="20" fill="#ffffff" stroke="#5b8def" stroke-width="4"/>
+  <rect x="596" y="248" width="330" height="56" rx="20" fill="#e8f0ff"/>
+  <path d="M596 304h330" stroke="#5b8def" stroke-width="2"/>
+  <circle cx="628" cy="276" r="8" fill="#f0846c"/>
+  <circle cx="654" cy="276" r="8" fill="#f0c986"/>
+  <circle cx="680" cy="276" r="8" fill="#6fcf97"/>
+  <text x="761" y="352" text-anchor="middle" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="25" font-weight="700" fill="#1d4ed8">Your browser tab</text>
+
+  <g font-family="Arial, 'Noto Sans JP', sans-serif" font-size="19" fill="#3d4d66">
+    <text x="761" y="396" text-anchor="middle">gunzip</text>
+    <text x="761" y="428" text-anchor="middle">merge and sort</text>
+    <text x="761" y="460" text-anchor="middle">unwrap and flatten</text>
+  </g>
+
+  <rect x="628" y="490" width="266" height="72" rx="14" fill="#eefaf3" stroke="#6fcf97" stroke-width="3"/>
+  <text x="761" y="518" text-anchor="middle" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="19" font-weight="700" fill="#047857">No upload</text>
+  <text x="761" y="545" text-anchor="middle" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="18" fill="#047857">watch the Network tab</text>
+
+  <!-- Arrow 2 -->
+  <path d="M944 420h74" stroke="#9fb0c6" stroke-width="5" fill="none"/>
+  <path d="M1018 420l-16-11v22z" fill="#9fb0c6"/>
+
+  <!-- Right: outputs -->
+  <text x="1042" y="172" font-family="Arial, 'Noto Sans JP', sans-serif" font-size="20" font-weight="700" fill="#047857">WHAT YOU ACTUALLY WANTED</text>
+
+  <g font-family="Arial, 'Noto Sans JP', sans-serif">
+    <rect x="1042" y="234" width="418" height="80" rx="14" fill="#ffffff" stroke="#6fcf97" stroke-width="3"/>
+    <text x="1070" y="268" font-size="24" font-weight="700" fill="#10213d">CSV</text>
+    <text x="1070" y="296" font-size="19" fill="#4b6154">one merged, ordered table</text>
+
+    <rect x="1042" y="330" width="418" height="80" rx="14" fill="#ffffff" stroke="#6fcf97" stroke-width="3"/>
+    <text x="1070" y="364" font-size="24" font-weight="700" fill="#10213d">Excel</text>
+    <text x="1070" y="392" font-size="19" fill="#4b6154">to hand to someone who is not an engineer</text>
+
+    <rect x="1042" y="426" width="418" height="80" rx="14" fill="#ffffff" stroke="#6fcf97" stroke-width="3"/>
+    <text x="1070" y="460" font-size="24" font-weight="700" fill="#10213d">JSONL</text>
+    <text x="1070" y="488" font-size="19" fill="#4b6154">to pipe into the next tool</text>
+
+    <rect x="1042" y="522" width="418" height="80" rx="14" fill="#ffffff" stroke="#6fcf97" stroke-width="3"/>
+    <text x="1070" y="556" font-size="24" font-weight="700" fill="#10213d">SRT / VTT</text>
+    <text x="1070" y="584" font-size="19" fill="#4b6154">subtitles with real timings</text>
+  </g>
+</svg>

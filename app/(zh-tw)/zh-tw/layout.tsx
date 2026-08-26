@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../../globals.css";
 import AdSenseLoader from "@/components/AdSenseLoader";
+import Analytics from "@/components/Analytics";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import SiteHeader from "@/src/components/SiteHeader";
 import SiteFooter from "@/src/components/SiteFooter";
@@ -64,6 +65,7 @@ export default function ZhTwLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="antialiased bg-white text-gray-900">
         <AdSenseLoader />
+        <Analytics />
         <ServiceWorkerRegister />
         <SiteHeader locale="zh-TW" />
         <div className="min-h-screen">{children}</div>
