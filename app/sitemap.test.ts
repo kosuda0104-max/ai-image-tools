@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import sitemap from "@/app/sitemap";
+import { getGuides } from "@/src/data/guides";
 
 const PRIORITY_GUIDES = {
   "/guides/heic-cannot-open-windows": "2026-07-14",
@@ -83,6 +84,45 @@ describe("sitemap", () => {
   it("does not emit duplicate URLs", () => {
     const urls = sitemap().map(({ url }) => url);
     expect(new Set(urls).size).toBe(urls.length);
+  });
+
+  it("publishes reciprocal hreflang URLs for every localized entry", () => {
+    const entries = sitemap();
+    const sitemapUrls = new Set(entries.map(({ url }) => url));
+
+    for (const entry of entries) {
+      const languages = entry.alternates?.languages;
+      expect(languages, entry.url).toBeDefined();
+      expect(Object.values(languages ?? {}), entry.url).toContain(entry.url);
+      expect(languages?.["x-default"], entry.url).toMatch(
+        /^https:\/\/ai-image-tools\.com\//,
+      );
+
+      const alternateUrls = Object.values(languages ?? {}).filter(
+        (url): url is string => Boolean(url),
+      );
+      for (const alternateUrl of alternateUrls) {
+        expect(sitemapUrls.has(alternateUrl), `${entry.url} -> ${alternateUrl}`).toBe(
+          true,
+        );
+      }
+    }
+  });
+
+  it("keeps Japanese and English guide slugs in parity", () => {
+    const jaSlugs = getGuides("ja").map(({ slug }) => slug).sort();
+    const enSlugs = getGuides("en").map(({ slug }) => slug).sort();
+    expect(enSlugs).toEqual(jaSlugs);
+  });
+
+  it("omits unverifiable dates and Google-ignored hints from static routes", () => {
+    const entry = sitemap().find(
+      ({ url }) => new URL(url).pathname === "/tools",
+    );
+
+    expect(entry?.lastModified).toBeUndefined();
+    expect(entry?.changeFrequency).toBeUndefined();
+    expect(entry?.priority).toBeUndefined();
   });
 
   it("publishes every AWS tool and the AWS guide in both locales", () => {

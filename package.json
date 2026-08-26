@@ -10,7 +10,9 @@
     "start:sites": "vinext start",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "verify:index-signals": "node scripts/verify-index-signals.mjs",
+    "deploy": "vinext deploy"
   },
   "dependencies": {
     "@vercel/blob": "^2.6.1",
